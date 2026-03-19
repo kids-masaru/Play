@@ -1,21 +1,21 @@
 {
   "total": {
-    "invest": 567000,
-    "return": 538000,
-    "roi": 94.9,
+    "invest": 594000,
+    "return": 562000,
+    "roi": 94.6,
     "hit_rate": 10.1
   },
   "monthly": {
-    "invest": 567000,
-    "return": 538000,
-    "roi": 94.9,
+    "invest": 594000,
+    "return": 562000,
+    "roi": 94.6,
     "hit_rate": 10.1
   },
   "weekly": {
     "invest": 189000,
-    "return": 116950,
-    "roi": 61.9,
-    "hit_rate": 9.5
+    "return": 140950,
+    "roi": 74.6,
+    "hit_rate": 11.1
   },
   "daily_history": [
     {
@@ -119,9 +119,114 @@
       "invest": 24000,
       "return": 0,
       "roi": 0.0
+    },
+    {
+      "date": "2026-03-19",
+      "invest": 27000,
+      "return": 24000,
+      "roi": 88.9
     }
   ],
   "recent_races": [
+    {
+      "id": "20260319_戸田_9",
+      "date": "2026-03-19",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "戸田",
+      "r": 9,
+      "result_eye": "614",
+      "odds": 737.6
+    },
+    {
+      "id": "20260319_若松_9",
+      "date": "2026-03-19",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "若松",
+      "r": 9,
+      "result_eye": "326",
+      "odds": 42.1
+    },
+    {
+      "id": "20260319_児島_9",
+      "date": "2026-03-19",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "児島",
+      "r": 9,
+      "result_eye": "213",
+      "odds": 88.3
+    },
+    {
+      "id": "20260319_尼崎_6",
+      "date": "2026-03-19",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "尼崎",
+      "r": 6,
+      "result_eye": "154",
+      "odds": 36.2
+    },
+    {
+      "id": "20260319_唐津_9",
+      "date": "2026-03-19",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "唐津",
+      "r": 9,
+      "result_eye": "425",
+      "odds": 38.3
+    },
+    {
+      "id": "20260319_桐生_7",
+      "date": "2026-03-19",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "桐生",
+      "r": 7,
+      "result_eye": "136",
+      "odds": 11.2
+    },
+    {
+      "id": "20260319_三国_12",
+      "date": "2026-03-19",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "三国",
+      "r": 12,
+      "result_eye": "142",
+      "odds": 11.6
+    },
+    {
+      "id": "20260319_若松_6",
+      "date": "2026-03-19",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "若松",
+      "r": 6,
+      "result_eye": "613",
+      "odds": 77.4
+    },
+    {
+      "id": "20260319_常滑_12",
+      "date": "2026-03-19",
+      "invest": 3000,
+      "return": 24000,
+      "is_hit": true,
+      "venue": "常滑",
+      "r": 12,
+      "result_eye": "123",
+      "odds": 8.0
+    },
     {
       "id": "20260318_江戸川_12",
       "date": "2026-03-18",
@@ -242,105 +347,6 @@
       "r": 12,
       "result_eye": "314",
       "odds": 48.4
-    },
-    {
-      "id": "20260317_江戸川_10",
-      "date": "2026-03-17",
-      "invest": 3000,
-      "return": 12150,
-      "is_hit": true,
-      "venue": "江戸川",
-      "r": 10,
-      "result_eye": "123",
-      "odds": 8.1
-    },
-    {
-      "id": "20260317_唐津_10",
-      "date": "2026-03-17",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "唐津",
-      "r": 10,
-      "result_eye": "612",
-      "odds": 371.1
-    },
-    {
-      "id": "20260317_三国_9",
-      "date": "2026-03-17",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "三国",
-      "r": 9,
-      "result_eye": "431",
-      "odds": 83.9
-    },
-    {
-      "id": "20260317_桐生_6",
-      "date": "2026-03-17",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "桐生",
-      "r": 6,
-      "result_eye": "134",
-      "odds": 8.4
-    },
-    {
-      "id": "20260317_桐生_7",
-      "date": "2026-03-17",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "桐生",
-      "r": 7,
-      "result_eye": "315",
-      "odds": 8.4
-    },
-    {
-      "id": "20260317_唐津_7",
-      "date": "2026-03-17",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "唐津",
-      "r": 7,
-      "result_eye": "325",
-      "odds": 59.8
-    },
-    {
-      "id": "20260317_下関_8",
-      "date": "2026-03-17",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "下関",
-      "r": 8,
-      "result_eye": "125",
-      "odds": 52.0
-    },
-    {
-      "id": "20260316_桐生_10",
-      "date": "2026-03-16",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "桐生",
-      "r": 10,
-      "result_eye": "162",
-      "odds": 39.4
-    },
-    {
-      "id": "20260316_芦屋_6",
-      "date": "2026-03-16",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "芦屋",
-      "r": 6,
-      "result_eye": "312",
-      "odds": 92.4
     }
   ]
 }
