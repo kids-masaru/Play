@@ -55,6 +55,7 @@ dashboard/.env.test.local
 dashboard/.env.production.local
 
 # Credentials
+credentials.env
 *.json
 !expert_knowledge.json
 !dashboard/package.json

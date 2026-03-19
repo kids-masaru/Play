@@ -3,9 +3,10 @@ REM ==========================================
 REM ボートレースAI 完全ローカル日次稼働スクリプト
 REM ==========================================
 
-REM LINE連携用の認証情報
-set LINE_CHANNEL_ACCESS_TOKEN=uJR1siSzBnpHvHKcfFhisUHHeAd5j1bwO3/KN55GMBGOhSTTXxoI6sMAqjhIw47IfIkeux3A9ZDeUzmBDhL7e0+5ZHPq+MfEsZg+3aXlDRVnVWREoNoIeCzXUvBNCrXk4j1oagodSOxUxXA9g+9+DQdB04t89/1O/w1cDnyilFU=
-set LINE_USER_ID=U501f6d44ef2185eae2f221347e9cb235
+REM LINE連携用の認証情報（credentials.env から読み込みます）
+if exist credentials.env (
+    for /f "usebackq tokens=*" %%a in ("credentials.env") do set %%a
+)
 
 REM 作業ディレクトリへ移動
 cd /d "c:\Users\HP\OneDrive\ドキュメント\Play"
