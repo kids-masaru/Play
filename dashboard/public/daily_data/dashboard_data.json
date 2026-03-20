@@ -1,21 +1,21 @@
 {
   "total": {
-    "invest": 594000,
+    "invest": 615000,
     "return": 562000,
-    "roi": 94.6,
-    "hit_rate": 10.1
+    "roi": 91.4,
+    "hit_rate": 9.8
   },
   "monthly": {
-    "invest": 594000,
+    "invest": 615000,
     "return": 562000,
-    "roi": 94.6,
-    "hit_rate": 10.1
+    "roi": 91.4,
+    "hit_rate": 9.8
   },
   "weekly": {
-    "invest": 189000,
-    "return": 140950,
-    "roi": 74.6,
-    "hit_rate": 11.1
+    "invest": 186000,
+    "return": 74950,
+    "roi": 40.3,
+    "hit_rate": 8.1
   },
   "daily_history": [
     {
@@ -125,9 +125,92 @@
       "invest": 27000,
       "return": 24000,
       "roi": 88.9
+    },
+    {
+      "date": "2026-03-20",
+      "invest": 21000,
+      "return": 0,
+      "roi": 0.0
     }
   ],
   "recent_races": [
+    {
+      "id": "20260320_戸田_2",
+      "date": "2026-03-20",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "戸田",
+      "r": 2,
+      "result_eye": "312",
+      "odds": 50.1
+    },
+    {
+      "id": "20260320_戸田_6",
+      "date": "2026-03-20",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "戸田",
+      "r": 6,
+      "result_eye": "132",
+      "odds": 18.6
+    },
+    {
+      "id": "20260320_宮島_5",
+      "date": "2026-03-20",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "宮島",
+      "r": 5,
+      "result_eye": "524",
+      "odds": 257.0
+    },
+    {
+      "id": "20260320_丸亀_4",
+      "date": "2026-03-20",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "丸亀",
+      "r": 4,
+      "result_eye": "231",
+      "odds": 74.2
+    },
+    {
+      "id": "20260320_常滑_3",
+      "date": "2026-03-20",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "常滑",
+      "r": 3,
+      "result_eye": "145",
+      "odds": 31.0
+    },
+    {
+      "id": "20260320_浜名湖_5",
+      "date": "2026-03-20",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "浜名湖",
+      "r": 5,
+      "result_eye": "123",
+      "odds": 12.5
+    },
+    {
+      "id": "20260320_浜名湖_4",
+      "date": "2026-03-20",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "浜名湖",
+      "r": 4,
+      "result_eye": "314",
+      "odds": 77.2
+    },
     {
       "id": "20260319_戸田_9",
       "date": "2026-03-19",
@@ -270,83 +353,6 @@
       "r": 7,
       "result_eye": "134",
       "odds": 8.6
-    },
-    {
-      "id": "20260318_唐津_12",
-      "date": "2026-03-18",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "唐津",
-      "r": 12,
-      "result_eye": "123",
-      "odds": 15.2
-    },
-    {
-      "id": "20260318_大村_7",
-      "date": "2026-03-18",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "大村",
-      "r": 7,
-      "result_eye": "136",
-      "odds": 62.2
-    },
-    {
-      "id": "20260318_常滑_1",
-      "date": "2026-03-18",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "常滑",
-      "r": 1,
-      "result_eye": "135",
-      "odds": 9.1
-    },
-    {
-      "id": "20260318_桐生_2",
-      "date": "2026-03-18",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "桐生",
-      "r": 2,
-      "result_eye": "235",
-      "odds": 11.2
-    },
-    {
-      "id": "20260317_桐生_11",
-      "date": "2026-03-17",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "桐生",
-      "r": 11,
-      "result_eye": "126",
-      "odds": 5.5
-    },
-    {
-      "id": "20260317_宮島_8",
-      "date": "2026-03-17",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "宮島",
-      "r": 8,
-      "result_eye": "521",
-      "odds": 34.2
-    },
-    {
-      "id": "20260317_宮島_12",
-      "date": "2026-03-17",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "宮島",
-      "r": 12,
-      "result_eye": "314",
-      "odds": 48.4
     }
   ]
 }
