@@ -1,21 +1,21 @@
 {
   "total": {
-    "invest": 615000,
+    "invest": 621000,
     "return": 562000,
-    "roi": 91.4,
-    "hit_rate": 9.8
+    "roi": 90.5,
+    "hit_rate": 9.7
   },
   "monthly": {
-    "invest": 615000,
+    "invest": 621000,
     "return": 562000,
-    "roi": 91.4,
-    "hit_rate": 9.8
+    "roi": 90.5,
+    "hit_rate": 9.7
   },
   "weekly": {
-    "invest": 186000,
+    "invest": 165000,
     "return": 74950,
-    "roi": 40.3,
-    "hit_rate": 8.1
+    "roi": 45.4,
+    "hit_rate": 9.1
   },
   "daily_history": [
     {
@@ -131,9 +131,37 @@
       "invest": 21000,
       "return": 0,
       "roi": 0.0
+    },
+    {
+      "date": "2026-03-21",
+      "invest": 6000,
+      "return": 0,
+      "roi": 0.0
     }
   ],
   "recent_races": [
+    {
+      "id": "20260321_戸田_3",
+      "date": "2026-03-21",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "戸田",
+      "r": 3,
+      "result_eye": "235",
+      "odds": 63.5
+    },
+    {
+      "id": "20260321_桐生_4",
+      "date": "2026-03-21",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "桐生",
+      "r": 4,
+      "result_eye": "152",
+      "odds": 17.9
+    },
     {
       "id": "20260320_戸田_2",
       "date": "2026-03-20",
@@ -331,28 +359,6 @@
       "r": 4,
       "result_eye": "246",
       "odds": 12.9
-    },
-    {
-      "id": "20260318_平和島_9",
-      "date": "2026-03-18",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "平和島",
-      "r": 9,
-      "result_eye": "143",
-      "odds": 23.0
-    },
-    {
-      "id": "20260318_尼崎_7",
-      "date": "2026-03-18",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "尼崎",
-      "r": 7,
-      "result_eye": "134",
-      "odds": 8.6
     }
   ]
 }
