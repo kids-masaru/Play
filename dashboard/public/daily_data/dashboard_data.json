@@ -1,21 +1,21 @@
 {
   "total": {
-    "invest": 621000,
+    "invest": 630000,
     "return": 562000,
-    "roi": 90.5,
-    "hit_rate": 9.7
+    "roi": 89.2,
+    "hit_rate": 9.5
   },
   "monthly": {
-    "invest": 621000,
+    "invest": 630000,
     "return": 562000,
-    "roi": 90.5,
-    "hit_rate": 9.7
+    "roi": 89.2,
+    "hit_rate": 9.5
   },
   "weekly": {
-    "invest": 165000,
-    "return": 74950,
-    "roi": 45.4,
-    "hit_rate": 9.1
+    "invest": 147000,
+    "return": 50400,
+    "roi": 34.3,
+    "hit_rate": 6.1
   },
   "daily_history": [
     {
@@ -137,9 +137,48 @@
       "invest": 6000,
       "return": 0,
       "roi": 0.0
+    },
+    {
+      "date": "2026-03-22",
+      "invest": 9000,
+      "return": 0,
+      "roi": 0.0
     }
   ],
   "recent_races": [
+    {
+      "id": "20260322_戸田_10",
+      "date": "2026-03-22",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "戸田",
+      "r": 10,
+      "result_eye": "142",
+      "odds": 20.9
+    },
+    {
+      "id": "20260322_多摩川_3",
+      "date": "2026-03-22",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "多摩川",
+      "r": 3,
+      "result_eye": "153",
+      "odds": 21.4
+    },
+    {
+      "id": "20260322_若松_11",
+      "date": "2026-03-22",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "若松",
+      "r": 11,
+      "result_eye": "213",
+      "odds": 57.0
+    },
     {
       "id": "20260321_戸田_3",
       "date": "2026-03-21",
@@ -326,39 +365,6 @@
       "r": 6,
       "result_eye": "613",
       "odds": 77.4
-    },
-    {
-      "id": "20260319_常滑_12",
-      "date": "2026-03-19",
-      "invest": 3000,
-      "return": 24000,
-      "is_hit": true,
-      "venue": "常滑",
-      "r": 12,
-      "result_eye": "123",
-      "odds": 8.0
-    },
-    {
-      "id": "20260318_江戸川_12",
-      "date": "2026-03-18",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "江戸川",
-      "r": 12,
-      "result_eye": "124",
-      "odds": 6.3
-    },
-    {
-      "id": "20260318_桐生_4",
-      "date": "2026-03-18",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "桐生",
-      "r": 4,
-      "result_eye": "246",
-      "odds": 12.9
     }
   ]
 }
