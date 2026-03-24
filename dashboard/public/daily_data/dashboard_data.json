@@ -1,21 +1,21 @@
 {
   "total": {
-    "invest": 639000,
+    "invest": 648000,
     "return": 562000,
-    "roi": 87.9,
-    "hit_rate": 9.4
+    "roi": 86.7,
+    "hit_rate": 9.3
   },
   "monthly": {
-    "invest": 639000,
+    "invest": 648000,
     "return": 562000,
-    "roi": 87.9,
-    "hit_rate": 9.4
+    "roi": 86.7,
+    "hit_rate": 9.3
   },
   "weekly": {
-    "invest": 126000,
-    "return": 36150,
-    "roi": 28.7,
-    "hit_rate": 4.8
+    "invest": 105000,
+    "return": 24000,
+    "roi": 22.9,
+    "hit_rate": 2.9
   },
   "daily_history": [
     {
@@ -149,9 +149,48 @@
       "invest": 9000,
       "return": 0,
       "roi": 0.0
+    },
+    {
+      "date": "2026-03-24",
+      "invest": 9000,
+      "return": 0,
+      "roi": 0.0
     }
   ],
   "recent_races": [
+    {
+      "id": "20260324_徳山_8",
+      "date": "2026-03-24",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "徳山",
+      "r": 8,
+      "result_eye": "164",
+      "odds": 84.4
+    },
+    {
+      "id": "20260324_三国_6",
+      "date": "2026-03-24",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "三国",
+      "r": 6,
+      "result_eye": "521",
+      "odds": 34.8
+    },
+    {
+      "id": "20260324_浜名湖_4",
+      "date": "2026-03-24",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "浜名湖",
+      "r": 4,
+      "result_eye": "136",
+      "odds": 25.7
+    },
     {
       "id": "20260323_尼崎_5",
       "date": "2026-03-23",
@@ -338,39 +377,6 @@
       "r": 9,
       "result_eye": "326",
       "odds": 42.1
-    },
-    {
-      "id": "20260319_児島_9",
-      "date": "2026-03-19",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "児島",
-      "r": 9,
-      "result_eye": "213",
-      "odds": 88.3
-    },
-    {
-      "id": "20260319_尼崎_6",
-      "date": "2026-03-19",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "尼崎",
-      "r": 6,
-      "result_eye": "154",
-      "odds": 36.2
-    },
-    {
-      "id": "20260319_唐津_9",
-      "date": "2026-03-19",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "唐津",
-      "r": 9,
-      "result_eye": "425",
-      "odds": 38.3
     }
   ]
 }
