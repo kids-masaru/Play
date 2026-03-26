@@ -1,21 +1,21 @@
 {
   "total": {
-    "invest": 657000,
-    "return": 562000,
-    "roi": 85.5,
-    "hit_rate": 9.1
+    "invest": 678000,
+    "return": 577150,
+    "roi": 85.1,
+    "hit_rate": 9.3
   },
   "monthly": {
-    "invest": 657000,
-    "return": 562000,
-    "roi": 85.5,
-    "hit_rate": 9.1
+    "invest": 678000,
+    "return": 577150,
+    "roi": 85.1,
+    "hit_rate": 9.3
   },
   "weekly": {
-    "invest": 90000,
-    "return": 24000,
-    "roi": 26.7,
-    "hit_rate": 3.3
+    "invest": 84000,
+    "return": 15150,
+    "roi": 18.0,
+    "hit_rate": 3.6
   },
   "daily_history": [
     {
@@ -161,9 +161,92 @@
       "invest": 9000,
       "return": 0,
       "roi": 0.0
+    },
+    {
+      "date": "2026-03-26",
+      "invest": 21000,
+      "return": 15150,
+      "roi": 72.1
     }
   ],
   "recent_races": [
+    {
+      "id": "20260326_住之江_7",
+      "date": "2026-03-26",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "住之江",
+      "r": 7,
+      "result_eye": "254",
+      "odds": 24.5
+    },
+    {
+      "id": "20260326_福岡_4",
+      "date": "2026-03-26",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "福岡",
+      "r": 4,
+      "result_eye": "236",
+      "odds": 97.2
+    },
+    {
+      "id": "20260326_福岡_3",
+      "date": "2026-03-26",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "福岡",
+      "r": 3,
+      "result_eye": "135",
+      "odds": 11.5
+    },
+    {
+      "id": "20260326_芦屋_11",
+      "date": "2026-03-26",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "芦屋",
+      "r": 11,
+      "result_eye": "132",
+      "odds": 16.7
+    },
+    {
+      "id": "20260326_平和島_2",
+      "date": "2026-03-26",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "平和島",
+      "r": 2,
+      "result_eye": "326",
+      "odds": 107.3
+    },
+    {
+      "id": "20260326_芦屋_9",
+      "date": "2026-03-26",
+      "invest": 3000,
+      "return": 15150,
+      "is_hit": true,
+      "venue": "芦屋",
+      "r": 9,
+      "result_eye": "123",
+      "odds": 10.1
+    },
+    {
+      "id": "20260326_芦屋_1",
+      "date": "2026-03-26",
+      "invest": 3000,
+      "return": 0,
+      "is_hit": false,
+      "venue": "芦屋",
+      "r": 1,
+      "result_eye": "324",
+      "odds": 535.5
+    },
     {
       "id": "20260325_丸亀_7",
       "date": "2026-03-25",
@@ -306,83 +389,6 @@
       "r": 3,
       "result_eye": "235",
       "odds": 63.5
-    },
-    {
-      "id": "20260321_桐生_4",
-      "date": "2026-03-21",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "桐生",
-      "r": 4,
-      "result_eye": "152",
-      "odds": 17.9
-    },
-    {
-      "id": "20260320_戸田_2",
-      "date": "2026-03-20",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "戸田",
-      "r": 2,
-      "result_eye": "312",
-      "odds": 50.1
-    },
-    {
-      "id": "20260320_戸田_6",
-      "date": "2026-03-20",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "戸田",
-      "r": 6,
-      "result_eye": "132",
-      "odds": 18.6
-    },
-    {
-      "id": "20260320_宮島_5",
-      "date": "2026-03-20",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "宮島",
-      "r": 5,
-      "result_eye": "524",
-      "odds": 257.0
-    },
-    {
-      "id": "20260320_丸亀_4",
-      "date": "2026-03-20",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "丸亀",
-      "r": 4,
-      "result_eye": "231",
-      "odds": 74.2
-    },
-    {
-      "id": "20260320_常滑_3",
-      "date": "2026-03-20",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "常滑",
-      "r": 3,
-      "result_eye": "145",
-      "odds": 31.0
-    },
-    {
-      "id": "20260320_浜名湖_5",
-      "date": "2026-03-20",
-      "invest": 3000,
-      "return": 0,
-      "is_hit": false,
-      "venue": "浜名湖",
-      "r": 5,
-      "result_eye": "123",
-      "odds": 12.5
     }
   ]
 }
