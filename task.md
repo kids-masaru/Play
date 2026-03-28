@@ -11,7 +11,8 @@
   - boatrace.jp の3連単オッズページをパースする
   - 120通りの組み合わせ → `[race_id, date, venue, rno, combination, odds]` 形式で返却
   - `ODDS_3T_HEADERS` 定数を定義
-- [ ] 手動テスト: 特定の日付・会場・レースでオッズが正しく取得できることを確認
+- [x] 手動テスト: 特定の日付・会場・レースでオッズが正しく取得できることを確認
+  - daily_data/daily_odds_3t.csv に18,000行超のデータが実際に取得済み（本番動作で確認）
 
 ### 1-2. 夜間バッチへのオッズ収集統合 ✅
 - [x] `local_collect_race_data.py` に Job 3（当日確定オッズ収集）を追加
@@ -26,7 +27,7 @@
   - Job B: LightGBM確率 × 実オッズ → EV算出
   - Job C: EV > 1.0 の買い目のみでAI予測を実行 → `daily_predictions.csv` 更新
   - Job D: LINE通知（EVベース推奨買い目を送信）
-- [ ] タスクスケジューラに朝9時のバッチを登録する手順をREADMEに記載
+- [x] タスクスケジューラに朝9時のバッチを登録する手順をREADMEに記載（README.md参照）
 
 ### 1-4. AI予測パイプラインへのEV統合 ✅
 - [x] `local_ai_pipeline.py` に仮想EV推定（LightGBM確率ベース簡易3連単候補）を追加
