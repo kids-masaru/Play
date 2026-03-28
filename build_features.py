@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import numpy as np
+import database as db
 
 # --- 設定 ---
 INPUT_DIR = "past_data"
@@ -33,26 +34,63 @@ def extract_1st_place(result_str):
         return int(parts[0])
     return np.nan
 
+def extract_2nd_place(result_str):
+    """'1-2-3' などの結果文字列から2着の艇番(2)を抽出"""
+    if pd.isna(result_str): return np.nan
+    parts = str(result_str).split('-')
+    if len(parts) >= 2 and parts[1].isdigit():
+        return int(parts[1])
+    return np.nan
+
+def extract_3rd_place(result_str):
+    """'1-2-3' などの結果文字列から3着の艇番(3)を抽出"""
+    if pd.isna(result_str): return np.nan
+    parts = str(result_str).split('-')
+    if len(parts) >= 3 and parts[2].isdigit():
+        return int(parts[2])
+    return np.nan
+
 def main():
     print("=== 特徴量エンジニアリング（学習データ作成）開始 ===")
-    
-    if not os.path.exists(PROG_FILE) or not os.path.exists(RES_FILE) or not os.path.exists(INFO_FILE):
-        print("エラー: past_data フォルダに必要なCSVファイルが揃っていません。")
-        return
 
-    # 1. データ読み込み
-    print("データを読み込んでいます...")
-    df_prog = pd.read_csv(PROG_FILE)
-    df_info = pd.read_csv(INFO_FILE)
-    df_res  = pd.read_csv(RES_FILE)
-    
-    # コース別成績の読み込み（過去分と日次分をマージ）
-    df_stats = pd.DataFrame()
-    if os.path.exists(STATS_FILE):
-        df_stats = pd.read_csv(STATS_FILE)
-    if os.path.exists(DAILY_STATS_FILE):
-        df_ds = pd.read_csv(DAILY_STATS_FILE)
-        df_stats = pd.concat([df_stats, df_ds]).drop_duplicates(subset=['PlayerID'], keep='last')
+    # Phase 4: DB優先、CSVフォールバック
+    use_db = db.db_exists()
+    if use_db:
+        print("データベースからデータを読み込んでいます...")
+        df_prog = db.query_df("SELECT Date, Venue, R, RaceID AS ID, Lane, PlayerID, Name, Motor, Rank, WinRate, Count FROM races")
+        df_info = db.query_df("SELECT RaceID AS ID, Date, Venue, R, Weather, WindSpeed, WindDir, Wave, WaterTemp, "
+                              "B1_Weight, B1_Tilt, B1_ExTime, B2_Weight, B2_Tilt, B2_ExTime, "
+                              "B3_Weight, B3_Tilt, B3_ExTime, B4_Weight, B4_Tilt, B4_ExTime, "
+                              "B5_Weight, B5_Tilt, B5_ExTime, B6_Weight, B6_Tilt, B6_ExTime FROM beforeinfo")
+        df_res = db.query_df("SELECT Date, Venue, R, RaceID AS ID, Result, Payout FROM results")
+        df_stats = db.get_all_player_stats()
+
+        # モーター成績の追加（Phase 4 新機能）
+        df_motor = db.query_df("SELECT * FROM motor_stats")
+
+        if df_prog.empty or df_res.empty or df_info.empty:
+            print("エラー: データベースに十分なデータがありません。CSVにフォールバックします。")
+            use_db = False
+
+    if not use_db:
+        if not os.path.exists(PROG_FILE) or not os.path.exists(RES_FILE) or not os.path.exists(INFO_FILE):
+            print("エラー: past_data フォルダに必要なCSVファイルが揃っていません。")
+            return
+
+        # 1. データ読み込み
+        print("CSVからデータを読み込んでいます...")
+        df_prog = pd.read_csv(PROG_FILE)
+        df_info = pd.read_csv(INFO_FILE)
+        df_res  = pd.read_csv(RES_FILE)
+        df_motor = pd.DataFrame()
+
+        # コース別成績の読み込み（過去分と日次分をマージ）
+        df_stats = pd.DataFrame()
+        if os.path.exists(STATS_FILE):
+            df_stats = pd.read_csv(STATS_FILE)
+        if os.path.exists(DAILY_STATS_FILE):
+            df_ds = pd.read_csv(DAILY_STATS_FILE)
+            df_stats = pd.concat([df_stats, df_ds]).drop_duplicates(subset=['PlayerID'], keep='last')
 
     # 2. 出走表データ (df_prog) にコース別成績を紐付け
     print("出走表に選手のコース別成績を紐付けています...")
@@ -109,12 +147,14 @@ def main():
     # 4. 結果データ (df_res) からターゲット変数（正解ラベル）の作成
     print("結果データからターゲット変数を作成しています...")
     df_res['Target_1st'] = df_res['Result'].apply(extract_1st_place)
+    df_res['Target_2nd'] = df_res['Result'].apply(extract_2nd_place)
+    df_res['Target_3rd'] = df_res['Result'].apply(extract_3rd_place)
 
     # 5. すべてのデータをマージ（結合）
     print("全データを結合し、ml_features.csv を作成しています...")
     # df_info (ベース) + pivot_prog + df_res
     df_merged = pd.merge(df_info, pivot_prog, on='ID', how='inner')
-    df_merged = pd.merge(df_merged, df_res[['ID', 'Result', 'Payout', 'Target_1st']], on='ID', how='inner')
+    df_merged = pd.merge(df_merged, df_res[['ID', 'Result', 'Payout', 'Target_1st', 'Target_2nd', 'Target_3rd']], on='ID', how='inner')
 
     # 6. 新しい特徴量のエンジニアリング（独自指標の作成）
     # 例: 1号艇と2号艇の勝率差
@@ -123,6 +163,40 @@ def main():
     win_rates = [df_merged[f'B{i}_WinRate'] for i in range(1, 7)]
     df_merged['Avg_WinRate'] = np.nanmean(win_rates, axis=0)
     df_merged['B1_WinRate_Over_Avg'] = df_merged['B1_WinRate'] - df_merged['Avg_WinRate']
+
+    # Phase 4: モーター成績の特徴量追加
+    if use_db and not df_motor.empty:
+        print("モーター成績の特徴量を追加しています...")
+        # モーター成績辞書: (Venue, MotorNo) → {WinRate, Top2Rate, Top3Rate}
+        motor_dict = {}
+        for _, mrow in df_motor.iterrows():
+            key = (str(mrow['Venue']), str(mrow['MotorNo']))
+            motor_dict[key] = {
+                'WinRate': float(mrow.get('WinRate', 0) or 0),
+                'Top2Rate': float(mrow.get('Top2Rate', 0) or 0),
+            }
+
+        for lane in range(1, 7):
+            motor_col = f'B{lane}_Motor'
+            if motor_col in df_merged.columns:
+                df_merged[f'B{lane}_MotorWinRate'] = df_merged.apply(
+                    lambda row: motor_dict.get(
+                        (str(row.get('Venue', '')), str(row.get(motor_col, ''))),
+                        {}
+                    ).get('WinRate', 0), axis=1
+                )
+                df_merged[f'B{lane}_Motor2inRate'] = df_merged.apply(
+                    lambda row: motor_dict.get(
+                        (str(row.get('Venue', '')), str(row.get(motor_col, ''))),
+                        {}
+                    ).get('Top2Rate', 0), axis=1
+                )
+        print(f"  モーター特徴量を {sum(1 for _ in motor_dict)} モーター分追加しました。")
+    else:
+        # モーターデータがない場合はゼロ埋め
+        for lane in range(1, 7):
+            df_merged[f'B{lane}_MotorWinRate'] = 0.0
+            df_merged[f'B{lane}_Motor2inRate'] = 0.0
 
     # 保存
     df_merged.to_csv(OUTPUT_FILE, index=False, encoding='utf-8')

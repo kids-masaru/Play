@@ -1,6 +1,7 @@
 import os
 import sys
 import traceback
+import subprocess
 from datetime import datetime, timedelta, timezone
 import pandas as pd
 
@@ -9,9 +10,32 @@ try:
     import local_collect_race_data
     import local_ai_pipeline
     import generate_dashboard_data
+    import retrain_model
 except ImportError as e:
     print(f"モジュールのインポートエラー: {e}")
     sys.exit(1)
+
+def push_to_github():
+    """ダッシュボードのデータをGitHubにプッシュする"""
+    try:
+        print("\n>>> GitHubへのデータ同期を開始します...")
+        env = os.environ.copy()
+        env["GIT_TERMINAL_PROMPT"] = "0"
+        # 1. Add
+        subprocess.run(["git", "add", "dashboard/public/daily_data/dashboard_data.json"], check=True, env=env)
+        # 2. Commit (フックを飛ばして非対話に)
+        commit_msg = f"Auto-update dashboard data: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        subprocess.run(["git", "commit", "-m", commit_msg, "--no-verify"], check=True, env=env)
+        # 3. Push (非対話に)
+        subprocess.run(["git", "push", "origin", "main"], check=True, env=env)
+        print(">>> GitHubへの同期が完了しました。")
+        return True
+    except subprocess.CalledProcessError as e:
+        print(f">>> GitHubへの同期に失敗しました (Commit対象がない場合は正常です): {e}")
+        return False
+    except Exception as e:
+        print(f">>> GitHub同期中に予期せぬエラーが発生しました: {e}")
+        return False
 
 from linebot import LineBotApi
 from linebot.models import TextSendMessage
@@ -56,6 +80,20 @@ def main():
         print("\n--- [Phase 2 & 3] AI予測＆反省会 ---")
         local_ai_pipeline.main()
         report_blocks.append("✅ 予測＆反省: 完了")
+        
+        # 2.5. 週次1回（月曜日）にモデル再学習を実行
+        JST_check = timezone(timedelta(hours=9))
+        now_check = datetime.now(JST_check)
+        if now_check.weekday() == 0:  # 0=月曜日
+            print("\n--- [Phase 2.5] 週次モデル再学習 ---")
+            try:
+                retrain_model.main()
+                report_blocks.append("✅ モデル再学習: 完了")
+            except Exception as retrain_err:
+                print(f"  [WARN] 再学習中にエラー: {retrain_err}")
+                report_blocks.append(f"⚠️ モデル再学習: エラー発生")
+        else:
+            print(f"\n--- [Phase 2.5] モデル再学習: 月曜日のみ実行（今日は{['月','火','水','木','金','土','日'][now_check.weekday()]}曜日） ---")
         
         # 3. リサマリー（AI_Lessonsや今日の激アツ情報の抽出等）
         JST = timezone(timedelta(hours=9))
@@ -115,18 +153,31 @@ def main():
                         ans_dash = "-".join(list(ans))
                         is_hit = ans in buy_str or ans_dash in buy_str
                         
-                        # 買い目点数の解析
-                        tickets = set(re.findall(r'\d-\d-\d|\d{3}', buy_str))
-                        num_tickets = len(tickets) if len(tickets) > 0 else 1
-                        
-                        # 「1レース3000円投資」の均等配分（100円単位）
-                        ticket_bet = (3000 // num_tickets // 100) * 100
-                        race_invest = ticket_bet * num_tickets
+                        # Stakesカラムがあればケリー額を使用、なければ固定3000円にフォールバック
+                        import json as _json
+                        stakes_dict = {}
+                        raw_stakes = row.get('Stakes', '') if 'Stakes' in row.index else ''
+                        if raw_stakes and str(raw_stakes).strip() not in ('', 'nan'):
+                            try:
+                                stakes_dict = _json.loads(str(raw_stakes))
+                            except Exception:
+                                stakes_dict = {}
+
+                        if stakes_dict:
+                            race_invest = sum(stakes_dict.values())
+                            hit_stake_units = stakes_dict.get(ans, 0) // 100
+                        else:
+                            tickets = set(re.findall(r'\d-\d-\d|\d{3}', buy_str))
+                            num_tickets = len(tickets) if len(tickets) > 0 else 1
+                            ticket_bet = (3000 // num_tickets // 100) * 100
+                            race_invest = ticket_bet * num_tickets
+                            hit_stake_units = ticket_bet // 100
+
                         total_invest += race_invest
-                        
+
                         if is_hit:
                             hits += 1
-                            hit_return = pay * (ticket_bet // 100)
+                            hit_return = pay * hit_stake_units
                             total_return += hit_return
                             res_mark = "🎯"
                             return_text = f"+{hit_return}円"
@@ -170,6 +221,7 @@ def main():
             target_preds = df_pred[df_pred['Date'].astype(str) == date_pred]
             if not target_preds.empty:
                 summary_text += "\n🔥 【本日の推奨買い目 (全件)】\n"
+                summary_text += "※朝9時にEV強化版が配信されます\n"
                 hot, normal, low = [], [], []
                 for i, (_, row) in enumerate(target_preds.iterrows()):
                     pred_raw = str(row['Prediction'])
@@ -177,7 +229,18 @@ def main():
                         rec = pred_raw.split('■最終推奨買い目')[1].strip()[:30].replace('\n', '')
                     except:
                         rec = pred_raw[-30:].replace('\n', '')
-                    line_str = f"📍 {row['Venue']}{row['R']}R: {rec}"
+
+                    # EV情報がログに含まれていれば表示
+                    log_raw = str(row.get('Log', ''))
+                    ev_tag = ""
+                    if 'MaxEV=' in log_raw:
+                        import re as _re
+                        ev_match = _re.search(r'MaxEV=([\d.]+)', log_raw)
+                        if ev_match:
+                            ev_val = float(ev_match.group(1))
+                            ev_tag = f" (EV:{ev_val:.1f})" if ev_val > 0 else ""
+
+                    line_str = f"📍 {row['Venue']}{row['R']}R: {rec}{ev_tag}"
                     if i < 3: hot.append(line_str)
                     elif i < 7: normal.append(line_str)
                     else: low.append(line_str)
@@ -195,10 +258,15 @@ def main():
         # --- 4. 回収率ダッシュボードの更新 ---
         print("\n--- [Phase 3.5] 回収率ダッシュボードデータ更新 ---")
         generate_dashboard_data.calculate_roi()
-        report_blocks.append("\n📈 【回収率ダッシュボード】更新完了")
-        report_blocks.append("詳細はこちら: http://localhost:5173")
+        
+        # GitHubへプッシュ
+        push_success = push_to_github()
 
-        summary_text += f"\n※詳細はPC内の daily_data フォルダ、またはダッシュボードをご確認ください。"
+        report_blocks.append("\n📈 【回収率ダッシュボード】更新完了")
+        dashboard_url = "https://kids-masaru.github.io/Play/"
+        report_blocks.append(f"詳細はこちら: {dashboard_url}")
+
+        summary_text += f"\n※詳細はダッシュボードをご確認ください。\n{dashboard_url}"
         report_blocks.append(summary_text)
         
     except Exception as e:

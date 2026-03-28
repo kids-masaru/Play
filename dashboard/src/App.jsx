@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { 
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area 
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area,
+  BarChart, Bar
 } from 'recharts';
 import { TrendingUp, Award, DollarSign, Activity } from 'lucide-react';
 import './index.css';
@@ -9,6 +10,16 @@ const App = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [period, setPeriod] = useState('total'); // 'weekly', 'monthly', 'total'
+  const [expandedRaces, setExpandedRaces] = useState(new Set());
+
+  const toggleReasoning = (id) => {
+    setExpandedRaces(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
 
   useEffect(() => {
     fetch('./daily_data/dashboard_data.json')
@@ -91,26 +102,71 @@ const App = () => {
         </div>
       </div>
 
-      <div className="glass-card chart-container">
-        <h3 style={{ margin: '0 0 1.5rem 0', fontSize: '1.2rem' }}>ROI Trends ({period})</h3>
-        <ResponsiveContainer width="100%" height="90%">
-          <AreaChart data={chartData}>
-            <defs>
-              <linearGradient id="colorRoi" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="var(--accent-blue)" stopOpacity={0.3}/>
-                <stop offset="95%" stopColor="var(--accent-blue)" stopOpacity={0}/>
-              </linearGradient>
-            </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
-            <XAxis dataKey="date" stroke="var(--text-secondary)" fontSize={12} tickLine={false} axisLine={false} />
-            <YAxis stroke="var(--text-secondary)" fontSize={12} tickLine={false} axisLine={false} unit="%" />
-            <Tooltip 
-              contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}
-              itemStyle={{ color: 'var(--accent-blue)' }}
-            />
-            <Area type="monotone" dataKey="roi" stroke="var(--accent-blue)" fillOpacity={1} fill="url(#colorRoi)" strokeWidth={4} />
-          </AreaChart>
-        </ResponsiveContainer>
+      <div className="charts-grid">
+        <div className="glass-card chart-container full-width-chart">
+          <h3 style={{ margin: '0 0 1.5rem 0', fontSize: '1.2rem' }}>ROI Trends ({period})</h3>
+          <ResponsiveContainer width="100%" height="90%">
+            <AreaChart data={chartData}>
+              <defs>
+                <linearGradient id="colorRoi" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="var(--accent-blue)" stopOpacity={0.3}/>
+                  <stop offset="95%" stopColor="var(--accent-blue)" stopOpacity={0}/>
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+              <XAxis dataKey="date" stroke="var(--text-secondary)" fontSize={12} tickLine={false} axisLine={false} />
+              <YAxis stroke="var(--text-secondary)" fontSize={12} tickLine={false} axisLine={false} unit="%" />
+              <Tooltip 
+                contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}
+                itemStyle={{ color: 'var(--accent-blue)' }}
+              />
+              <Area type="monotone" dataKey="roi" stroke="var(--accent-blue)" fillOpacity={1} fill="url(#colorRoi)" strokeWidth={4} />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="glass-card chart-container">
+          <h3 style={{ margin: '0 0 1.5rem 0', fontSize: '1.2rem' }}>Venue Hit Rate (All Time)</h3>
+          <ResponsiveContainer width="100%" height="90%">
+            <BarChart data={data.venue_stats}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+              <XAxis dataKey="venue" stroke="var(--text-secondary)" fontSize={12} tickLine={false} axisLine={false} />
+              <YAxis stroke="var(--text-secondary)" fontSize={12} tickLine={false} axisLine={false} unit="%" />
+              <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px' }} />
+              <Bar dataKey="hit_rate" fill="var(--accent-purple)" radius={[4, 4, 0, 0]} name="Hit Rate %" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="glass-card chart-container">
+          <h3 style={{ margin: '0 0 1.5rem 0', fontSize: '1.2rem' }}>EV Distribution ROI (All Time)</h3>
+          <ResponsiveContainer width="100%" height="90%">
+            <BarChart data={data.ev_stats}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+              <XAxis dataKey="category" stroke="var(--text-secondary)" fontSize={12} tickLine={false} axisLine={false} />
+              <YAxis stroke="var(--text-secondary)" fontSize={12} tickLine={false} axisLine={false} unit="%" />
+              <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px' }} />
+              <Bar dataKey="roi" fill="var(--success)" radius={[4, 4, 0, 0]} name="ROI %" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {data.race_stats && data.race_stats.length > 0 && (
+          <div className="glass-card chart-container full-width-chart">
+            <h3 style={{ margin: '0 0 1.5rem 0', fontSize: '1.2rem' }}>Race Number Analysis (All Time)</h3>
+            <ResponsiveContainer width="100%" height="90%">
+              <BarChart data={data.race_stats}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+                <XAxis dataKey="r" stroke="var(--text-secondary)" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(v) => `${v}R`} />
+                <YAxis yAxisId="left" stroke="var(--text-secondary)" fontSize={12} tickLine={false} axisLine={false} unit="%" />
+                <YAxis yAxisId="right" orientation="right" stroke="var(--text-secondary)" fontSize={12} tickLine={false} axisLine={false} unit="%" />
+                <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px' }} />
+                <Bar yAxisId="left" dataKey="hit_rate" fill="var(--accent-blue)" radius={[4, 4, 0, 0]} name="Hit Rate %" />
+                <Bar yAxisId="right" dataKey="roi" fill="var(--accent-purple)" radius={[4, 4, 0, 0]} name="ROI %" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        )}
       </div>
 
       <div className="prediction-list">
@@ -134,6 +190,18 @@ const App = () => {
             <div className={race.return > 0 ? 'profit-plus' : 'profit-minus'}>
               {race.return > 0 ? `+¥${(race.return - race.invest).toLocaleString()}` : `-¥${race.invest.toLocaleString()}`}
             </div>
+            {race.ai_reasoning && (
+              <>
+                <button className="toggle-reasoning" onClick={() => toggleReasoning(race.id)}>
+                  {expandedRaces.has(race.id) ? '▾ Hide AI Reasoning' : '▸ Show AI Reasoning'}
+                </button>
+                {expandedRaces.has(race.id) && (
+                  <div className="ai-reasoning">
+                    {race.ai_reasoning}
+                  </div>
+                )}
+              </>
+            )}
           </div>
         ))}
       </div>

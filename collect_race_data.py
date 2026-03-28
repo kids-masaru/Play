@@ -42,11 +42,12 @@ def get_sheets_service():
     )
     return build('sheets', 'v4', credentials=creds)
 
-def fetch_url(url, retries=3):
+def fetch_url(url, retries=3, session=None):
     """Robust fetch with timeout and retries."""
+    requester = session if session else requests
     for i in range(retries + 1):
         try:
-            resp = requests.get(url, headers=COMMON_HEADERS, timeout=REQUEST_TIMEOUT)
+            resp = requester.get(url, headers=COMMON_HEADERS, timeout=REQUEST_TIMEOUT)
             resp.raise_for_status()
             # ボートレース公式サイトはUTF-8 (Content-Type: text/html;charset=UTF-8)
             if 'boatrace.jp' in url:
@@ -61,6 +62,30 @@ def fetch_url(url, retries=3):
             else:
                 print(f"    [Error] Failed to fetch {url}. {e}")
                 return None
+
+
+# --- セッション管理（オッズページ等、Cookie必須のページ用）---
+_boatrace_session = None
+
+def get_boatrace_session():
+    """boatrace.jp用のセッションを取得する（Cookie必須ページ用）。
+    オッズページはセッションCookieがないと正しい値を返さないため、
+    最初にインデックスページにアクセスしてCookieを取得する。
+    """
+    global _boatrace_session
+    if _boatrace_session is not None:
+        return _boatrace_session
+
+    _boatrace_session = requests.Session()
+    _boatrace_session.headers.update(COMMON_HEADERS)
+
+    # インデックスページにアクセスしてCookieを取得
+    try:
+        _boatrace_session.get("https://www.boatrace.jp/owpc/pc/race/index", timeout=REQUEST_TIMEOUT)
+    except Exception:
+        pass  # Cookie取得失敗でもセッション自体は返す
+
+    return _boatrace_session
 
 def get_venues_for_date(target_date_str):
     url = f"https://www.boatrace.jp/owpc/pc/race/index?hd={target_date_str}"
@@ -101,6 +126,7 @@ RAW_BEFOREINFO_HEADERS = ["ID", "Date", "Venue", "R", "Weather", "WindSpeed", "W
 PLAYER_COURSE_STATS_HEADERS = ["PlayerID", "C1_Win", "C1_2in", "C1_3in", "C2_Win", "C2_2in", "C2_3in",
                                "C3_Win", "C3_2in", "C3_3in", "C4_Win", "C4_2in", "C4_3in",
                                "C5_Win", "C5_2in", "C5_3in", "C6_Win", "C6_2in", "C6_3in"]
+ODDS_3T_HEADERS = ["ID", "Date", "Venue", "R", "Combination", "Odds"]
 
 def append_to_csv(filename, headers, rows):
     """データをCSVファイルに追記する。ファイルが無い場合はヘッダー付きで新規作成。"""
@@ -369,6 +395,198 @@ def scrape_player_course_stats(player_id):
     except Exception as e:
         print(f"Error scraping Course Stats for {player_id}: {e}")
         return None
+
+def scrape_motor_stats(jcd, date_str):
+    """指定会場のモーター成績一覧を取得する。
+
+    URL: https://www.boatrace.jp/owpc/pc/race/motorlist?jcd={jcd}&hd={date_str}
+
+    Returns:
+        list of [venue_name, motor_no, win_rate, top2_rate, top3_rate, date_str]
+        取得失敗時は空リスト
+    """
+    url = f"https://www.boatrace.jp/owpc/pc/race/motorlist?jcd={jcd}&hd={date_str}"
+    html = fetch_url(url)
+    if not html:
+        return []
+
+    venue_name = VENUE_MAP.get(jcd, jcd)
+    display_date = f"{date_str[:4]}-{date_str[4:6]}-{date_str[6:]}"
+    results = []
+
+    try:
+        soup = BeautifulSoup(html, 'html.parser')
+        # モーター成績テーブルを検索
+        table = soup.find('table', class_='is-w495')
+        if not table:
+            # フォールバック: 別のテーブル構造を試す
+            tables = soup.find_all('table')
+            for t in tables:
+                if 'モーター' in t.get_text()[:100]:
+                    table = t
+                    break
+
+        if not table:
+            return []
+
+        rows = table.find_all('tr')
+        for row in rows[1:]:  # ヘッダーをスキップ
+            cells = row.find_all('td')
+            if len(cells) < 4:
+                continue
+
+            try:
+                motor_no = cells[0].get_text(strip=True)
+                if not motor_no or not motor_no.isdigit():
+                    continue
+
+                # 2連率は一般的に4列目あたりにある
+                # サイト構造: モーター番号 | 勝率 | 2連率 | 3連率 (会場によって列数が異なる場合あり)
+                win_rate = 0.0
+                top2_rate = 0.0
+                top3_rate = 0.0
+
+                for i, cell in enumerate(cells[1:], 1):
+                    text = cell.get_text(strip=True)
+                    # 数値を含むセルを探す
+                    try:
+                        val = float(text.replace('%', ''))
+                        if i == 1:
+                            win_rate = val
+                        elif i == 2:
+                            top2_rate = val
+                        elif i == 3:
+                            top3_rate = val
+                            break
+                    except ValueError:
+                        continue
+
+                results.append([venue_name, motor_no, win_rate, top2_rate, top3_rate, display_date])
+            except Exception:
+                continue
+
+    except Exception as e:
+        print(f"Error scraping motor stats for {venue_name}: {e}")
+
+    return results
+
+
+MOTOR_STATS_HEADERS = ["Venue", "MotorNo", "WinRate", "Top2Rate", "Top3Rate", "UpdatedDate"]
+
+
+def scrape_odds_3t(jcd, rno, date_str):
+    """3連単オッズ（全120通り）をPlaywrightで取得する。
+
+    boatrace.jpのオッズページはJavaScriptで動的にオッズ値を注入するため、
+    requestsベースの静的スクレイピングでは取得できない。
+    Playwrightでヘッドレスブラウザを使い、JSレンダリング後のDOMからオッズを抽出する。
+
+    Returns:
+        list of [race_id, display_date, venue_name, rno, combination, odds] の120行
+        （取得失敗時は空リスト）
+    """
+    venue_name = VENUE_MAP.get(jcd, f"Venue_{jcd}")
+    display_date = f"{date_str[:4]}-{date_str[4:6]}-{date_str[6:]}"
+    race_id = f"{date_str}_{venue_name}_{rno}"
+
+    # 既知の組み合わせ順序を生成
+    def get_combos_for_first(first):
+        others = [b for b in range(1, 7) if b != first]
+        combos = []
+        for second in others:
+            thirds = [b for b in range(1, 7) if b != first and b != second]
+            for third in thirds:
+                combos.append((first, second, third))
+        return combos
+
+    block_combos = [get_combos_for_first(f) for f in range(1, 7)]
+
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        print("    [ERROR] playwrightがインストールされていません。pip install playwright && playwright install chromium")
+        return []
+
+    try:
+        # グローバルブラウザインスタンスを使用（_odds_browserが存在すれば再利用）
+        page = _get_odds_page()
+
+        url = f"https://www.boatrace.jp/owpc/pc/race/odds3t?rno={rno}&jcd={jcd}&hd={date_str}"
+        page.goto(url, wait_until='domcontentloaded', timeout=30000)
+
+        # JSがオッズを注入するのを待つ（最大6秒、0.5秒刻み）
+        for _ in range(12):
+            time.sleep(0.5)
+            cells = page.query_selector_all('td.oddsPoint')
+            if cells:
+                # 少なくとも1つの非ゼロ値があるか確認
+                sample = cells[len(cells)//2].inner_text().strip()
+                if sample and sample != '0.0':
+                    break
+
+        cells = page.query_selector_all('td.oddsPoint')
+        if not cells:
+            return []
+
+        # 120セルの値を抽出
+        rows_data = []
+        for row_idx in range(20):
+            for block_idx in range(6):
+                cell_idx = row_idx * 6 + block_idx
+                if cell_idx >= len(cells):
+                    continue
+
+                odds_text = cells[cell_idx].inner_text().strip()
+                try:
+                    odds_val = float(odds_text)
+                except (ValueError, TypeError):
+                    odds_val = 0.0
+
+                combo = block_combos[block_idx][row_idx]
+                combo_str = f"{combo[0]}-{combo[1]}-{combo[2]}"
+                rows_data.append([race_id, display_date, venue_name, rno, combo_str, odds_val])
+
+        return rows_data
+
+    except Exception as e:
+        print(f"    Error scraping Odds3T {jcd} R{rno}: {e}", flush=True)
+        return []
+
+
+# --- Playwright ブラウザ管理（オッズ取得用） ---
+_odds_playwright = None
+_odds_browser = None
+_odds_page = None
+
+def _get_odds_page():
+    """オッズ取得用のPlaywrightページを取得（再利用可能）"""
+    global _odds_playwright, _odds_browser, _odds_page
+    if _odds_page is not None:
+        return _odds_page
+
+    from playwright.sync_api import sync_playwright
+    _odds_playwright = sync_playwright().start()
+    _odds_browser = _odds_playwright.chromium.launch(headless=True)
+    _odds_page = _odds_browser.new_page()
+    return _odds_page
+
+def close_odds_browser():
+    """オッズ取得用のブラウザを明示的に閉じる"""
+    global _odds_playwright, _odds_browser, _odds_page
+    if _odds_browser:
+        try:
+            _odds_browser.close()
+        except:
+            pass
+    if _odds_playwright:
+        try:
+            _odds_playwright.stop()
+        except:
+            pass
+    _odds_playwright = None
+    _odds_browser = None
+    _odds_page = None
+
 
 def debug_print_sheet_names(service, ssid):
     try:

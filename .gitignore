@@ -66,3 +66,6 @@ credentials.env
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# SQLite database (too large for GitHub)
+data/

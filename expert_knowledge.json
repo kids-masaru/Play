@@ -39,6 +39,27 @@
       "condition": "Boat 1 ExTime is > 0.15s slower than field average",
       "insight": "High probability of Boat 1 failing to maintain the lead despite the course advantage.",
       "advice": "Strongly consider 2-1, 3-1 or even 4-x as the lead boat is underperforming."
+    },
+    {
+      "pattern_id": "ev_threshold",
+      "source": "Expected Value Theory",
+      "condition": "EV (Expected Value) > 1.0 for a bet combination",
+      "insight": "EV = AI推定的中確率 × オッズ。EV > 1.0 は長期的にプラス収支が期待できる買い目。EV < 0.8 は長期的に損失が蓄積する。",
+      "advice": "EV > 1.0 の買い目のみを推奨リストに含めること。EV < 0.8 の買い目は自信があっても除外すること。"
+    },
+    {
+      "pattern_id": "odds_value_zone",
+      "source": "Odds Zone Analysis",
+      "condition": "Odds between 15x and 80x AND AI confidence > 5% for that combination",
+      "insight": "中穴ゾーン（15〜80倍）はAI的中時のリターンが最大化される黄金帯域。本命（〜5倍）は回収率が構造的に低く、万舟（100倍+）は的中率が極めて低い。",
+      "advice": "中穴ゾーン（15〜80倍）の買い目を最優先で推奨すること。本命買い目は回収率が低いため、余程の自信がない限り推奨しない。"
+    },
+    {
+      "pattern_id": "ev_weighted_selection",
+      "source": "Portfolio Theory",
+      "condition": "Multiple high-EV combinations available",
+      "insight": "1レースで複数のEV > 1.0 買い目がある場合、上位3〜5点に分散投資することで的中率とリターンのバランスが最適化される。",
+      "advice": "EV上位3〜5点を推奨買い目とし、EVが高い買い目ほど配分を厚くすること。10点以上の買い目は回収率を下げるので避けること。"
     }
   ],
   "venue_specific": [

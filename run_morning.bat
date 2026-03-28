@@ -6,5 +6,5 @@ if exist credentials.env (
     for /f "usebackq tokens=*" %%a in ("credentials.env") do set %%a
 )
 
-python main_runner.py
+python morning_odds_runner.py
 timeout /t 5

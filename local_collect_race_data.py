@@ -9,18 +9,25 @@ from collect_race_data import (
     scrape_result_venue,
     scrape_beforeinfo,
     scrape_player_course_stats,
+    scrape_motor_stats,
+    scrape_odds_3t,
+    close_odds_browser,
     append_to_csv,
     RAW_RACE_DATA_HEADERS,
     HISTORY_RESULTS_HEADERS,
     RAW_BEFOREINFO_HEADERS,
-    PLAYER_COURSE_STATS_HEADERS
+    PLAYER_COURSE_STATS_HEADERS,
+    MOTOR_STATS_HEADERS,
+    ODDS_3T_HEADERS
 )
+import database as db
 
 OUTPUT_DIR = "daily_data"
 PROG_FILE = os.path.join(OUTPUT_DIR, "daily_raw_race_data.csv")
 RES_FILE  = os.path.join(OUTPUT_DIR, "daily_history_results.csv")
 BI_FILE   = os.path.join(OUTPUT_DIR, "daily_raw_beforeinfo.csv")
 STATS_FILE = os.path.join(OUTPUT_DIR, "daily_player_course_stats.csv")
+ODDS_FILE = os.path.join(OUTPUT_DIR, "daily_odds_3t.csv")
 
 def main():
     print("=== STEP 1 & 2: 完全ローカル版 日次データ収集開始 ===")
@@ -209,7 +216,141 @@ def main():
     elif not is_res_skipped:
         print(f"  > 対象日の開催会場はありません。")
 
+    # ----------------------------------------------------
+    # Job 3: Today's Odds (当日の3連単確定オッズ)
+    # ----------------------------------------------------
+    print(f"\n>>> Job 3: 当日の3連単確定オッズを取得します")
+
+    # 結果と同じ日付のオッズを取得（当日のレースが終了しているので確定オッズ）
+    odds_date_str = result_date_str  # Job 2 と同じ日付
+    odds_date_csv_format = result_date.strftime("%Y-%m-%d")
+    print(f"  > 対象日: {odds_date_str}")
+
+    is_odds_skipped = False
+    if os.path.exists(ODDS_FILE):
+        import pandas as pd
+        df_o = pd.read_csv(ODDS_FILE)
+        if odds_date_csv_format in df_o['Date'].astype(str).values:
+            print(f"  > [SKIP] {odds_date_csv_format} のオッズは既に取得済みです。")
+            is_odds_skipped = True
+
+    venues_odds = []
+    if not is_odds_skipped:
+        venues_odds = get_venues_for_date(odds_date_str) if not venues_result else venues_result
+
+    if venues_odds:
+        print(f"  > 開催会場({len(venues_odds)}): {venues_odds}")
+
+        # 既存データをチェック（レジューム対応）
+        done_venues_odds = set()
+        if os.path.exists(ODDS_FILE):
+            df_odds_ex = pd.read_csv(ODDS_FILE)
+            mask_o = df_odds_ex['Date'] == odds_date_csv_format
+            done_venues_odds = set(df_odds_ex[mask_o]['Venue'].astype(str).unique())
+
+        from collect_race_data import VENUE_MAP
+
+        for jcd in venues_odds:
+            v_name = VENUE_MAP.get(jcd, jcd)
+            if v_name in done_venues_odds:
+                print(f"    - 会場 {v_name} ({jcd})... [SKIP] 取得済み")
+                continue
+
+            print(f"    - 会場 {v_name} ({jcd})... ", end="", flush=True)
+            day_odds_rows = []
+
+            for rno in range(1, 13):
+                time.sleep(0.3)
+                o_rows = scrape_odds_3t(jcd, rno, odds_date_str)
+                if o_rows:
+                    day_odds_rows.extend(o_rows)
+
+            # 会場ごとに保存
+            if day_odds_rows:
+                append_to_csv(ODDS_FILE, ODDS_3T_HEADERS, day_odds_rows)
+            print(f"完了 ({len(day_odds_rows)}行)")
+    elif not is_odds_skipped:
+        print(f"  > 対象日の開催会場はありません。")
+
+    # オッズ取得用ブラウザのクリーンアップ
+    close_odds_browser()
+
+    # ----------------------------------------------------
+    # Job 4: モーター成績の取得 (Phase 4)
+    # ----------------------------------------------------
+    print(f"\n>>> Job 4: モーター成績を取得します")
+    # 翌日の開催会場のモーター成績を取得（予測用）
+    motor_venues = venues_program if venues_program else []
+    if not motor_venues and not is_prog_skipped:
+        motor_venues = get_venues_for_date(program_date_str)
+
+    db.ensure_db()
+
+    if motor_venues:
+        print(f"  > 対象会場({len(motor_venues)}): {motor_venues}")
+        for jcd in motor_venues:
+            from collect_race_data import VENUE_MAP
+            v_name = VENUE_MAP.get(jcd, jcd)
+            # DBに既に最新データがあればスキップ
+            existing = db.get_motor_stats_by_venue(v_name)
+            if not existing.empty:
+                latest_date = existing['UpdatedDate'].max()
+                if latest_date == program_date.strftime("%Y-%m-%d"):
+                    print(f"    - 会場 {v_name}... [SKIP] 最新データあり")
+                    continue
+
+            print(f"    - 会場 {v_name} ({jcd})... ", end="", flush=True)
+            time.sleep(0.5)
+            motor_rows = scrape_motor_stats(jcd, program_date_str)
+            if motor_rows:
+                db.insert_motor_stats(motor_rows)
+                print(f"完了 ({len(motor_rows)}モーター)")
+            else:
+                print("データなし")
+    else:
+        print(f"  > モーター成績取得対象の会場はありません。")
+
+    # ----------------------------------------------------
+    # DB同期: 取得データをSQLiteにも保存
+    # ----------------------------------------------------
+    print(f"\n>>> DB同期: 取得データをSQLiteに保存します")
+    _sync_csv_to_db()
+
     print("\n=== ローカル版 データ収集 正常終了 ===")
+
+
+def _sync_csv_to_db():
+    """daily_dataのCSVをDBにも同期する"""
+    db.ensure_db()
+
+    import pandas as pd
+
+    csv_db_map = [
+        (PROG_FILE, "races", db.RACE_COLUMNS, {"ID": "RaceID"}),
+        (RES_FILE, "results", db.RESULT_COLUMNS, {"ID": "RaceID"}),
+        (BI_FILE, "beforeinfo", db.BEFOREINFO_COLUMNS, {"ID": "RaceID"}),
+        (STATS_FILE, "player_stats", db.PLAYER_STATS_COLUMNS, {}),
+        (ODDS_FILE, "odds", db.ODDS_COLUMNS, {"ID": "RaceID"}),
+    ]
+
+    for csv_file, table, columns, col_map in csv_db_map:
+        if not os.path.exists(csv_file):
+            continue
+        try:
+            df = pd.read_csv(csv_file, dtype=str)
+            if df.empty:
+                continue
+            if col_map:
+                df = df.rename(columns=col_map)
+            for col in columns:
+                if col not in df.columns:
+                    df[col] = ''
+            rows = df[columns].fillna('').values.tolist()
+            db.insert_rows(table, columns, rows)
+            print(f"  ✅ {os.path.basename(csv_file)} → {table}: {len(rows)} 行同期")
+        except Exception as e:
+            print(f"  [WARN] {os.path.basename(csv_file)} 同期失敗: {e}")
+
 
 if __name__ == "__main__":
     main()
