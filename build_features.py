@@ -164,6 +164,56 @@ def main():
     df_merged['Avg_WinRate'] = np.nanmean(win_rates, axis=0)
     df_merged['B1_WinRate_Over_Avg'] = df_merged['B1_WinRate'] - df_merged['Avg_WinRate']
 
+    # --- 追加特徴量 (2026-04 拡張) ---
+    print("追加特徴量を生成しています...")
+
+    # (A) 会場エンコーディング（Label Encoding）
+    # 会場ごとに水面特性が全く違うため、カテゴリ特徴量として取り込む
+    venue_list = sorted(df_merged['Venue'].dropna().unique())
+    venue_to_id = {v: i for i, v in enumerate(venue_list)}
+    df_merged['VenueID'] = df_merged['Venue'].map(venue_to_id).fillna(-1).astype(int)
+
+    # (B) 月・季節の特徴量（水温・モーター性能に季節性がある）
+    df_merged['Month'] = pd.to_datetime(df_merged['Date'], errors='coerce').dt.month.fillna(0).astype(int)
+
+    # (C) 展示タイムの相対指標（1号艇が機力負けしているかの判定に重要）
+    ex_times = []
+    for lane in range(1, 7):
+        col = f'B{lane}_ExTime'
+        if col in df_merged.columns:
+            ex_times.append(df_merged[col])
+    if ex_times:
+        ex_df = pd.concat(ex_times, axis=1)
+        df_merged['ExTime_Min'] = ex_df.min(axis=1)          # 場内最速タイム
+        df_merged['ExTime_Max'] = ex_df.max(axis=1)          # 場内最遅タイム
+        df_merged['ExTime_Spread'] = df_merged['ExTime_Max'] - df_merged['ExTime_Min']  # タイム差（拮抗度）
+        df_merged['B1_ExTime_vs_Min'] = df_merged['B1_ExTime'] - df_merged['ExTime_Min']  # 1号艇と最速の差
+        df_merged['B1_ExTime_vs_Avg'] = df_merged['B1_ExTime'] - ex_df.mean(axis=1)       # 1号艇と平均の差
+
+    # (D) 勝率の追加相対指標
+    df_merged['Max_WinRate'] = pd.concat([df_merged[f'B{i}_WinRate'] for i in range(1, 7)], axis=1).max(axis=1)
+    df_merged['WinRate_Spread'] = df_merged['Max_WinRate'] - pd.concat([df_merged[f'B{i}_WinRate'] for i in range(1, 7)], axis=1).min(axis=1)
+    # 1号艇が最強かどうか（1号艇勝率 == 場内最高ならば1、そうでなければ差分の逆数的指標）
+    df_merged['B1_Is_Top_WinRate'] = (df_merged['B1_WinRate'] >= df_merged['Max_WinRate']).astype(int)
+    # 2-6号艇の最高勝率（1号艇の脅威度）
+    outer_wr = pd.concat([df_merged[f'B{i}_WinRate'] for i in range(2, 7)], axis=1)
+    df_merged['Max_Outer_WinRate'] = outer_wr.max(axis=1)
+    df_merged['Diff_B1_vs_MaxOuter'] = df_merged['B1_WinRate'] - df_merged['Max_Outer_WinRate']
+
+    # (E) ランクスコアの集約指標
+    rank_scores = [df_merged[f'B{i}_RankScore'] for i in range(1, 7)]
+    df_merged['Avg_RankScore'] = np.nanmean(rank_scores, axis=0)
+    df_merged['B1_RankScore_Over_Avg'] = df_merged['B1_RankScore'] - df_merged['Avg_RankScore']
+
+    # (F) 風向き × 風速の交互作用（向かい風で強風だとイン不利）
+    # WindDir をカテゴリコードに変換
+    wind_dir_map = {'追い風': 0, '向かい風': 1, '右横風': 2, '左横風': 3, '無風': 4}
+    df_merged['WindDirCode'] = df_merged['WindDir'].map(wind_dir_map).fillna(4).astype(int)
+    df_merged['IsHeadwind'] = (df_merged['WindDir'] == '向かい風').astype(int)
+    df_merged['Headwind_x_Speed'] = df_merged['IsHeadwind'] * df_merged['WindSpeed'].fillna(0)
+
+    print(f"  追加特徴量の生成完了。")
+
     # Phase 4: モーター成績の特徴量追加
     if use_db and not df_motor.empty:
         print("モーター成績の特徴量を追加しています...")

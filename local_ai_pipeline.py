@@ -316,45 +316,120 @@ def estimate_trifecta_probs(probs_1st, probs_2nd, probs_3rd, top_n=20):
 
 
 def build_race_features(group, bi_dict):
-    """1レース分の出走表データ(group)と直前情報(bi_dict)から、LightGBMモデル用の37フィーチャーを構築する"""
+    """1レース分の出走表データ(group)と直前情報(bi_dict)から、LightGBMモデル用のフィーチャーを構築する"""
     race_id = group['ID'].iloc[0]
     r_no = int(group['R'].iloc[0])
-    
+    venue = str(group['Venue'].iloc[0])
+    date_str = str(group['Date'].iloc[0])
+
     # --- 直前情報の取得 ---
     bi = bi_dict.get(str(race_id), {})
     wind_speed = clean_numeric(bi.get('WindSpeed', np.nan))
     wave = clean_numeric(bi.get('Wave', np.nan))
     water_temp = clean_numeric(bi.get('WaterTemp', np.nan))
-    
+    wind_dir = str(bi.get('WindDir', '無風')).strip()
+
     features = {'R': r_no, 'WindSpeed': wind_speed, 'Wave': wave, 'WaterTemp': water_temp}
-    
+
     # --- 艇別データの構築 ---
     for _, row in group.iterrows():
         lane = int(row['Lane'])
         prefix = f'B{lane}'
-        
+
         # 勝率
         features[f'{prefix}_WinRate'] = clean_numeric(row.get('WinRate', np.nan))
         # モーター番号
         features[f'{prefix}_Motor'] = clean_numeric(row.get('Motor', 0))
         # ランクスコア
         features[f'{prefix}_RankScore'] = rank_to_score(row.get('Rank', ''))
-        
+
         # 直前情報からTiltとExTime
         features[f'{prefix}_Tilt'] = clean_numeric(bi.get(f'{prefix}_Tilt', np.nan))
         features[f'{prefix}_ExTime'] = clean_numeric(bi.get(f'{prefix}_ExTime', np.nan))
-    
-    # --- 派生特徴量 ---
+
+        # コース別成績（あれば）
+        features[f'{prefix}_Course_Win'] = clean_numeric(row.get('Course_Win', 0))
+        features[f'{prefix}_Course_2in'] = clean_numeric(row.get('Course_2in', 0))
+        features[f'{prefix}_Course_3in'] = clean_numeric(row.get('Course_3in', 0))
+        # Weight
+        features[f'{prefix}_Weight'] = clean_numeric(bi.get(f'{prefix}_Weight', np.nan))
+
+    # --- 派生特徴量（既存） ---
     b1_wr = features.get('B1_WinRate', np.nan)
     b2_wr = features.get('B2_WinRate', np.nan)
     features['Diff_WinRate_1_2'] = (b1_wr - b2_wr) if not (np.isnan(b1_wr) or np.isnan(b2_wr)) else 0
-    
+
     win_rates = [features.get(f'B{i}_WinRate', np.nan) for i in range(1, 7)]
     valid_wr = [w for w in win_rates if not np.isnan(w)]
     avg_wr = np.mean(valid_wr) if valid_wr else 0
     features['Avg_WinRate'] = avg_wr
     features['B1_WinRate_Over_Avg'] = (b1_wr - avg_wr) if not np.isnan(b1_wr) else 0
-    
+
+    # --- 派生特徴量（2026-04 拡張） ---
+    # (A) 会場エンコーディング
+    _venue_list = ['びわこ','ボートレース','下関','三国','住之江','児島','唐津','多摩川','大村',
+                   '宮島','尼崎','常滑','平和島','徳山','戸田','桐生','浜名湖','津','芦屋',
+                   '蒲郡','若松','丸亀','福岡','鳴門','江戸川']
+    _venue_list_sorted = sorted(_venue_list)
+    _venue_map = {v: i for i, v in enumerate(_venue_list_sorted)}
+    features['VenueID'] = _venue_map.get(venue, -1)
+
+    # (B) 月
+    try:
+        features['Month'] = int(date_str.split('-')[1])
+    except Exception:
+        features['Month'] = 0
+
+    # (C) 展示タイム相対指標
+    ex_vals = [features.get(f'B{i}_ExTime', np.nan) for i in range(1, 7)]
+    valid_ex = [v for v in ex_vals if not (isinstance(v, float) and np.isnan(v))]
+    if valid_ex:
+        ex_min = min(valid_ex)
+        ex_max = max(valid_ex)
+        ex_avg = np.mean(valid_ex)
+        features['ExTime_Min'] = ex_min
+        features['ExTime_Max'] = ex_max
+        features['ExTime_Spread'] = ex_max - ex_min
+        b1_ex = features.get('B1_ExTime', np.nan)
+        features['B1_ExTime_vs_Min'] = (b1_ex - ex_min) if not (isinstance(b1_ex, float) and np.isnan(b1_ex)) else 0
+        features['B1_ExTime_vs_Avg'] = (b1_ex - ex_avg) if not (isinstance(b1_ex, float) and np.isnan(b1_ex)) else 0
+    else:
+        features['ExTime_Min'] = 0
+        features['ExTime_Max'] = 0
+        features['ExTime_Spread'] = 0
+        features['B1_ExTime_vs_Min'] = 0
+        features['B1_ExTime_vs_Avg'] = 0
+
+    # (D) 勝率の追加相対指標
+    valid_wr_all = [w for w in win_rates if not (isinstance(w, float) and np.isnan(w))]
+    if valid_wr_all:
+        features['Max_WinRate'] = max(valid_wr_all)
+        features['WinRate_Spread'] = max(valid_wr_all) - min(valid_wr_all)
+        features['B1_Is_Top_WinRate'] = 1 if (not np.isnan(b1_wr) and b1_wr >= max(valid_wr_all)) else 0
+        outer_wr = [features.get(f'B{i}_WinRate', 0) for i in range(2, 7)]
+        outer_valid = [w for w in outer_wr if not (isinstance(w, float) and np.isnan(w))]
+        max_outer = max(outer_valid) if outer_valid else 0
+        features['Max_Outer_WinRate'] = max_outer
+        features['Diff_B1_vs_MaxOuter'] = (b1_wr - max_outer) if not np.isnan(b1_wr) else 0
+    else:
+        features['Max_WinRate'] = 0
+        features['WinRate_Spread'] = 0
+        features['B1_Is_Top_WinRate'] = 0
+        features['Max_Outer_WinRate'] = 0
+        features['Diff_B1_vs_MaxOuter'] = 0
+
+    # (E) ランクスコア集約
+    rank_scores = [features.get(f'B{i}_RankScore', 0) for i in range(1, 7)]
+    features['Avg_RankScore'] = np.mean(rank_scores)
+    features['B1_RankScore_Over_Avg'] = features.get('B1_RankScore', 0) - features['Avg_RankScore']
+
+    # (F) 風向き交互作用
+    wind_dir_map = {'追い風': 0, '向かい風': 1, '右横風': 2, '左横風': 3, '無風': 4}
+    features['WindDirCode'] = wind_dir_map.get(wind_dir, 4)
+    features['IsHeadwind'] = 1 if wind_dir == '向かい風' else 0
+    ws = wind_speed if not (isinstance(wind_speed, float) and np.isnan(wind_speed)) else 0
+    features['Headwind_x_Speed'] = features['IsHeadwind'] * ws
+
     return features
 
 def score_race_with_lgb(model, features_dict):

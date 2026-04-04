@@ -176,7 +176,7 @@ def train_single_model(target_col, label):
     y_pred_probs = model.predict(X_test)
     y_pred = np.argmax(y_pred_probs, axis=1)
     accuracy = accuracy_score(y_test, y_pred)
-    print(f"  [{label}] 🎯 的中率: {accuracy * 100:.2f}%")
+    print(f"  [{label}] [HIT] 的中率: {accuracy * 100:.2f}%")
 
     return model, accuracy
 
@@ -204,7 +204,7 @@ def evaluate_old_single_model(model_file, target_col, label):
         y_pred_probs = old_model.predict(X_test_old)
         y_pred = np.argmax(y_pred_probs, axis=1)
         accuracy = accuracy_score(y_test, y_pred)
-        print(f"  [{label}] 📊 旧モデル的中率: {accuracy * 100:.2f}%")
+        print(f"  [{label}] [OLD] 旧モデル的中率: {accuracy * 100:.2f}%")
         return accuracy
     except Exception as e:
         print(f"  [{label}] [WARN] 旧モデル評価失敗: {e}")
@@ -289,16 +289,16 @@ def _update_model_if_better(new_model, new_accuracy, old_accuracy, model_file, b
     if new_accuracy > old_accuracy:
         if os.path.exists(model_file):
             shutil.copy2(model_file, backup_file)
-            print(f"  [{label}] 📦 旧モデルをバックアップ")
+            print(f"  [{label}] [BACKUP] 旧モデルをバックアップ")
         new_model.save_model(model_file)
-        print(f"  [{label}] ✅ 自動アップデート (+{improvement:.2f}%)")
+        print(f"  [{label}] [UPDATE] 自動アップデート (+{improvement:.2f}%)")
     elif new_accuracy == old_accuracy:
         if os.path.exists(model_file):
             shutil.copy2(model_file, backup_file)
         new_model.save_model(model_file)
-        print(f"  [{label}] 🔄 同精度のため新データモデルに更新")
+        print(f"  [{label}] [REFRESH] 同精度のため新データモデルに更新")
     else:
-        print(f"  [{label}] ❌ アップデート見送り ({improvement:.2f}%)")
+        print(f"  [{label}] [SKIP] アップデート見送り ({improvement:.2f}%)")
 
 
 if __name__ == "__main__":
