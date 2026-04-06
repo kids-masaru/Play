@@ -179,9 +179,14 @@ def parse_buy_str(pred_text):
     """AIの予測テキストから買い目（コンボ）リストを抽出する"""
     import re as _re
     try:
-        buy_part = str(pred_text).split('■最終推奨買い目')[1].strip()
-        eyes = _re.findall(r'\d-\d-\d|\d{3}', buy_part)
-        return [e.replace('-', '') for e in eyes]
+        text = str(pred_text)
+        for marker in ['■最終推奨買い目', '【最終推奨買い目】', '【最終推奨買い目', '最終推奨買い目']:
+            if marker in text:
+                buy_part = text.split(marker)[-1].strip()
+                eyes = _re.findall(r'\d-\d-\d|\d{3}', buy_part)
+                if eyes:
+                    return [e.replace('-', '') for e in eyes]
+        return []
     except:
         return []
 

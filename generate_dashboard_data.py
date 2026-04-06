@@ -16,9 +16,14 @@ OUTPUT_JSON = os.path.join("dashboard", "public", "daily_data", "dashboard_data.
 def parse_buy_str(pred_text):
     """AIの予測テキストから買い目を抽出する"""
     try:
-        buy_part = pred_text.split('■最終推奨買い目')[1].strip()
-        eyes = re.findall(r'\d-\d-\d|\d{3}', buy_part)
-        return [e.replace('-', '') for e in eyes]
+        # 複数のフォーマットバリエーションに対応
+        for marker in ['■最終推奨買い目', '【最終推奨買い目】', '【最終推奨買い目', '最終推奨買い目']:
+            if marker in pred_text:
+                buy_part = pred_text.split(marker)[-1].strip()
+                eyes = re.findall(r'\d-\d-\d|\d{3}', buy_part)
+                if eyes:
+                    return [e.replace('-', '') for e in eyes]
+        return []
     except:
         return []
 
@@ -48,17 +53,21 @@ def load_odds_dict():
 
 def parse_reasoning(pred_text):
     """AIの予測テキストから展開予想と推奨理由を抽出する"""
+    BUY_MARKERS = ['■最終推奨買い目', '【最終推奨買い目】', '【最終推奨買い目', '最終推奨買い目']
     try:
         text = str(pred_text)
-        # 「■展開予想と推奨理由」の後ろ〜「■最終推奨買い目」の前を抽出
+        # 「■展開予想と推奨理由」の後ろ〜買い目マーカーの前を抽出
         if '■展開予想と推奨理由' in text:
             reasoning = text.split('■展開予想と推奨理由')[1]
-            if '■最終推奨買い目' in reasoning:
-                reasoning = reasoning.split('■最終推奨買い目')[0]
+            for m in BUY_MARKERS:
+                if m in reasoning:
+                    reasoning = reasoning.split(m)[0]
+                    break
             return reasoning.strip()[:300]
-        # フォールバック: 買い目の前の部分を取る
-        if '■最終推奨買い目' in text:
-            return text.split('■最終推奨買い目')[0].strip()[-300:]
+        # フォールバック: 買い目マーカーの前の部分を取る
+        for m in BUY_MARKERS:
+            if m in text:
+                return text.split(m)[0].strip()[-300:]
         return text[:200]
     except:
         return ""
