@@ -1,0 +1,2 @@
+trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite_score	change_summary	is_kept
+1	2026-04-16 08:12:36	d9ad1c4	659.95	7.62	10218	779	1021800	6743340	659.95	baseline (初期スコア)	0

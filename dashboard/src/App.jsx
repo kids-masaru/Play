@@ -8,8 +8,10 @@ import './index.css';
 
 const App = () => {
   const [data, setData] = useState(null);
+  const [loopData, setLoopData] = useState(null);
   const [error, setError] = useState(null);
   const [period, setPeriod] = useState('total'); // 'weekly', 'monthly', 'total'
+  const [page, setPage] = useState('dashboard'); // 'dashboard', 'ailab'
   const [expandedRaces, setExpandedRaces] = useState(new Set());
 
   const toggleReasoning = (id) => {
@@ -32,6 +34,11 @@ const App = () => {
         console.error("Data load error:", err);
         setError(err.message);
       });
+
+    fetch('./daily_data/loop_results.json')
+      .then(res => res.ok ? res.json() : null)
+      .then(json => json && setLoopData(json))
+      .catch(() => {});
   }, []);
 
   if (error) return (
@@ -52,23 +59,106 @@ const App = () => {
     return data.daily_history.slice(-days);
   })();
 
+  // AI Labページ
+  const renderAiLab = () => (
+    <div>
+      <div className="glass-card" style={{ marginBottom: '1.5rem', padding: '1.5rem' }}>
+        <h3 style={{ margin: '0 0 1rem 0', fontSize: '1.2rem' }}>自己改善ループ サマリー</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '1rem' }}>
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.3rem' }}>累計試行数</div>
+            <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--accent-blue)' }}>{loopData?.total_trials ?? '-'}</div>
+          </div>
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.3rem' }}>改善成功</div>
+            <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--success)' }}>{loopData?.total_improvements ?? '-'}</div>
+          </div>
+          {loopData?.best && (
+            <>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.3rem' }}>最高スコア</div>
+                <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--accent-purple)' }}>{Number(loopData.best.composite_score).toFixed(1)}</div>
+              </div>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.3rem' }}>最高ROI</div>
+                <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--success)' }}>{Number(loopData.best.roi).toFixed(1)}%</div>
+              </div>
+            </>
+          )}
+        </div>
+        {loopData?.best && (
+          <div style={{ marginTop: '1rem', padding: '0.75rem', background: 'rgba(99,102,241,0.08)', borderRadius: '8px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+            🏆 ベスト試行 #{loopData.best.trial_id}: {loopData.best.change_summary}
+          </div>
+        )}
+      </div>
+
+      <div className="glass-card" style={{ padding: '1.5rem' }}>
+        <h3 style={{ margin: '0 0 1rem 0', fontSize: '1.2rem' }}>実験ログ（直近50件）</h3>
+        {!loopData || loopData.trials.length === 0 ? (
+          <p style={{ color: 'var(--text-secondary)' }}>まだ実験データがありません。</p>
+        ) : (
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.82rem' }}>
+              <thead>
+                <tr style={{ borderBottom: '2px solid #e2e8f0' }}>
+                  {['#', '日時', 'ROI%', '的中率%', '取引数', 'スコア', '採用', '変更内容'].map(h => (
+                    <th key={h} style={{ padding: '0.5rem 0.75rem', textAlign: 'left', color: 'var(--text-secondary)', fontWeight: 600, whiteSpace: 'nowrap' }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[...loopData.trials].reverse().map((t, i) => {
+                  const kept = String(t.is_kept) === '1';
+                  return (
+                    <tr key={i} style={{ borderBottom: '1px solid #f1f5f9', background: kept ? 'rgba(16,185,129,0.04)' : 'transparent' }}>
+                      <td style={{ padding: '0.5rem 0.75rem', color: 'var(--text-secondary)' }}>{t.trial_id}</td>
+                      <td style={{ padding: '0.5rem 0.75rem', whiteSpace: 'nowrap', color: 'var(--text-secondary)' }}>{String(t.timestamp).slice(0, 16)}</td>
+                      <td style={{ padding: '0.5rem 0.75rem', fontWeight: 600, color: Number(t.roi) >= 100 ? 'var(--success)' : 'var(--text-primary)' }}>{Number(t.roi).toFixed(1)}</td>
+                      <td style={{ padding: '0.5rem 0.75rem' }}>{Number(t.hit_rate).toFixed(1)}</td>
+                      <td style={{ padding: '0.5rem 0.75rem' }}>{t.n_trades}</td>
+                      <td style={{ padding: '0.5rem 0.75rem', fontWeight: 600, color: 'var(--accent-purple)' }}>{Number(t.composite_score).toFixed(1)}</td>
+                      <td style={{ padding: '0.5rem 0.75rem', textAlign: 'center' }}>{kept ? '✅' : '❌'}</td>
+                      <td style={{ padding: '0.5rem 0.75rem', color: 'var(--text-secondary)', maxWidth: '280px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={t.change_summary}>{t.change_summary}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
   return (
     <div className="dashboard-container">
       <header className="header">
-        <h1>BOAT RACE AI | Premium ROI Dashboard</h1>
-        <div className="tab-container">
-          {['weekly', 'monthly', 'total'].map(p => (
-            <button 
-              key={p} 
-              className={`tab-button ${period === p ? 'active' : ''}`}
-              onClick={() => setPeriod(p)}
-            >
-              {p === 'weekly' ? '7 Days' : p === 'monthly' ? '30 Days' : 'All Time'}
-            </button>
-          ))}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
+          <h1 style={{ margin: 0 }}>BOAT RACE AI | Premium ROI Dashboard</h1>
+          <div className="tab-container">
+            <button className={`tab-button ${page === 'dashboard' ? 'active' : ''}`} onClick={() => setPage('dashboard')}>Dashboard</button>
+            <button className={`tab-button ${page === 'ailab' ? 'active' : ''}`} onClick={() => setPage('ailab')}>AI Lab</button>
+          </div>
         </div>
+        {page === 'dashboard' && (
+          <div className="tab-container" style={{ marginTop: '0.75rem' }}>
+            {['weekly', 'monthly', 'total'].map(p => (
+              <button
+                key={p}
+                className={`tab-button ${period === p ? 'active' : ''}`}
+                onClick={() => setPeriod(p)}
+              >
+                {p === 'weekly' ? '7 Days' : p === 'monthly' ? '30 Days' : 'All Time'}
+              </button>
+            ))}
+          </div>
+        )}
       </header>
 
+      {page === 'ailab' && renderAiLab()}
+
+      {page === 'dashboard' && <>
       <div className="stats-grid">
         <div className="glass-card stat-item">
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -205,6 +295,7 @@ const App = () => {
           </div>
         ))}
       </div>
+      </>}
     </div>
   );
 };

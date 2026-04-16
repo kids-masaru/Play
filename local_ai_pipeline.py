@@ -9,7 +9,7 @@ import database as db
 
 # --- 設定 ---
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MODEL_NAME = "deepseek-r1:14b"
+MODEL_NAME = "gemma4:e2b"
 DATA_DIR = "daily_data"
 
 PROG_FILE = os.path.join(DATA_DIR, "daily_raw_race_data.csv")
@@ -51,7 +51,8 @@ def call_deepseek(prompt, max_retries=3):
             
             if response.status_code == 200:
                 result = response.json()
-                return result.get("response", "")
+                raw = result.get("response", "")
+                return raw
             else:
                 print(f"  [WARN] Ollama応答エラー (HTTP {response.status_code}): {response.text[:200]}")
         except Exception as e:

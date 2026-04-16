@@ -291,3 +291,247 @@ RaceID, Date, Venue, Weather, WindLevel, Lesson
 
 - **AI推論エンジン**: DeepSeek-R1:14b をそのまま使用（ユーザー指示）
 - **ベッティング金額**: 1レース3000円の固定投資（Phase 1完了後にケリー基準を検討）
+
+---
+
+## Phase 6: コアモデルの根本的修正（高効果・中コスト）
+
+### 背景・課題
+
+コードレビュー（2026-04-16）により、現状のモデルに以下の根本的な問題が判明した。
+
+1. **データリーク（時系列分割の欠落）**: `retrain_model.py` が `train_test_split(random_state=42)` で分割しており、未来のデータが訓練セットに混入している。現在表示されている精度は実際より高く見えている可能性がある。
+2. **クラス不均衡への非対応**: 1号艇の1着率は全体の約40〜50%、6号艇は2〜5%程度。この偏りを無視して学習しているため、2〜6号艇の予測精度が著しく低い。
+3. **条件付き確率の正規化が不完全**: `estimate_trifecta_probs()` での確率計算が正規化されておらず、合計が1にならないケースがある。
+
+### ゴール
+
+1. `retrain_model.py` の学習データ分割を時系列分割に変更し、データリークを解消する
+2. LightGBM学習時のクラス不均衡を補正し、2〜6号艇の予測精度を改善する
+3. 3連単確率推定の条件付き確率を正規化して合計=1を保証する
+
+### 対象ファイルと変更内容
+
+#### 1. `retrain_model.py` — 時系列分割への変更
+
+```python
+# 変更前（問題のあるランダム分割）
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# 変更後（時系列分割）
+def time_series_split(df, feature_cols, target_col, val_days=60):
+    """
+    直近 val_days 日をテスト、それより前を訓練データとして分割する。
+    ボートレースは時系列問題であり、未来データが訓練に混入しないよう保証する。
+    """
+    df = df.sort_values("Date")
+    split_date = df["Date"].max() - timedelta(days=val_days)
+    train_df = df[df["Date"] < split_date]
+    val_df   = df[df["Date"] >= split_date]
+    X_train = train_df[feature_cols]
+    X_val   = val_df[feature_cols]
+    y_train = train_df[target_col].astype(int) - 1
+    y_val   = val_df[target_col].astype(int) - 1
+    return X_train, X_val, y_train, y_val
+```
+
+- `val_days=60`（直近60日をバリデーション）を基本とする
+- A/Bテストも同じ分割で評価
+
+#### 2. `retrain_model.py` — クラス不均衡補正
+
+```python
+# LightGBMの is_unbalance または class_weight を利用
+params = {
+    'objective': 'multiclass',
+    'num_class': 6,
+    'is_unbalance': True,   # ← 追加
+    # または class_weight を辞書で指定
+}
+```
+
+- `is_unbalance=True` を追加するだけで LightGBM が自動補正する
+- 効果測定: 2〜6号艇の的中率の変化をログに記録する
+
+#### 3. `local_ai_pipeline.py` — 条件付き確率の正規化修正
+
+```python
+# 変更後の estimate_trifecta_probs() 内
+# 条件付き確率を正規化して合計=1を保証する
+def _normalize_excluding(probs, exclude_indices):
+    """exclude_indices を除いた確率を合計1に正規化する"""
+    mask = np.ones(6, dtype=bool)
+    for idx in exclude_indices:
+        mask[idx] = False
+    remaining = probs * mask
+    total = remaining.sum()
+    if total < 1e-10:
+        return remaining
+    return remaining / total
+```
+
+### 注意事項
+
+- 時系列分割に変更すると、現行モデルの精度評価数値が下がる可能性がある
+- これは「精度が下がった」のではなく「正確な精度が測定できるようになった」ことを意味する
+- 変更後のベースライン精度を記録してから、以降の改善と比較する
+
+---
+
+## Phase 7: 特徴量エンジニアリングの強化（高効果・自動実験）
+
+### 背景・課題
+
+現状の特徴量に以下の重要な情報が欠落している。特に「選手の短期調子」は予測に大きく影響するが未実装。
+
+### ゴール
+
+以下の特徴量を `build_features.py` に追加し、モデル精度を改善する。
+
+**※ 本Phaseの実験は `auto_research/` の自己改善ループが自動で試行する。**
+**人手で実装するのは、ループが発見できない構造的な改善のみとする。**
+
+### 追加対象の特徴量（重要度順）
+
+#### A. 選手の短期調子指標（重要度★★★）
+
+| 特徴量名 | 内容 | データソース |
+|---|---|---|
+| `B{n}_WinRate_30d` | 直近30日の1着率 | past_race_data + past_history_results |
+| `B{n}_WinRate_7d` | 直近7日の1着率 | 同上 |
+| `B{n}_Top3Rate_30d` | 直近30日の3着以内率 | 同上 |
+| `B{n}_DaysSinceLastRace` | 前回出走からの日数 | 同上 |
+
+- 長期累積勝率（`WinRate`）は「実力」を表すが、短期勝率は「今の調子」を表す
+- ブランクが長い選手はスタート感覚が鈍る可能性があるため、前走日数も重要
+
+#### B. 選手×会場の相性（重要度★★★）
+
+| 特徴量名 | 内容 |
+|---|---|
+| `B{n}_VenueWinRate` | この選手のこの会場での通算1着率 |
+| `B{n}_VenueCourseWinRate` | この選手のこの会場×コース（枠番）での1着率 |
+
+- ボートレース場ごとに水面特性（流れ、広さ、風の影響）が異なり、得意不得意がある
+- 会場別成績は `daily_player_course_stats.csv` に部分的に含まれているが、枠番との組み合わせがない
+
+#### C. 展示タイムの変化（重要度★★）
+
+| 特徴量名 | 内容 |
+|---|---|
+| `B{n}_ExTime_Delta` | 今回の展示タイム - 直近3走の平均展示タイム |
+
+- 展示タイムの「悪化」は当日のモーター・艇の状態悪化を示すシグナル
+- 絶対値より変化量の方が情報量が高い
+
+#### D. モーターの使用期間（重要度★★）
+
+| 特徴量名 | 内容 |
+|---|---|
+| `B{n}_MotorAge_Races` | そのモーターの当日までの出走回数（使用開始からの累計） |
+
+- モーターは使い始め（慣らし期間）と長期使用（劣化）でパフォーマンスが変わる
+- 中程度の使用回数（50〜200走）が最も好成績という傾向がある
+
+### ループとの役割分担
+
+```
+自己改善ループ（自動）
+  → 特徴量の組み合わせ・閾値・変換方法を自動探索
+  → 試行錯誤が必要な部分
+
+人手実装（Phase 7）
+  → 新しいデータソースへのアクセスが必要な特徴量
+  → build_features.py に手動で基盤コードを書く
+  → ループがその上で改善を重ねる
+```
+
+---
+
+## Phase 8: LLMプロンプトの最適化（中効果・低コスト）
+
+### 背景・課題
+
+`local_ai_pipeline.py` と `morning_odds_runner.py` のGemma4プロンプトに以下の改善余地がある。
+
+1. **Temperature が高すぎる**: 現在 `0.7` → 予測タスクには `0.3` が適切（ランダム性を下げる）
+2. **推論ステップが曖昧**: 「天才舟券師AIになりきれ」という指示より、Chain-of-Thoughtで思考を構造化する方が一貫した判断になる
+3. **教訓の使い方が受動的**: 教訓が注入されているだけで、「この教訓がなぜ今回のレースに関連するか」をAIが考えるよう誘導していない
+
+### ゴール
+
+1. `temperature: 0.7 → 0.3` に変更する（Ollama呼び出し箇所 2ファイル）
+2. 予測プロンプトにChain-of-Thoughtの推論ステップを追加する
+3. 教訓注入のプロンプトを「なぜ今回に関係するか」を考えさせる形式に変更する
+
+### 対象ファイルと変更内容
+
+#### 1. `local_ai_pipeline.py` と `morning_odds_runner.py` — Temperature変更
+
+```python
+# 変更前
+"options": {"temperature": 0.7, "num_predict": 2000}
+
+# 変更後
+"options": {"temperature": 0.3, "num_predict": 2000}
+```
+
+#### 2. `local_ai_pipeline.py` — Chain-of-Thoughtプロンプトの追加
+
+現在のプロンプト構造:
+```
+あなたは天才舟券師AI → レースデータ → 買い目を出せ
+```
+
+改善後の構造:
+```
+ステップ1: 1号艇（イン）の支配力を評価せよ
+  → 勝率・展示タイム・会場適性を見て [支配的/拮抗/劣位] と判断
+ステップ2: 最大の脅威艇を1艇選定せよ
+  → 勝率・展示タイム・コース成績の上位艇
+ステップ3: 外乱要因（気象）の影響を評価せよ
+  → 風速・向き がどの艇に有利/不利か
+ステップ4: 関連教訓を適用せよ
+  → 今回のレース条件に最も関係する教訓を引用して判断に反映
+ステップ5: EV上位の買い目から最終推奨を決定せよ
+```
+
+#### 3. 教訓活用プロンプトの改善
+
+```python
+# 変更前
+f"【過去の教訓】\n{lessons_text}"
+
+# 変更後
+f"""【過去の教訓（今回のレースへの適用を検討すること）】
+{lessons_text}
+※ 上記教訓のうち、今回のレース条件（会場: {venue}、天候: {weather}、風: {wind}）に
+   関係するものがあれば、その理由を明示して判断に組み込むこと。"""
+```
+
+### 効果測定方法
+
+- 変更前後の1週間分の予測を比較
+- 的中率・ROI・推奨買い目の多様性（特定の組み合わせに偏っていないか）を確認
+
+---
+
+## Phase 実施方針
+
+```
+Phase 6（コアモデル修正）   → 優先度 最高。精度の土台を正す。
+  ↓
+Phase 7（特徴量強化）       → 自己改善ループが自動実施。
+                              人手では新データソースの接続のみ。
+  ↓
+Phase 8（LLMプロンプト）    → Phase 6完了後に着手。
+                              temperature変更のみ先行実施可能。
+```
+
+## 各Phaseの期待効果
+
+| Phase | 対象 | 期待効果 | 工数 |
+|---|---|---|---|
+| Phase 6 | retrain_model.py / local_ai_pipeline.py | 精度評価の正確化 + 2〜6号艇精度向上 | 中 |
+| Phase 7 | build_features.py | 短期調子・会場相性の反映で精度向上 | 大（ループ自動化） |
+| Phase 8 | プロンプト2ファイル | LLM判断の安定化・一貫性向上 | 小 |

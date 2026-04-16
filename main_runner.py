@@ -21,12 +21,27 @@ def push_to_github():
         print("\n>>> GitHubへのデータ同期を開始します...")
         env = os.environ.copy()
         env["GIT_TERMINAL_PROMPT"] = "0"
-        # 1. Add
-        subprocess.run(["git", "add", "dashboard/public/daily_data/dashboard_data.json"], check=True, env=env)
-        # 2. Commit (フックを飛ばして非対話に)
+
+        # ループ実験ログ JSON を生成（auto_research/results.tsv → loop_results.json）
+        try:
+            import generate_loop_data
+            generate_loop_data.main()
+        except Exception as e:
+            print(f"  [WARN] generate_loop_data 失敗（無視して続行）: {e}")
+
+        # 1. Add（ダッシュボード用JSONを全て追加）
+        files_to_add = [
+            "dashboard/public/daily_data/dashboard_data.json",
+            "dashboard/public/daily_data/loop_results.json",
+        ]
+        for f in files_to_add:
+            if os.path.exists(f):
+                subprocess.run(["git", "add", f], check=True, env=env)
+
+        # 2. Commit
         commit_msg = f"Auto-update dashboard data: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
         subprocess.run(["git", "commit", "-m", commit_msg, "--no-verify"], check=True, env=env)
-        # 3. Push (非対話に)
+        # 3. Push
         subprocess.run(["git", "push", "origin", "main"], check=True, env=env)
         print(">>> GitHubへの同期が完了しました。")
         return True
