@@ -184,11 +184,19 @@ def main():
             ex_times.append(df_merged[col])
     if ex_times:
         ex_df = pd.concat(ex_times, axis=1)
+        ex_df.columns = [f'B{i}_ExTime' for i in range(1, len(ex_times) + 1)]
         df_merged['ExTime_Min'] = ex_df.min(axis=1)          # 場内最速タイム
         df_merged['ExTime_Max'] = ex_df.max(axis=1)          # 場内最遅タイム
         df_merged['ExTime_Spread'] = df_merged['ExTime_Max'] - df_merged['ExTime_Min']  # タイム差（拮抗度）
         df_merged['B1_ExTime_vs_Min'] = df_merged['B1_ExTime'] - df_merged['ExTime_Min']  # 1号艇と最速の差
         df_merged['B1_ExTime_vs_Avg'] = df_merged['B1_ExTime'] - ex_df.mean(axis=1)       # 1号艇と平均の差
+
+        # 展示タイム順位（1=最速）: 機力の序列を明示する
+        ex_ranks = ex_df.rank(axis=1, method='min', ascending=True)
+        for lane in range(1, 7):
+            col = f'B{lane}_ExTime'
+            if col in ex_df.columns:
+                df_merged[f'B{lane}_ExTime_Rank'] = ex_ranks[col]
 
     # (D) 勝率の追加相対指標
     df_merged['Max_WinRate'] = pd.concat([df_merged[f'B{i}_WinRate'] for i in range(1, 7)], axis=1).max(axis=1)
