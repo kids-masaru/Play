@@ -175,6 +175,9 @@ def main():
 
     # (B) 月・季節の特徴量（水温・モーター性能に季節性がある）
     df_merged['Month'] = pd.to_datetime(df_merged['Date'], errors='coerce').dt.month.fillna(0).astype(int)
+    # 循環エンコーディング: 12月→1月の不連続を埋めるため sin/cos 化
+    df_merged['Month_Sin'] = np.sin(2 * np.pi * df_merged['Month'] / 12)
+    df_merged['Month_Cos'] = np.cos(2 * np.pi * df_merged['Month'] / 12)
 
     # (C) 展示タイムの相対指標（1号艇が機力負けしているかの判定に重要）
     ex_times = []
