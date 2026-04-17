@@ -199,8 +199,14 @@ def main():
                 df_merged[f'B{lane}_ExTime_Rank'] = ex_ranks[col]
 
     # (D) 勝率の追加相対指標
-    df_merged['Max_WinRate'] = pd.concat([df_merged[f'B{i}_WinRate'] for i in range(1, 7)], axis=1).max(axis=1)
-    df_merged['WinRate_Spread'] = df_merged['Max_WinRate'] - pd.concat([df_merged[f'B{i}_WinRate'] for i in range(1, 7)], axis=1).min(axis=1)
+    wr_df = pd.concat([df_merged[f'B{i}_WinRate'] for i in range(1, 7)], axis=1)
+    wr_df.columns = [f'B{i}_WinRate' for i in range(1, 7)]
+    df_merged['Max_WinRate'] = wr_df.max(axis=1)
+    df_merged['WinRate_Spread'] = df_merged['Max_WinRate'] - wr_df.min(axis=1)
+    # 勝率順位（1=最強）: 選手実力の序列を明示
+    wr_ranks = wr_df.rank(axis=1, method='min', ascending=False)
+    for lane in range(1, 7):
+        df_merged[f'B{lane}_WinRate_Rank'] = wr_ranks[f'B{lane}_WinRate']
     # 1号艇が最強かどうか（1号艇勝率 == 場内最高ならば1、そうでなければ差分の逆数的指標）
     df_merged['B1_Is_Top_WinRate'] = (df_merged['B1_WinRate'] >= df_merged['Max_WinRate']).astype(int)
     # 2-6号艇の最高勝率（1号艇の脅威度）
