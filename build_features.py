@@ -288,6 +288,11 @@ def main():
         for lane in range(1, 7):
             df_merged[f'B{lane}_Course_2in_Rank'] = c2in_ranks[f'B{lane}_Course_2in']
 
+    # ExTimeMin_vs_VenueAvg（レース最速展示タイムと同会場平均との差）
+    if 'ExTime_Min' in df_merged.columns and 'Venue' in df_merged.columns:
+        venue_avg_exmin = df_merged.groupby('Venue')['ExTime_Min'].transform('mean')
+        df_merged['ExTimeMin_vs_VenueAvg'] = df_merged['ExTime_Min'] - venue_avg_exmin
+
     # (F) 風向き × 風速の交互作用（向かい風で強風だとイン不利）
     # WindDir をカテゴリコードに変換
     wind_dir_map = {'追い風': 0, '向かい風': 1, '右横風': 2, '左横風': 3, '無風': 4}

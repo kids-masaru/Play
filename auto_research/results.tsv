@@ -76,4 +76,6 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 75	2026-04-19 05:08:38	ea6d89a	151.17	9.77	9066	886	906600	1370540	151.17	Add B1-B6_Venue2inRate (player venue-specific 2nd place rate, venue familiarity for 2nd place)	0
 76	2026-04-19 05:11:46	ea6d89a	753.60	8.38	9066	760	906600	6832140	753.60	Add B1-B6_VenueWinRate_Rank (within-race rank of venue-specific win rate, 1=best venue fit)	0
 77	2026-04-19 05:15:16	ea6d89a	752.42	8.29	9066	752	906600	6821410	752.42	Add B1-B6_VenueLaneWR (venue x lane historical win rate, captures venue-specific lane advantage bias)	0
-78	2026-04-19 05:18:04	ea6d89a	770.51	8.77	9066	795	906600	6985420	770.51	Add B1-B6_Career2inRate and Career3inRate (overall career 2nd/3rd place rates, not lane-specific)	0
+78	2026-04-19 05:18:04	ea6d89a	770.51	8.77	9066	795	906600	6985420	770.51	Add B1-B6_Career2inRate and Career3inRate (overall career 2nd/3rd place rates, not lane-specific)	1
+79	2026-04-19 05:20:36	fe75030	767.91	8.71	9066	790	906600	6961860	767.91	Add B1-B6_Career2in_Rank (within-race rank of career overall 2nd place rate, 1=strongest 2nd-place tendency)	0
+80	2026-04-19 05:23:46	fe75030	773.57	8.78	9066	796	906600	7013220	773.57	Add ExTimeMin_vs_VenueAvg (race ExTime_Min relative to venue historical average, captures unusually fast/slow motor conditions)	0
