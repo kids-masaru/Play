@@ -85,4 +85,5 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 84	2026-04-19 05:36:51	bba1080	769.00	8.76	9066	794	906600	6971710	769.00	Add B1-B6_VenueWR_x_ExTimeAdv (VenueWinRate times negative ExTime_vs_Min, captures venue-strong player with fast motor)	0
 85	2026-04-19 05:39:41	bba1080	766.22	8.64	9066	783	906600	6946580	766.22	Add B1-B6_VenueLaneWinRate (historical win rate of lane X at venue Y, captures venue course structure bias independent of player)	0
 86	2026-04-19 05:42:24	bba1080	767.08	8.80	9066	798	906600	6954380	767.08	Add B1-B6_VenueRaceCount (player's total race count at each venue, captures course familiarity)	0
-87	2026-04-19 05:45:25	bba1080	820.52	9.36	9066	849	906600	7438790	820.52	Add B1-B6_VenueLanePWinRate (player win rate at specific venue AND lane combo, min 3 races, fallback to VenueWinRate)	0
+87	2026-04-19 05:45:25	bba1080	820.52	9.36	9066	849	906600	7438790	820.52	Add B1-B6_VenueLanePWinRate (player win rate at specific venue AND lane combo, min 3 races, fallback to VenueWinRate)	1
+88	2026-04-19 05:48:16	1a90812	823.63	9.53	9066	864	906600	7467030	823.63	Add B1-B6_VenueLanePWR_Rank (within-race rank of VenueLanePWinRate, 1=strongest venue-lane adapted player in race)	0
