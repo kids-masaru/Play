@@ -383,6 +383,14 @@ def main():
             vwr = pd.to_numeric(df_merged[vwr_col], errors='coerce').fillna(0)
             df_merged[f'B{lane}_CourseWin_x_VenueWR'] = cw * vwr
 
+    # 会場別平均払戻金（会場の荒れやすさ指標）
+    if 'Venue' in df_merged.columns and 'Payout' in df_merged.columns:
+        payout_num = pd.to_numeric(df_merged['Payout'], errors='coerce')
+        df_merged['_payout_tmp'] = payout_num
+        venue_avg_pay = df_merged.groupby('Venue')['_payout_tmp'].transform('mean')
+        df_merged['Venue_AvgPayout'] = venue_avg_pay
+        df_merged.drop(columns=['_payout_tmp'], inplace=True)
+
     # (F) 風向き × 風速の交互作用（向かい風で強風だとイン不利）
     # WindDir をカテゴリコードに変換
     wind_dir_map = {'追い風': 0, '向かい風': 1, '右横風': 2, '左横風': 3, '無風': 4}

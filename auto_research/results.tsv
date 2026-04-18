@@ -111,3 +111,10 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 110	2026-04-19 06:58:11	37f5baa	231.65	10.25	9066	929	906600	2100180	231.65	Add B1-B6_CourseWin_x_VenueLanePWR (official lane win rate * DB venue-lane win rate, two independent data source compound)	0
 111	2026-04-19 07:02:01	37f5baa	872.76	10.35	9066	938	906600	7912480	872.76	Add B1_VenueLanePWR_vs_MaxOuter (B1 venue-lane win rate minus max outer boat venue-lane win rate, B1 dominance by venue-lane mastery)	0
 112	2026-04-19 07:05:25	37f5baa	900.27	10.24	9066	928	906600	8161870	900.27	Add B1-B6_CourseWin_x_VLPBayes (official lane win rate * Bayesian smoothed venue-lane win rate, two source compound with noise reduction)	1
+113	2026-04-19 07:08:23	9ac41b1	893.14	10.40	9066	943	906600	8097250	893.14	Add B1-B6_VLPBayes_x_WR (Bayesian smoothed venue-lane win rate * overall WinRate, stable version of existing VenueLanePWR_x_WR)	0
+114	2026-04-19 07:11:22	9ac41b1	885.60	10.13	9066	918	906600	8028880	885.60	Add B1-B6_VLPBayes_x_ExAdv (Bayesian smoothed venue-lane win rate * negative ExTime_vs_Min, stable venue-lane mastery with fast motor)	0
+115	2026-04-19 07:14:23	9ac41b1	886.10	10.10	9066	916	906600	8033400	886.10	Add B1-B6_Course2in_x_Career2in (official lane 2nd-place rate * DB career 2nd-place rate, two-source 2nd-place mastery compound)	0
+116	2026-04-19 07:17:24	9ac41b1	222.30	10.18	9066	923	906600	2015360	222.30	Add B1-B6_CourseWin_x_VenueWRBayes (official lane win rate * inline Bayesian smoothed VenueWinRate toward WinRate, alpha=5)	0
+117	2026-04-19 07:20:29	9ac41b1	220.43	10.09	9066	915	906600	1998410	220.43	Add B1-B6_VLPBayes_x_Course2in (Bayesian venue-lane 1st-place rate * official lane 2nd-place rate, top-2 finishing capability)	0
+118	2026-04-19 07:24:34	9ac41b1	882.57	10.17	9066	922	906600	8001410	882.57	Add B1-B6_CareerLanePWinRate (DB cross-venue lane win rate) + CourseWin_x_CareerLanePWR (official * DB lane win rate two-source compound)	0
+119	2026-04-19 07:27:54	9ac41b1	903.02	10.37	9066	940	906600	8186810	903.02	Add Venue_AvgPayout (historical average trifecta payout per venue, captures venue difficulty and upset frequency)	1
