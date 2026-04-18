@@ -119,7 +119,6 @@ def main():
                 FROM races r
                 JOIN results res ON r.RaceID = res.RaceID
                 GROUP BY r.PlayerID, r.Venue
-                HAVING COUNT(*) >= 3
             """)
             if not df_venue_wr.empty:
                 df_prog = pd.merge(df_prog, df_venue_wr, on=['PlayerID', 'Venue'], how='left')
