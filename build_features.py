@@ -201,6 +201,14 @@ def main():
             if col in ex_df.columns:
                 df_merged[f'B{lane}_ExTime_Rank'] = ex_ranks[col]
 
+        # 全レーン展示タイム相対差: 各艇の展示タイムと場内最速/平均の差（連続値）
+        ex_mean = ex_df.mean(axis=1)
+        for lane in range(1, 7):
+            col = f'B{lane}_ExTime'
+            if col in ex_df.columns:
+                df_merged[f'B{lane}_ExTime_vs_Min'] = df_merged[col] - df_merged['ExTime_Min']
+                df_merged[f'B{lane}_ExTime_vs_Avg'] = df_merged[col] - ex_mean
+
     # (D) 勝率の追加相対指標
     wr_df = pd.concat([df_merged[f'B{i}_WinRate'] for i in range(1, 7)], axis=1)
     wr_df.columns = [f'B{i}_WinRate' for i in range(1, 7)]

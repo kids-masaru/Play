@@ -6,3 +6,22 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 5	2026-04-17 14:10:23	f7c46b1	682.74	7.55	9822	742	982200	6705920	682.74	Add MotorWinRate rank per lane + B1_MotorWin_vs_Max	0
 6	2026-04-17 14:13:15	f7c46b1	682.19	7.57	9822	744	982200	6700430	682.19	Clean Weight (strip kg) + B#_Weight_vs_Mean + Weight_Spread	0
 7	2026-04-17 14:15:39	f7c46b1	686.09	7.78	9822	764	982200	6738780	686.09	Add Month sin/cos cyclical encoding for seasonality	1
+8	2026-04-17 14:18:09	d88e9ed	682.40	7.56	9822	743	982200	6702560	682.40	Add DayOfWeek sin/cos cyclical encoding	0
+9	2026-04-17 14:20:29	d88e9ed	682.89	7.60	9822	746	982200	6707340	682.89	Add VenueMonth_ID cross feature (venue-seasonality bias)	0
+10	2026-04-17 14:23:16	d88e9ed	684.06	7.59	9822	745	982200	6718850	684.06	Add R (race number) linear + sin/cos for intra-day progression	0
+11	2026-04-17 14:25:38	d88e9ed	686.09	7.78	9822	764	982200	6738780	686.09	Add B#_Count (race count per player, reliability indicator)	0
+12	2026-04-17 14:27:55	d88e9ed	686.09	7.78	9822	764	982200	6738780	686.09	Add Wave x Lane and Wind x Lane interactions (outer-lane disadvantage in rough conditions)	0
+13	2026-04-17 14:30:33	d88e9ed	680.26	7.41	9822	728	982200	6681500	680.26	Add WinRate x Course_Win interaction per lane (compound strength)	0
+14	2026-04-17 14:33:03	d88e9ed	679.44	7.53	9822	740	982200	6673470	679.44	Add WR_Share per lane (WinRate normalized by race-total, relative strength)	0
+15	2026-04-17 14:35:44	d88e9ed	681.83	7.57	9822	744	982200	6696970	681.83	Add WinRate Entropy (race competitiveness: lock vs open)	0
+16	2026-04-17 14:38:04	d88e9ed	686.09	7.78	9822	764	982200	6738780	686.09	Add full WindDir one-hot (Tailwind/Crosswind/NoWind) + Tailwind_x_Speed	0
+17	2026-04-17 14:40:33	d88e9ed	680.13	7.40	9822	727	982200	6680210	680.13	Add Diff_WinRate_1_3 ... 1_6 (B1 dominance per pair)	0
+18	2026-04-17 14:43:17	d88e9ed	684.13	7.64	9822	750	982200	6719510	684.13	Add B#_IsA (A-class binary) + NumA_Boats (count of elite in race)	0
+19	2026-04-17 14:45:52	d88e9ed	683.59	7.54	9822	741	982200	6714230	683.59	Add Tilt aggregates (Tilt_Mean / Max / NumPositive) for race-level aggressiveness	0
+20	2026-04-17 14:48:34	d88e9ed	686.09	7.78	9822	764	982200	6738780	686.09	Add WaterTemp binned (cold/cool/warm/hot) for nonlinear motor-temp effect	0
+21	2026-04-17 14:51:08	d88e9ed	684.14	7.68	9822	754	982200	6719580	684.14	Add Course_3in rank per lane (top-3 finishing stability for 3rd place)	0
+22	2026-04-17 14:53:30	d88e9ed	679.10	7.43	9822	730	982200	6670150	679.10	Add DayOfYear sin/cos (finer-grained seasonality beyond month)	0
+23	2026-04-17 14:56:03	d88e9ed	684.81	7.63	9822	749	982200	6726190	684.81	Add Inner (1-2) vs Outer (3-6) WinRate balance + B1 vs outer3-6 diff	0
+24	2026-04-17 14:58:41	d88e9ed	683.65	7.55	9822	742	982200	6714800	683.65	Add sorted WR (descending) per race + Top2_Gap + Top3_Sum (race strength distribution)	0
+25	2026-04-17 15:01:13	d88e9ed	683.18	7.63	9822	749	982200	6710200	683.18	Add Wave_x_Wind interaction (compound rough-water severity)	0
+26	2026-04-19 03:02:34	4ff1c82	733.57	7.60	9066	689	906600	6650560	733.57	Add B2-B6_ExTime_vs_Min and vs_Avg (relative motor speed diff for all lanes)	0
