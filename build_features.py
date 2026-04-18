@@ -131,10 +131,37 @@ def main():
     else:
         df_prog['VenueWinRate'] = df_prog['WinRate']
 
+    # キャリア通算2着率・3着率を計算してdf_progに追加
+    if use_db:
+        try:
+            df_career_rates = db.query_df("""
+                SELECT r.PlayerID,
+                       CAST(SUM(CASE WHEN CAST(SUBSTR(res.Result, 3, 1) AS INTEGER) = r.Lane THEN 1 ELSE 0 END) AS FLOAT)
+                       / NULLIF(COUNT(*), 0) as Career2inRate,
+                       CAST(SUM(CASE WHEN CAST(SUBSTR(res.Result, 5, 1) AS INTEGER) = r.Lane THEN 1 ELSE 0 END) AS FLOAT)
+                       / NULLIF(COUNT(*), 0) as Career3inRate
+                FROM races r
+                JOIN results res ON r.RaceID = res.RaceID
+                GROUP BY r.PlayerID
+            """)
+            if not df_career_rates.empty:
+                df_prog = pd.merge(df_prog, df_career_rates, on='PlayerID', how='left')
+                df_prog['Career2inRate'] = df_prog['Career2inRate'].fillna(0)
+                df_prog['Career3inRate'] = df_prog['Career3inRate'].fillna(0)
+            else:
+                df_prog['Career2inRate'] = 0
+                df_prog['Career3inRate'] = 0
+        except Exception:
+            df_prog['Career2inRate'] = 0
+            df_prog['Career3inRate'] = 0
+    else:
+        df_prog['Career2inRate'] = 0
+        df_prog['Career3inRate'] = 0
+
     # 3. 出走表データを 1レース1行 にピボット
     print("出走表データをレースごとに横展開しています...")
     # カラムリストを動的に作成（Course_Win等を追加）
-    pivot_extra = ['VenueWinRate'] if 'VenueWinRate' in df_prog.columns else []
+    pivot_extra = [c for c in ['VenueWinRate', 'Career2inRate', 'Career3inRate'] if c in df_prog.columns]
     pivot_cols = ['Rank', 'WinRate', 'Motor', 'Course_Win', 'Course_2in', 'Course_3in'] + pivot_extra
     pivot_prog = df_prog.pivot(index='ID', columns='Lane', values=pivot_cols)
     pivot_prog.columns = [f'B{lane}_{col}' for col, lane in pivot_prog.columns]

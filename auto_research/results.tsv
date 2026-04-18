@@ -71,4 +71,9 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 70	2026-04-19 04:51:52	63855e9	729.69	7.51	9066	681	906600	6615400	729.69	Add B1-B6_ET_C2in_Product (ExTime_Rank * Course_2in_Rank product, lower=stronger 2nd-place motor+course candidate)	0
 71	2026-04-19 04:54:44	63855e9	729.28	7.42	9066	673	906600	6611610	729.28	Add B1-B6_Course_2in_vs_Min (course 2nd-place rate minus race minimum, advantage over weakest 2nd-place boat)	0
 72	2026-04-19 04:57:56	63855e9	730.51	7.63	9066	692	906600	6622790	730.51	Add B1-B6_BestCWin (player's best win rate across all 6 lane positions, true skill ceiling as raw value)	0
-73	2026-04-19 05:01:59	63855e9	756.22	8.41	9066	762	906600	6855850	756.22	Add B1-B6_VenueWinRate (player venue-specific win rate from race history, captures venue familiarity beyond overall WinRate)	0
+73	2026-04-19 05:01:59	63855e9	756.22	8.41	9066	762	906600	6855850	756.22	Add B1-B6_VenueWinRate (player venue-specific win rate from race history, captures venue familiarity beyond overall WinRate)	1
+74	2026-04-19 05:05:52	ea6d89a	753.47	8.44	9066	765	906600	6831000	753.47	Add B1-B6_VenueAdapt (VenueWinRate - WinRate, venue-specific advantage over career average)	0
+75	2026-04-19 05:08:38	ea6d89a	151.17	9.77	9066	886	906600	1370540	151.17	Add B1-B6_Venue2inRate (player venue-specific 2nd place rate, venue familiarity for 2nd place)	0
+76	2026-04-19 05:11:46	ea6d89a	753.60	8.38	9066	760	906600	6832140	753.60	Add B1-B6_VenueWinRate_Rank (within-race rank of venue-specific win rate, 1=best venue fit)	0
+77	2026-04-19 05:15:16	ea6d89a	752.42	8.29	9066	752	906600	6821410	752.42	Add B1-B6_VenueLaneWR (venue x lane historical win rate, captures venue-specific lane advantage bias)	0
+78	2026-04-19 05:18:04	ea6d89a	770.51	8.77	9066	795	906600	6985420	770.51	Add B1-B6_Career2inRate and Career3inRate (overall career 2nd/3rd place rates, not lane-specific)	0
