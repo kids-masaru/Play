@@ -91,4 +91,6 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 90	2026-04-19 05:53:46	f23fc8e	814.48	9.43	9066	855	906600	7384040	814.48	Add B1-B6_VenueLanePWR_x_C2in (VenueLanePWinRate * Career2inRate, venue-lane mastery times career 2nd place consistency)	0
 91	2026-04-19 05:56:24	f23fc8e	823.72	9.64	9066	874	906600	7467860	823.72	Add B1-B6_VenueLanePWR_x_ExAdv (VenueLanePWinRate * negative ExTime_vs_Min, venue-lane expert with fast motor today)	1
 92	2026-04-19 05:59:17	8acf030	824.25	9.56	9066	867	906600	7472610	824.25	Add B1-B6_VenueLanePWR_x_WR (VenueLanePWinRate * WinRate, venue-lane mastery times overall skill compound)	1
-93	2026-04-19 06:03:40	3592a45	834.93	9.60	9066	870	906600	7569490	834.93	Add B1-B6_VenueLanePRaceCount (player race count at venue+lane combo, reliability indicator for VenueLanePWinRate)	0
+93	2026-04-19 06:03:40	3592a45	834.93	9.60	9066	870	906600	7569490	834.93	Add B1-B6_VenueLanePRaceCount (player race count at venue+lane combo, reliability indicator for VenueLanePWinRate)	1
+94	2026-04-19 06:06:31	77264cb	831.76	9.57	9066	868	906600	7540720	831.76	Add B1-B6_VenueLanePC_Rank (within-race rank of VenueLanePRaceCount, 1=most experienced at this venue-lane combo)	0
+95	2026-04-19 06:09:28	77264cb	864.55	10.18	9066	923	906600	7837970	864.55	Remove HAVING COUNT>=3 from VenueLanePWinRate query (include all players, let VenueLanePRaceCount control reliability)	0
