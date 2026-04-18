@@ -131,12 +131,13 @@ def main():
     else:
         df_prog['VenueWinRate'] = df_prog['WinRate']
 
-    # 選手×会場×レーン別勝率（VenueLanePWinRate）を追加
+    # 選手×会場×レーン別勝率（VenueLanePWinRate）と出走数を追加
     # VenueWinRateより細粒度: 選手がこの会場のこのレーンで何回1着に入ったか
     if use_db:
         try:
             df_vlpwr = db.query_df("""
                 SELECT r.PlayerID, r.Venue, r.Lane,
+                       COUNT(*) as VenueLanePRaceCount,
                        CAST(SUM(CASE WHEN CAST(SUBSTR(res.Result, 1, 1) AS INTEGER) = r.Lane THEN 1 ELSE 0 END) AS FLOAT)
                        / NULLIF(COUNT(*), 0) as VenueLanePWinRate
                 FROM races r
@@ -147,12 +148,16 @@ def main():
             if not df_vlpwr.empty:
                 df_prog = pd.merge(df_prog, df_vlpwr, on=['PlayerID', 'Venue', 'Lane'], how='left')
                 df_prog['VenueLanePWinRate'] = df_prog['VenueLanePWinRate'].fillna(df_prog['VenueWinRate'])
+                df_prog['VenueLanePRaceCount'] = df_prog['VenueLanePRaceCount'].fillna(0)
             else:
                 df_prog['VenueLanePWinRate'] = df_prog['VenueWinRate']
+                df_prog['VenueLanePRaceCount'] = 0
         except Exception:
             df_prog['VenueLanePWinRate'] = df_prog['VenueWinRate']
+            df_prog['VenueLanePRaceCount'] = 0
     else:
         df_prog['VenueLanePWinRate'] = df_prog['WinRate']
+        df_prog['VenueLanePRaceCount'] = 0
 
     # キャリア通算2着率・3着率を計算してdf_progに追加
     if use_db:
@@ -184,7 +189,7 @@ def main():
     # 3. 出走表データを 1レース1行 にピボット
     print("出走表データをレースごとに横展開しています...")
     # カラムリストを動的に作成（Course_Win等を追加）
-    pivot_extra = [c for c in ['VenueWinRate', 'Career2inRate', 'Career3inRate', 'VenueLanePWinRate'] if c in df_prog.columns]
+    pivot_extra = [c for c in ['VenueWinRate', 'Career2inRate', 'Career3inRate', 'VenueLanePWinRate', 'VenueLanePRaceCount'] if c in df_prog.columns]
     pivot_cols = ['Rank', 'WinRate', 'Motor', 'Course_Win', 'Course_2in', 'Course_3in'] + pivot_extra
     pivot_prog = df_prog.pivot(index='ID', columns='Lane', values=pivot_cols)
     pivot_prog.columns = [f'B{lane}_{col}' for col, lane in pivot_prog.columns]
