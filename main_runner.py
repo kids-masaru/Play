@@ -17,39 +17,60 @@ except ImportError as e:
 
 def push_to_github():
     """ダッシュボードのデータをGitHubにプッシュする"""
+    print("\n>>> GitHubへのデータ同期を開始します...")
+    env = os.environ.copy()
+    env["GIT_TERMINAL_PROMPT"] = "0"
+
+    # ループ実験ログ JSON を生成（auto_research/results.tsv → loop_results.json）
     try:
-        print("\n>>> GitHubへのデータ同期を開始します...")
-        env = os.environ.copy()
-        env["GIT_TERMINAL_PROMPT"] = "0"
+        import generate_loop_data
+        generate_loop_data.main()
+    except Exception as e:
+        print(f"  [WARN] generate_loop_data 失敗（無視して続行）: {e}")
 
-        # ループ実験ログ JSON を生成（auto_research/results.tsv → loop_results.json）
-        try:
-            import generate_loop_data
-            generate_loop_data.main()
-        except Exception as e:
-            print(f"  [WARN] generate_loop_data 失敗（無視して続行）: {e}")
-
-        # 1. Add（ダッシュボード用JSONを全て追加）
-        files_to_add = [
-            "dashboard/public/daily_data/dashboard_data.json",
-            "dashboard/public/daily_data/loop_results.json",
-        ]
-        for f in files_to_add:
-            if os.path.exists(f):
+    # 1. Add（夜バッチで更新されうるファイルをすべて追加）
+    files_to_add = [
+        "dashboard/public/daily_data/dashboard_data.json",
+        "dashboard/public/daily_data/loop_results.json",
+        "dashboard/public/daily_data/daily_odds_3t.csv",
+        "dashboard/public/daily_data/daily_predictions.csv",
+        "dashboard/public/daily_data/daily_reflections.csv",
+        "dashboard/public/daily_data/daily_player_course_stats.csv",
+        "daily_data/daily_odds_3t.csv",
+        "daily_data/daily_reflections.csv",
+    ]
+    for f in files_to_add:
+        if os.path.exists(f):
+            try:
                 subprocess.run(["git", "add", f], check=True, env=env)
+            except subprocess.CalledProcessError as e:
+                print(f"  [WARN] git add 失敗（続行）: {f} - {e}")
 
-        # 2. Commit
-        commit_msg = f"Auto-update dashboard data: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-        subprocess.run(["git", "commit", "-m", commit_msg, "--no-verify"], check=True, env=env)
-        # 3. Push
+    # 2. Commit（nothing to commit は正常扱い。ローカル既存コミットがあれば push だけでも意味がある）
+    commit_msg = f"Auto-update dashboard data: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+    commit_result = subprocess.run(
+        ["git", "commit", "-m", commit_msg, "--no-verify"],
+        env=env, capture_output=True, text=True,
+    )
+    if commit_result.returncode == 0:
+        print("  [INFO] 新規コミット作成済み")
+    else:
+        combined = (commit_result.stdout or "") + (commit_result.stderr or "")
+        if "nothing to commit" in combined or "nothing added to commit" in combined:
+            print("  [INFO] 今夜の新規コミット対象なし（既存のローカルコミットがあれば push します）")
+        else:
+            print(f"  [WARN] commit 失敗: {combined.strip()[:200]}")
+
+    # 3. Push（commit の成否に関係なく、ローカルに溜まった既存コミットも押し出す）
+    try:
         subprocess.run(["git", "push", "origin", "main"], check=True, env=env)
         print(">>> GitHubへの同期が完了しました。")
         return True
     except subprocess.CalledProcessError as e:
-        print(f">>> GitHubへの同期に失敗しました (Commit対象がない場合は正常です): {e}")
+        print(f">>> push 失敗: {e}")
         return False
     except Exception as e:
-        print(f">>> GitHub同期中に予期せぬエラーが発生しました: {e}")
+        print(f">>> GitHub同期中に予期せぬエラー: {e}")
         return False
 
 from linebot import LineBotApi
