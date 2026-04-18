@@ -324,6 +324,15 @@ def main():
         for lane in range(1, 7):
             df_merged[f'B{lane}_VenueLanePWR_Rank'] = vlpwr_ranks[f'B{lane}_VenueLanePWinRate']
 
+    # VenueLanePWinRate × 展示タイム優位性（会場レーン適性 × 当日モーター速さ）
+    for lane in range(1, 7):
+        vlp_col = f'B{lane}_VenueLanePWinRate'
+        etm_col = f'B{lane}_ExTime_vs_Min'
+        if vlp_col in df_merged.columns and etm_col in df_merged.columns:
+            vlp = pd.to_numeric(df_merged[vlp_col], errors='coerce').fillna(0)
+            etm = pd.to_numeric(df_merged[etm_col], errors='coerce').fillna(0)
+            df_merged[f'B{lane}_VenueLanePWR_x_ExAdv'] = vlp * (-etm)
+
     # (F) 風向き × 風速の交互作用（向かい風で強風だとイン不利）
     # WindDir をカテゴリコードに変換
     wind_dir_map = {'追い風': 0, '向かい風': 1, '右横風': 2, '左横風': 3, '無風': 4}
