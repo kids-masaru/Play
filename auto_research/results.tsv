@@ -78,4 +78,11 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 77	2026-04-19 05:15:16	ea6d89a	752.42	8.29	9066	752	906600	6821410	752.42	Add B1-B6_VenueLaneWR (venue x lane historical win rate, captures venue-specific lane advantage bias)	0
 78	2026-04-19 05:18:04	ea6d89a	770.51	8.77	9066	795	906600	6985420	770.51	Add B1-B6_Career2inRate and Career3inRate (overall career 2nd/3rd place rates, not lane-specific)	1
 79	2026-04-19 05:20:36	fe75030	767.91	8.71	9066	790	906600	6961860	767.91	Add B1-B6_Career2in_Rank (within-race rank of career overall 2nd place rate, 1=strongest 2nd-place tendency)	0
-80	2026-04-19 05:23:46	fe75030	773.57	8.78	9066	796	906600	7013220	773.57	Add ExTimeMin_vs_VenueAvg (race ExTime_Min relative to venue historical average, captures unusually fast/slow motor conditions)	0
+80	2026-04-19 05:23:46	fe75030	773.57	8.78	9066	796	906600	7013220	773.57	Add ExTimeMin_vs_VenueAvg (race ExTime_Min relative to venue historical average, captures unusually fast/slow motor conditions)	1
+81	2026-04-19 05:26:23	bba1080	769.84	8.71	9066	790	906600	6979400	769.84	Add AvgWR_vs_VenueAvg (race average WinRate relative to venue historical average, field strength relative to venue norm)	0
+82	2026-04-19 05:29:21	bba1080	769.48	8.81	9066	799	906600	6976130	769.48	Add B1-B6_VenueWR_vs_Avg (VenueWinRate minus race mean VenueWinRate, relative venue advantage among field)	0
+83	2026-04-19 05:34:00	bba1080	767.11	8.58	9066	778	906600	6954620	767.11	Add B1-B6_CareerTop3Rate (sum of WinRate + Career2inRate + Career3inRate, measures overall top-3 consistency)	0
+84	2026-04-19 05:36:51	bba1080	769.00	8.76	9066	794	906600	6971710	769.00	Add B1-B6_VenueWR_x_ExTimeAdv (VenueWinRate times negative ExTime_vs_Min, captures venue-strong player with fast motor)	0
+85	2026-04-19 05:39:41	bba1080	766.22	8.64	9066	783	906600	6946580	766.22	Add B1-B6_VenueLaneWinRate (historical win rate of lane X at venue Y, captures venue course structure bias independent of player)	0
+86	2026-04-19 05:42:24	bba1080	767.08	8.80	9066	798	906600	6954380	767.08	Add B1-B6_VenueRaceCount (player's total race count at each venue, captures course familiarity)	0
+87	2026-04-19 05:45:25	bba1080	820.52	9.36	9066	849	906600	7438790	820.52	Add B1-B6_VenueLanePWinRate (player win rate at specific venue AND lane combo, min 3 races, fallback to VenueWinRate)	0
