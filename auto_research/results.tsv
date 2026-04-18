@@ -95,4 +95,6 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 94	2026-04-19 06:06:31	77264cb	831.76	9.57	9066	868	906600	7540720	831.76	Add B1-B6_VenueLanePC_Rank (within-race rank of VenueLanePRaceCount, 1=most experienced at this venue-lane combo)	0
 95	2026-04-19 06:09:28	77264cb	864.55	10.18	9066	923	906600	7837970	864.55	Remove HAVING COUNT>=3 from VenueLanePWinRate query (include all players, let VenueLanePRaceCount control reliability)	1
 96	2026-04-19 06:12:14	5c137d8	873.02	10.21	9066	926	906600	7914820	873.02	Remove HAVING COUNT>=3 from VenueWinRate query (include all players with any venue history)	1
-97	2026-04-19 06:15:45	7e3d914	882.99	10.26	9066	930	906600	8005200	882.99	Add B1-B6_VenueRaceCount alongside VenueWinRate (reliability indicator for VenueWinRate, parallel to VenueLanePRaceCount)	0
+97	2026-04-19 06:15:45	7e3d914	882.99	10.26	9066	930	906600	8005200	882.99	Add B1-B6_VenueRaceCount alongside VenueWinRate (reliability indicator for VenueWinRate, parallel to VenueLanePRaceCount)	1
+98	2026-04-19 06:19:00	1afd85b	868.24	10.15	9066	920	906600	7871470	868.24	Add B1-B6_CareerRaceCount alongside Career2inRate/3inRate (total DB race count, reliability indicator for career 2nd/3rd rates)	0
+99	2026-04-19 06:22:07	1afd85b	885.52	10.23	9066	927	906600	8028090	885.52	Add B1-B6_VenueLanePWR_Bayes (Bayesian smoothed VenueLanePWinRate with VenueWinRate as prior, alpha=5)	0

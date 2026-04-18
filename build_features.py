@@ -350,6 +350,21 @@ def main():
             wr = pd.to_numeric(df_merged[wr_col], errors='coerce').fillna(0)
             df_merged[f'B{lane}_VenueLanePWR_x_WR'] = vlp * wr
 
+    # VenueLanePWinRateのベイズ平滑化（VenueWinRateを事前分布、alpha=5）
+    # 高カウントは生の比率に近く、低カウントはVenueWinRateに引き寄せる
+    alpha = 5.0
+    for lane in range(1, 7):
+        vlp_col = f'B{lane}_VenueLanePWinRate'
+        vlpc_col = f'B{lane}_VenueLanePRaceCount'
+        vwr_col = f'B{lane}_VenueWinRate'
+        if all(c in df_merged.columns for c in [vlp_col, vlpc_col, vwr_col]):
+            vlp = pd.to_numeric(df_merged[vlp_col], errors='coerce').fillna(0)
+            cnt = pd.to_numeric(df_merged[vlpc_col], errors='coerce').fillna(0)
+            vwr = pd.to_numeric(df_merged[vwr_col], errors='coerce').fillna(0)
+            # Bayesian: (raw_wins + alpha*prior) / (count + alpha)
+            # raw_wins = vlp * cnt
+            df_merged[f'B{lane}_VenueLanePWR_Bayes'] = (vlp * cnt + alpha * vwr) / (cnt + alpha)
+
     # (F) 風向き × 風速の交互作用（向かい風で強風だとイン不利）
     # WindDir をカテゴリコードに変換
     wind_dir_map = {'追い風': 0, '向かい風': 1, '右横風': 2, '左横風': 3, '無風': 4}
