@@ -109,10 +109,33 @@ def main():
             
         df_prog[['Course_Win', 'Course_2in', 'Course_3in']] = df_prog.apply(get_lane_stats, axis=1)
 
+    # 会場別選手勝率を計算してdf_progに追加
+    if use_db:
+        try:
+            df_venue_wr = db.query_df("""
+                SELECT r.PlayerID, r.Venue,
+                       CAST(SUM(CASE WHEN CAST(SUBSTR(res.Result, 1, 1) AS INTEGER) = r.Lane THEN 1 ELSE 0 END) AS FLOAT)
+                       / NULLIF(COUNT(*), 0) as VenueWinRate
+                FROM races r
+                JOIN results res ON r.RaceID = res.RaceID
+                GROUP BY r.PlayerID, r.Venue
+                HAVING COUNT(*) >= 3
+            """)
+            if not df_venue_wr.empty:
+                df_prog = pd.merge(df_prog, df_venue_wr, on=['PlayerID', 'Venue'], how='left')
+                df_prog['VenueWinRate'] = df_prog['VenueWinRate'].fillna(df_prog['WinRate'])
+            else:
+                df_prog['VenueWinRate'] = df_prog['WinRate']
+        except Exception:
+            df_prog['VenueWinRate'] = df_prog['WinRate']
+    else:
+        df_prog['VenueWinRate'] = df_prog['WinRate']
+
     # 3. 出走表データを 1レース1行 にピボット
     print("出走表データをレースごとに横展開しています...")
     # カラムリストを動的に作成（Course_Win等を追加）
-    pivot_cols = ['Rank', 'WinRate', 'Motor', 'Course_Win', 'Course_2in', 'Course_3in']
+    pivot_extra = ['VenueWinRate'] if 'VenueWinRate' in df_prog.columns else []
+    pivot_cols = ['Rank', 'WinRate', 'Motor', 'Course_Win', 'Course_2in', 'Course_3in'] + pivot_extra
     pivot_prog = df_prog.pivot(index='ID', columns='Lane', values=pivot_cols)
     pivot_prog.columns = [f'B{lane}_{col}' for col, lane in pivot_prog.columns]
     pivot_prog = pivot_prog.reset_index()

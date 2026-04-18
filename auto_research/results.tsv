@@ -34,4 +34,41 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 33	2026-04-19 03:16:32	2c18f03	731.73	7.50	9066	680	906600	6633830	731.73	Add ExTime_Std (race-level ExTime standard deviation, motor competitiveness spread)	0
 34	2026-04-19 03:18:42	2c18f03	733.57	7.60	9066	689	906600	6650560	733.57	Add B1-B6_MotorWinRate_Rank (within-race rank of historical motor win rate, 1=best)	0
 35	2026-04-19 03:20:44	2c18f03	733.57	7.60	9066	689	906600	6650560	733.57	Add B1-B6_ExTimeGap_x_MWR (ExTime_vs_Min * MotorWinRate, race-day motor speed * historical win rate)	0
-36	2026-04-19 03:22:41	2c18f03	735.56	7.72	9066	700	906600	6668590	735.56	Add B1-B6_Course_2in_Rank (within-race rank of course-specific 2nd place rate)	0
+36	2026-04-19 03:22:41	2c18f03	735.56	7.72	9066	700	906600	6668590	735.56	Add B1-B6_Course_2in_Rank (within-race rank of course-specific 2nd place rate)	1
+37	2026-04-19 03:24:30	63855e9	733.90	7.62	9066	691	906600	6653570	733.90	Add B1-B6_Course_Win_Rank (within-race rank of course-specific 1st place rate)	0
+38	2026-04-19 03:26:18	63855e9	731.31	7.46	9066	676	906600	6630020	731.31	Add B1-B6_RankScore_Rank (within-race rank of official class A1/A2/B1/B2, 1=highest class)	0
+39	2026-04-19 03:28:42	63855e9	729.65	7.50	9066	680	906600	6615020	729.65	Add B1-B6_Course_3in_Rank (within-race rank of course-specific 3rd place rate)	0
+40	2026-04-19 03:31:10	63855e9	729.69	7.51	9066	681	906600	6615400	729.69	Add B1-B6_ExTime_x_C2in_Rank (ExTime_Rank * Course_2in_Rank compound, motor speed x 2nd-place stability)	0
+41	2026-04-19 03:33:19	63855e9	732.15	7.64	9066	693	906600	6637630	732.15	Add B1-B6_Course_2in_vs_Avg (2nd-place rate vs race mean, continuous relative advantage)	0
+42	2026-04-19 03:35:44	63855e9	733.77	7.60	9066	689	906600	6652400	733.77	Add B1-B6_ExTimeGap_x_Wave (ExTime_vs_Min * Wave, motor gap amplified by rough water)	0
+43	2026-04-19 03:37:59	63855e9	734.49	7.73	9066	701	906600	6658890	734.49	Add B1-B6_WinRate_x_C2in (WinRate * Course_2in, player skill x course stability compound)	0
+44	2026-04-19 03:40:20	63855e9	730.51	7.53	9066	683	906600	6622760	730.51	Add B1-B6_Course_Total3 (Course_Win + Course_2in + Course_3in sum, total course consistency)	0
+45	2026-04-19 03:42:47	63855e9	730.86	7.62	9066	691	906600	6625980	730.86	Add Avg_Course_2in and Course_2in_Spread (race-level 2nd-place rate mean and spread)	0
+46	2026-04-19 03:46:09	63855e9	733.65	7.64	9066	693	906600	6651230	733.65	Add B1-B6_Course_3in_Only (Course_3in - Course_2in, pure 3rd-place tendency excluding 2nd or 1st)	0
+47	2026-04-19 03:48:48	63855e9	735.56	7.72	9066	700	906600	6668590	735.56	Add B1-B6_MotorWinRate_vs_Avg (motor win rate minus race mean, continuous relative motor strength)	0
+48	2026-04-19 03:52:01	63855e9	732.09	7.50	9066	680	906600	6637170	732.09	Add B1-B6_Win_to_2in_Ratio (Course_Win / Course_2in, win vs place tendency for each boat)	0
+49	2026-04-19 03:55:00	63855e9	730.18	7.51	9066	681	906600	6619820	730.18	Add B1-B6_RankScore_vs_Avg (each boat rank score minus race mean, continuous class relative advantage)	0
+50	2026-04-19 03:57:26	63855e9	730.48	7.53	9066	683	906600	6622510	730.48	Add B1-B6_WinRate_vs_Min (player win rate minus race min win rate, absolute advantage over weakest)	0
+51	2026-04-19 04:00:09	63855e9	734.06	7.52	9066	682	906600	6654980	734.06	Add B1-B6_Tilt_Rank (within-race rank of tilt adjustment, 1=most aggressive propeller setting)	0
+52	2026-04-19 04:02:40	63855e9	731.39	7.60	9066	689	906600	6630810	731.39	Add ExTime_Top2_Gap (2nd fastest minus fastest ExTime, measures motor leader dominance in race)	0
+53	2026-04-19 04:05:20	63855e9	735.56	7.72	9066	700	906600	6668590	735.56	Add B1-B6_Motor2inRate_Rank (within-race rank of motor 2nd-place historical rate, 1=best motor for 2nd place)	0
+54	2026-04-19 04:07:46	63855e9	734.58	7.61	9066	690	906600	6659720	734.58	Add B1-B6_CourseFit (Course_Win - WinRate, how well player fits their current lane vs overall skill)	0
+55	2026-04-19 04:09:59	63855e9	735.56	7.72	9066	700	906600	6668590	735.56	Add B1-B6_Motor2inRate_vs_Avg (motor 2nd-place rate minus race mean, continuous motor 2nd-place advantage)	0
+56	2026-04-19 04:12:28	63855e9	729.79	7.46	9066	676	906600	6616270	729.79	Add B1-B6_ExTime_x_WRRank (ExTime_vs_Min * WinRate_Rank, combined motor-gap and player-skill weakness indicator)	0
+57	2026-04-19 04:14:58	63855e9	733.96	7.71	9066	699	906600	6654090	733.96	Add B1-B6_2nd_Score (ExTime_Rank + Course_2in_Rank sum, lower=stronger 2nd-place candidate)	0
+58	2026-04-19 04:17:19	63855e9	733.68	7.70	9066	698	906600	6651510	733.68	Add B1-B6_ExTime_x_C2inRank (ExTime_vs_Min * Course_2in_Rank, motor gap amplified by 2nd-place course rank)	0
+59	2026-04-19 04:20:21	63855e9	729.58	7.53	9066	683	906600	6614390	729.58	Add B1-B6_CourseFitRatio (Course_Win / MaxCourseWin across all lanes, how well player fits current lane vs their best lane)	0
+60	2026-04-19 04:22:41	63855e9	728.98	7.54	9066	684	906600	6608970	728.98	Add B1-B6_Tilt_x_ExTime (Tilt * ExTime_vs_Min, motor compensating strategy via propeller adjustment)	0
+61	2026-04-19 04:25:04	63855e9	735.56	7.72	9066	700	906600	6668590	735.56	Add B1-B6_Weight_Rank (within-race rank of rider weight, 1=lightest, lighter may be faster)	0
+62	2026-04-19 04:27:55	63855e9	735.56	7.72	9066	700	906600	6668590	735.56	Add B1-B6_Has_Fastest (binary flag: 1 if this boat has the fastest ExTime in race, identifies motor leader)	0
+63	2026-04-19 04:30:26	63855e9	730.98	7.54	9066	684	906600	6627110	730.98	Add B1-B6_BestCourseWin_Rank (rank of player's best course win rate across all 6 lanes, true skill ceiling)	0
+64	2026-04-19 04:33:24	63855e9	735.56	7.72	9066	700	906600	6668590	735.56	Add B1-B6_Count_Rank (within-race rank of career race count, 1=most experienced, reliability of historical stats)	0
+65	2026-04-19 04:36:20	63855e9	734.31	7.65	9066	694	906600	6657290	734.31	Add B1-B6_C2in_x_ETStrength (Course_2in * (7 - ExTime_Rank), 2nd-place course rate weighted by motor strength)	0
+66	2026-04-19 04:40:32	63855e9	733.38	7.53	9066	683	906600	6648780	733.38	Add B1B2_ExTime_Gap (B2_ExTime_vs_Min - B1_ExTime_vs_Min, direct head-to-head motor gap between lane 1 and 2)	0
+67	2026-04-19 04:44:20	63855e9	733.61	7.60	9066	689	906600	6650880	733.61	Add B1-B6_WR_x_CWin (WinRate * Course_Win, player overall win rate x course-specific 1st place rate compound)	0
+68	2026-04-19 04:47:05	63855e9	730.61	7.58	9066	687	906600	6623670	730.61	Add B1-B6_WR_x_ETStrength (WinRate * (7 - ExTime_Rank), player skill weighted by motor speed strength)	0
+69	2026-04-19 04:49:21	63855e9	729.09	7.56	9066	685	906600	6609930	729.09	Add B1-B6_Course_3in_vs_Avg (course-specific 3rd place rate minus race mean, continuous relative 3rd-place advantage)	0
+70	2026-04-19 04:51:52	63855e9	729.69	7.51	9066	681	906600	6615400	729.69	Add B1-B6_ET_C2in_Product (ExTime_Rank * Course_2in_Rank product, lower=stronger 2nd-place motor+course candidate)	0
+71	2026-04-19 04:54:44	63855e9	729.28	7.42	9066	673	906600	6611610	729.28	Add B1-B6_Course_2in_vs_Min (course 2nd-place rate minus race minimum, advantage over weakest 2nd-place boat)	0
+72	2026-04-19 04:57:56	63855e9	730.51	7.63	9066	692	906600	6622790	730.51	Add B1-B6_BestCWin (player's best win rate across all 6 lane positions, true skill ceiling as raw value)	0
+73	2026-04-19 05:01:59	63855e9	756.22	8.41	9066	762	906600	6855850	756.22	Add B1-B6_VenueWinRate (player venue-specific win rate from race history, captures venue familiarity beyond overall WinRate)	0
