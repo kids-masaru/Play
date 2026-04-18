@@ -108,3 +108,6 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 107	2026-04-19 06:48:00	96f4a43	873.19	10.11	9066	917	906600	7916320	873.19	Add B1-B6_VenueLane_WinRate (venue-lane combination win rate regardless of player, captures lane bias per track)	0
 108	2026-04-19 06:52:08	96f4a43	882.03	10.28	9066	932	906600	7996470	882.03	Add B1-B6_Tilt_Rank (within-race rank of motor tilt setting, captures relative motor angle vs competitors)	0
 109	2026-04-19 06:55:17	96f4a43	885.69	10.24	9066	928	906600	8029710	885.69	Add B1-B6_CourseWin_x_VenueWR (lane-specific official win rate * venue win rate, compound mastery at this lane type and venue)	1
+110	2026-04-19 06:58:11	37f5baa	231.65	10.25	9066	929	906600	2100180	231.65	Add B1-B6_CourseWin_x_VenueLanePWR (official lane win rate * DB venue-lane win rate, two independent data source compound)	0
+111	2026-04-19 07:02:01	37f5baa	872.76	10.35	9066	938	906600	7912480	872.76	Add B1_VenueLanePWR_vs_MaxOuter (B1 venue-lane win rate minus max outer boat venue-lane win rate, B1 dominance by venue-lane mastery)	0
+112	2026-04-19 07:05:25	37f5baa	900.27	10.24	9066	928	906600	8161870	900.27	Add B1-B6_CourseWin_x_VLPBayes (official lane win rate * Bayesian smoothed venue-lane win rate, two source compound with noise reduction)	1

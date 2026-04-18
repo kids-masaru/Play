@@ -365,6 +365,15 @@ def main():
             # raw_wins = vlp * cnt
             df_merged[f'B{lane}_VenueLanePWR_Bayes'] = (vlp * cnt + alpha * vwr) / (cnt + alpha)
 
+    # Course_Win × VenueLanePWR_Bayes（公式レーン勝率 × Bayesian平滑化済み会場レーン勝率の複合）
+    for lane in range(1, 7):
+        cw_col = f'B{lane}_Course_Win'
+        bayes_col = f'B{lane}_VenueLanePWR_Bayes'
+        if cw_col in df_merged.columns and bayes_col in df_merged.columns:
+            cw = pd.to_numeric(df_merged[cw_col], errors='coerce').fillna(0)
+            bayes = pd.to_numeric(df_merged[bayes_col], errors='coerce').fillna(0)
+            df_merged[f'B{lane}_CourseWin_x_VLPBayes'] = cw * bayes
+
     # Course_Win × VenueWinRate（担当レーンの得意さ × 会場全体の得意さの複合）
     for lane in range(1, 7):
         cw_col = f'B{lane}_Course_Win'
