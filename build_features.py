@@ -230,6 +230,14 @@ def main():
     df_merged['Avg_RankScore'] = np.nanmean(rank_scores, axis=0)
     df_merged['B1_RankScore_Over_Avg'] = df_merged['B1_RankScore'] - df_merged['Avg_RankScore']
 
+    # (E4) コース別2着率の within-race 順位（2着争いの強さ順位）
+    c2in_cols = [f'B{i}_Course_2in' for i in range(1, 7)]
+    if all(c in df_merged.columns for c in c2in_cols):
+        c2in_df = df_merged[c2in_cols].astype(float)
+        c2in_ranks = c2in_df.rank(axis=1, method='min', ascending=False)
+        for lane in range(1, 7):
+            df_merged[f'B{lane}_Course_2in_Rank'] = c2in_ranks[f'B{lane}_Course_2in']
+
     # (F) 風向き × 風速の交互作用（向かい風で強風だとイン不利）
     # WindDir をカテゴリコードに変換
     wind_dir_map = {'追い風': 0, '向かい風': 1, '右横風': 2, '左横風': 3, '無風': 4}

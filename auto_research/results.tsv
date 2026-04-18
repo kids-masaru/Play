@@ -24,4 +24,14 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 23	2026-04-17 14:56:03	d88e9ed	684.81	7.63	9822	749	982200	6726190	684.81	Add Inner (1-2) vs Outer (3-6) WinRate balance + B1 vs outer3-6 diff	0
 24	2026-04-17 14:58:41	d88e9ed	683.65	7.55	9822	742	982200	6714800	683.65	Add sorted WR (descending) per race + Top2_Gap + Top3_Sum (race strength distribution)	0
 25	2026-04-17 15:01:13	d88e9ed	683.18	7.63	9822	749	982200	6710200	683.18	Add Wave_x_Wind interaction (compound rough-water severity)	0
-26	2026-04-19 03:02:34	4ff1c82	733.57	7.60	9066	689	906600	6650560	733.57	Add B2-B6_ExTime_vs_Min and vs_Avg (relative motor speed diff for all lanes)	0
+26	2026-04-19 03:02:34	4ff1c82	733.57	7.60	9066	689	906600	6650560	733.57	Add B2-B6_ExTime_vs_Min and vs_Avg (relative motor speed diff for all lanes)	1
+27	2026-04-19 03:04:36	2c18f03	730.29	7.56	9066	685	906600	6620780	730.29	Add B1-B6_WinRate_vs_Avg and vs_Max (relative player skill diff for all lanes)	0
+28	2026-04-19 03:06:20	2c18f03	729.59	7.40	9066	671	906600	6614440	729.59	Add B1-B6_CourseWin_vs_Max and vs_Avg (relative course win diff for all lanes)	0
+29	2026-04-19 03:08:12	2c18f03	730.69	7.42	9066	673	906600	6624470	730.69	Add B1-B6_Tilt_vs_Avg (per-lane tilt relative to race mean)	0
+30	2026-04-19 03:10:03	2c18f03	733.57	7.60	9066	689	906600	6650560	733.57	Add WeatherID label encoding (sunny/cloudy/rain weather condition)	0
+31	2026-04-19 03:12:20	2c18f03	730.25	7.48	9066	678	906600	6620490	730.25	Add B1-B6_Combined_Rank (ExTime_Rank x WinRate_Rank product, motor+skill strength)	0
+32	2026-04-19 03:14:24	2c18f03	729.41	7.51	9066	681	906600	6612800	729.41	Add B1-B6_ExTime_NormPos (ExTime_vs_Min normalized by field spread, 0=fastest 1=slowest)	0
+33	2026-04-19 03:16:32	2c18f03	731.73	7.50	9066	680	906600	6633830	731.73	Add ExTime_Std (race-level ExTime standard deviation, motor competitiveness spread)	0
+34	2026-04-19 03:18:42	2c18f03	733.57	7.60	9066	689	906600	6650560	733.57	Add B1-B6_MotorWinRate_Rank (within-race rank of historical motor win rate, 1=best)	0
+35	2026-04-19 03:20:44	2c18f03	733.57	7.60	9066	689	906600	6650560	733.57	Add B1-B6_ExTimeGap_x_MWR (ExTime_vs_Min * MotorWinRate, race-day motor speed * historical win rate)	0
+36	2026-04-19 03:22:41	2c18f03	735.56	7.72	9066	700	906600	6668590	735.56	Add B1-B6_Course_2in_Rank (within-race rank of course-specific 2nd place rate)	0
