@@ -97,4 +97,14 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 96	2026-04-19 06:12:14	5c137d8	873.02	10.21	9066	926	906600	7914820	873.02	Remove HAVING COUNT>=3 from VenueWinRate query (include all players with any venue history)	1
 97	2026-04-19 06:15:45	7e3d914	882.99	10.26	9066	930	906600	8005200	882.99	Add B1-B6_VenueRaceCount alongside VenueWinRate (reliability indicator for VenueWinRate, parallel to VenueLanePRaceCount)	1
 98	2026-04-19 06:19:00	1afd85b	868.24	10.15	9066	920	906600	7871470	868.24	Add B1-B6_CareerRaceCount alongside Career2inRate/3inRate (total DB race count, reliability indicator for career 2nd/3rd rates)	0
-99	2026-04-19 06:22:07	1afd85b	885.52	10.23	9066	927	906600	8028090	885.52	Add B1-B6_VenueLanePWR_Bayes (Bayesian smoothed VenueLanePWinRate with VenueWinRate as prior, alpha=5)	0
+99	2026-04-19 06:22:07	1afd85b	885.52	10.23	9066	927	906600	8028090	885.52	Add B1-B6_VenueLanePWR_Bayes (Bayesian smoothed VenueLanePWinRate with VenueWinRate as prior, alpha=5)	1
+100	2026-04-19 06:25:24	96f4a43	875.33	10.21	9066	926	906600	7935770	875.33	Add B1-B6_VenueWR_Bayes (Bayesian smoothed VenueWinRate with WinRate as prior, alpha=5)	0
+101	2026-04-19 06:28:14	96f4a43	874.17	10.23	9066	927	906600	7925210	874.17	Add B1-B6_VenueLanePWRB_Rank (within-race rank of Bayesian smoothed VenueLanePWinRate, better ranking than raw rate)	0
+102	2026-04-19 06:32:39	96f4a43	865.24	10.24	9066	928	906600	7844230	865.24	Add B1-B6_VenueWinRate_Rank (within-race rank of VenueWinRate, relative venue mastery among 6 boats)	0
+103	2026-04-19 06:35:54	96f4a43	883.95	10.19	9066	924	906600	8013870	883.95	Add B1-B6_VenueLanePWR_Bayes2 (Bayesian smoothed VenueLanePWinRate with global WinRate as prior instead of VenueWinRate, alpha=5)	0
+104	2026-04-19 06:38:45	96f4a43	873.46	10.04	9066	910	906600	7918780	873.46	Add B1-B6_VenueWR_x_ExAdv (VenueWinRate * negative ExTime_vs_Min, venue mastery times fast motor today)	0
+105	2026-04-19 06:41:54	96f4a43	870.22	10.20	9066	925	906600	7889400	870.22	Add B1-B6_VenueLanePWR_vs_Avg (VenueLanePWinRate minus race average, relative venue-lane mastery vs competitors)	0
+106	2026-04-19 06:44:43	96f4a43	224.50	10.26	9066	930	906600	2035340	224.50	Add B1-B6_WinRate_vs_Avg (each boat WinRate minus race average WinRate, normalizes for race quality)	0
+107	2026-04-19 06:48:00	96f4a43	873.19	10.11	9066	917	906600	7916320	873.19	Add B1-B6_VenueLane_WinRate (venue-lane combination win rate regardless of player, captures lane bias per track)	0
+108	2026-04-19 06:52:08	96f4a43	882.03	10.28	9066	932	906600	7996470	882.03	Add B1-B6_Tilt_Rank (within-race rank of motor tilt setting, captures relative motor angle vs competitors)	0
+109	2026-04-19 06:55:17	96f4a43	885.69	10.24	9066	928	906600	8029710	885.69	Add B1-B6_CourseWin_x_VenueWR (lane-specific official win rate * venue win rate, compound mastery at this lane type and venue)	1

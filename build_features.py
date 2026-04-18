@@ -365,6 +365,15 @@ def main():
             # raw_wins = vlp * cnt
             df_merged[f'B{lane}_VenueLanePWR_Bayes'] = (vlp * cnt + alpha * vwr) / (cnt + alpha)
 
+    # Course_Win × VenueWinRate（担当レーンの得意さ × 会場全体の得意さの複合）
+    for lane in range(1, 7):
+        cw_col = f'B{lane}_Course_Win'
+        vwr_col = f'B{lane}_VenueWinRate'
+        if cw_col in df_merged.columns and vwr_col in df_merged.columns:
+            cw = pd.to_numeric(df_merged[cw_col], errors='coerce').fillna(0)
+            vwr = pd.to_numeric(df_merged[vwr_col], errors='coerce').fillna(0)
+            df_merged[f'B{lane}_CourseWin_x_VenueWR'] = cw * vwr
+
     # (F) 風向き × 風速の交互作用（向かい風で強風だとイン不利）
     # WindDir をカテゴリコードに変換
     wind_dir_map = {'追い風': 0, '向かい風': 1, '右横風': 2, '左横風': 3, '無風': 4}
