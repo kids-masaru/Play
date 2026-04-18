@@ -35,6 +35,7 @@ past_data/
 
 # Logs
 *.log
+logs/
 main_run_out.txt
 debug_out.txt
 debug_out_utf8.txt

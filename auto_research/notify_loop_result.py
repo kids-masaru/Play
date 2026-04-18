@@ -9,6 +9,22 @@ import subprocess
 import pandas as pd
 from datetime import datetime
 
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
+
+def safe_print(text):
+    try:
+        print(text)
+    except Exception:
+        try:
+            print(text.encode("utf-8", errors="replace").decode("ascii", errors="replace"))
+        except Exception:
+            pass
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
@@ -75,17 +91,19 @@ def send_line_message(message):
     token = os.environ.get("LINE_CHANNEL_ACCESS_TOKEN", "")
     user_id = os.environ.get("LINE_USER_ID", "")
     if not token or not user_id:
-        print("[WARN] LINE_CHANNEL_ACCESS_TOKEN または LINE_USER_ID が未設定。通知をスキップします。")
-        return
+        safe_print("[WARN] LINE_CHANNEL_ACCESS_TOKEN または LINE_USER_ID が未設定。通知をスキップします。")
+        return False
 
     try:
         from linebot import LineBotApi
         from linebot.models import TextSendMessage
         api = LineBotApi(token)
         api.push_message(user_id, TextSendMessage(text=message))
-        print("[SUCCESS] LINE に送信しました。")
+        safe_print("[SUCCESS] LINE に送信しました。")
+        return True
     except Exception as e:
-        print(f"[ERROR] LINE 送信失敗: {e}")
+        safe_print(f"[ERROR] LINE 送信失敗: {e}")
+        return False
 
 
 if __name__ == "__main__":
@@ -100,7 +118,8 @@ if __name__ == "__main__":
                     os.environ.setdefault(k.strip(), v.strip())
 
     msg = build_message()
-    print("--- 送信メッセージ ---")
-    print(msg)
-    print("---------------------")
-    send_line_message(msg)
+    safe_print("--- 送信メッセージ ---")
+    safe_print(msg)
+    safe_print("---------------------")
+    ok = send_line_message(msg)
+    sys.exit(0 if ok else 2)

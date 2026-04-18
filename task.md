@@ -303,3 +303,106 @@ Phase 8-2/8-3（CoT）        ← Phase 6完了後に効果測定してから実
 - Gemma4:e2b への LLM 切り替え: ✅ 完了
 - auto_research 自己改善ループ構築: ✅ 完了（ベースライン: ROI 659.95%）
 - Phase 6〜8: 📋 計画策定完了・実施待ち
+
+---
+
+# 🔧 運用トラブル対応（2026-04-17〜2026-04-18）
+
+## 最終更新: 2026-04-18 13:20
+
+## 現在のステータス
+
+**ダッシュボード復旧 & 夜バッチ自動push修正 & 朝バッチ/ループbatのログ堅牢化が完了。残りは優先5・6。**
+LINE試験メッセージは届いた、GitHub Actionsのスクショも受領済み。真因は Actions 失敗ではなく「ローカルから push されていなかった」ことと判明。
+
+## 判明した真因（2026-04-18）
+
+- GitHub Actions は全 green（壊れていなかった）
+- `main_runner.py` の `push_to_github()` で `files_to_add` が `dashboard_data.json` と `loop_results.json` の2つだけ
+- 実際には毎夜更新される `daily_odds_3t.csv` など他のCSVが add 対象外だった
+- `dashboard_data.json` に差分がない日があると `git commit` が "nothing to commit" で失敗 → push もスキップ
+- 結果として 2026-04-16 以降、夜バッチの更新が GitHub に反映されていなかった
+
+## 次回やること（再開時の第一歩）
+
+1. 優先5: 3am claude ループの cwd 問題再調査（`run_loop.bat` に cwd ログを仕込み済み。次回3am実行後 `loop_log.txt` を確認）
+2. 優先6: タスクスケジューラ F項（「ユーザーのログオン状態にかかわらず実行」化、手動操作案内）
+
+## 今回の調査で判明した事実（再発防止メモ）
+
+### ① 3時のタスクが届かなかった一次原因
+- `auto_research/run_loop.bat` の **`cd /d` が効いていなかった**
+  - 原因: bat ファイルが UTF-8 保存 + 内部に日本語コメントがあり、cmd が parse を誤る
+  - 修正済: `cd /d "%~dp0.."` に変更（bat自身の位置基準）
+
+### ② LINE 通知が届かなかった二次原因
+- `auto_research/notify_loop_result.py` の `print(msg)` が **絵文字（🤖📊等）を cp932 で出力できず UnicodeEncodeError で死亡**
+- LINE送信は print の後に実行されるため到達できていなかった
+- 修正済: `sys.stdout.reconfigure(encoding="utf-8")` と `safe_print()` ラッパーを追加
+
+### ③ ダッシュボード結果ページが見れない真因
+- **ローカル dist/ が 2026-03-29 で停止、GitHub Pages デプロイが 2026-03-19 で停止**
+- Windows + Node v24 + rollup/rolldown ネイティブバイナリの組み合わせで `npm run build` が **exit 0xC0000409（STACK_BUFFER_OVERRUN）で無言クラッシュ**
+  - Vite 8/7 どちらでも同じ、ソース最小化しても再現
+  - **このマシンでのローカルビルドは事実上不可能**
+- 正しい解決策は GitHub Actions（Ubuntu）でビルド → Pagesデプロイさせること
+  - でも Actions が 3/19 から動いていない → 原因調査が次のステップ
+
+### ④ ローカル閲覧の暫定手段
+- `cd dashboard && npm run dev` でローカル dev サーバーは正常起動可能
+- ブラウザで `http://localhost:5173/Play/` にアクセスすれば最新ソースで表示できる
+
+## タスク一覧
+
+- [x] A. `notify_loop_result.py` の UnicodeEncodeError 対策
+- [x] B. 手動で LINE テスト送信（24試行サマリー）
+- [-] C. ローカル dashboard rebuild（**Windows環境で実行不能と判明 → スキップ**）
+- [x] D. `run_loop.bat` の堅牢化 ✅ 2026-04-18 完了
+  - `pause` を削除、leading space を除去
+  - `claude` と `notify_loop_result.py` の ERRORLEVEL を個別にログ
+  - `cwd=%CD%` を開始ログに含めて cwd 問題の診断用情報を残す
+  - `PYTHONIOENCODING=utf-8` 設定
+- [x] E. **GitHub Pages 再デプロイ（最優先）** ✅ 2026-04-18 完了
+  - 真因: Actions ではなくローカルpush不足だった
+  - 1fa8fea で 04/18 の dashboard データを push → Actions が正常発火、27秒で green
+- [x] 優先2. `main_runner.py` の `push_to_github()` 修正 ✅ 2026-04-18 完了（13b04ce）
+  - `files_to_add` を8ファイルに拡張
+  - `check=True` 外し、"nothing to commit" を吸収
+  - push は commit 結果に関係なく必ず試行
+- [x] 優先3. `run_morning.bat` にログ出力を追加 ✅ 2026-04-18 完了
+  - stdout/stderr を `logs/morning.log` に追記、開始/終了タイムスタンプ + `ERRORLEVEL` を記録
+  - `PYTHONIOENCODING=utf-8` 設定、`.gitignore` に `logs/` を追加
+- [ ] F. タスクスケジューラ設定見直し
+  - `BoatRaceAI_SelfImproveLoop` の「ログオン モード」を「対話型のみ」→「ユーザーのログオン状態にかかわらず実行」に変更
+  - これでスリープ中でも3時に実行される
+
+## 修正したファイル（未コミット分）
+
+- `dashboard/package.json` + `dashboard/package-lock.json` — Vite 8.0.0 → 7.3.2、@vitejs/plugin-react 6 → 4 にダウングレード（ビルドクラッシュ調査の過程で変更、戻しても可）
+
+## コミット済み（2026-04-18）
+
+- `1fa8fea` Auto-update dashboard data: 2026-04-18 11:30:00（daily_data 反映）
+- `13b04ce` fix: 夜バッチのGitHub同期を複数ファイル対応＋commit失敗を吸収
+
+## 作業ログ
+
+### 2026-04-17
+- 朝の LINE 通知が届かなかった件を調査開始
+- タスクスケジューラ BoatRaceAI_SelfImproveLoop は 3:00:01 に起動していたが exit code 1 で失敗
+- `loop_log.txt` が生成されていなかったため bat の初期段階で失敗と判明
+- bat の日本語+UTF-8 問題を発見、`%~dp0..` 基準に修正
+- 手動実行で claude ループが正常動作（24試行、3件コミット、ベスト 659.95 → 686.09）
+- LINE通知が来ない原因を追跡 → `notify_loop_result.py` の print が UnicodeEncodeError で死亡と特定
+- `safe_print` で修正、手動で LINE 送信成功（14:58）
+- ダッシュボード問題: ローカル build が Windows ネイティブバイナリクラッシュで実行不能と判明
+- 対応を GitHub Actions 経由に方針転換、ユーザーからの Actions スクショ待ちで中断
+
+### 2026-04-18
+- LINE試験メッセージの着信をユーザーが確認
+- GitHub Actions スクショを受領 → **全 green、最新 Auto-update は 04/16 01:08 で停止**と判明
+- 真因特定: `main_runner.py` の `push_to_github()` で `files_to_add` が2ファイルだけ → 差分なしで commit 失敗 → push スキップ
+- 優先1実行: daily_data/ と dashboard/public/daily_data/ を手動 add → commit `1fa8fea` → push → Actions 27秒で green、ダッシュボード復旧
+- 優先2実行: `main_runner.py` の `push_to_github()` を修正（add 対象を8ファイルに拡張＋commit失敗吸収＋push必須化）→ commit `13b04ce` push 済み
+- 優先3実行: `run_morning.bat` にログ出力追加（`logs/morning.log`）、`PYTHONIOENCODING=utf-8` 設定、`.gitignore` に `logs/` 追加
+- 優先4実行: `run_loop.bat` から `pause` 削除、leading space 除去、`claude`/`notify` の ERRORLEVEL を個別ログ、cwd を開始ログに含める
