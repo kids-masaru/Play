@@ -333,6 +333,15 @@ def main():
             etm = pd.to_numeric(df_merged[etm_col], errors='coerce').fillna(0)
             df_merged[f'B{lane}_VenueLanePWR_x_ExAdv'] = vlp * (-etm)
 
+    # VenueLanePWinRate × WinRate（会場レーン適性 × 総合勝率の複合）
+    for lane in range(1, 7):
+        vlp_col = f'B{lane}_VenueLanePWinRate'
+        wr_col = f'B{lane}_WinRate'
+        if vlp_col in df_merged.columns and wr_col in df_merged.columns:
+            vlp = pd.to_numeric(df_merged[vlp_col], errors='coerce').fillna(0)
+            wr = pd.to_numeric(df_merged[wr_col], errors='coerce').fillna(0)
+            df_merged[f'B{lane}_VenueLanePWR_x_WR'] = vlp * wr
+
     # (F) 風向き × 風速の交互作用（向かい風で強風だとイン不利）
     # WindDir をカテゴリコードに変換
     wind_dir_map = {'追い風': 0, '向かい風': 1, '右横風': 2, '左横風': 3, '無風': 4}
