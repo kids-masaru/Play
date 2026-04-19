@@ -118,3 +118,37 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 117	2026-04-19 07:20:29	9ac41b1	220.43	10.09	9066	915	906600	1998410	220.43	Add B1-B6_VLPBayes_x_Course2in (Bayesian venue-lane 1st-place rate * official lane 2nd-place rate, top-2 finishing capability)	0
 118	2026-04-19 07:24:34	9ac41b1	882.57	10.17	9066	922	906600	8001410	882.57	Add B1-B6_CareerLanePWinRate (DB cross-venue lane win rate) + CourseWin_x_CareerLanePWR (official * DB lane win rate two-source compound)	0
 119	2026-04-19 07:27:54	9ac41b1	903.02	10.37	9066	940	906600	8186810	903.02	Add Venue_AvgPayout (historical average trifecta payout per venue, captures venue difficulty and upset frequency)	1
+120	2026-04-19 07:33:00	0243367	877.49	10.23	9066	927	906600	7955300	877.49	Add Venue_StdPayout (standard deviation of trifecta payout per venue, captures consistency of upset frequency)	0
+121	2026-04-19 07:36:12	0243367	233.04	10.35	9066	938	906600	2112700	233.04	Add B1-B6_VLPBayes_Rank (within-race rank of Bayesian smoothed venue-lane win rate, relative dominance vs field)	0
+122	2026-04-19 07:39:50	0243367	326.26	11.74	9066	1064	906600	2957860	326.26	Add B1-B6_Venue2inRate (player x venue 2nd-place rate from DB, dedicated 2nd-place placement tendency per venue)	0
+123	2026-04-19 07:43:09	0243367	227.94	10.24	9066	928	906600	2066480	227.94	Add WinRate_Std (race-level std of win rates among 6 boats, higher = more unequal field, captures upset potential)	0
+124	2026-04-19 07:47:51	0243367	226.80	10.18	9066	923	906600	2056180	226.80	Add B1-B6_VenueWR_vs_WR (VenueWinRate minus WinRate, captures venue-specific overperformance vs career average, identifies undervalued venue specialists)	0
+125	2026-04-19 07:53:17	0243367	876.55	10.21	9066	926	906600	7946840	876.55	Add Venue_Lane1WinRate (historical lane-1 win rate per venue, captures venue-specific inner-lane bias, race-level context feature)	0
+126	2026-04-19 07:57:46	0243367	886.33	10.24	9066	928	906600	8035460	886.33	Add B1-B6_CourseWin_vs_MaxCW (current lane win rate / player's max lane win rate, captures how well-matched player is to assigned lane, upset signal)	0
+127	2026-04-19 08:03:56	0243367	881.08	10.24	9066	928	906600	7987880	881.08	Add B1-B6_CourseWin_x_Career2in (official lane win rate * DB career 2nd-place rate, cross-placement two-source compound)	0
+128	2026-04-19 08:06:59	0243367	880.50	10.40	9066	943	906600	7982650	880.50	Add Wave_x_Wind (Wave * WindSpeed, rough-conditions composite index, race-level upset potential signal)	0
+129	2026-04-19 08:10:45	0243367	903.02	10.37	9066	940	906600	8186810	903.02	Add B1-B6_Wave_x_Lane (Wave * lane_number, captures outer lane disadvantage in rough conditions, wave-lane interaction)	0
+130	2026-04-19 08:13:43	0243367	903.02	10.37	9066	940	906600	8186810	903.02	Add VenueWind_AvgPayout (historical avg payout by Venue x WindDir, captures venue-specific wind condition upset tendency)	0
+131	2026-04-19 08:17:30	0243367	895.20	10.57	9066	958	906600	8115910	895.20	Add B1-B6_VenueSeasonPWinRate (player x venue x summer/winter win rate, 3-way interaction capturing seasonal venue performance)	0
+132	2026-04-19 08:22:19	0243367	229.35	10.18	9066	923	906600	2079250	229.35	Add MaxOuter_VLPBayes (race-level max VLPBayes among outer boats B2-B6, identifies races with strong outer lane specialists)	0
+133	2026-04-19 08:25:34	0243367	903.02	10.37	9066	940	906600	8186810	903.02	Add ExTime_Spread (race-level max-min exhibition time gap, measures race competitiveness)	0
+134	2026-04-19 08:29:29	0243367	903.02	10.37	9066	940	906600	8186810	903.02	Add WeatherCode (numeric encoding of Weather string which was excluded from model via EXCLUDE_COLS)	0
+135	2026-04-19 08:33:54	0243367	873.11	10.19	9066	924	906600	7915600	873.11	Add Tilt_Spread (race-level propeller tilt range, measures strategic variation in motor setup)	0
+136	2026-04-19 08:38:12	0243367	231.54	10.25	9066	929	906600	2099170	231.54	Add Venue_HighPayout_Rate (fraction of races with payout > 20000 yen, captures tail upset frequency distinct from mean payout)	0
+137	2026-04-19 08:41:59	0243367	231.81	10.30	9066	934	906600	2101570	231.81	Remove B#_VenueLanePWR_Rank features to reduce per-boat ordering overconfidence	0
+138	2026-04-19 08:45:34	0243367	882.48	10.28	9066	932	906600	8000560	882.48	Add VenueAvgPayout_x_WaterTemp (venue upset-likelihood times water temperature, captures seasonal venue dynamics)	0
+139	2026-04-19 08:49:15	0243367	232.14	10.29	9066	933	906600	2104620	232.14	Add Venue_OuterLane_WinRate (fraction of races won by outer boats lanes 4-6, venue upset-proneness from outer lane perspective)	0
+140	2026-04-19 08:52:29	0243367	229.48	10.19	9066	924	906600	2080490	229.48	Add Race_AvgCourseWin (mean Course_Win across all 6 boats, race-level field quality without per-boat ordering)	0
+141	2026-04-19 08:56:12	0243367	878.62	10.14	9066	919	906600	7965540	878.62	Add IsWeekend binary flag (Sat/Sun vs weekday, different bettor composition may affect optimal betting strategy)	0
+142	2026-04-19 08:59:31	0243367	881.63	10.27	9066	931	906600	7992880	881.63	Increase Bayesian smoothing alpha 5->50 for VenueLanePWR_Bayes to reduce per-lane-specific overconfidence	0
+143	2026-04-19 09:03:22	0243367	895.14	10.38	9066	941	906600	8115370	895.14	Add Venue_MedianPayout (median payout per venue, more robust than mean to extreme outlier payouts)	0
+144	2026-04-19 09:06:47	0243367	240.50	10.40	9066	943	906600	2180330	240.50	Add PlayerAvgWinPayout per boat via DB query (player avg payout when winning, identifies upset specialists vs favorites)	0
+145	2026-04-19 09:09:56	0243367	903.02	10.37	9066	940	906600	8186810	903.02	Remove B1_Is_Top_WinRate (boolean B1-dominance flag that may cause overconfidence betting on obvious B1-first combos)	0
+146	2026-04-19 09:14:54	0243367	900.34	10.50	9066	952	906600	8162470	900.34	Add Venue_PayoutIQR (inter-quartile range Q75-Q25 of venue payouts, outlier-robust spread measure distinct from std)	0
+147	2026-04-19 09:18:25	0243367	232.49	10.29	9066	933	906600	2107710	232.49	Add R_AvgPayout (average payout by race number R within session, captures late-race upset tendency)	0
+148	2026-04-19 09:21:37	0243367	903.02	10.37	9066	940	906600	8186810	903.02	Add B{lane}_Weight_vs_Avg (each boat weight minus race average, lighter rider advantage signal)	0
+149	2026-04-19 09:24:59	0243367	902.48	10.24	9066	928	906600	8181880	902.48	Add VenueAvgPayout_x_MonthSin (Venue_AvgPayout * Month_Sin interaction, seasonal upset-tendency at venue)	0
+150	2026-04-19 09:28:53	0243367	887.70	10.10	9066	916	906600	8047920	887.70	Add Venue_PayoutSkew (skewness of venue payout distribution, captures rare big-upset vs uniform upset venue profiles)	0
+151	2026-04-19 09:35:15	0243367	903.02	10.37	9066	940	906600	8186810	903.02	Add B{lane}_Count (career race count per player, encodes WinRate reliability and player experience)	0
+152	2026-04-19 09:41:23	0243367	882.80	10.26	9066	930	906600	8003460	882.80	Add Venue_LaneWin_Entropy (entropy of winning lane distribution per venue, high=any lane wins=upset-prone)	0
+153	2026-04-19 09:45:14	0243367	903.42	10.31	9066	935	906600	8190370	903.42	Remove Diff_B1_vs_MaxOuter feature (reduces B1-dominance signal that may cause overconfidence in obvious combos)	0

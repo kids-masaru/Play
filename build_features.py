@@ -301,10 +301,9 @@ def main():
         df_merged[f'B{lane}_WinRate_Rank'] = wr_ranks[f'B{lane}_WinRate']
     # 1号艇が最強かどうか（1号艇勝率 == 場内最高ならば1、そうでなければ差分の逆数的指標）
     df_merged['B1_Is_Top_WinRate'] = (df_merged['B1_WinRate'] >= df_merged['Max_WinRate']).astype(int)
-    # 2-6号艇の最高勝率（1号艇の脅威度）
+    # 2-6号艇の最高勝率（1号艇の脅威度）—— Diff_B1_vs_MaxOuter は除去（B1過信につながる可能性）
     outer_wr = pd.concat([df_merged[f'B{i}_WinRate'] for i in range(2, 7)], axis=1)
     df_merged['Max_Outer_WinRate'] = outer_wr.max(axis=1)
-    df_merged['Diff_B1_vs_MaxOuter'] = df_merged['B1_WinRate'] - df_merged['Max_Outer_WinRate']
 
     # (E) ランクスコアの集約指標
     rank_scores = [df_merged[f'B{i}_RankScore'] for i in range(1, 7)]
