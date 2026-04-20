@@ -6,8 +6,8 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 5	2026-04-17 14:10:23	f7c46b1	682.74	7.55	9822	742	982200	6705920	682.74	Add MotorWinRate rank per lane + B1_MotorWin_vs_Max	0
 6	2026-04-17 14:13:15	f7c46b1	682.19	7.57	9822	744	982200	6700430	682.19	Clean Weight (strip kg) + B#_Weight_vs_Mean + Weight_Spread	0
 7	2026-04-17 14:15:39	f7c46b1	686.09	7.78	9822	764	982200	6738780	686.09	Add Month sin/cos cyclical encoding for seasonality	1
-8	2026-04-17 14:18:09	d88e9ed	682.40	7.56	9822	743	982200	6702560	682.40	Add DayOfWeek sin/cos cyclical encoding	0
-9	2026-04-17 14:20:29	d88e9ed	682.89	7.60	9822	746	982200	6707340	682.89	Add VenueMonth_ID cross feature (venue-seasonality bias)	0
+8	2026-04-17 14:18:09	d88e9ed	682.4	7.56	9822	743	982200	6702560	682.4	Add DayOfWeek sin/cos cyclical encoding	0
+9	2026-04-17 14:20:29	d88e9ed	682.89	7.6	9822	746	982200	6707340	682.89	Add VenueMonth_ID cross feature (venue-seasonality bias)	0
 10	2026-04-17 14:23:16	d88e9ed	684.06	7.59	9822	745	982200	6718850	684.06	Add R (race number) linear + sin/cos for intra-day progression	0
 11	2026-04-17 14:25:38	d88e9ed	686.09	7.78	9822	764	982200	6738780	686.09	Add B#_Count (race count per player, reliability indicator)	0
 12	2026-04-17 14:27:55	d88e9ed	686.09	7.78	9822	764	982200	6738780	686.09	Add Wave x Lane and Wind x Lane interactions (outer-lane disadvantage in rough conditions)	0
@@ -15,48 +15,48 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 14	2026-04-17 14:33:03	d88e9ed	679.44	7.53	9822	740	982200	6673470	679.44	Add WR_Share per lane (WinRate normalized by race-total, relative strength)	0
 15	2026-04-17 14:35:44	d88e9ed	681.83	7.57	9822	744	982200	6696970	681.83	Add WinRate Entropy (race competitiveness: lock vs open)	0
 16	2026-04-17 14:38:04	d88e9ed	686.09	7.78	9822	764	982200	6738780	686.09	Add full WindDir one-hot (Tailwind/Crosswind/NoWind) + Tailwind_x_Speed	0
-17	2026-04-17 14:40:33	d88e9ed	680.13	7.40	9822	727	982200	6680210	680.13	Add Diff_WinRate_1_3 ... 1_6 (B1 dominance per pair)	0
+17	2026-04-17 14:40:33	d88e9ed	680.13	7.4	9822	727	982200	6680210	680.13	Add Diff_WinRate_1_3 ... 1_6 (B1 dominance per pair)	0
 18	2026-04-17 14:43:17	d88e9ed	684.13	7.64	9822	750	982200	6719510	684.13	Add B#_IsA (A-class binary) + NumA_Boats (count of elite in race)	0
 19	2026-04-17 14:45:52	d88e9ed	683.59	7.54	9822	741	982200	6714230	683.59	Add Tilt aggregates (Tilt_Mean / Max / NumPositive) for race-level aggressiveness	0
 20	2026-04-17 14:48:34	d88e9ed	686.09	7.78	9822	764	982200	6738780	686.09	Add WaterTemp binned (cold/cool/warm/hot) for nonlinear motor-temp effect	0
 21	2026-04-17 14:51:08	d88e9ed	684.14	7.68	9822	754	982200	6719580	684.14	Add Course_3in rank per lane (top-3 finishing stability for 3rd place)	0
-22	2026-04-17 14:53:30	d88e9ed	679.10	7.43	9822	730	982200	6670150	679.10	Add DayOfYear sin/cos (finer-grained seasonality beyond month)	0
+22	2026-04-17 14:53:30	d88e9ed	679.1	7.43	9822	730	982200	6670150	679.1	Add DayOfYear sin/cos (finer-grained seasonality beyond month)	0
 23	2026-04-17 14:56:03	d88e9ed	684.81	7.63	9822	749	982200	6726190	684.81	Add Inner (1-2) vs Outer (3-6) WinRate balance + B1 vs outer3-6 diff	0
 24	2026-04-17 14:58:41	d88e9ed	683.65	7.55	9822	742	982200	6714800	683.65	Add sorted WR (descending) per race + Top2_Gap + Top3_Sum (race strength distribution)	0
 25	2026-04-17 15:01:13	d88e9ed	683.18	7.63	9822	749	982200	6710200	683.18	Add Wave_x_Wind interaction (compound rough-water severity)	0
-26	2026-04-19 03:02:34	4ff1c82	733.57	7.60	9066	689	906600	6650560	733.57	Add B2-B6_ExTime_vs_Min and vs_Avg (relative motor speed diff for all lanes)	1
+26	2026-04-19 03:02:34	4ff1c82	733.57	7.6	9066	689	906600	6650560	733.57	Add B2-B6_ExTime_vs_Min and vs_Avg (relative motor speed diff for all lanes)	1
 27	2026-04-19 03:04:36	2c18f03	730.29	7.56	9066	685	906600	6620780	730.29	Add B1-B6_WinRate_vs_Avg and vs_Max (relative player skill diff for all lanes)	0
-28	2026-04-19 03:06:20	2c18f03	729.59	7.40	9066	671	906600	6614440	729.59	Add B1-B6_CourseWin_vs_Max and vs_Avg (relative course win diff for all lanes)	0
+28	2026-04-19 03:06:20	2c18f03	729.59	7.4	9066	671	906600	6614440	729.59	Add B1-B6_CourseWin_vs_Max and vs_Avg (relative course win diff for all lanes)	0
 29	2026-04-19 03:08:12	2c18f03	730.69	7.42	9066	673	906600	6624470	730.69	Add B1-B6_Tilt_vs_Avg (per-lane tilt relative to race mean)	0
-30	2026-04-19 03:10:03	2c18f03	733.57	7.60	9066	689	906600	6650560	733.57	Add WeatherID label encoding (sunny/cloudy/rain weather condition)	0
+30	2026-04-19 03:10:03	2c18f03	733.57	7.6	9066	689	906600	6650560	733.57	Add WeatherID label encoding (sunny/cloudy/rain weather condition)	0
 31	2026-04-19 03:12:20	2c18f03	730.25	7.48	9066	678	906600	6620490	730.25	Add B1-B6_Combined_Rank (ExTime_Rank x WinRate_Rank product, motor+skill strength)	0
 32	2026-04-19 03:14:24	2c18f03	729.41	7.51	9066	681	906600	6612800	729.41	Add B1-B6_ExTime_NormPos (ExTime_vs_Min normalized by field spread, 0=fastest 1=slowest)	0
-33	2026-04-19 03:16:32	2c18f03	731.73	7.50	9066	680	906600	6633830	731.73	Add ExTime_Std (race-level ExTime standard deviation, motor competitiveness spread)	0
-34	2026-04-19 03:18:42	2c18f03	733.57	7.60	9066	689	906600	6650560	733.57	Add B1-B6_MotorWinRate_Rank (within-race rank of historical motor win rate, 1=best)	0
-35	2026-04-19 03:20:44	2c18f03	733.57	7.60	9066	689	906600	6650560	733.57	Add B1-B6_ExTimeGap_x_MWR (ExTime_vs_Min * MotorWinRate, race-day motor speed * historical win rate)	0
+33	2026-04-19 03:16:32	2c18f03	731.73	7.5	9066	680	906600	6633830	731.73	Add ExTime_Std (race-level ExTime standard deviation, motor competitiveness spread)	0
+34	2026-04-19 03:18:42	2c18f03	733.57	7.6	9066	689	906600	6650560	733.57	Add B1-B6_MotorWinRate_Rank (within-race rank of historical motor win rate, 1=best)	0
+35	2026-04-19 03:20:44	2c18f03	733.57	7.6	9066	689	906600	6650560	733.57	Add B1-B6_ExTimeGap_x_MWR (ExTime_vs_Min * MotorWinRate, race-day motor speed * historical win rate)	0
 36	2026-04-19 03:22:41	2c18f03	735.56	7.72	9066	700	906600	6668590	735.56	Add B1-B6_Course_2in_Rank (within-race rank of course-specific 2nd place rate)	1
-37	2026-04-19 03:24:30	63855e9	733.90	7.62	9066	691	906600	6653570	733.90	Add B1-B6_Course_Win_Rank (within-race rank of course-specific 1st place rate)	0
+37	2026-04-19 03:24:30	63855e9	733.9	7.62	9066	691	906600	6653570	733.9	Add B1-B6_Course_Win_Rank (within-race rank of course-specific 1st place rate)	0
 38	2026-04-19 03:26:18	63855e9	731.31	7.46	9066	676	906600	6630020	731.31	Add B1-B6_RankScore_Rank (within-race rank of official class A1/A2/B1/B2, 1=highest class)	0
-39	2026-04-19 03:28:42	63855e9	729.65	7.50	9066	680	906600	6615020	729.65	Add B1-B6_Course_3in_Rank (within-race rank of course-specific 3rd place rate)	0
+39	2026-04-19 03:28:42	63855e9	729.65	7.5	9066	680	906600	6615020	729.65	Add B1-B6_Course_3in_Rank (within-race rank of course-specific 3rd place rate)	0
 40	2026-04-19 03:31:10	63855e9	729.69	7.51	9066	681	906600	6615400	729.69	Add B1-B6_ExTime_x_C2in_Rank (ExTime_Rank * Course_2in_Rank compound, motor speed x 2nd-place stability)	0
 41	2026-04-19 03:33:19	63855e9	732.15	7.64	9066	693	906600	6637630	732.15	Add B1-B6_Course_2in_vs_Avg (2nd-place rate vs race mean, continuous relative advantage)	0
-42	2026-04-19 03:35:44	63855e9	733.77	7.60	9066	689	906600	6652400	733.77	Add B1-B6_ExTimeGap_x_Wave (ExTime_vs_Min * Wave, motor gap amplified by rough water)	0
+42	2026-04-19 03:35:44	63855e9	733.77	7.6	9066	689	906600	6652400	733.77	Add B1-B6_ExTimeGap_x_Wave (ExTime_vs_Min * Wave, motor gap amplified by rough water)	0
 43	2026-04-19 03:37:59	63855e9	734.49	7.73	9066	701	906600	6658890	734.49	Add B1-B6_WinRate_x_C2in (WinRate * Course_2in, player skill x course stability compound)	0
 44	2026-04-19 03:40:20	63855e9	730.51	7.53	9066	683	906600	6622760	730.51	Add B1-B6_Course_Total3 (Course_Win + Course_2in + Course_3in sum, total course consistency)	0
 45	2026-04-19 03:42:47	63855e9	730.86	7.62	9066	691	906600	6625980	730.86	Add Avg_Course_2in and Course_2in_Spread (race-level 2nd-place rate mean and spread)	0
 46	2026-04-19 03:46:09	63855e9	733.65	7.64	9066	693	906600	6651230	733.65	Add B1-B6_Course_3in_Only (Course_3in - Course_2in, pure 3rd-place tendency excluding 2nd or 1st)	0
 47	2026-04-19 03:48:48	63855e9	735.56	7.72	9066	700	906600	6668590	735.56	Add B1-B6_MotorWinRate_vs_Avg (motor win rate minus race mean, continuous relative motor strength)	0
-48	2026-04-19 03:52:01	63855e9	732.09	7.50	9066	680	906600	6637170	732.09	Add B1-B6_Win_to_2in_Ratio (Course_Win / Course_2in, win vs place tendency for each boat)	0
+48	2026-04-19 03:52:01	63855e9	732.09	7.5	9066	680	906600	6637170	732.09	Add B1-B6_Win_to_2in_Ratio (Course_Win / Course_2in, win vs place tendency for each boat)	0
 49	2026-04-19 03:55:00	63855e9	730.18	7.51	9066	681	906600	6619820	730.18	Add B1-B6_RankScore_vs_Avg (each boat rank score minus race mean, continuous class relative advantage)	0
 50	2026-04-19 03:57:26	63855e9	730.48	7.53	9066	683	906600	6622510	730.48	Add B1-B6_WinRate_vs_Min (player win rate minus race min win rate, absolute advantage over weakest)	0
 51	2026-04-19 04:00:09	63855e9	734.06	7.52	9066	682	906600	6654980	734.06	Add B1-B6_Tilt_Rank (within-race rank of tilt adjustment, 1=most aggressive propeller setting)	0
-52	2026-04-19 04:02:40	63855e9	731.39	7.60	9066	689	906600	6630810	731.39	Add ExTime_Top2_Gap (2nd fastest minus fastest ExTime, measures motor leader dominance in race)	0
+52	2026-04-19 04:02:40	63855e9	731.39	7.6	9066	689	906600	6630810	731.39	Add ExTime_Top2_Gap (2nd fastest minus fastest ExTime, measures motor leader dominance in race)	0
 53	2026-04-19 04:05:20	63855e9	735.56	7.72	9066	700	906600	6668590	735.56	Add B1-B6_Motor2inRate_Rank (within-race rank of motor 2nd-place historical rate, 1=best motor for 2nd place)	0
 54	2026-04-19 04:07:46	63855e9	734.58	7.61	9066	690	906600	6659720	734.58	Add B1-B6_CourseFit (Course_Win - WinRate, how well player fits their current lane vs overall skill)	0
 55	2026-04-19 04:09:59	63855e9	735.56	7.72	9066	700	906600	6668590	735.56	Add B1-B6_Motor2inRate_vs_Avg (motor 2nd-place rate minus race mean, continuous motor 2nd-place advantage)	0
 56	2026-04-19 04:12:28	63855e9	729.79	7.46	9066	676	906600	6616270	729.79	Add B1-B6_ExTime_x_WRRank (ExTime_vs_Min * WinRate_Rank, combined motor-gap and player-skill weakness indicator)	0
 57	2026-04-19 04:14:58	63855e9	733.96	7.71	9066	699	906600	6654090	733.96	Add B1-B6_2nd_Score (ExTime_Rank + Course_2in_Rank sum, lower=stronger 2nd-place candidate)	0
-58	2026-04-19 04:17:19	63855e9	733.68	7.70	9066	698	906600	6651510	733.68	Add B1-B6_ExTime_x_C2inRank (ExTime_vs_Min * Course_2in_Rank, motor gap amplified by 2nd-place course rank)	0
+58	2026-04-19 04:17:19	63855e9	733.68	7.7	9066	698	906600	6651510	733.68	Add B1-B6_ExTime_x_C2inRank (ExTime_vs_Min * Course_2in_Rank, motor gap amplified by 2nd-place course rank)	0
 59	2026-04-19 04:20:21	63855e9	729.58	7.53	9066	683	906600	6614390	729.58	Add B1-B6_CourseFitRatio (Course_Win / MaxCourseWin across all lanes, how well player fits current lane vs their best lane)	0
 60	2026-04-19 04:22:41	63855e9	728.98	7.54	9066	684	906600	6608970	728.98	Add B1-B6_Tilt_x_ExTime (Tilt * ExTime_vs_Min, motor compensating strategy via propeller adjustment)	0
 61	2026-04-19 04:25:04	63855e9	735.56	7.72	9066	700	906600	6668590	735.56	Add B1-B6_Weight_Rank (within-race rank of rider weight, 1=lightest, lighter may be faster)	0
@@ -65,7 +65,7 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 64	2026-04-19 04:33:24	63855e9	735.56	7.72	9066	700	906600	6668590	735.56	Add B1-B6_Count_Rank (within-race rank of career race count, 1=most experienced, reliability of historical stats)	0
 65	2026-04-19 04:36:20	63855e9	734.31	7.65	9066	694	906600	6657290	734.31	Add B1-B6_C2in_x_ETStrength (Course_2in * (7 - ExTime_Rank), 2nd-place course rate weighted by motor strength)	0
 66	2026-04-19 04:40:32	63855e9	733.38	7.53	9066	683	906600	6648780	733.38	Add B1B2_ExTime_Gap (B2_ExTime_vs_Min - B1_ExTime_vs_Min, direct head-to-head motor gap between lane 1 and 2)	0
-67	2026-04-19 04:44:20	63855e9	733.61	7.60	9066	689	906600	6650880	733.61	Add B1-B6_WR_x_CWin (WinRate * Course_Win, player overall win rate x course-specific 1st place rate compound)	0
+67	2026-04-19 04:44:20	63855e9	733.61	7.6	9066	689	906600	6650880	733.61	Add B1-B6_WR_x_CWin (WinRate * Course_Win, player overall win rate x course-specific 1st place rate compound)	0
 68	2026-04-19 04:47:05	63855e9	730.61	7.58	9066	687	906600	6623670	730.61	Add B1-B6_WR_x_ETStrength (WinRate * (7 - ExTime_Rank), player skill weighted by motor speed strength)	0
 69	2026-04-19 04:49:21	63855e9	729.09	7.56	9066	685	906600	6609930	729.09	Add B1-B6_Course_3in_vs_Avg (course-specific 3rd place rate minus race mean, continuous relative 3rd-place advantage)	0
 70	2026-04-19 04:51:52	63855e9	729.69	7.51	9066	681	906600	6615400	729.69	Add B1-B6_ET_C2in_Product (ExTime_Rank * Course_2in_Rank product, lower=stronger 2nd-place motor+course candidate)	0
@@ -74,7 +74,7 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 73	2026-04-19 05:01:59	63855e9	756.22	8.41	9066	762	906600	6855850	756.22	Add B1-B6_VenueWinRate (player venue-specific win rate from race history, captures venue familiarity beyond overall WinRate)	1
 74	2026-04-19 05:05:52	ea6d89a	753.47	8.44	9066	765	906600	6831000	753.47	Add B1-B6_VenueAdapt (VenueWinRate - WinRate, venue-specific advantage over career average)	0
 75	2026-04-19 05:08:38	ea6d89a	151.17	9.77	9066	886	906600	1370540	151.17	Add B1-B6_Venue2inRate (player venue-specific 2nd place rate, venue familiarity for 2nd place)	0
-76	2026-04-19 05:11:46	ea6d89a	753.60	8.38	9066	760	906600	6832140	753.60	Add B1-B6_VenueWinRate_Rank (within-race rank of venue-specific win rate, 1=best venue fit)	0
+76	2026-04-19 05:11:46	ea6d89a	753.6	8.38	9066	760	906600	6832140	753.6	Add B1-B6_VenueWinRate_Rank (within-race rank of venue-specific win rate, 1=best venue fit)	0
 77	2026-04-19 05:15:16	ea6d89a	752.42	8.29	9066	752	906600	6821410	752.42	Add B1-B6_VenueLaneWR (venue x lane historical win rate, captures venue-specific lane advantage bias)	0
 78	2026-04-19 05:18:04	ea6d89a	770.51	8.77	9066	795	906600	6985420	770.51	Add B1-B6_Career2inRate and Career3inRate (overall career 2nd/3rd place rates, not lane-specific)	1
 79	2026-04-19 05:20:36	fe75030	767.91	8.71	9066	790	906600	6961860	767.91	Add B1-B6_Career2in_Rank (within-race rank of career overall 2nd place rate, 1=strongest 2nd-place tendency)	0
@@ -82,16 +82,16 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 81	2026-04-19 05:26:23	bba1080	769.84	8.71	9066	790	906600	6979400	769.84	Add AvgWR_vs_VenueAvg (race average WinRate relative to venue historical average, field strength relative to venue norm)	0
 82	2026-04-19 05:29:21	bba1080	769.48	8.81	9066	799	906600	6976130	769.48	Add B1-B6_VenueWR_vs_Avg (VenueWinRate minus race mean VenueWinRate, relative venue advantage among field)	0
 83	2026-04-19 05:34:00	bba1080	767.11	8.58	9066	778	906600	6954620	767.11	Add B1-B6_CareerTop3Rate (sum of WinRate + Career2inRate + Career3inRate, measures overall top-3 consistency)	0
-84	2026-04-19 05:36:51	bba1080	769.00	8.76	9066	794	906600	6971710	769.00	Add B1-B6_VenueWR_x_ExTimeAdv (VenueWinRate times negative ExTime_vs_Min, captures venue-strong player with fast motor)	0
+84	2026-04-19 05:36:51	bba1080	769.0	8.76	9066	794	906600	6971710	769.0	Add B1-B6_VenueWR_x_ExTimeAdv (VenueWinRate times negative ExTime_vs_Min, captures venue-strong player with fast motor)	0
 85	2026-04-19 05:39:41	bba1080	766.22	8.64	9066	783	906600	6946580	766.22	Add B1-B6_VenueLaneWinRate (historical win rate of lane X at venue Y, captures venue course structure bias independent of player)	0
-86	2026-04-19 05:42:24	bba1080	767.08	8.80	9066	798	906600	6954380	767.08	Add B1-B6_VenueRaceCount (player's total race count at each venue, captures course familiarity)	0
+86	2026-04-19 05:42:24	bba1080	767.08	8.8	9066	798	906600	6954380	767.08	Add B1-B6_VenueRaceCount (player's total race count at each venue, captures course familiarity)	0
 87	2026-04-19 05:45:25	bba1080	820.52	9.36	9066	849	906600	7438790	820.52	Add B1-B6_VenueLanePWinRate (player win rate at specific venue AND lane combo, min 3 races, fallback to VenueWinRate)	1
 88	2026-04-19 05:48:16	1a90812	823.63	9.53	9066	864	906600	7467030	823.63	Add B1-B6_VenueLanePWR_Rank (within-race rank of VenueLanePWinRate, 1=strongest venue-lane adapted player in race)	1
 89	2026-04-19 05:51:02	f23fc8e	821.68	9.54	9066	865	906600	7449360	821.68	Add B1-B6_VenueLane_vs_VenueWR (VenueLanePWinRate minus VenueWinRate, lane-specific edge over player venue average)	0
 90	2026-04-19 05:53:46	f23fc8e	814.48	9.43	9066	855	906600	7384040	814.48	Add B1-B6_VenueLanePWR_x_C2in (VenueLanePWinRate * Career2inRate, venue-lane mastery times career 2nd place consistency)	0
 91	2026-04-19 05:56:24	f23fc8e	823.72	9.64	9066	874	906600	7467860	823.72	Add B1-B6_VenueLanePWR_x_ExAdv (VenueLanePWinRate * negative ExTime_vs_Min, venue-lane expert with fast motor today)	1
 92	2026-04-19 05:59:17	8acf030	824.25	9.56	9066	867	906600	7472610	824.25	Add B1-B6_VenueLanePWR_x_WR (VenueLanePWinRate * WinRate, venue-lane mastery times overall skill compound)	1
-93	2026-04-19 06:03:40	3592a45	834.93	9.60	9066	870	906600	7569490	834.93	Add B1-B6_VenueLanePRaceCount (player race count at venue+lane combo, reliability indicator for VenueLanePWinRate)	1
+93	2026-04-19 06:03:40	3592a45	834.93	9.6	9066	870	906600	7569490	834.93	Add B1-B6_VenueLanePRaceCount (player race count at venue+lane combo, reliability indicator for VenueLanePWinRate)	1
 94	2026-04-19 06:06:31	77264cb	831.76	9.57	9066	868	906600	7540720	831.76	Add B1-B6_VenueLanePC_Rank (within-race rank of VenueLanePRaceCount, 1=most experienced at this venue-lane combo)	0
 95	2026-04-19 06:09:28	77264cb	864.55	10.18	9066	923	906600	7837970	864.55	Remove HAVING COUNT>=3 from VenueLanePWinRate query (include all players, let VenueLanePRaceCount control reliability)	1
 96	2026-04-19 06:12:14	5c137d8	873.02	10.21	9066	926	906600	7914820	873.02	Remove HAVING COUNT>=3 from VenueWinRate query (include all players with any venue history)	1
@@ -103,18 +103,18 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 102	2026-04-19 06:32:39	96f4a43	865.24	10.24	9066	928	906600	7844230	865.24	Add B1-B6_VenueWinRate_Rank (within-race rank of VenueWinRate, relative venue mastery among 6 boats)	0
 103	2026-04-19 06:35:54	96f4a43	883.95	10.19	9066	924	906600	8013870	883.95	Add B1-B6_VenueLanePWR_Bayes2 (Bayesian smoothed VenueLanePWinRate with global WinRate as prior instead of VenueWinRate, alpha=5)	0
 104	2026-04-19 06:38:45	96f4a43	873.46	10.04	9066	910	906600	7918780	873.46	Add B1-B6_VenueWR_x_ExAdv (VenueWinRate * negative ExTime_vs_Min, venue mastery times fast motor today)	0
-105	2026-04-19 06:41:54	96f4a43	870.22	10.20	9066	925	906600	7889400	870.22	Add B1-B6_VenueLanePWR_vs_Avg (VenueLanePWinRate minus race average, relative venue-lane mastery vs competitors)	0
-106	2026-04-19 06:44:43	96f4a43	224.50	10.26	9066	930	906600	2035340	224.50	Add B1-B6_WinRate_vs_Avg (each boat WinRate minus race average WinRate, normalizes for race quality)	0
+105	2026-04-19 06:41:54	96f4a43	870.22	10.2	9066	925	906600	7889400	870.22	Add B1-B6_VenueLanePWR_vs_Avg (VenueLanePWinRate minus race average, relative venue-lane mastery vs competitors)	0
+106	2026-04-19 06:44:43	96f4a43	224.5	10.26	9066	930	906600	2035340	224.5	Add B1-B6_WinRate_vs_Avg (each boat WinRate minus race average WinRate, normalizes for race quality)	0
 107	2026-04-19 06:48:00	96f4a43	873.19	10.11	9066	917	906600	7916320	873.19	Add B1-B6_VenueLane_WinRate (venue-lane combination win rate regardless of player, captures lane bias per track)	0
 108	2026-04-19 06:52:08	96f4a43	882.03	10.28	9066	932	906600	7996470	882.03	Add B1-B6_Tilt_Rank (within-race rank of motor tilt setting, captures relative motor angle vs competitors)	0
 109	2026-04-19 06:55:17	96f4a43	885.69	10.24	9066	928	906600	8029710	885.69	Add B1-B6_CourseWin_x_VenueWR (lane-specific official win rate * venue win rate, compound mastery at this lane type and venue)	1
 110	2026-04-19 06:58:11	37f5baa	231.65	10.25	9066	929	906600	2100180	231.65	Add B1-B6_CourseWin_x_VenueLanePWR (official lane win rate * DB venue-lane win rate, two independent data source compound)	0
 111	2026-04-19 07:02:01	37f5baa	872.76	10.35	9066	938	906600	7912480	872.76	Add B1_VenueLanePWR_vs_MaxOuter (B1 venue-lane win rate minus max outer boat venue-lane win rate, B1 dominance by venue-lane mastery)	0
 112	2026-04-19 07:05:25	37f5baa	900.27	10.24	9066	928	906600	8161870	900.27	Add B1-B6_CourseWin_x_VLPBayes (official lane win rate * Bayesian smoothed venue-lane win rate, two source compound with noise reduction)	1
-113	2026-04-19 07:08:23	9ac41b1	893.14	10.40	9066	943	906600	8097250	893.14	Add B1-B6_VLPBayes_x_WR (Bayesian smoothed venue-lane win rate * overall WinRate, stable version of existing VenueLanePWR_x_WR)	0
-114	2026-04-19 07:11:22	9ac41b1	885.60	10.13	9066	918	906600	8028880	885.60	Add B1-B6_VLPBayes_x_ExAdv (Bayesian smoothed venue-lane win rate * negative ExTime_vs_Min, stable venue-lane mastery with fast motor)	0
-115	2026-04-19 07:14:23	9ac41b1	886.10	10.10	9066	916	906600	8033400	886.10	Add B1-B6_Course2in_x_Career2in (official lane 2nd-place rate * DB career 2nd-place rate, two-source 2nd-place mastery compound)	0
-116	2026-04-19 07:17:24	9ac41b1	222.30	10.18	9066	923	906600	2015360	222.30	Add B1-B6_CourseWin_x_VenueWRBayes (official lane win rate * inline Bayesian smoothed VenueWinRate toward WinRate, alpha=5)	0
+113	2026-04-19 07:08:23	9ac41b1	893.14	10.4	9066	943	906600	8097250	893.14	Add B1-B6_VLPBayes_x_WR (Bayesian smoothed venue-lane win rate * overall WinRate, stable version of existing VenueLanePWR_x_WR)	0
+114	2026-04-19 07:11:22	9ac41b1	885.6	10.13	9066	918	906600	8028880	885.6	Add B1-B6_VLPBayes_x_ExAdv (Bayesian smoothed venue-lane win rate * negative ExTime_vs_Min, stable venue-lane mastery with fast motor)	0
+115	2026-04-19 07:14:23	9ac41b1	886.1	10.1	9066	916	906600	8033400	886.1	Add B1-B6_Course2in_x_Career2in (official lane 2nd-place rate * DB career 2nd-place rate, two-source 2nd-place mastery compound)	0
+116	2026-04-19 07:17:24	9ac41b1	222.3	10.18	9066	923	906600	2015360	222.3	Add B1-B6_CourseWin_x_VenueWRBayes (official lane win rate * inline Bayesian smoothed VenueWinRate toward WinRate, alpha=5)	0
 117	2026-04-19 07:20:29	9ac41b1	220.43	10.09	9066	915	906600	1998410	220.43	Add B1-B6_VLPBayes_x_Course2in (Bayesian venue-lane 1st-place rate * official lane 2nd-place rate, top-2 finishing capability)	0
 118	2026-04-19 07:24:34	9ac41b1	882.57	10.17	9066	922	906600	8001410	882.57	Add B1-B6_CareerLanePWinRate (DB cross-venue lane win rate) + CourseWin_x_CareerLanePWR (official * DB lane win rate two-source compound)	0
 119	2026-04-19 07:27:54	9ac41b1	903.02	10.37	9066	940	906600	8186810	903.02	Add Venue_AvgPayout (historical average trifecta payout per venue, captures venue difficulty and upset frequency)	1
@@ -122,33 +122,67 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 121	2026-04-19 07:36:12	0243367	233.04	10.35	9066	938	906600	2112700	233.04	Add B1-B6_VLPBayes_Rank (within-race rank of Bayesian smoothed venue-lane win rate, relative dominance vs field)	0
 122	2026-04-19 07:39:50	0243367	326.26	11.74	9066	1064	906600	2957860	326.26	Add B1-B6_Venue2inRate (player x venue 2nd-place rate from DB, dedicated 2nd-place placement tendency per venue)	0
 123	2026-04-19 07:43:09	0243367	227.94	10.24	9066	928	906600	2066480	227.94	Add WinRate_Std (race-level std of win rates among 6 boats, higher = more unequal field, captures upset potential)	0
-124	2026-04-19 07:47:51	0243367	226.80	10.18	9066	923	906600	2056180	226.80	Add B1-B6_VenueWR_vs_WR (VenueWinRate minus WinRate, captures venue-specific overperformance vs career average, identifies undervalued venue specialists)	0
+124	2026-04-19 07:47:51	0243367	226.8	10.18	9066	923	906600	2056180	226.8	Add B1-B6_VenueWR_vs_WR (VenueWinRate minus WinRate, captures venue-specific overperformance vs career average, identifies undervalued venue specialists)	0
 125	2026-04-19 07:53:17	0243367	876.55	10.21	9066	926	906600	7946840	876.55	Add Venue_Lane1WinRate (historical lane-1 win rate per venue, captures venue-specific inner-lane bias, race-level context feature)	0
 126	2026-04-19 07:57:46	0243367	886.33	10.24	9066	928	906600	8035460	886.33	Add B1-B6_CourseWin_vs_MaxCW (current lane win rate / player's max lane win rate, captures how well-matched player is to assigned lane, upset signal)	0
 127	2026-04-19 08:03:56	0243367	881.08	10.24	9066	928	906600	7987880	881.08	Add B1-B6_CourseWin_x_Career2in (official lane win rate * DB career 2nd-place rate, cross-placement two-source compound)	0
-128	2026-04-19 08:06:59	0243367	880.50	10.40	9066	943	906600	7982650	880.50	Add Wave_x_Wind (Wave * WindSpeed, rough-conditions composite index, race-level upset potential signal)	0
+128	2026-04-19 08:06:59	0243367	880.5	10.4	9066	943	906600	7982650	880.5	Add Wave_x_Wind (Wave * WindSpeed, rough-conditions composite index, race-level upset potential signal)	0
 129	2026-04-19 08:10:45	0243367	903.02	10.37	9066	940	906600	8186810	903.02	Add B1-B6_Wave_x_Lane (Wave * lane_number, captures outer lane disadvantage in rough conditions, wave-lane interaction)	0
 130	2026-04-19 08:13:43	0243367	903.02	10.37	9066	940	906600	8186810	903.02	Add VenueWind_AvgPayout (historical avg payout by Venue x WindDir, captures venue-specific wind condition upset tendency)	0
-131	2026-04-19 08:17:30	0243367	895.20	10.57	9066	958	906600	8115910	895.20	Add B1-B6_VenueSeasonPWinRate (player x venue x summer/winter win rate, 3-way interaction capturing seasonal venue performance)	0
+131	2026-04-19 08:17:30	0243367	895.2	10.57	9066	958	906600	8115910	895.2	Add B1-B6_VenueSeasonPWinRate (player x venue x summer/winter win rate, 3-way interaction capturing seasonal venue performance)	0
 132	2026-04-19 08:22:19	0243367	229.35	10.18	9066	923	906600	2079250	229.35	Add MaxOuter_VLPBayes (race-level max VLPBayes among outer boats B2-B6, identifies races with strong outer lane specialists)	0
 133	2026-04-19 08:25:34	0243367	903.02	10.37	9066	940	906600	8186810	903.02	Add ExTime_Spread (race-level max-min exhibition time gap, measures race competitiveness)	0
 134	2026-04-19 08:29:29	0243367	903.02	10.37	9066	940	906600	8186810	903.02	Add WeatherCode (numeric encoding of Weather string which was excluded from model via EXCLUDE_COLS)	0
 135	2026-04-19 08:33:54	0243367	873.11	10.19	9066	924	906600	7915600	873.11	Add Tilt_Spread (race-level propeller tilt range, measures strategic variation in motor setup)	0
 136	2026-04-19 08:38:12	0243367	231.54	10.25	9066	929	906600	2099170	231.54	Add Venue_HighPayout_Rate (fraction of races with payout > 20000 yen, captures tail upset frequency distinct from mean payout)	0
-137	2026-04-19 08:41:59	0243367	231.81	10.30	9066	934	906600	2101570	231.81	Remove B#_VenueLanePWR_Rank features to reduce per-boat ordering overconfidence	0
+137	2026-04-19 08:41:59	0243367	231.81	10.3	9066	934	906600	2101570	231.81	Remove B#_VenueLanePWR_Rank features to reduce per-boat ordering overconfidence	0
 138	2026-04-19 08:45:34	0243367	882.48	10.28	9066	932	906600	8000560	882.48	Add VenueAvgPayout_x_WaterTemp (venue upset-likelihood times water temperature, captures seasonal venue dynamics)	0
 139	2026-04-19 08:49:15	0243367	232.14	10.29	9066	933	906600	2104620	232.14	Add Venue_OuterLane_WinRate (fraction of races won by outer boats lanes 4-6, venue upset-proneness from outer lane perspective)	0
 140	2026-04-19 08:52:29	0243367	229.48	10.19	9066	924	906600	2080490	229.48	Add Race_AvgCourseWin (mean Course_Win across all 6 boats, race-level field quality without per-boat ordering)	0
 141	2026-04-19 08:56:12	0243367	878.62	10.14	9066	919	906600	7965540	878.62	Add IsWeekend binary flag (Sat/Sun vs weekday, different bettor composition may affect optimal betting strategy)	0
 142	2026-04-19 08:59:31	0243367	881.63	10.27	9066	931	906600	7992880	881.63	Increase Bayesian smoothing alpha 5->50 for VenueLanePWR_Bayes to reduce per-lane-specific overconfidence	0
 143	2026-04-19 09:03:22	0243367	895.14	10.38	9066	941	906600	8115370	895.14	Add Venue_MedianPayout (median payout per venue, more robust than mean to extreme outlier payouts)	0
-144	2026-04-19 09:06:47	0243367	240.50	10.40	9066	943	906600	2180330	240.50	Add PlayerAvgWinPayout per boat via DB query (player avg payout when winning, identifies upset specialists vs favorites)	0
+144	2026-04-19 09:06:47	0243367	240.5	10.4	9066	943	906600	2180330	240.5	Add PlayerAvgWinPayout per boat via DB query (player avg payout when winning, identifies upset specialists vs favorites)	0
 145	2026-04-19 09:09:56	0243367	903.02	10.37	9066	940	906600	8186810	903.02	Remove B1_Is_Top_WinRate (boolean B1-dominance flag that may cause overconfidence betting on obvious B1-first combos)	0
-146	2026-04-19 09:14:54	0243367	900.34	10.50	9066	952	906600	8162470	900.34	Add Venue_PayoutIQR (inter-quartile range Q75-Q25 of venue payouts, outlier-robust spread measure distinct from std)	0
+146	2026-04-19 09:14:54	0243367	900.34	10.5	9066	952	906600	8162470	900.34	Add Venue_PayoutIQR (inter-quartile range Q75-Q25 of venue payouts, outlier-robust spread measure distinct from std)	0
 147	2026-04-19 09:18:25	0243367	232.49	10.29	9066	933	906600	2107710	232.49	Add R_AvgPayout (average payout by race number R within session, captures late-race upset tendency)	0
 148	2026-04-19 09:21:37	0243367	903.02	10.37	9066	940	906600	8186810	903.02	Add B{lane}_Weight_vs_Avg (each boat weight minus race average, lighter rider advantage signal)	0
 149	2026-04-19 09:24:59	0243367	902.48	10.24	9066	928	906600	8181880	902.48	Add VenueAvgPayout_x_MonthSin (Venue_AvgPayout * Month_Sin interaction, seasonal upset-tendency at venue)	0
-150	2026-04-19 09:28:53	0243367	887.70	10.10	9066	916	906600	8047920	887.70	Add Venue_PayoutSkew (skewness of venue payout distribution, captures rare big-upset vs uniform upset venue profiles)	0
+150	2026-04-19 09:28:53	0243367	887.7	10.1	9066	916	906600	8047920	887.7	Add Venue_PayoutSkew (skewness of venue payout distribution, captures rare big-upset vs uniform upset venue profiles)	0
 151	2026-04-19 09:35:15	0243367	903.02	10.37	9066	940	906600	8186810	903.02	Add B{lane}_Count (career race count per player, encodes WinRate reliability and player experience)	0
-152	2026-04-19 09:41:23	0243367	882.80	10.26	9066	930	906600	8003460	882.80	Add Venue_LaneWin_Entropy (entropy of winning lane distribution per venue, high=any lane wins=upset-prone)	0
-153	2026-04-19 09:45:14	0243367	903.42	10.31	9066	935	906600	8190370	903.42	Remove Diff_B1_vs_MaxOuter feature (reduces B1-dominance signal that may cause overconfidence in obvious combos)	0
+152	2026-04-19 09:41:23	0243367	882.8	10.26	9066	930	906600	8003460	882.8	Add Venue_LaneWin_Entropy (entropy of winning lane distribution per venue, high=any lane wins=upset-prone)	0
+153	2026-04-19 09:45:14	0243367	903.42	10.31	9066	935	906600	8190370	903.42	Remove Diff_B1_vs_MaxOuter feature (reduces B1-dominance signal that may cause overconfidence in obvious combos)	1
+154	2026-04-19 09:48:16	6ef8d9a	868.57	10.28	9066	932	906600	7874480	868.57	Remove Diff_WinRate_1_2 (B1 vs B2 win rate diff, reduces B1-dominance signal causing overconfidence)	0
+155	2026-04-19 09:51:04	6ef8d9a	891.95	10.06	9066	912	906600	8086420	891.95	Remove B1_WinRate_Over_Avg (B1 vs field average win rate, reduces B1-dominance overconfidence signal)	0
+156	2026-04-19 09:54:03	6ef8d9a	223.01	10.19	9066	924	906600	2021800	223.01	Remove WinRate_Spread (max-min win rate field spread, reduces overconfidence signal in B1-dominant races)	0
+157	2026-04-19 09:57:01	6ef8d9a	903.42	10.31	9066	935	906600	8190370	903.42	Remove B1_Is_Top_WinRate (from new 153 baseline, derivable from B1_WinRate_Rank, tests if zero-importance has changed)	0
+158	2026-04-19 09:59:44	6ef8d9a	220.55	10.25	9066	929	906600	1999550	220.55	Change Bayesian alpha from 5.0 to 2.0 (less smoothing for VenueLanePWR_Bayes, trust per-lane sample more)	0
+159	2026-04-19 10:02:36	6ef8d9a	888.38	10.30	9066	934	906600	8054050	888.38	Remove Max_Outer_WinRate (outer boat max win rate, companion to already-removed Diff_B1_vs_MaxOuter)	0
+160	2026-04-19 10:05:42	6ef8d9a	881.08	10.19	9066	924	906600	7987910	881.08	Add VenueMonth_AvgPayout (venue x month mean payout, captures seasonal upset variation per venue beyond global venue avg)	0
+161	2026-04-19 10:09:07	6ef8d9a	884.16	10.41	9066	944	906600	8015750	884.16	Remove B1_RankScore_Over_Avg (B1 rank score vs field avg, rank-score B1 dominance signal)	0
+162	2026-04-19 10:12:19	6ef8d9a	226.66	10.19	9066	924	906600	2054940	226.66	Add WaterTemp_VenueRank (percentile rank of water temp within venue, captures unusually hot/cold race conditions)	0
+163	2026-04-19 10:15:07	6ef8d9a	226.18	10.09	9066	915	906600	2050530	226.18	Remove B{lane}_VenueLanePWR_x_ExAdv group (VLP * ExTime advantage cross-products, precise ordering signal causing overconfidence)	0
+164	2026-04-19 10:20:20	6ef8d9a	591.87	17.55	9066	1591	906600	5365930	591.87	Add VenueLaneP3inRate (per-player venue-lane 3rd-place finish rate, finer granularity for 3rd model)	0
+165	2026-04-19 10:24:10	6ef8d9a	236.64	10.34	9066	937	906600	2145360	236.64	Add Course_3in_Rank (within-race rank of per-lane 3rd-place rate, analogous to existing Course_2in_Rank, helps 3rd model)	0
+166	2026-04-19 10:28:02	6ef8d9a	868.88	10.29	9066	933	906600	7877310	868.88	Add WinRate_HHI (Herfindahl-Hirschman Index of win rates, symmetric race uncertainty measure, complements Venue_AvgPayout)	0
+167	2026-04-19 10:31:43	6ef8d9a	901.31	10.30	9066	934	906600	8171310	901.31	Remove B1_VenueLanePWR_x_ExAdv only (B1 venue-lane aptitude x engine advantage double-signal for B1, similar to removed Diff_B1_vs_MaxOuter)	0
+168	2026-04-19 10:35:29	6ef8d9a	877.40	10.24	9066	928	906600	7954510	877.40	Add VenueLane_BaseWinRate (venue x lane structural win rate regardless of player, complements player-specific VenueLanePWinRate)	0
+169	2026-04-19 10:38:40	6ef8d9a	903.41	10.36	9066	939	906600	8190270	903.41	Add Venue_StdPayout (std deviation of payouts per venue, captures payout volatility beyond mean, complements Venue_AvgPayout)	0
+170	2026-04-19 10:42:00	6ef8d9a	903.42	10.31	9066	935	906600	8190370	903.42	Add B{lane}_Wave_Penalty (wave x lane outer-bias, physics: outer lanes more affected by choppy conditions)	0
+171	2026-04-19 10:45:27	6ef8d9a	230.78	10.18	9066	923	906600	2092280	230.78	Change Bayesian alpha from 5.0 to 10.0 (more smoothing toward VenueWinRate, alpha=2.0 crashed, exploring higher end)	0
+172	2026-04-19 10:49:19	6ef8d9a	902.40	10.35	9066	938	906600	8181130	902.40	Add B{lane}_VenueLane_AvgPayout (avg payout when lane L wins at venue V, conditional payout signal for value bet detection)	0
+173	2026-04-19 10:52:53	6ef8d9a	884.10	10.28	9066	932	906600	8015270	884.10	Remove ExTimeMin_vs_VenueAvg (race min exhibit time vs venue average, potentially adding noise rather than signal)	0
+174	2026-04-19 10:56:34	6ef8d9a	234.00	10.24	9066	928	906600	2121460	234.00	Compute MotorWinRate directly from races+results when motor_stats is empty (activates previously zero-filled motor features)	0
+175	2026-04-19 11:00:27	6ef8d9a	879.21	10.40	9066	943	906600	7970880	879.21	Add VenueR_AvgPayout (avg payout per venue x race-number, captures race-slot upset tendency beyond venue-level avg)	0
+176	2026-04-19 11:04:07	6ef8d9a	877.71	10.26	9066	930	906600	7957320	877.71	Remove B1_ExTime_vs_Min (B1 engine advantage vs field best, condensed B1-domination signal analogous to removed Diff_B1_vs_MaxOuter)	0
+177	2026-04-19 11:07:31	6ef8d9a	874.27	10.10	9066	916	906600	7926120	874.27	Remove B1_VenueLanePWR_x_WR only (B1 venue-lane rate x career win rate, career-on-career double B1-dominance signal)	0
+178	2026-04-20 03:04:05	48b158d	742.32	10.11	11370	1149	1137000	8440220	742.32	Add B{lane}_Course_Win_Rank (within-race rank of course-specific 1st-place rate, symmetric counterpart to Course_2in_Rank)	0
+179	2026-04-20 03:07:01	48b158d	226.57	9.91	11370	1127	1137000	2576140	226.57	Add B{lane}_ExTime_Norm (normalized ExTime position 0=fastest,1=slowest, scale-aware vs integer rank, distinguishes tight vs spread fields)	0
+180	2026-04-20 03:09:39	48b158d	745.42	10.04	11370	1142	1137000	8475390	745.42	Add B{lane}_WinRate_vs_Max (each boat win rate minus race-best win rate, gap-to-leader for all boats, extends Diff_WinRate_1_2)	0
+181	2026-04-20 03:12:17	48b158d	223.93	10.08	11370	1146	1137000	2546140	223.93	Add Weekday_Sin/Cos (cyclic day-of-week encoding, finer than binary IsWeekend, captures Mon-Sun betting composition differences)	0
+182	2026-04-20 03:16:00	48b158d	218.92	9.90	11370	1126	1137000	2489130	218.92	Add B{lane}_VLPBayes_x_WR (Bayesian-smoothed venue-lane aptitude x career win rate, noise-reduced version of existing VenueLanePWR_x_WR)	0
+183	2026-04-20 03:18:44	48b158d	212.39	10.09	11370	1147	1137000	2414870	212.39	Baseline check: unmodified build_features.py on current data (data may have been updated since trial 153)	0
+184	2026-04-20 03:22:06	48b158d	208.50	10.22	11370	1162	1137000	2370680	208.50	Add B{lane}_RankScore_Rank (within-race grade rank 1=A1 best, analogous to WinRate_Rank but using official A1/A2/B1/B2 grades)	0
+185	2026-04-20 03:24:26	48b158d	737.30	10.01	11370	1138	1137000	8383080	737.30	Add B{lane}_VenueWinRate_Rank (within-race rank of venue-specific win rate, venue-focused complement to global WinRate_Rank)	0
+186	2026-04-20 03:26:26	48b158d	742.22	10.04	11370	1141	1137000	8439050	742.22	Add WinRate_Std (standard deviation of 6 boats win rates, captures field homogeneity vs dominant-favorite balance)	0
+187	2026-04-20 03:28:48	48b158d	209.64	10.09	11370	1147	1137000	2383650	209.64	Add B{lane}_WinRate_x_ExSpeed (career win rate x engine speed score 7-rank, combines player skill and today motor performance)	0
