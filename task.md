@@ -308,12 +308,12 @@ Phase 8-2/8-3（CoT）        ← Phase 6完了後に効果測定してから実
 
 # 🔧 運用トラブル対応（2026-04-17〜2026-04-18）
 
-## 最終更新: 2026-04-21 04:45
+## 最終更新: 2026-04-21 10:45
 
 ## 現在のステータス
 
-**当初6タスク完了＋追加対応（LINE通知独立タスク）も完了。運用トラブル対応は一通り収束。残課題はバリデーション窓シフト問題の検討のみ。**
-LINE試験メッセージは届いた、GitHub Actionsのスクショも受領済み。真因は Actions 失敗ではなく「ローカルから push されていなかった」ことと判明。
+**運用トラブル対応すべて完了。予測パイプラインの全層接続をコード検証＋実機シミュレーションで確認済み。models と build_features の不整合も手動 retrain で解消、健全な状態。**
+残課題はバリデーション窓シフト問題の検討のみ（急がず数日様子見）。
 
 ## 判明した真因（2026-04-18）
 
@@ -325,10 +325,28 @@ LINE試験メッセージは届いた、GitHub Actionsのスクショも受領�
 
 ## 次回やること（再開時の第一歩）
 
-1. **04/22 以降の 3am 実行 + 5am 通知が安定するか見守り**（数日様子見）
+1. **04/22 以降の 3am ループ + 5am LINE通知が安定稼働するか見守り**（数日）
+   - `auto_research/loop_log.txt` と LINE 着信を毎朝チェック
 2. **バリデーション窓シフト問題の対処を判断**（下記「新規発覚」参照）
    - 案A: バリデーション期間を固定（evaluator.py か experiment.py 改修）
    - 案B: 実行開始時に無改造ベースラインを走らせて改善幅で評価
+3. **（必要なら）別件で未コミットのファイルを整理**
+   - `main_runner.py` + `utils/` — ことちゃんRAG連携（masaru さんの別作業）
+   - `dashboard/package*.json` — Vite 8→7 ダウングレード（戻すか残すか要判断）
+
+## 再開時のシステム現状（重要）
+
+- **予測パイプラインの全層接続は検証済み（2026-04-21）**
+  - 層1 データ → 層2 build_features → 層3 retrain/experiment → 層4 predict → LLM → LINE すべて接続
+  - `past_data/ml_features.csv`（113,120行、187特徴量）と `models/lgb_model_*.txt` は完全一致状態
+  - 実機シミュレーション: 大村 12R（04/20）で 1号艇 P=0.584 など合理的な確率が出力された
+- **自動実行スケジュール**
+  - 03:00 `BoatRaceAI_SelfImproveLoop` → `run_loop.bat` → claude 自己改善ループ
+  - 05:00 `BoatRaceAI_NotifyResult` → `python notify_loop_result.py` → LINE サマリー通知（二重化保険）
+  - 夜バッチ `run_daily.bat` → main_runner.py → 自動 commit & push
+  - 朝バッチ `run_morning.bat` → morning_odds_runner.py → EV予測 & LINE
+- **現在のベストスコア: 903.42**（exp #153、commit `6ef8d9a`）
+- **但しバリデーション窓シフトにより現データでの評価は 212.39** → 同コードでも日によってスコアがブレる問題あり
 
 ## 新規発覚（2026-04-20 のループ結果より）
 
@@ -386,15 +404,29 @@ LINE試験メッセージは届いた、GitHub Actionsのスクショも受領�
   - 手動で `python auto_research/notify_loop_result.py` を実行してサマリー送信成功
   - run_loop.bat の notify 呼び出しがタスクスケジューラ経由で不安定なため、独立タスク `BoatRaceAI_NotifyResult` を毎日 5:00 実行で新規作成
   - masaru さん GUI 作業で作成＋テスト成功
+- [x] H. 予測パイプラインの全層接続検証 ✅ 2026-04-21 完了
+  - Explore agent でコード上の接続をファイル名・行番号で検証（全 ✅ OK）
+  - 実機シミュレーションで 1 レース分の予測を通し、確率が正常に出ることを確認
+  - 軽微な不整合（`Venue_HighPayoutRate` の有無）を検出
+- [x] I. models と build_features の不整合を解消 ✅ 2026-04-21 完了
+  - `python retrain_model.py` を手動実行
+  - モデル特徴量 188 → 187 に再学習、ml_features.csv と完全一致
+  - 旧モデルは `*_backup.txt` に自動退避
+  - 1着精度 73.06% / 2着精度 34.96% / 3着精度 27.94%
 
 ## 修正したファイル（未コミット分）
 
 - `dashboard/package.json` + `dashboard/package-lock.json` — Vite 8.0.0 → 7.3.2、@vitejs/plugin-react 6 → 4 にダウングレード（ビルドクラッシュ調査の過程で変更、戻しても可）
 
-## コミット済み（2026-04-18）
+## コミット済み（運用トラブル対応シリーズ）
 
 - `1fa8fea` Auto-update dashboard data: 2026-04-18 11:30:00（daily_data 反映）
 - `13b04ce` fix: 夜バッチのGitHub同期を複数ファイル対応＋commit失敗を吸収
+- `bf36d71` fix: バッチスクリプトのログ出力とUTF-8対応を強化
+- `724567f` feat: 自己改善ループに停止条件を追加（50試行/3時間/連続10回未更新）
+- `37f5baa`〜`6ef8d9a` auto_research ループの自動改善（686.09 → 903.42）
+- `32f2a39` chore: 自己改善ループの実験ログ追加と朝バッチ反映（2026-04-20）
+- `cd0ae5a` docs: task.md を 2026-04-21 時点の運用トラブル対応完了状態に更新
 
 ## 作業ログ
 
@@ -436,3 +468,6 @@ LINE試験メッセージは届いた、GitHub Actionsのスクショも受領�
 - `notify_loop_result.py` を手動実行して今朝分のサマリーを LINE 送信成功
 - 再発防止として独立タスク `BoatRaceAI_NotifyResult`（毎日 5:00）を作成、テスト実行で LINE 到達を確認
 - これで run_loop.bat が途中死しても 5:00 に必ずサマリーが届く体制に
+- ユーザーから「予測パイプラインが本当に繋がっているか」懸念 → 全層の接続をコード検証＋実機シミュレーションで確認（全 ✅）
+- 検証中に models と build_features.py の軽微な不整合（Venue_HighPayoutRate）を発見 → `python retrain_model.py` 手動実行で解消
+- 再学習結果: 1着 73.06% / 2着 34.96% / 3着 27.94%、backup 自動生成、ml_features 完全一致

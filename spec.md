@@ -535,3 +535,99 @@ Phase 8（LLMプロンプト）    → Phase 6完了後に着手。
 | Phase 6 | retrain_model.py / local_ai_pipeline.py | 精度評価の正確化 + 2〜6号艇精度向上 | 中 |
 | Phase 7 | build_features.py | 短期調子・会場相性の反映で精度向上 | 大（ループ自動化） |
 | Phase 8 | プロンプト2ファイル | LLM判断の安定化・一貫性向上 | 小 |
+
+---
+
+# 運用メモ（2026-04-17 追記）
+
+## bat ファイル（Windows）の記述ルール
+
+auto_research/run_loop.bat で日本語を含む UTF-8 保存 bat を cmd が parse 誤って `cd /d` が効かない事象が発生した。以下を遵守する：
+
+- **パスは `%~dp0..` など bat 自身の位置基準で書く**（絶対パスをハードコードしない）
+- bat 内の日本語はコメントに留め、コマンド引数の日本語は外部ファイルから読ませる
+- リダイレクト先のログファイル名にも ASCII のみを使う
+- `chcp 65001` は併用しない方が安定する（cmd の parse と噛み合わないケースがある）
+
+## Python スクリプトから LINE 通知する際の注意
+
+Windows cmd から Python を起動すると stdout が cp932 になり、絵文字を含む print で UnicodeEncodeError が起きて後続処理に到達しない事がある。対策：
+
+- スクリプト冒頭で `sys.stdout.reconfigure(encoding="utf-8", errors="replace")` を呼ぶ
+- print は try/except でラップ（例: `safe_print()` ヘルパー）
+- 出力の print 失敗と LINE 送信の成否は必ず切り離す
+
+## ダッシュボードのビルドについて
+
+**このWindows環境（Windows 11 + Node v24 + OneDrive配下パス）では `npm run build` がネイティブバイナリクラッシュ（exit 0xC0000409）で実行不能。** Vite 7 / Vite 8 どちらでも同じ、ソース無関係で再現する既知の環境固有問題。
+
+- ローカル閲覧は `cd dashboard && npm run dev` → `http://localhost:5173/Play/` で対応
+- 本番ビルド（GitHub Pages 公開）は **必ず GitHub Actions（Ubuntu）経由**で行う
+- `.github/workflows/deploy-dashboard.yml` が `dashboard/**` の push をトリガーにビルド＆gh-pages デプロイする構成になっている
+- 将来 Node をダウングレード（v20/v22）または WSL に移せばローカルビルドも可能になる見込み
+
+---
+
+## 運用仕様（スケジュール・自動実行）
+
+2026-04-21 時点の稼働構成を記録する。Windows タスクスケジューラに 4 つのタスクが登録されており、それぞれ目的と起動時刻が異なる。
+
+### タスクスケジューラ登録タスク
+
+| タスク名 | 起動 | 実行対象 | 役割 |
+|---|---|---|---|
+| `BoatRaceAI_DailyBatch`（または類似） | 夜（例: 00:00）| `run_daily.bat` → `main_runner.py` | データ収集 + 予測 + 反省 + 自動commit/push |
+| `BoatRaceAI_MorningBatch`（または類似） | 朝（例: 09:00）| `run_morning.bat` → `morning_odds_runner.py` | 前売オッズ取得 + EV算出 + EV予測 + LINE通知 |
+| `BoatRaceAI_SelfImproveLoop` | 03:00 | `auto_research/run_loop.bat` | claude 自己改善ループ（`program.md` に従って特徴量を自動試行）|
+| `BoatRaceAI_NotifyResult` | 05:00 | `python auto_research/notify_loop_result.py` | 自己改善ループのサマリーを LINE 送信（run_loop.bat の notify が途中死する問題の保険）|
+
+### 全タスク共通の設定
+
+- **セキュリティオプション**: 「ユーザーがログオンしているかどうかにかかわらず実行する」（スリープ中でも起動）
+- **最上位の特権で実行する**: ☑ 有効
+- **AC電源限定**: ☐ 無効（バッテリ駆動でも実行）
+- **スリープを解除する**: ☑ 有効
+- **スケジュールした時刻に開始できなかった場合はすぐ実行**: ☑ 有効
+
+### 自己改善ループの停止条件
+
+`auto_research/program.md` に明記（2026-04-19 追加）。以下のいずれかで即時終了してサマリーを出力：
+
+1. セッション内の試行回数が **50 を超えた**
+2. セッション累計実行時間が **3 時間を超えた**
+3. 直近 **10 試行連続でベストスコア未更新**（ネタ切れ判定）
+
+目的は Claude Max プラン週次使用量枠の保護。数値はユーザー承認済み。
+
+### push_to_github の仕様
+
+`main_runner.py` の `push_to_github()` は以下の8ファイルを add 対象にする：
+
+- `dashboard/public/daily_data/dashboard_data.json`
+- `dashboard/public/daily_data/loop_results.json`
+- `dashboard/public/daily_data/daily_odds_3t.csv`
+- `dashboard/public/daily_data/daily_predictions.csv`
+- `dashboard/public/daily_data/daily_reflections.csv`
+- `dashboard/public/daily_data/daily_player_course_stats.csv`
+- `daily_data/daily_odds_3t.csv`
+- `daily_data/daily_reflections.csv`
+
+commit が "nothing to commit" で失敗しても push は必ず試行する（ローカルに溜まった既存コミットを押し出すため）。
+
+### バッチスクリプトの規約
+
+[bat_utf8_japanese_pitfall](../memory/bat_utf8_japanese_pitfall.md) および [python_emoji_cp932](../memory/python_emoji_cp932.md) を参照。
+
+- bat は **leading space を避け、ASCII 中心**で書く
+- 日本語コメントは最小化、日本語を含む場合は UTF-8 BOM なしで保存
+- `cd /d "%~dp0"` または `cd /d "%~dp0.."` で bat 位置基準の cwd 設定
+- `set PYTHONIOENCODING=utf-8` を Python 呼び出し前に設定
+- stdout/stderr は必ず `>> "%~dp0logs\*.log" 2>&1` でファイルに追記
+- タスクスケジューラ経由で走る bat に **`pause` は絶対入れない**
+
+### モデル再学習の仕様
+
+- **週次自動**: 月曜日に `main_runner.py` が `retrain_model.main()` を呼ぶ
+- **手動**: 任意のタイミングで `python retrain_model.py` を直接実行可能
+- 実行内容: ①daily→past データマージ ②`build_features.main()` で特徴量再構築 ③3モデル（1着/2着/3着）を並列学習 ④旧モデルと A/B テスト ⑤勝った方を `models/lgb_model_*.txt` に保存、負けた方は `models/lgb_model_*_backup.txt` に退避
+- `auto_research/experiment.py` の試行中にも一時的にモデルは上書きされるため、週次再学習が「正規の状態リセット」として機能する
