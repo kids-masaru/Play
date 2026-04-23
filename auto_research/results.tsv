@@ -235,3 +235,5 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 234	2026-04-24 03:36:09	6bf1d34	217.55	10.03	9792	982	979200	2130250	217.55	Add B1_WinRate_vs_AvgOuter (B1 win rate minus mean of B2-B6, self-excluded reference, WinRate analog of successful B1_ExTime_vs_AvgOuter)	0
 235	2026-04-24 03:39:59	6bf1d34	204.35	9.96	9792	975	979200	2000990	204.35	Add B1_ExTime_vs_OuterMin (B1 minus fastest outer motor, signed: negative when B1 is fastest, reveals B1-fastest magnitude unlike B1_ExTime_vs_Min which floors at 0)	0
 236	2026-04-24 03:44:26	6bf1d34	818.59	10.04	9792	983	979200	8015680	818.59	Add Race_N_StrongFavorites (count of boats with WinRate > 6.0, field strength density as discrete count)	1
+237	2026-04-24 03:48:20	043e1b5	805.99	9.92	9792	971	979200	7892270	805.99	Add Race_N_AClassBoats (count of A-class boats, RankScore >= 3, official class-based field density complementing Race_N_StrongFavorites)	0
+238	2026-04-24 03:51:30	043e1b5	823.90	10.00	9792	979	979200	8067670	823.90	Add Race_N_WeakBoats (count of boats with WinRate < 4.0, weak-field density, mirror of Race_N_StrongFavorites)	1

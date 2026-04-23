@@ -313,6 +313,11 @@ def main():
     df_merged['Race_N_StrongFavorites'] = sum(
         (df_merged[f'B{i}_WinRate'] > 6.0).fillna(False).astype(int) for i in range(1, 7)
     )
+    # レース内の弱豪艇数（WinRate < 4.0）: 弱い艇が多い楽勝レースの指標
+    # Race_N_StrongFavorites との鏡像的シグナル
+    df_merged['Race_N_WeakBoats'] = sum(
+        (df_merged[f'B{i}_WinRate'] < 4.0).fillna(False).astype(int) for i in range(1, 7)
+    )
 
     # (E) ランクスコアの集約指標
     rank_scores = [df_merged[f'B{i}_RankScore'] for i in range(1, 7)]
