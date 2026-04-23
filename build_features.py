@@ -308,6 +308,11 @@ def main():
     # 2-6号艇の最高勝率（1号艇の脅威度）—— Diff_B1_vs_MaxOuter は除去（B1過信につながる可能性）
     outer_wr = pd.concat([df_merged[f'B{i}_WinRate'] for i in range(2, 7)], axis=1)
     df_merged['Max_Outer_WinRate'] = outer_wr.max(axis=1)
+    # レース内の強豪艇数（WinRate > 6.0）: フィールドの強豪密度を示す離散特徴量
+    # 多ければ「混戦レース」、少なければ「一強レース」
+    df_merged['Race_N_StrongFavorites'] = sum(
+        (df_merged[f'B{i}_WinRate'] > 6.0).fillna(False).astype(int) for i in range(1, 7)
+    )
 
     # (E) ランクスコアの集約指標
     rank_scores = [df_merged[f'B{i}_RankScore'] for i in range(1, 7)]

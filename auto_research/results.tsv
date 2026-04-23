@@ -231,3 +231,7 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 230	2026-04-24 03:21:05	e5365de	806.72	9.99	9792	978	979200	7899420	806.72	Add B{lane}_Motor2in_x_Career2in (motor 2nd-place rate x player career 2nd-place rate cross-source product)	0
 231	2026-04-24 03:25:03	e5365de	216.69	10.05	9792	984	979200	2121840	216.69	Add B{lane}_WR_x_CWStrength (WinRate x (7 - Course_Win_Rank), player skill x lane win rate strength compound)	0
 232	2026-04-24 03:29:00	e5365de	807.29	9.88	9792	967	979200	7905010	807.29	Add B1_ExTime_vs_AvgOuter (B1 motor time minus outer boats B2-B6 mean, excludes B1 from reference unlike B1_ExTime_vs_Avg)	1
+233	2026-04-24 03:32:41	6bf1d34	800.66	9.84	9792	964	979200	7840070	800.66	Add B{lane}_ExTime_vs_OtherMean for all 6 lanes (each boat motor time vs mean of other 5 boats, extension of successful B1 version)	0
+234	2026-04-24 03:36:09	6bf1d34	217.55	10.03	9792	982	979200	2130250	217.55	Add B1_WinRate_vs_AvgOuter (B1 win rate minus mean of B2-B6, self-excluded reference, WinRate analog of successful B1_ExTime_vs_AvgOuter)	0
+235	2026-04-24 03:39:59	6bf1d34	204.35	9.96	9792	975	979200	2000990	204.35	Add B1_ExTime_vs_OuterMin (B1 minus fastest outer motor, signed: negative when B1 is fastest, reveals B1-fastest magnitude unlike B1_ExTime_vs_Min which floors at 0)	0
+236	2026-04-24 03:44:26	6bf1d34	818.59	10.04	9792	983	979200	8015680	818.59	Add Race_N_StrongFavorites (count of boats with WinRate > 6.0, field strength density as discrete count)	1
