@@ -274,6 +274,10 @@ def main():
         df_merged['ExTime_Spread'] = df_merged['ExTime_Max'] - df_merged['ExTime_Min']  # タイム差（拮抗度）
         df_merged['B1_ExTime_vs_Min'] = df_merged['B1_ExTime'] - df_merged['ExTime_Min']  # 1号艇と最速の差
         df_merged['B1_ExTime_vs_Avg'] = df_merged['B1_ExTime'] - ex_df.mean(axis=1)       # 1号艇と平均の差
+        # 1号艇と外艇(B2-B6)平均との差（自分を含まない外艇モーター平均との比較）
+        outer_ex_cols = [f'B{i}_ExTime' for i in range(2, 7) if f'B{i}_ExTime' in ex_df.columns]
+        if outer_ex_cols:
+            df_merged['B1_ExTime_vs_AvgOuter'] = df_merged['B1_ExTime'] - ex_df[outer_ex_cols].mean(axis=1)
 
         # 展示タイム順位（1=最速）: 機力の序列を明示する
         ex_ranks = ex_df.rank(axis=1, method='min', ascending=True)
