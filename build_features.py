@@ -298,7 +298,8 @@ def main():
     wr_df = pd.concat([df_merged[f'B{i}_WinRate'] for i in range(1, 7)], axis=1)
     wr_df.columns = [f'B{i}_WinRate' for i in range(1, 7)]
     df_merged['Max_WinRate'] = wr_df.max(axis=1)
-    df_merged['WinRate_Spread'] = df_merged['Max_WinRate'] - wr_df.min(axis=1)
+    df_merged['Race_Min_WinRate'] = wr_df.min(axis=1)  # レース内最低勝率（最弱艇シグナル）
+    df_merged['WinRate_Spread'] = df_merged['Max_WinRate'] - df_merged['Race_Min_WinRate']
     # 勝率順位（1=最強）: 選手実力の序列を明示
     wr_ranks = wr_df.rank(axis=1, method='min', ascending=False)
     for lane in range(1, 7):

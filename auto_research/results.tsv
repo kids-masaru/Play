@@ -248,3 +248,10 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 247	2026-04-24 04:23:48	53a0731	815.01	9.97	9792	976	979200	7980570	815.01	Add Race_N_MiddleBoats (count of boats with 4.0 <= WinRate <= 6.0, middle-tier density, complement to extremes)	0
 248	2026-04-24 04:27:19	53a0731	816.54	10.09	9792	988	979200	7995520	816.54	Add R_x_Venue_AvgPayout (race number x venue upset-proneness interaction, intra-day upset tendency)	0
 249	2026-04-25 03:07:54	c279c77	848.37	10.00	9360	936	936000	7940730	848.37	Add Race_N_OuterStrongerThanB1 (count of outer boats with WinRate > B1, discrete B1-threat spread)	1
+250	2026-04-25 03:12:38	f2a795a	848.37	10.00	9360	936	936000	7940730	848.37	Add Race_N_OuterFasterThanB1 (count of outer boats with ExTime < B1, discrete motor-threat spread)	0
+251	2026-04-25 03:16:57	f2a795a	219.53	10.07	9360	943	936000	2054840	219.53	Add B1_Absolute_Dominance (binary: B1 ranked 1st in both WinRate_Rank AND ExTime_Rank, iron-B1 compound flag)	0
+252	2026-04-25 03:20:32	f2a795a	848.37	10.00	9360	936	936000	7940730	848.37	Add Race_N_OuterBetterVenueLane (count of outer boats with VenueLanePWinRate > B1, venue-lane B1-threat spread)	0
+253	2026-04-25 03:24:46	f2a795a	215.00	9.90	9360	927	936000	2012380	215.00	Add Race_WinRate_Gini (Gini coefficient of WinRate within race, ordering-based inequality metric)	0
+254	2026-04-25 03:29:27	f2a795a	839.68	10.12	9360	947	936000	7859360	839.68	Add Race_VLPBayes_Std (race-level std of Bayesian venue-lane win rates, venue-lane aptitude spread)	0
+255	2026-04-25 03:33:42	f2a795a	215.85	10.03	9360	939	936000	2020370	215.85	Add ExTime_Skew (skewness of ExTime within race, asymmetric motor distribution shape beyond Std/Spread)	0
+256	2026-04-25 03:37:27	f2a795a	848.65	9.98	9360	934	936000	7943320	848.65	Add Race_Min_WinRate (race min WinRate, standalone weakest-boat signal complementing Race_N_WeakBoats)	1
