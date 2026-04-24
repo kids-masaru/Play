@@ -300,6 +300,10 @@ def main():
     df_merged['Max_WinRate'] = wr_df.max(axis=1)
     df_merged['Race_Min_WinRate'] = wr_df.min(axis=1)  # レース内最低勝率（最弱艇シグナル）
     df_merged['WinRate_Spread'] = df_merged['Max_WinRate'] - df_merged['Race_Min_WinRate']
+    # レース内最高キャリア2着率（2着争いの頂点シグナル、2nd model 補強）
+    c2_cols = [f'B{i}_Career2inRate' for i in range(1, 7)]
+    if all(c in df_merged.columns for c in c2_cols):
+        df_merged['Race_Max_Career2inRate'] = df_merged[c2_cols].astype(float).max(axis=1)
     # 勝率順位（1=最強）: 選手実力の序列を明示
     wr_ranks = wr_df.rank(axis=1, method='min', ascending=False)
     for lane in range(1, 7):

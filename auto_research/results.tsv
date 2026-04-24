@@ -255,3 +255,4 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 254	2026-04-25 03:29:27	f2a795a	839.68	10.12	9360	947	936000	7859360	839.68	Add Race_VLPBayes_Std (race-level std of Bayesian venue-lane win rates, venue-lane aptitude spread)	0
 255	2026-04-25 03:33:42	f2a795a	215.85	10.03	9360	939	936000	2020370	215.85	Add ExTime_Skew (skewness of ExTime within race, asymmetric motor distribution shape beyond Std/Spread)	0
 256	2026-04-25 03:37:27	f2a795a	848.65	9.98	9360	934	936000	7943320	848.65	Add Race_Min_WinRate (race min WinRate, standalone weakest-boat signal complementing Race_N_WeakBoats)	1
+257	2026-04-25 03:41:23	b242563	854.15	10.13	9360	948	936000	7994800	854.15	Add Race_Max_Career2inRate (race max career 2nd-place rate, peak 2nd-place candidate signal for 2nd model)	1
