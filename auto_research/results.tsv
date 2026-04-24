@@ -256,3 +256,6 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 255	2026-04-25 03:33:42	f2a795a	215.85	10.03	9360	939	936000	2020370	215.85	Add ExTime_Skew (skewness of ExTime within race, asymmetric motor distribution shape beyond Std/Spread)	0
 256	2026-04-25 03:37:27	f2a795a	848.65	9.98	9360	934	936000	7943320	848.65	Add Race_Min_WinRate (race min WinRate, standalone weakest-boat signal complementing Race_N_WeakBoats)	1
 257	2026-04-25 03:41:23	b242563	854.15	10.13	9360	948	936000	7994800	854.15	Add Race_Max_Career2inRate (race max career 2nd-place rate, peak 2nd-place candidate signal for 2nd model)	1
+258	2026-04-25 03:45:22	0ca88bb	834.21	9.88	9360	925	936000	7808230	834.21	Add Race_Max_Career3inRate (race max career 3rd-place rate, peak 3rd-place candidate signal for 3rd model)	0
+259	2026-04-25 03:49:09	0ca88bb	841.71	10.05	9360	941	936000	7878430	841.71	Add Race_Max_VenueWinRate (race max venue-specific win rate, peak venue-specialist signal)	0
+260	2026-04-25 03:52:35	0ca88bb	872.30	10.11	9360	946	936000	8164740	872.30	Add Race_Min_Career2inRate (race min career 2nd-place rate, weakest 2nd-place candidate signal)	1
