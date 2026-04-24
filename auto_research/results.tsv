@@ -237,3 +237,14 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 236	2026-04-24 03:44:26	6bf1d34	818.59	10.04	9792	983	979200	8015680	818.59	Add Race_N_StrongFavorites (count of boats with WinRate > 6.0, field strength density as discrete count)	1
 237	2026-04-24 03:48:20	043e1b5	805.99	9.92	9792	971	979200	7892270	805.99	Add Race_N_AClassBoats (count of A-class boats, RankScore >= 3, official class-based field density complementing Race_N_StrongFavorites)	0
 238	2026-04-24 03:51:30	043e1b5	823.90	10.00	9792	979	979200	8067670	823.90	Add Race_N_WeakBoats (count of boats with WinRate < 4.0, weak-field density, mirror of Race_N_StrongFavorites)	1
+239	2026-04-24 03:54:59	53a0731	806.95	10.01	9792	980	979200	7901670	806.95	Add Race_N_FastMotors (count of boats with ExTime within 0.05s of fastest, motor parity indicator)	0
+240	2026-04-24 03:58:26	53a0731	822.09	10.01	9792	980	979200	8049950	822.09	Add Race_N_VenueExperienced (count of boats with VenueRaceCount > 10, venue familiarity density)	0
+241	2026-04-24 04:02:02	53a0731	823.90	10.00	9792	979	979200	8067670	823.90	Add Race_N_HotMotors (count of boats with MotorWinRate > 0.30, motor hotness density complementing win-rate density)	0
+242	2026-04-24 04:05:38	53a0731	812.00	9.92	9792	971	979200	7951110	812.00	Add Race_N_VenueWRHigh (count of boats with VenueWinRate > 0.20, venue-specific strong winners density)	0
+243	2026-04-24 04:09:12	53a0731	815.07	10.19	9792	998	979200	7981140	815.07	Add Race_N_SuperFavorites (count of boats with WinRate > 7.0, top-tier favorite density, stricter threshold than Race_N_StrongFavorites)	0
+244	2026-04-24 04:12:56	53a0731	812.99	10.04	9792	983	979200	7960760	812.99	Add Race_N_Strong_x_Weak (product of N_StrongFavorites and N_WeakBoats, identifies polarized fields)	0
+245	2026-04-24 04:16:21	53a0731	823.90	10.00	9792	979	979200	8067670	823.90	Add Race_Has_Absolute_Favorite (binary flag: Max_WinRate > 7.5, identifies rare top-tier favorite present situation)	0
+246	2026-04-24 04:19:55	53a0731	812.12	9.81	9792	961	979200	7952240	812.12	Add Race_N_VenueLaneMaster (count of boats with VenueLanePWinRate > 0.3 AND VenueLanePRaceCount > 3, reliable venue-lane expert density)	0
+247	2026-04-24 04:23:48	53a0731	815.01	9.97	9792	976	979200	7980570	815.01	Add Race_N_MiddleBoats (count of boats with 4.0 <= WinRate <= 6.0, middle-tier density, complement to extremes)	0
+248	2026-04-24 04:27:19	53a0731	816.54	10.09	9792	988	979200	7995520	816.54	Add R_x_Venue_AvgPayout (race number x venue upset-proneness interaction, intra-day upset tendency)	0
+249	2026-04-25 03:07:54	c279c77	848.37	10.00	9360	936	936000	7940730	848.37	Add Race_N_OuterStrongerThanB1 (count of outer boats with WinRate > B1, discrete B1-threat spread)	1

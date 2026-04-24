@@ -318,6 +318,12 @@ def main():
     df_merged['Race_N_WeakBoats'] = sum(
         (df_merged[f'B{i}_WinRate'] < 4.0).fillna(False).astype(int) for i in range(1, 7)
     )
+    # B1より勝率が高い外艇の数（B1脅威度の離散カウント 0-5）
+    # Max_Outer_WinRate 連続値とは異なる「広がり」を表す
+    b1_wr_ref = df_merged['B1_WinRate']
+    df_merged['Race_N_OuterStrongerThanB1'] = sum(
+        (df_merged[f'B{i}_WinRate'] > b1_wr_ref).fillna(False).astype(int) for i in range(2, 7)
+    )
 
     # (E) ランクスコアの集約指標
     rank_scores = [df_merged[f'B{i}_RankScore'] for i in range(1, 7)]
