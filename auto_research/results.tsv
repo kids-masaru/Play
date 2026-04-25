@@ -270,3 +270,10 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 269	2026-04-25 04:26:15	4321dfb	852.34	10.10	9360	945	936000	7977940	852.34	Add Race_N_HighCareer2in (count of boats with Career2inRate > 0.2, 2nd-place strong candidate density)	0
 270	2026-04-25 04:30:14	4321dfb	850.18	10.07	9360	943	936000	7957720	850.18	Add B1_Career2in_Rank (within-race rank of B1 career 2nd-place rate, B1 2nd-candidate position)	0
 271	2026-04-26 03:09:03	080c6fc	874.45	10.39	8964	931	896400	7838610	874.45	Add Race_Median_Career2inRate (robust median of career 2nd place rates, distinct shape signal from Min/Max/Range)	1
+272	2026-04-26 03:13:34	ccda97f	874.05	10.20	8964	914	896400	7834950	874.05	Add Race_Median_WinRate (median win rate of 6 boats, robust counterpart to Race_Min_WinRate)	0
+273	2026-04-26 03:17:36	ccda97f	871.06	10.12	8964	907	896400	7808140	871.06	Add Race_Median_VenueWinRate (median venue win rate across 6 boats, robust field-venue-strength signal)	0
+274	2026-04-26 03:21:14	ccda97f	865.90	10.03	8964	899	896400	7761950	865.90	Add Race_Top2Sum_Career2inRate (sum of top-2 career 2nd-place rates, combined top-tier 2nd candidate strength)	0
+275	2026-04-26 03:25:03	ccda97f	858.48	10.13	8964	908	896400	7695440	858.48	Add Race_Median_Career3inRate (median career 3rd-place rate, robust signal for 3rd model parallel to working Median Career2in)	0
+276	2026-04-26 03:29:16	ccda97f	870.20	10.03	8964	899	896400	7800480	870.20	Add B{lane}_Career2in_vs_Median (each boat career 2in minus race median, robust per-boat relative position vs median 2nd-candidate)	0
+277	2026-04-26 03:33:25	ccda97f	865.32	10.25	8964	919	896400	7756760	865.32	Add B1_VenueWinRate_vs_AvgOuter (B1 venue win rate minus mean of outer boats venue win rates, self-excluded reference)	0
+278	2026-04-26 03:37:11	ccda97f	876.15	10.27	8964	921	896400	7853770	876.15	Add Race_N_VeryWeakBoats (count of boats with WinRate < 3.0, stricter weak threshold than N_WeakBoats=4.0)	1

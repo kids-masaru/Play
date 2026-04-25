@@ -326,6 +326,10 @@ def main():
     df_merged['Race_N_WeakBoats'] = sum(
         (df_merged[f'B{i}_WinRate'] < 4.0).fillna(False).astype(int) for i in range(1, 7)
     )
+    # 極端に弱い艇の数（WinRate < 3.0）: より厳しい閾値の弱艇カウント
+    df_merged['Race_N_VeryWeakBoats'] = sum(
+        (df_merged[f'B{i}_WinRate'] < 3.0).fillna(False).astype(int) for i in range(1, 7)
+    )
     # B1より勝率が高い外艇の数（B1脅威度の離散カウント 0-5）
     # Max_Outer_WinRate 連続値とは異なる「広がり」を表す
     b1_wr_ref = df_merged['B1_WinRate']
