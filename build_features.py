@@ -306,6 +306,7 @@ def main():
         c2_df = df_merged[c2_cols].astype(float)
         df_merged['Race_Max_Career2inRate'] = c2_df.max(axis=1)
         df_merged['Race_Min_Career2inRate'] = c2_df.min(axis=1)  # 最弱2着候補シグナル
+        df_merged['Race_Median_Career2inRate'] = c2_df.median(axis=1)  # ロバストな中央値（min/max/avgとは異なる形状指標）
     # 勝率順位（1=最強）: 選手実力の序列を明示
     wr_ranks = wr_df.rank(axis=1, method='min', ascending=False)
     for lane in range(1, 7):

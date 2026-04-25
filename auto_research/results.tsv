@@ -259,3 +259,14 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 258	2026-04-25 03:45:22	0ca88bb	834.21	9.88	9360	925	936000	7808230	834.21	Add Race_Max_Career3inRate (race max career 3rd-place rate, peak 3rd-place candidate signal for 3rd model)	0
 259	2026-04-25 03:49:09	0ca88bb	841.71	10.05	9360	941	936000	7878430	841.71	Add Race_Max_VenueWinRate (race max venue-specific win rate, peak venue-specialist signal)	0
 260	2026-04-25 03:52:35	0ca88bb	872.30	10.11	9360	946	936000	8164740	872.30	Add Race_Min_Career2inRate (race min career 2nd-place rate, weakest 2nd-place candidate signal)	1
+261	2026-04-25 03:56:32	4321dfb	837.88	10.11	9360	946	936000	7842550	837.88	Add Race_Min_Career3inRate (race min career 3rd-place rate, weakest 3rd-place candidate signal)	0
+262	2026-04-25 04:00:19	4321dfb	832.96	9.96	9360	932	936000	7796530	832.96	Add Race_Min_VenueWinRate (race min venue-specific win rate, weakest venue-adapted boat signal)	0
+263	2026-04-25 04:03:50	4321dfb	850.18	10.07	9360	943	936000	7957720	850.18	Add Race_N_OuterBetterCareer2in (count of outer boats with Career2inRate > B1, 2nd-model discrete B1-threat spread)	0
+264	2026-04-25 04:07:21	4321dfb	230.23	9.94	9360	930	936000	2154930	230.23	Add Race_Max_RankScore (race max official grade score, top-class boat signal)	0
+265	2026-04-25 04:11:06	4321dfb	852.40	10.06	9360	942	936000	7978450	852.40	Add Race_Min_VLPBayes (race min Bayesian venue-lane win rate, weakest venue-lane specialist signal)	0
+266	2026-04-25 04:15:05	4321dfb	835.86	10.10	9360	945	936000	7823670	835.86	Add B1_Career2in_vs_AvgOuter (B1 career 2nd-place rate minus mean of outer boats, #232 ExTime pattern applied to Career2in)	0
+267	2026-04-25 04:18:34	4321dfb	868.16	10.05	9360	941	936000	8125940	868.16	Add Race_Min_VenueLanePRaceCount (race min venue-lane experience count, most venue-lane novice signal)	0
+268	2026-04-25 04:22:07	4321dfb	838.32	9.94	9360	930	936000	7846650	838.32	Add Race_Range_Career2inRate (race max-min career 2nd-place rate, 2nd-candidate disparity)	0
+269	2026-04-25 04:26:15	4321dfb	852.34	10.10	9360	945	936000	7977940	852.34	Add Race_N_HighCareer2in (count of boats with Career2inRate > 0.2, 2nd-place strong candidate density)	0
+270	2026-04-25 04:30:14	4321dfb	850.18	10.07	9360	943	936000	7957720	850.18	Add B1_Career2in_Rank (within-race rank of B1 career 2nd-place rate, B1 2nd-candidate position)	0
+271	2026-04-26 03:09:03	080c6fc	874.45	10.39	8964	931	896400	7838610	874.45	Add Race_Median_Career2inRate (robust median of career 2nd place rates, distinct shape signal from Min/Max/Range)	1
