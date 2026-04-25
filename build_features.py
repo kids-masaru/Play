@@ -330,6 +330,10 @@ def main():
     df_merged['Race_N_VeryWeakBoats'] = sum(
         (df_merged[f'B{i}_WinRate'] < 3.0).fillna(False).astype(int) for i in range(1, 7)
     )
+    # B2級（RankScore=1）の艇数: 公式階級ベースの最弱グレード密度
+    df_merged['Race_N_BottomTier'] = sum(
+        (df_merged[f'B{i}_RankScore'] == 1).fillna(False).astype(int) for i in range(1, 7)
+    )
     # B1より勝率が高い外艇の数（B1脅威度の離散カウント 0-5）
     # Max_Outer_WinRate 連続値とは異なる「広がり」を表す
     b1_wr_ref = df_merged['B1_WinRate']

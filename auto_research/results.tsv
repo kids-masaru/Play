@@ -277,3 +277,4 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 276	2026-04-26 03:29:16	ccda97f	870.20	10.03	8964	899	896400	7800480	870.20	Add B{lane}_Career2in_vs_Median (each boat career 2in minus race median, robust per-boat relative position vs median 2nd-candidate)	0
 277	2026-04-26 03:33:25	ccda97f	865.32	10.25	8964	919	896400	7756760	865.32	Add B1_VenueWinRate_vs_AvgOuter (B1 venue win rate minus mean of outer boats venue win rates, self-excluded reference)	0
 278	2026-04-26 03:37:11	ccda97f	876.15	10.27	8964	921	896400	7853770	876.15	Add Race_N_VeryWeakBoats (count of boats with WinRate < 3.0, stricter weak threshold than N_WeakBoats=4.0)	1
+279	2026-04-26 03:41:04	d9894ff	886.63	10.21	8964	915	896400	7947780	886.63	Add Race_N_BottomTier (count of B2-class boats RankScore=1, official grade-based weakest density)	1
