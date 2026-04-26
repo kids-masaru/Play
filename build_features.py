@@ -50,6 +50,115 @@ def extract_3rd_place(result_str):
         return int(parts[2])
     return np.nan
 
+def _compute_leak_safe_player_stats(df_prog, df_res):
+    """各 (PlayerID, RaceID) について、そのレース日より厳密に前のデータだけで
+    Career/Venue/VenueLane 系の集計値を計算する。
+
+    旧実装(全期間集計)は時系列リークを生んでおり、val期間のレース時点で未来結果まで
+    使った値を特徴量化していた。本関数は merge_asof + cumsum で「as of just before
+    this race date」を厳密に計算する。
+
+    Args:
+        df_prog: 出走表テーブル。列: PlayerID, ID(=RaceID), Date, Venue, Lane, ...
+        df_res:  結果テーブル。列: ID(=RaceID), Result(例 "1-2-3")
+
+    Returns:
+        DataFrame。列: PlayerID, ID, VenueWinRate, VenueRaceCount,
+        VenueLanePWinRate, VenueLanePRaceCount, Career2inRate, Career3inRate
+    """
+    # 出走表 × 結果 を JOIN したイベント表
+    events = df_prog[['PlayerID', 'ID', 'Date', 'Venue', 'Lane']].merge(
+        df_res[['ID', 'Result']], on='ID', how='inner'
+    )
+
+    # Result "1-2-3" → 1着 / 2着 / 3着 lane を抽出
+    parts = events['Result'].astype(str).str.split('-', expand=True)
+    events['result_1st'] = pd.to_numeric(parts[0], errors='coerce')
+    events['result_2nd'] = pd.to_numeric(parts[1], errors='coerce') if parts.shape[1] > 1 else np.nan
+    events['result_3rd'] = pd.to_numeric(parts[2], errors='coerce') if parts.shape[1] > 2 else np.nan
+    events = events.dropna(subset=['result_1st', 'result_2nd', 'result_3rd']).copy()
+
+    events['Lane'] = events['Lane'].astype(int)
+    events['result_1st'] = events['result_1st'].astype(int)
+    events['result_2nd'] = events['result_2nd'].astype(int)
+    events['result_3rd'] = events['result_3rd'].astype(int)
+
+    events['was_1st'] = (events['Lane'] == events['result_1st']).astype(int)
+    events['was_2nd'] = (events['Lane'] == events['result_2nd']).astype(int)
+    events['was_3rd'] = (events['Lane'] == events['result_3rd']).astype(int)
+
+    events['Date'] = pd.to_datetime(events['Date'])
+
+    # === Career統計 (PlayerID×Date 単位で集約 → cumsum) ===
+    daily_career = events.groupby(['PlayerID', 'Date'], sort=False).agg(
+        races_today=('ID', 'size'),
+        in2_today=('was_2nd', 'sum'),
+        in3_today=('was_3rd', 'sum'),
+    ).reset_index().sort_values(['PlayerID', 'Date'])
+    grp = daily_career.groupby('PlayerID', sort=False)
+    daily_career['career_cum_races'] = grp['races_today'].cumsum()
+    daily_career['career_cum_in2']   = grp['in2_today'].cumsum()
+    daily_career['career_cum_in3']   = grp['in3_today'].cumsum()
+
+    # === Venue統計 (PlayerID×Venue×Date 単位) ===
+    daily_venue = events.groupby(['PlayerID', 'Venue', 'Date'], sort=False).agg(
+        races_today=('ID', 'size'),
+        wins_today=('was_1st', 'sum'),
+    ).reset_index().sort_values(['PlayerID', 'Venue', 'Date'])
+    grp = daily_venue.groupby(['PlayerID', 'Venue'], sort=False)
+    daily_venue['venue_cum_races'] = grp['races_today'].cumsum()
+    daily_venue['venue_cum_wins']  = grp['wins_today'].cumsum()
+
+    # === VenueLane統計 (PlayerID×Venue×Lane×Date 単位) ===
+    daily_vl = events.groupby(['PlayerID', 'Venue', 'Lane', 'Date'], sort=False).agg(
+        races_today=('ID', 'size'),
+        wins_today=('was_1st', 'sum'),
+    ).reset_index().sort_values(['PlayerID', 'Venue', 'Lane', 'Date'])
+    grp = daily_vl.groupby(['PlayerID', 'Venue', 'Lane'], sort=False)
+    daily_vl['vl_cum_races'] = grp['races_today'].cumsum()
+    daily_vl['vl_cum_wins']  = grp['wins_today'].cumsum()
+
+    # === df_prog の各行に「Date より厳密に前」の累積を merge_asof で付与 ===
+    df_prog_dt = df_prog[['PlayerID', 'ID', 'Date', 'Venue', 'Lane']].copy()
+    df_prog_dt['Date'] = pd.to_datetime(df_prog_dt['Date'])
+    df_prog_dt['Lane'] = df_prog_dt['Lane'].astype(int)
+    df_prog_dt = df_prog_dt.sort_values('Date').reset_index(drop=True)
+
+    out = pd.merge_asof(
+        df_prog_dt,
+        daily_career[['PlayerID', 'Date', 'career_cum_races', 'career_cum_in2', 'career_cum_in3']].sort_values('Date'),
+        on='Date', by='PlayerID',
+        direction='backward', allow_exact_matches=False,
+    )
+    out = pd.merge_asof(
+        out.sort_values('Date'),
+        daily_venue[['PlayerID', 'Venue', 'Date', 'venue_cum_races', 'venue_cum_wins']].sort_values('Date'),
+        on='Date', by=['PlayerID', 'Venue'],
+        direction='backward', allow_exact_matches=False,
+    )
+    out = pd.merge_asof(
+        out.sort_values('Date'),
+        daily_vl[['PlayerID', 'Venue', 'Lane', 'Date', 'vl_cum_races', 'vl_cum_wins']].sort_values('Date'),
+        on='Date', by=['PlayerID', 'Venue', 'Lane'],
+        direction='backward', allow_exact_matches=False,
+    )
+
+    def safe_div(num, den):
+        return (num / den.replace(0, np.nan)).fillna(0)
+
+    out['Career2inRate']        = safe_div(out['career_cum_in2'].fillna(0), out['career_cum_races'].fillna(0))
+    out['Career3inRate']        = safe_div(out['career_cum_in3'].fillna(0), out['career_cum_races'].fillna(0))
+    out['VenueWinRate']         = safe_div(out['venue_cum_wins'].fillna(0), out['venue_cum_races'].fillna(0))
+    out['VenueRaceCount']       = out['venue_cum_races'].fillna(0)
+    out['VenueLanePWinRate']    = safe_div(out['vl_cum_wins'].fillna(0), out['vl_cum_races'].fillna(0))
+    out['VenueLanePRaceCount']  = out['vl_cum_races'].fillna(0)
+
+    return out[['PlayerID', 'ID',
+                'VenueWinRate', 'VenueRaceCount',
+                'VenueLanePWinRate', 'VenueLanePRaceCount',
+                'Career2inRate', 'Career3inRate']]
+
+
 def main():
     print("=== 特徴量エンジニアリング（学習データ作成）開始 ===")
 
@@ -109,85 +218,35 @@ def main():
             
         df_prog[['Course_Win', 'Course_2in', 'Course_3in']] = df_prog.apply(get_lane_stats, axis=1)
 
-    # 会場別選手勝率を計算してdf_progに追加
-    if use_db:
+    # 会場・キャリア系の特徴量をリーク無しで計算
+    # （以前は races×results の全期間集計で未来結果を含んでいた → 時系列リーク）
+    # 修正後: そのレース日より厳密に前のデータだけで as-of-prior-date 累積を計算
+    if 'Result' in df_res.columns and not df_res.empty:
         try:
-            df_venue_wr = db.query_df("""
-                SELECT r.PlayerID, r.Venue,
-                       COUNT(*) as VenueRaceCount,
-                       CAST(SUM(CASE WHEN CAST(SUBSTR(res.Result, 1, 1) AS INTEGER) = r.Lane THEN 1 ELSE 0 END) AS FLOAT)
-                       / NULLIF(COUNT(*), 0) as VenueWinRate
-                FROM races r
-                JOIN results res ON r.RaceID = res.RaceID
-                GROUP BY r.PlayerID, r.Venue
-            """)
-            if not df_venue_wr.empty:
-                df_prog = pd.merge(df_prog, df_venue_wr, on=['PlayerID', 'Venue'], how='left')
-                df_prog['VenueWinRate'] = df_prog['VenueWinRate'].fillna(df_prog['WinRate'])
-                df_prog['VenueRaceCount'] = df_prog['VenueRaceCount'].fillna(0)
-            else:
-                df_prog['VenueWinRate'] = df_prog['WinRate']
-                df_prog['VenueRaceCount'] = 0
-        except Exception:
-            df_prog['VenueWinRate'] = df_prog['WinRate']
-            df_prog['VenueRaceCount'] = 0
-    else:
-        df_prog['VenueWinRate'] = df_prog['WinRate']
-        df_prog['VenueRaceCount'] = 0
-
-    # 選手×会場×レーン別勝率（VenueLanePWinRate）と出走数を追加
-    # VenueWinRateより細粒度: 選手がこの会場のこのレーンで何回1着に入ったか
-    if use_db:
-        try:
-            df_vlpwr = db.query_df("""
-                SELECT r.PlayerID, r.Venue, r.Lane,
-                       COUNT(*) as VenueLanePRaceCount,
-                       CAST(SUM(CASE WHEN CAST(SUBSTR(res.Result, 1, 1) AS INTEGER) = r.Lane THEN 1 ELSE 0 END) AS FLOAT)
-                       / NULLIF(COUNT(*), 0) as VenueLanePWinRate
-                FROM races r
-                JOIN results res ON r.RaceID = res.RaceID
-                GROUP BY r.PlayerID, r.Venue, r.Lane
-            """)
-            if not df_vlpwr.empty:
-                df_prog = pd.merge(df_prog, df_vlpwr, on=['PlayerID', 'Venue', 'Lane'], how='left')
-                df_prog['VenueLanePWinRate'] = df_prog['VenueLanePWinRate'].fillna(df_prog['VenueWinRate'])
-                df_prog['VenueLanePRaceCount'] = df_prog['VenueLanePRaceCount'].fillna(0)
-            else:
-                df_prog['VenueLanePWinRate'] = df_prog['VenueWinRate']
-                df_prog['VenueLanePRaceCount'] = 0
-        except Exception:
-            df_prog['VenueLanePWinRate'] = df_prog['VenueWinRate']
+            stats_lf = _compute_leak_safe_player_stats(df_prog, df_res)
+            df_prog = df_prog.merge(stats_lf, on=['PlayerID', 'ID'], how='left')
+            # 統計が取れなかった行（最初期レース等）は妥当なフォールバック値で埋める
+            df_prog['VenueWinRate']        = df_prog['VenueWinRate'].fillna(df_prog['WinRate'])
+            df_prog['VenueRaceCount']      = df_prog['VenueRaceCount'].fillna(0)
+            df_prog['VenueLanePWinRate']   = df_prog['VenueLanePWinRate'].fillna(df_prog['VenueWinRate'])
+            df_prog['VenueLanePRaceCount'] = df_prog['VenueLanePRaceCount'].fillna(0)
+            df_prog['Career2inRate']       = df_prog['Career2inRate'].fillna(0)
+            df_prog['Career3inRate']       = df_prog['Career3inRate'].fillna(0)
+        except Exception as e:
+            print(f"[WARN] リーク無し集計に失敗: {e}. WinRate ベースのフォールバックを使用。")
+            df_prog['VenueWinRate']        = df_prog['WinRate']
+            df_prog['VenueRaceCount']      = 0
+            df_prog['VenueLanePWinRate']   = df_prog['WinRate']
             df_prog['VenueLanePRaceCount'] = 0
+            df_prog['Career2inRate']       = 0
+            df_prog['Career3inRate']       = 0
     else:
-        df_prog['VenueLanePWinRate'] = df_prog['WinRate']
+        df_prog['VenueWinRate']        = df_prog['WinRate']
+        df_prog['VenueRaceCount']      = 0
+        df_prog['VenueLanePWinRate']   = df_prog['WinRate']
         df_prog['VenueLanePRaceCount'] = 0
-
-    # キャリア通算2着率・3着率を計算してdf_progに追加
-    if use_db:
-        try:
-            df_career_rates = db.query_df("""
-                SELECT r.PlayerID,
-                       CAST(SUM(CASE WHEN CAST(SUBSTR(res.Result, 3, 1) AS INTEGER) = r.Lane THEN 1 ELSE 0 END) AS FLOAT)
-                       / NULLIF(COUNT(*), 0) as Career2inRate,
-                       CAST(SUM(CASE WHEN CAST(SUBSTR(res.Result, 5, 1) AS INTEGER) = r.Lane THEN 1 ELSE 0 END) AS FLOAT)
-                       / NULLIF(COUNT(*), 0) as Career3inRate
-                FROM races r
-                JOIN results res ON r.RaceID = res.RaceID
-                GROUP BY r.PlayerID
-            """)
-            if not df_career_rates.empty:
-                df_prog = pd.merge(df_prog, df_career_rates, on='PlayerID', how='left')
-                df_prog['Career2inRate'] = df_prog['Career2inRate'].fillna(0)
-                df_prog['Career3inRate'] = df_prog['Career3inRate'].fillna(0)
-            else:
-                df_prog['Career2inRate'] = 0
-                df_prog['Career3inRate'] = 0
-        except Exception:
-            df_prog['Career2inRate'] = 0
-            df_prog['Career3inRate'] = 0
-    else:
-        df_prog['Career2inRate'] = 0
-        df_prog['Career3inRate'] = 0
+        df_prog['Career2inRate']       = 0
+        df_prog['Career3inRate']       = 0
 
     # 3. 出走表データを 1レース1行 にピボット
     print("出走表データをレースごとに横展開しています...")
@@ -333,6 +392,11 @@ def main():
     # B2級（RankScore=1）の艇数: 公式階級ベースの最弱グレード密度
     df_merged['Race_N_BottomTier'] = sum(
         (df_merged[f'B{i}_RankScore'] == 1).fillna(False).astype(int) for i in range(1, 7)
+    )
+    # 二重弱艇（WR<3.0 AND B2級）の数: VeryWeakBoats と BottomTier の AND 条件 compound signal
+    df_merged['Race_N_DoubleWeak'] = sum(
+        ((df_merged[f'B{i}_WinRate'] < 3.0) & (df_merged[f'B{i}_RankScore'] == 1)).fillna(False).astype(int)
+        for i in range(1, 7)
     )
     # B1より勝率が高い外艇の数（B1脅威度の離散カウント 0-5）
     # Max_Outer_WinRate 連続値とは異なる「広がり」を表す
