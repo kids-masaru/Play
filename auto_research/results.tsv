@@ -6,3 +6,13 @@ trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite
 5	2026-04-27 03:19:52	3628c7e	588.28	7.26	11556	839	1155600	6798150	588.28	Add Race_Median_Career3inRate (untried median for Career3)	0
 6	2026-04-27 03:23:20	3628c7e	590.18	7.39	11556	854	1155600	6820100	590.18	Add Race_N_Outer_RankScore_ge_B1 (rank-based threat count)	0
 7	2026-04-27 03:27:32	3628c7e	591.42	7.40	11556	855	1155600	6834400	591.42	Add Race_Min_RankScore (untried Min variant)	1
+8	2026-04-27 03:32:08	c1c2d39	586.55	7.15	11556	826	1155600	6778160	586.55	Add Race_Mean_Tilt (continuous tilt aggregation)	0
+9	2026-04-27 03:37:05	c1c2d39	590.67	7.39	11556	854	1155600	6825830	590.67	Add Race_N_Outer_Better_CourseWin (course-specific threat count)	0
+10	2026-04-27 03:40:54	c1c2d39	588.38	7.29	11556	843	1155600	6799370	588.38	Add Race_Median_VenueLanePWinRate (untried median variant)	0
+11	2026-04-27 03:45:08	c1c2d39	588.85	7.36	11556	850	1155600	6804780	588.85	Add B1_Course2in_vs_AvgOuter (untried Course_2in self-exclusion)	0
+12	2026-04-27 03:49:11	c1c2d39	586.99	7.24	11556	837	1155600	6783260	586.99	Add B1_Weight_vs_AvgOuter (untried weight self-exclusion)	0
+13	2026-04-27 03:52:56	c1c2d39	588.15	7.28	11556	841	1155600	6796710	588.15	Add Wave_vs_VenueAvg (env anomaly relative to venue baseline)	0
+14	2026-04-27 03:56:29	c1c2d39	591.40	7.39	11556	854	1155600	6834180	591.40	Add Race_N_Outer_HigherTilt (count threat in tilt dimension)	0
+15	2026-04-27 03:59:58	c1c2d39	591.42	7.40	11556	855	1155600	6834400	591.42	Add Wave_Squared (nonlinear wave threshold effect)	0
+16	2026-04-27 04:03:24	c1c2d39	588.97	7.30	11556	844	1155600	6806190	588.97	Add Race_N_Outer_BetterCareer3in (untried Career3in threat count)	0
+17	2026-04-27 04:06:59	c1c2d39	591.13	7.43	11556	859	1155600	6831060	591.13	Add B1_Course3in_vs_AvgOuter (3rd-model self-exclusion pattern)	0
