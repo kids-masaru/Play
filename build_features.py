@@ -413,6 +413,9 @@ def main():
     rank_scores = [df_merged[f'B{i}_RankScore'] for i in range(1, 7)]
     df_merged['Avg_RankScore'] = np.nanmean(rank_scores, axis=0)
     df_merged['B1_RankScore_Over_Avg'] = df_merged['B1_RankScore'] - df_merged['Avg_RankScore']
+    # レース内最低RankScore（B2が居るかの強弱フラグ的シグナル、Max は破壊的だったが Min は独立情報）
+    rs_df = pd.concat(rank_scores, axis=1)
+    df_merged['Race_Min_RankScore'] = rs_df.min(axis=1)
     # B1ランクスコアと外艇平均との差（自己除外: B2-B6のみ平均）
     outer_rank_scores = [df_merged[f'B{i}_RankScore'] for i in range(2, 7)]
     df_merged['B1_RankScore_vs_AvgOuter'] = df_merged['B1_RankScore'] - np.nanmean(outer_rank_scores, axis=0)
