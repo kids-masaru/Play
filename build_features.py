@@ -417,6 +417,16 @@ def main():
     outer_rank_scores = [df_merged[f'B{i}_RankScore'] for i in range(2, 7)]
     df_merged['B1_RankScore_vs_AvgOuter'] = df_merged['B1_RankScore'] - np.nanmean(outer_rank_scores, axis=0)
 
+    # B1チルトと外艇平均との差（自己除外パターンの Tilt 拡張）
+    tilt_cols = [f'B{i}_Tilt' for i in range(1, 7)]
+    if all(c in df_merged.columns for c in tilt_cols):
+        b1_tilt_num = pd.to_numeric(df_merged['B1_Tilt'], errors='coerce')
+        outer_tilt_num = pd.concat(
+            [pd.to_numeric(df_merged[f'B{i}_Tilt'], errors='coerce') for i in range(2, 7)],
+            axis=1,
+        )
+        df_merged['B1_Tilt_vs_AvgOuter'] = b1_tilt_num - outer_tilt_num.mean(axis=1)
+
     # (E4) コース別2着率の within-race 順位（2着争いの強さ順位）
     c2in_cols = [f'B{i}_Course_2in' for i in range(1, 7)]
     if all(c in df_merged.columns for c in c2in_cols):

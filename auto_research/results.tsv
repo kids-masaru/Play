@@ -1,3 +1,4 @@
 trial_id	timestamp	git_hash	roi	hit_rate	n_trades	n_hits	invest	return	composite_score	change_summary	is_kept
 1	2026-04-27 03:05:28	01877b0	588.55	7.32	11556	846	1155600	6801240	588.55	Add Race_N_DoubleWeak (WR<3.0 AND RankScore=1 compound)	1
 2	2026-04-27 03:09:04	8cdfc7a	589.33	7.36	11556	850	1155600	6810260	589.33	Add Race_HasUnanimousFavorite (B1_Top_WR AND N_VeryWeakBoats>0)	1
+3	2026-04-27 03:12:46	777e80e	591.37	7.41	11556	856	1155600	6833870	591.37	Add B1_Tilt_vs_AvgOuter (self-exclude tilt diff)	1
