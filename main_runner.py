@@ -77,6 +77,15 @@ from linebot import LineBotApi
 from linebot.models import TextSendMessage
 from linebot.exceptions import LineBotApiError
 
+# ことちゃんRAG連携用（失敗してもメイン処理に影響しない）
+try:
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from utils.sheets_writer import write_daily_log
+    _SHEETS_WRITER_AVAILABLE = True
+except Exception as _e:
+    print(f"[WARN] sheets_writer インポート失敗（無視して続行）: {_e}")
+    _SHEETS_WRITER_AVAILABLE = False
+
 # --- 設定 ---
 # LINE Messaging API トークン（チャネルアクセストークン）
 LINE_CHANNEL_ACCESS_TOKEN = os.environ.get("LINE_CHANNEL_ACCESS_TOKEN", "")
@@ -105,6 +114,11 @@ def main():
     
     # 処理のステータス記録用
     report_blocks = [f"\n🤖 [BoatRace AI Report] {start_time.strftime('%Y/%m/%d')}\n日次処理が完了しました！"]
+
+    # ことちゃんRAG連携用の集計変数
+    _rag_predictions = ""
+    _rag_results = ""
+    _rag_profit = 0
 
     try:
         # 1. データ収集フェーズ
@@ -151,6 +165,9 @@ def main():
         hits = 0
         total_invest = 0
         total_return = 0
+        det_invest = 0
+        det_return = 0
+        det_hits = 0
         answer_check_lines = []
         
         if os.path.exists(pred_file) and os.path.exists(res_file):
@@ -220,6 +237,21 @@ def main():
                         else:
                             res_mark = "❌"
                             return_text = "0円"
+
+                        # Det版の集計（Stakes_Det カラムがあれば）
+                        det_stakes_dict = {}
+                        raw_det = row.get('Stakes_Det', '') if 'Stakes_Det' in row.index else ''
+                        if raw_det and str(raw_det).strip() not in ('', 'nan', '{}'):
+                            try:
+                                det_stakes_dict = _json.loads(str(raw_det))
+                            except Exception:
+                                det_stakes_dict = {}
+                        if det_stakes_dict:
+                            det_invest += sum(det_stakes_dict.values())
+                            det_hit_units = det_stakes_dict.get(ans, 0) // 100
+                            if det_hit_units > 0:
+                                det_hits += 1
+                                det_return += pay * det_hit_units
                             
                         # LINE表示用に買い目と結果をフォーマット
                         buy_disp = buy_str[:15] + ("..." if len(buy_str) > 15 else "")
@@ -236,6 +268,16 @@ def main():
             summary_text += f"\n投資額: {total_invest}円"
             summary_text += f"\n払戻額: {total_return}円"
             summary_text += f"\n収支: {profit_mark} {profit:+d}円 (回収率 {roi:.1f}%)"
+            if det_invest > 0:
+                det_profit = det_return - det_invest
+                det_roi = det_return / det_invest * 100
+                det_mark = "📈" if det_profit > 0 else "📉"
+                summary_text += f"\n[Det版] 投資{det_invest}円/払戻{det_return}円 {det_mark}{det_profit:+d}円 (回収率 {det_roi:.1f}%)"
+            elif 'Stakes_Det' in (df_p.columns if 'df_p' in dir() else []):
+                summary_text += f"\n[Det版] 本日は買い目なし"
+            # RAG用に結果・収支を記録
+            _rag_results = f"{total_races}R中{hits}R的中({hit_rate:.1f}%) 投資{total_invest}円/払戻{total_return}円"
+            _rag_profit = profit
             summary_text += f"\n\n=== 答え合わせ ==="
             for line in answer_check_lines:
                 summary_text += f"\n{line}"
@@ -288,6 +330,9 @@ def main():
                 if low:
                     summary_text += "\n\n[💨期待薄]\n" + "\n".join(low)
                 summary_text += "\n"
+                # RAG用に予想をまとめる
+                all_preds = hot + normal + low
+                _rag_predictions = " / ".join([p.replace("📍 ", "") for p in all_preds[:5]])
             else:
                 summary_text += "\n\n🔥 【本日の推奨買い目】\n本日の対象レース（予測）はありません。"
 
@@ -314,7 +359,22 @@ def main():
     final_message = "\n".join(report_blocks)
     print("\n--- [Phase 4] LINE通知送信 ---")
     send_line_message(final_message)
-    
+
+    # ことちゃんRAG連携：日次ログをGoogle Sheetsに書き込む
+    if _SHEETS_WRITER_AVAILABLE:
+        print("\n--- [Phase 5] ことちゃんRAG連携 ---")
+        _rag_summary = (
+            f"予想: {_rag_predictions or '記録なし'}\n"
+            f"結果: {_rag_results or '記録なし'}\n"
+            f"収支: {_rag_profit:+d}円"
+        )
+        write_daily_log(
+            predictions=_rag_predictions,
+            results=_rag_results,
+            profit_loss=_rag_profit,
+            summary=_rag_summary
+        )
+
     end_time = datetime.now()
     duration = end_time - start_time
     print(f"=== 全工程完了 (所要時間: {duration}) ===")
