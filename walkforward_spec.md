@@ -154,3 +154,8 @@ Play/
 ### 運用開始準備完了
 - 本番ループ: `python auto_research/experiment_wf.py --note "変更内容"`
 - 採用判定が成立すれば手動 `git commit`、不採用なら `git checkout build_features.py`
+
+## 5/14 副次対応 (リポジトリ運用)
+- 5/12-5/14 の auto-update が未 push + リポジトリ private 化により GitHub Pages 無効化 → ダッシュボード404
+- public 化 + Pages 再有効化 + 5 commits 整理 push でダッシュボード復旧
+- 教訓: 本番運用中はリポジトリ public 維持 (or GitHub Pro 加入)、auto-commit は毎日 push 確認

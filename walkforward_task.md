@@ -1,12 +1,13 @@
 # タスク管理: walk-forward backtest 基盤 + 自己改善ループ改修
 
-## 最終更新: 2026-05-13
+## 最終更新: 2026-05-14
 
 ## 現在のステータス
-- **Phase 2 (実装) 完了。**
+- **Phase 2 (実装) 完了 + GitHub に全成果 push 済 (5 commits)**
 - ベースライン確定 (短縮版WF: 直近6ヶ月acc + 45日Det ROI)
 - 動作テスト Trial #1 完了 (ベースライン同等値で「主条件NG=改善せず」と正しく判定)
 - 旧 results.tsv (post-leak-fix 17行) は results_pre_wf.tsv に退避済
+- 副次対応: GitHub Pages が private 化で無効化されていた問題を解消 (public 化 + Pages 再有効化)
 
 ## ベースライン値 (短縮版WF、wf_baseline.json)
 - brier_1st: 0.596128, top1_acc: 55.75%, top3_acc: 86.26%
@@ -84,6 +85,18 @@
 ### 2026-05-13
 - task.md / spec.md の最新化 (実装結果反映)
 - 実装結果の整理: 全Phase完了、運用開始可能
+
+### 2026-05-14
+- ダッシュボード 404 問題に対応:
+  - 原因1: 5/12-5/14 の auto-update commit が未 push (Gitリモートが3 commits 遅れ)
+  - 原因2: リポジトリが private 化されており、無料プランで GitHub Pages が自動無効化
+  - 対処: public 化 → `gh api -X POST repos/.../pages` で Pages 再有効化 → ビルド成功
+- 未 commit 変更を5 commits に整理して push:
+  1. `.gitignore` 更新 (ログ除外 + WF出力JSONをwhitelist)
+  2. morning_odds_runner.py の Det本番一本化
+  3. leak-fix セッション関連 9ファイル (realistic_evaluator等)
+  4. walk-forward 基盤 + ループWF版 12ファイル
+  5. リーク修正後再学習モデル + バックアップ + utils/
 
 ## 補足メモ
 - 期待効果: 評価サンプル数 262 → 数万レース、CI 範囲が桁違いに狭くなる
