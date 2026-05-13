@@ -1,0 +1,64 @@
+{
+  "generated_at": "2026-05-12T18:15:41.889105",
+  "accuracy": {
+    "n_weeks": 97,
+    "n_months": 22,
+    "total_races": 88568,
+    "brier_1st": 0.589962,
+    "brier_1st_ci": {
+      "ci_lower": 0.586308,
+      "ci_upper": 0.593655,
+      "ci_median": 0.589881,
+      "n_resamples": 1000
+    },
+    "brier_2nd": 0.790354,
+    "brier_2nd_ci": {
+      "ci_lower": 0.789046,
+      "ci_upper": 0.7917,
+      "ci_median": 0.790354,
+      "n_resamples": 1000
+    },
+    "brier_3rd": 0.810395,
+    "brier_3rd_ci": {
+      "ci_lower": 0.809471,
+      "ci_upper": 0.811329,
+      "ci_median": 0.810382,
+      "n_resamples": 1000
+    },
+    "log_loss_1st": 1.211906,
+    "log_loss_1st_ci": {
+      "ci_lower": 1.204454,
+      "ci_upper": 1.219223,
+      "ci_median": 1.211777,
+      "n_resamples": 1000
+    },
+    "log_loss_2nd": 1.653776,
+    "log_loss_2nd_ci": {
+      "ci_lower": 1.649905,
+      "ci_upper": 1.65787,
+      "ci_median": 1.653761,
+      "n_resamples": 1000
+    },
+    "log_loss_3rd": 1.714356,
+    "log_loss_3rd_ci": {
+      "ci_lower": 1.71132,
+      "ci_upper": 1.717309,
+      "ci_median": 1.714298,
+      "n_resamples": 1000
+    },
+    "top1_acc": 0.564343,
+    "top1_acc_ci": {
+      "ci_lower": 0.560376,
+      "ci_upper": 0.568366,
+      "ci_median": 0.564404,
+      "n_resamples": 1000
+    },
+    "top3_acc": 0.866331,
+    "top3_acc_ci": {
+      "ci_lower": 0.864009,
+      "ci_upper": 0.869006,
+      "ci_median": 0.866283,
+      "n_resamples": 1000
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "confirmed_at": "2026-05-12T20:49:08.876788",
+  "accuracy_source": "quick_walkforward (直近6ヶ月)",
+  "roi_source": "wf_roi_results.csv (45日WF)",
+  "accuracy": {
+    "n_weeks": 18,
+    "n_months": 6,
+    "total_races": 14575,
+    "brier_1st": 0.596128,
+    "brier_1st_ci": {
+      "ci_lower": 0.585146,
+      "ci_upper": 0.606773,
+      "ci_median": 0.595851,
+      "n_resamples": 1000
+    },
+    "brier_2nd": 0.799689,
+    "brier_2nd_ci": {
+      "ci_lower": 0.794609,
+      "ci_upper": 0.805094,
+      "ci_median": 0.799607,
+      "n_resamples": 1000
+    },
+    "brier_3rd": 0.815112,
+    "brier_3rd_ci": {
+      "ci_lower": 0.813168,
+      "ci_upper": 0.816858,
+      "ci_median": 0.815118,
+      "n_resamples": 1000
+    },
+    "log_loss_1st": 1.222922,
+    "log_loss_1st_ci": {
+      "ci_lower": 1.200735,
+      "ci_upper": 1.244664,
+      "ci_median": 1.222316,
+      "n_resamples": 1000
+    },
+    "log_loss_2nd": 1.671558,
+    "log_loss_2nd_ci": {
+      "ci_lower": 1.658882,
+      "ci_upper": 1.685807,
+      "ci_median": 1.671169,
+      "n_resamples": 1000
+    },
+    "log_loss_3rd": 1.730769,
+    "log_loss_3rd_ci": {
+      "ci_lower": 1.72479,
+      "ci_upper": 1.736334,
+      "ci_median": 1.730774,
+      "n_resamples": 1000
+    },
+    "top1_acc": 0.557469,
+    "top1_acc_ci": {
+      "ci_lower": 0.54704,
+      "ci_upper": 0.568424,
+      "ci_median": 0.557966,
+      "n_resamples": 1000
+    },
+    "top3_acc": 0.862579,
+    "top3_acc_ci": {
+      "ci_lower": 0.855205,
+      "ci_upper": 0.869605,
+      "ci_median": 0.862627,
+      "n_resamples": 1000
+    }
+  },
+  "roi": {
+    "det": {
+      "n_weeks": 5,
+      "n_trades": 1395,
+      "n_hits": 24,
+      "hit_rate": 1.72,
+      "invest": 162900,
+      "return": 163730,
+      "profit": 830,
+      "roi": 100.51,
+      "roi_ci": {
+        "ci_lower": 36.06,
+        "ci_upper": 187.77,
+        "ci_median": 100.51,
+        "n_resamples": 1000
+      },
+      "n_months": 2,
+      "n_profitable_months": 1,
+      "monthly_win_rate": 50.0
+    },
+    "llm": {
+      "n_weeks": 5,
+      "n_trades": 1400,
+      "n_hits": 15,
+      "hit_rate": 1.07,
+      "invest": 150500,
+      "return": 94940,
+      "profit": -55560,
+      "roi": 63.08,
+      "roi_ci": {
+        "ci_lower": 18.75,
+        "ci_upper": 128.77,
+        "ci_median": 61.63,
+        "n_resamples": 1000
+      },
+      "n_months": 2,
+      "n_profitable_months": 0,
+      "monthly_win_rate": 0.0
+    }
+  }
+}
