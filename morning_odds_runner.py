@@ -60,6 +60,14 @@ from local_ai_pipeline import (
 ODDS_FILE = os.path.join(DATA_DIR, "daily_odds_3t.csv")
 EV_THRESHOLD = 1.0  # 期待値がこの値を超える買い目のみ推奨
 
+# 決定論版（LLM不使用）の買い目生成パラメータ
+# auto_research/sweep_filters.py で val 期間最適化済み
+# 並走目的: LLM版 vs Det版 を毎日記録 → 1〜2週間後に勝者を採用
+DET_PROB_MIN = 0.01      # prob 1%未満は除外（低確率帯はモデル過大評価）
+DET_EV_MIN = 2.0         # EV 2.0未満は除外（LLM版より厳しめ）
+DET_ODDS_MAX = 500       # 500倍超は除外（極端 moonshot）
+DET_TOP_N_COMBOS = 4     # 1レース最大 4 combo
+
 # LINE通知（main_runner.py と同じ）
 from linebot import LineBotApi
 from linebot.models import TextSendMessage
@@ -417,9 +425,24 @@ EV = AI推定確率 × 実オッズ。EV > 1.0 は長期的にプラス収支が
             if s > 0:
                 kelly_stakes_map[combo.replace('-', '')] = s
 
+        # ===== LLM版 =====
         # AIが選んだ買い目にケリー額を割り当て（EVデータにない買い目は最低100円）
         chosen_eyes = parse_buy_str(response)
         stakes_for_race = {eye: kelly_stakes_map.get(eye, 100) for eye in chosen_eyes}
+
+        # ===== 決定論版（並走、LLM不使用） =====
+        # フィルタを通過した上位 N combo を Kelly stake で買う
+        det_filtered = [
+            (c, e, o, p) for c, e, o, p in top_ev_bets
+            if p >= DET_PROB_MIN and e >= DET_EV_MIN and o <= DET_ODDS_MAX
+        ]
+        # top_ev_bets は既に EV 降順
+        det_top = det_filtered[:DET_TOP_N_COMBOS]
+        det_stakes = {}
+        for combo, ev, odds, prob in det_top:
+            s = kelly_stake(prob, odds)
+            if s > 0:
+                det_stakes[combo.replace('-', '')] = s
 
         pred_entry = {
             "RaceID": race_id,
@@ -428,7 +451,8 @@ EV = AI推定確率 × 実オッズ。EV > 1.0 は長期的にプラス収支が
             "R": r,
             "Prediction": response,
             "Log": f"【朝バッチ EV強化版】MaxEV={max_ev:.2f}\n{response}",
-            "Stakes": json.dumps(stakes_for_race, ensure_ascii=False)
+            "Stakes": json.dumps(stakes_for_race, ensure_ascii=False),
+            "Stakes_Det": json.dumps(det_stakes, ensure_ascii=False),
         }
         new_preds.append(pred_entry)
 
@@ -445,45 +469,71 @@ EV = AI推定確率 × 実オッズ。EV > 1.0 は長期的にプラス収支が
 # Job D: LINE通知（EVベース推奨買い目）
 # =========================================================
 def build_morning_notification(target_date, ev_results, new_preds):
-    """朝バッチ用のLINE通知メッセージを構築する"""
-    msg_parts = [f"\n🌅 [朝バッチ EV分析レポート] {target_date}\n"]
+    """朝バッチ用のLINE通知メッセージを構築する
+
+    Det版本番一本化 (2026-05-12〜): Det stakes 空でないレースのみ列挙、
+    買い目欄は Det 組み合わせを直接表示。LLM は参考表示として小さく出す。
+    """
+    msg_parts = [f"\n🌅 [朝バッチ Det本番推奨] {target_date}\n"]
 
     if not new_preds:
         msg_parts.append("本日はEV > 1.0 の推奨レースがありません。")
         return "\n".join(msg_parts)
 
-    msg_parts.append(f"📊 EV > {EV_THRESHOLD} のレース: {len(new_preds)} 件\n")
-
+    # Det stakes ありのレースだけ抽出（Det本番一本化のため、Det空は通知に出さない）
+    det_preds = []
     for pred in new_preds:
+        try:
+            det_dict = json.loads(pred.get('Stakes_Det', '{}'))
+        except Exception:
+            det_dict = {}
+        if det_dict:
+            det_preds.append((pred, det_dict))
+
+    llm_only_count = len(new_preds) - len(det_preds)
+
+    if not det_preds:
+        msg_parts.append("本日はDetフィルタを通る推奨買い目がありません（本番見送り）。")
+        if llm_only_count:
+            msg_parts.append(f"※LLM側のみ {llm_only_count} 件は記録済み（monitoring用）")
+        dashboard_url = "https://kids-masaru.github.io/Play/"
+        msg_parts.append(f"\n{dashboard_url}")
+        return "\n".join(msg_parts)
+
+    msg_parts.append(f"📊 本番推奨: {len(det_preds)} 件 (LLM monitoring: {llm_only_count} 件は記録のみ)\n")
+
+    for pred, det_dict in det_preds:
         race_id = pred['RaceID']
         venue = pred['Venue']
         r = pred['R']
 
-        # EVトップ3を表示
-        ev_list = ev_results.get(str(race_id), [])
-        ev_top3 = [(c, e, o) for c, e, o, p in ev_list[:3] if e > EV_THRESHOLD]
+        # Det 買い目を 1-2-3 形式に整形して列挙
+        det_combos = []
+        for eye, stake in det_dict.items():
+            combo = f"{eye[0]}-{eye[1]}-{eye[2]}" if len(eye) == 3 else eye
+            det_combos.append(f"{combo}({stake}円)")
+        det_buy_str = ", ".join(det_combos)
+        det_total = sum(det_dict.values())
 
-        ev_disp = ", ".join([f"{c}(EV{e:.1f})" for c, e, o in ev_top3])
-
-        # 買い目をAI予測から抽出
+        # 参考: LLM stakes 合計
+        llm_disp = ""
         try:
-            buy_part = pred['Prediction'].split('■最終推奨買い目')[1].strip()[:40].replace('\n', '')
-        except:
-            buy_part = "---"
-
-        # Kelly stakes 表示
-        stakes_disp = ""
-        try:
-            stakes_dict = json.loads(pred.get('Stakes', '{}'))
-            if stakes_dict:
-                total_stake = sum(stakes_dict.values())
-                stakes_disp = f" [Kelly投資:{total_stake}円]"
-        except:
+            llm_dict = json.loads(pred.get('Stakes', '{}'))
+            if llm_dict:
+                llm_total = sum(llm_dict.values())
+                llm_disp = f" (参考LLM:{llm_total}円 {len(llm_dict)}点)"
+        except Exception:
             pass
 
-        msg_parts.append(f"📍 {venue}{r}R: {buy_part}{stakes_disp}")
+        # EVトップ3
+        ev_list = ev_results.get(str(race_id), [])
+        ev_top3 = [(c, e, o) for c, e, o, p in ev_list[:3] if e > EV_THRESHOLD]
+        ev_disp = ", ".join([f"{c}(EV{e:.1f})" for c, e, o in ev_top3])
+
+        msg_parts.append(f"📍 {venue}{r}R [本番:{det_total}円 {len(det_dict)}点]{llm_disp}")
+        msg_parts.append(f"   └ 買い目: {det_buy_str}")
         if ev_disp:
-            msg_parts.append(f"   └ {ev_disp}")
+            msg_parts.append(f"   └ EV上位: {ev_disp}")
 
     dashboard_url = "https://kids-masaru.github.io/Play/"
     msg_parts.append(f"\n※詳細はダッシュボードをご確認ください。\n{dashboard_url}")
