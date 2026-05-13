@@ -40,6 +40,11 @@ main_run_out.txt
 debug_out.txt
 debug_out_utf8.txt
 my_err.txt
+auto_research/*_log.txt
+auto_research/*.bak.*
+dashboard/build_log.txt
+dashboard/build_out.txt
+boatrace_result_*.txt
 
 # Artifacts & Temp
 /tmp/
@@ -62,6 +67,8 @@ credentials.env
 !dashboard/package.json
 !dashboard/package-lock.json
 !dashboard/public/daily_data/dashboard_data.json
+!auto_research/wf_baseline.json
+!auto_research/wf_summary.json
 
 # OS
 .DS_Store
