@@ -67,6 +67,7 @@ credentials.env
 !dashboard/package.json
 !dashboard/package-lock.json
 !dashboard/public/daily_data/dashboard_data.json
+!dashboard/public/daily_data/daily_race_info.json
 !auto_research/wf_baseline.json
 !auto_research/wf_summary.json
 

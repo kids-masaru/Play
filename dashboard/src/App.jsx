@@ -4,6 +4,7 @@ import {
   BarChart, Bar
 } from 'recharts';
 import { TrendingUp, Award, DollarSign, Activity } from 'lucide-react';
+import Battle from './Battle';
 import './index.css';
 
 const App = () => {
@@ -139,6 +140,7 @@ const App = () => {
           <div className="tab-container">
             <button className={`tab-button ${page === 'dashboard' ? 'active' : ''}`} onClick={() => setPage('dashboard')}>Dashboard</button>
             <button className={`tab-button ${page === 'ailab' ? 'active' : ''}`} onClick={() => setPage('ailab')}>AI Lab</button>
+            <button className={`tab-button ${page === 'battle' ? 'active' : ''}`} onClick={() => setPage('battle')}>予測対戦</button>
           </div>
         </div>
         {page === 'dashboard' && (
@@ -157,6 +159,8 @@ const App = () => {
       </header>
 
       {page === 'ailab' && renderAiLab()}
+
+      {page === 'battle' && <Battle />}
 
       {page === 'dashboard' && <>
       <div className="stats-grid">
