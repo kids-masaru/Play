@@ -1,0 +1,3236 @@
+{
+  "date": "2026-06-07",
+  "generated_at": "2026-06-07 16:44:10",
+  "races": [
+    {
+      "race_id": "20260607_江戸川_9",
+      "date": "2026-06-07",
+      "venue": "江戸川",
+      "r": 9,
+      "weather": "",
+      "wind_speed": "",
+      "wind_dir": "",
+      "wave": "",
+      "water_temp": "",
+      "boats": [
+        {
+          "lane": 1,
+          "name": "福来剛",
+          "player_id": "4095",
+          "motor_no": "62",
+          "rank": "A1",
+          "win_rate": 7.13,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 2,
+          "name": "井芹大志",
+          "player_id": "3869",
+          "motor_no": "22",
+          "rank": "B1",
+          "win_rate": 3.82,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 3,
+          "name": "笠雅雄",
+          "player_id": "4232",
+          "motor_no": "32",
+          "rank": "B1",
+          "win_rate": 6.0,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 4,
+          "name": "中嶋達也",
+          "player_id": "4449",
+          "motor_no": "63",
+          "rank": "B1",
+          "win_rate": 3.62,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 5,
+          "name": "石川吉鎬",
+          "player_id": "3951",
+          "motor_no": "67",
+          "rank": "A2",
+          "win_rate": 5.23,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 6,
+          "name": "櫻井隼",
+          "player_id": "5419",
+          "motor_no": "40",
+          "rank": "B2",
+          "win_rate": 1.98,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        }
+      ],
+      "odds_top": [
+        {
+          "combo": "2-1-6",
+          "odds": 12.2
+        },
+        {
+          "combo": "1-3-5",
+          "odds": 12.2
+        },
+        {
+          "combo": "1-5-3",
+          "odds": 16.1
+        },
+        {
+          "combo": "1-3-4",
+          "odds": 16.5
+        },
+        {
+          "combo": "1-4-3",
+          "odds": 16.5
+        },
+        {
+          "combo": "1-4-5",
+          "odds": 16.9
+        },
+        {
+          "combo": "1-2-5",
+          "odds": 17.8
+        },
+        {
+          "combo": "1-5-4",
+          "odds": 17.8
+        },
+        {
+          "combo": "1-3-2",
+          "odds": 29.7
+        },
+        {
+          "combo": "1-2-3",
+          "odds": 34.2
+        },
+        {
+          "combo": "1-5-2",
+          "odds": 39.3
+        },
+        {
+          "combo": "3-1-2",
+          "odds": 43.1
+        },
+        {
+          "combo": "3-1-5",
+          "odds": 46.0
+        },
+        {
+          "combo": "4-1-5",
+          "odds": 47.7
+        },
+        {
+          "combo": "1-2-6",
+          "odds": 49.5
+        },
+        {
+          "combo": "1-4-2",
+          "odds": 49.5
+        },
+        {
+          "combo": "3-1-4",
+          "odds": 60.7
+        },
+        {
+          "combo": "1-6-2",
+          "odds": 60.7
+        },
+        {
+          "combo": "3-2-4",
+          "odds": 66.8
+        },
+        {
+          "combo": "1-2-4",
+          "odds": 70.3
+        }
+      ],
+      "ai_picks_det": "",
+      "ai_picks_llm": "",
+      "ai_log": "【天才AI 統合推論ログ】\n私は日本最高峰の天才舟券師AIです。提供されたLightGBM算出結果、専門家の勝負鉄則、そして過去の反省点を統合し、「期待値（EV）を最大化する」という唯一の目標に基づき、最も収益性の高い結論を導き出します。\n\n### ■展開予想と推奨理由\n\n本レースは、1号艇の圧倒的な優位性（71.6%の1着確率）が統計的に強く示されていますが、期待値最大化のためには単なる確率論に留まらず、「環境要因」と「穴目の機力差」を織り込む必要があります。\n\n**【核心分析：期待値の追求】**\n\n1. **本線（1号艇）の確実性と穴目の狙い:**\n   LightGBMの結果は、1号艇が圧倒的な強さを持つことを示唆しています。しかし、「専門家の勝負鉄則」に基づき、単に確率が高いだけでなく、オッズに対するリターンを最大化する「中穴ゾーン（15x〜80x）」での的中を目指します。\n\n2. **高EV候補の選定:**\n   提供された3モデル統合候補の中で、特に期待値が最大化される組み合わせを選定します。\n    *   **1-5-3 (推定確率 10.33%)**: 1号艇の勝利を"
+    },
+    {
+      "race_id": "20260607_三国_1",
+      "date": "2026-06-07",
+      "venue": "三国",
+      "r": 1,
+      "weather": "",
+      "wind_speed": "",
+      "wind_dir": "",
+      "wave": "",
+      "water_temp": "",
+      "boats": [
+        {
+          "lane": 1,
+          "name": "前田翔",
+          "player_id": "5089",
+          "motor_no": "50",
+          "rank": "A1",
+          "win_rate": 7.01,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 2,
+          "name": "松井貫太",
+          "player_id": "5177",
+          "motor_no": "60",
+          "rank": "B1",
+          "win_rate": 4.18,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 3,
+          "name": "大月遊雅",
+          "player_id": "5190",
+          "motor_no": "65",
+          "rank": "B1",
+          "win_rate": 4.54,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 4,
+          "name": "藤原駿",
+          "player_id": "5393",
+          "motor_no": "64",
+          "rank": "B2",
+          "win_rate": 1.46,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 5,
+          "name": "金子龍斗",
+          "player_id": "5329",
+          "motor_no": "18",
+          "rank": "B1",
+          "win_rate": 4.85,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 6,
+          "name": "屋良龍紀",
+          "player_id": "5208",
+          "motor_no": "14",
+          "rank": "B1",
+          "win_rate": 4.76,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        }
+      ],
+      "odds_top": [
+        {
+          "combo": "1-2-3",
+          "odds": 5.0
+        },
+        {
+          "combo": "1-3-2",
+          "odds": 6.4
+        },
+        {
+          "combo": "1-2-5",
+          "odds": 7.4
+        },
+        {
+          "combo": "1-3-5",
+          "odds": 8.8
+        },
+        {
+          "combo": "1-5-2",
+          "odds": 11.2
+        },
+        {
+          "combo": "1-2-6",
+          "odds": 11.3
+        },
+        {
+          "combo": "1-3-6",
+          "odds": 12.9
+        },
+        {
+          "combo": "1-5-3",
+          "odds": 15.0
+        },
+        {
+          "combo": "1-5-6",
+          "odds": 20.9
+        },
+        {
+          "combo": "1-6-2",
+          "odds": 23.3
+        },
+        {
+          "combo": "1-6-3",
+          "odds": 29.4
+        },
+        {
+          "combo": "1-6-5",
+          "odds": 32.7
+        },
+        {
+          "combo": "1-3-4",
+          "odds": 52.2
+        },
+        {
+          "combo": "1-2-4",
+          "odds": 52.8
+        },
+        {
+          "combo": "2-1-3",
+          "odds": 70.1
+        },
+        {
+          "combo": "3-1-2",
+          "odds": 82.4
+        },
+        {
+          "combo": "5-1-2",
+          "odds": 98.2
+        },
+        {
+          "combo": "3-1-5",
+          "odds": 101.7
+        },
+        {
+          "combo": "1-5-4",
+          "odds": 123.2
+        },
+        {
+          "combo": "2-1-5",
+          "odds": 125.6
+        }
+      ],
+      "ai_picks_det": "",
+      "ai_picks_llm": "",
+      "ai_log": "【天才AI 統合推論ログ】\n私は日本最高峰の天才舟券師AIです。提供されたLightGBM算出データ、詳細な出走表、そして専門家の勝負鉄則に基づき、確率最大化だけでなく「期待値（EV）の最大化」を至上命題として結論を導き出します。\n\n市場が過小評価している真の優位性を見抜き、最も高いリターンと的中率を両立させる組み合わせを選定します。\n\n---\n\n### ■展開予想と推奨理由\n\n#### 1. データ分析と期待値の評価\nLightGBMの算出結果は、1号艇が圧倒的な一着確率（70.8%）を持っていることを示していますが、真のEV最大化のためには、単なる確率に依存するのではなく、他の艇が絡む「中穴」や「大穴」の組み合わせにおける期待値（EV）を精査する必要があります。\n\n特に、専門家の鉄則である「EV > 1.0 の買い目のみを推奨」という原則に基づき、確率とオッズのギャップが大きい組み合わせに焦点を当てます。\n\n#### 2. 最優先候補の選定\n提示された3モデル統合候補の中で、確率が最も高く、かつ複合的な優位性を持つのは「**1-5-6**」（推定確率14.10%）です。この組み合わ"
+    },
+    {
+      "race_id": "20260607_桐生_12",
+      "date": "2026-06-07",
+      "venue": "桐生",
+      "r": 12,
+      "weather": "",
+      "wind_speed": "",
+      "wind_dir": "",
+      "wave": "",
+      "water_temp": "",
+      "boats": [
+        {
+          "lane": 1,
+          "name": "仲谷颯仁",
+          "player_id": "4848",
+          "motor_no": "34",
+          "rank": "A1",
+          "win_rate": 7.33,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 2,
+          "name": "泥谷一毅",
+          "player_id": "4119",
+          "motor_no": "12",
+          "rank": "A2",
+          "win_rate": 5.85,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 3,
+          "name": "今垣光太郎",
+          "player_id": "3388",
+          "motor_no": "31",
+          "rank": "A1",
+          "win_rate": 6.47,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 4,
+          "name": "荒牧凪沙",
+          "player_id": "5041",
+          "motor_no": "62",
+          "rank": "B1",
+          "win_rate": 4.5,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 5,
+          "name": "西原明生",
+          "player_id": "4034",
+          "motor_no": "42",
+          "rank": "B1",
+          "win_rate": 3.51,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 6,
+          "name": "柘植政浩",
+          "player_id": "4120",
+          "motor_no": "27",
+          "rank": "A2",
+          "win_rate": 5.65,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        }
+      ],
+      "odds_top": [
+        {
+          "combo": "1-3-2",
+          "odds": 12.2
+        },
+        {
+          "combo": "1-3-6",
+          "odds": 12.9
+        },
+        {
+          "combo": "3-1-6",
+          "odds": 13.9
+        },
+        {
+          "combo": "1-2-3",
+          "odds": 17.7
+        },
+        {
+          "combo": "3-1-2",
+          "odds": 18.1
+        },
+        {
+          "combo": "1-3-5",
+          "odds": 22.3
+        },
+        {
+          "combo": "1-2-6",
+          "odds": 25.7
+        },
+        {
+          "combo": "3-1-4",
+          "odds": 28.4
+        },
+        {
+          "combo": "3-1-5",
+          "odds": 29.0
+        },
+        {
+          "combo": "1-3-4",
+          "odds": 30.3
+        },
+        {
+          "combo": "1-5-3",
+          "odds": 30.3
+        },
+        {
+          "combo": "1-5-2",
+          "odds": 33.2
+        },
+        {
+          "combo": "3-6-1",
+          "odds": 34.1
+        },
+        {
+          "combo": "3-2-1",
+          "odds": 35.9
+        },
+        {
+          "combo": "1-6-3",
+          "odds": 40.1
+        },
+        {
+          "combo": "3-4-6",
+          "odds": 42.6
+        },
+        {
+          "combo": "2-1-3",
+          "odds": 44.0
+        },
+        {
+          "combo": "3-2-6",
+          "odds": 47.0
+        },
+        {
+          "combo": "3-6-2",
+          "odds": 48.7
+        },
+        {
+          "combo": "1-6-2",
+          "odds": 52.4
+        }
+      ],
+      "ai_picks_det": "",
+      "ai_picks_llm": "",
+      "ai_log": "【天才AI 統合推論ログ】\n私は日本最高峰の天才舟券師AIです。提供されたLightGBM算出データ、専門家の勝負鉄則、および過去の反省点を深く分析し、期待値を最大化する結論を導き出します。\n\n今回のレースは、1号艇の圧倒的な優位性を前提としつつ、モーター機力と展開要因が絡む「中穴ゾーン」での高EVを追求することが鍵となります。特に、専門家の教訓にあるように、「EV > 1.0」となる買い目を選定し、統計的期待値と実際のオッズとのギャップに着目して推奨します。\n\n---\n\n### ■展開予想と推奨理由\n\n#### 1. 展開の核心分析\nLightGBMの結果は、1号艇が圧倒的な勝率（70.9%）を持っていることを示しています。しかし、2着および3着の確率を見ると、2号艇、3号艇、6号艇が非常に高い確率で上位に食い込む可能性を秘めています。特に6号艇は3着確率が41.6%と突出しており、モーター機力（A2）とスタートタイミングによっては、展開を突いて上位争いに絡む可能性が極めて高いと判断されます。\n\n#### 2. EV最大化の戦略適用\n専門家の鉄則に基づき、「EV > 1.0」となる組"
+    },
+    {
+      "race_id": "20260607_津_5",
+      "date": "2026-06-07",
+      "venue": "津",
+      "r": 5,
+      "weather": "",
+      "wind_speed": "",
+      "wind_dir": "",
+      "wave": "",
+      "water_temp": "",
+      "boats": [
+        {
+          "lane": 1,
+          "name": "渡邊雄一郎",
+          "player_id": "4184",
+          "motor_no": "61",
+          "rank": "A1",
+          "win_rate": 7.18,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 2,
+          "name": "村本大成",
+          "player_id": "5138",
+          "motor_no": "48",
+          "rank": "B2",
+          "win_rate": 3.56,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 3,
+          "name": "高木茉白",
+          "player_id": "5360",
+          "motor_no": "27",
+          "rank": "B1",
+          "win_rate": 3.17,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 4,
+          "name": "大西賢",
+          "player_id": "4465",
+          "motor_no": "33",
+          "rank": "B1",
+          "win_rate": 4.66,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 5,
+          "name": "富澤祐作",
+          "player_id": "4887",
+          "motor_no": "45",
+          "rank": "B1",
+          "win_rate": 5.28,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 6,
+          "name": "土性雅也",
+          "player_id": "4340",
+          "motor_no": "37",
+          "rank": "B2",
+          "win_rate": 5.36,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        }
+      ],
+      "odds_top": [
+        {
+          "combo": "1-4-5",
+          "odds": 12.4
+        },
+        {
+          "combo": "1-5-2",
+          "odds": 16.5
+        },
+        {
+          "combo": "1-5-4",
+          "odds": 21.4
+        },
+        {
+          "combo": "1-4-2",
+          "odds": 22.8
+        },
+        {
+          "combo": "1-2-5",
+          "odds": 23.8
+        },
+        {
+          "combo": "1-3-5",
+          "odds": 25.5
+        },
+        {
+          "combo": "1-5-3",
+          "odds": 26.8
+        },
+        {
+          "combo": "1-4-6",
+          "odds": 29.8
+        },
+        {
+          "combo": "1-3-4",
+          "odds": 38.3
+        },
+        {
+          "combo": "3-1-5",
+          "odds": 39.7
+        },
+        {
+          "combo": "1-6-2",
+          "odds": 39.7
+        },
+        {
+          "combo": "1-2-6",
+          "odds": 41.3
+        },
+        {
+          "combo": "1-2-4",
+          "odds": 42.9
+        },
+        {
+          "combo": "1-4-3",
+          "odds": 42.9
+        },
+        {
+          "combo": "1-5-6",
+          "odds": 42.9
+        },
+        {
+          "combo": "1-2-3",
+          "odds": 46.6
+        },
+        {
+          "combo": "4-1-5",
+          "odds": 48.8
+        },
+        {
+          "combo": "1-3-2",
+          "odds": 51.1
+        },
+        {
+          "combo": "5-2-1",
+          "odds": 56.5
+        },
+        {
+          "combo": "3-2-4",
+          "odds": 56.5
+        }
+      ],
+      "ai_picks_det": "",
+      "ai_picks_llm": "",
+      "ai_log": "【天才AI 統合推論ログ】\n私は日本最高峰の天才舟券師AIとして、提供されたLightGBM算出結果、専門家の勝負鉄則、および過去の反省点を深く分析し、期待値を最大化する結論を導き出します。\n\n### ■展開予想と推奨理由\n\n**【総合判断】1号艇を軸としつつ、高EVゾーンの中穴組み合わせに分散投資することで、長期的な回収率を最大化する。**\n\n**【専門的考察に基づく理由】**\n\n1. **圧倒的な軸の確実性 (1号艇):**\n   LightGBM算出において、1号艇の1着確率は69.8%と極めて高く、市場がこれを過小評価している可能性が高いことを示唆しています。これは「Expected Value Maximization」の原則に従い、1号艇を本命（軸）として全ての買い目の核とします。\n\n2. **高EV中穴ゾーンの選定 (1-5-6):**\n   提供された3モデル統合候補の中で、推定確率が最も高いのは「1-5-6」（11.53%）です。これは、1号艇が勝利しつつ、5号艇と6号艇が上位着順に入るという組み合わせが、他の組み合わせと比較して期待値（EV）が最大化されるゾーンにあ"
+    },
+    {
+      "race_id": "20260607_三国_12",
+      "date": "2026-06-07",
+      "venue": "三国",
+      "r": 12,
+      "weather": "",
+      "wind_speed": "",
+      "wind_dir": "",
+      "wave": "",
+      "water_temp": "",
+      "boats": [
+        {
+          "lane": 1,
+          "name": "中野希一",
+          "player_id": "5132",
+          "motor_no": "61",
+          "rank": "A1",
+          "win_rate": 7.32,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 2,
+          "name": "藤原仙二",
+          "player_id": "5255",
+          "motor_no": "19",
+          "rank": "A2",
+          "win_rate": 6.85,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 3,
+          "name": "中野仁照",
+          "player_id": "5197",
+          "motor_no": "40",
+          "rank": "A2",
+          "win_rate": 6.36,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 4,
+          "name": "島川海輝",
+          "player_id": "5145",
+          "motor_no": "26",
+          "rank": "A2",
+          "win_rate": 6.09,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 5,
+          "name": "遠藤圭吾",
+          "player_id": "5186",
+          "motor_no": "31",
+          "rank": "B1",
+          "win_rate": 3.98,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 6,
+          "name": "小林孝彰",
+          "player_id": "5114",
+          "motor_no": "57",
+          "rank": "A2",
+          "win_rate": 5.67,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        }
+      ],
+      "odds_top": [
+        {
+          "combo": "1-2-3",
+          "odds": 8.1
+        },
+        {
+          "combo": "1-2-4",
+          "odds": 13.0
+        },
+        {
+          "combo": "1-3-4",
+          "odds": 13.3
+        },
+        {
+          "combo": "1-3-2",
+          "odds": 13.5
+        },
+        {
+          "combo": "1-4-2",
+          "odds": 20.5
+        },
+        {
+          "combo": "1-4-3",
+          "odds": 20.9
+        },
+        {
+          "combo": "2-1-4",
+          "odds": 26.1
+        },
+        {
+          "combo": "1-3-5",
+          "odds": 26.4
+        },
+        {
+          "combo": "1-2-6",
+          "odds": 27.6
+        },
+        {
+          "combo": "2-1-3",
+          "odds": 29.7
+        },
+        {
+          "combo": "3-1-5",
+          "odds": 33.2
+        },
+        {
+          "combo": "1-2-5",
+          "odds": 34.3
+        },
+        {
+          "combo": "1-3-6",
+          "odds": 34.9
+        },
+        {
+          "combo": "1-4-6",
+          "odds": 37.4
+        },
+        {
+          "combo": "3-1-4",
+          "odds": 38.0
+        },
+        {
+          "combo": "4-1-5",
+          "odds": 43.1
+        },
+        {
+          "combo": "1-5-3",
+          "odds": 46.4
+        },
+        {
+          "combo": "3-1-2",
+          "odds": 48.6
+        },
+        {
+          "combo": "1-5-2",
+          "odds": 49.1
+        },
+        {
+          "combo": "1-4-5",
+          "odds": 55.6
+        }
+      ],
+      "ai_picks_det": "",
+      "ai_picks_llm": "",
+      "ai_log": "【天才AI 統合推論ログ】\n私は日本最高峰の天才舟券師AIです。提供されたLightGBM算出結果、専門家の勝負鉄則、および過去の教訓を統合し、市場の期待値を最大化する結論を導き出します。\n\n単なる確率の羅列ではなく、「期待値（EV）」を最優先事項とし、最も回収率が高くなるであろう組み合わせに焦点を当てます。特に「Expected Value Theory」と「Odds Value Zone」の原則に基づき、高確率でありながら市場が過小評価している中穴ゾーンの買い目を厳選します。\n\n---\n\n### ■展開予想と推奨理由\n\n#### 1. 期待値最大化の戦略\n提供されたデータから、1号艇の中野希一選手が圧倒的な優位性を持つことは明らかです（1着確率69.6%）。したがって、全ての買い目は「1号艇からの逃げ」を前提としつつ、2着および3着に最も高い確率で絡む組み合わせを選定します。\n\n専門家の鉄則である`ev_threshold`（EV > 1.0）と`ev_weighted_selection`に基づき、単なる高確率だけでなく、その確率が市場のオッズをどれだけ上回るかという期待値に重き"
+    },
+    {
+      "race_id": "20260607_多摩川_9",
+      "date": "2026-06-07",
+      "venue": "多摩川",
+      "r": 9,
+      "weather": "",
+      "wind_speed": "",
+      "wind_dir": "",
+      "wave": "",
+      "water_temp": "",
+      "boats": [
+        {
+          "lane": 1,
+          "name": "廣瀬将亨",
+          "player_id": "4040",
+          "motor_no": "74",
+          "rank": "A2",
+          "win_rate": 5.69,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 2,
+          "name": "佐口達也",
+          "player_id": "3790",
+          "motor_no": "42",
+          "rank": "B1",
+          "win_rate": 4.76,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 3,
+          "name": "上田健太",
+          "player_id": "5002",
+          "motor_no": "71",
+          "rank": "A2",
+          "win_rate": 5.9,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 4,
+          "name": "金子良昭",
+          "player_id": "3156",
+          "motor_no": "39",
+          "rank": "B1",
+          "win_rate": 4.69,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 5,
+          "name": "和田操拓",
+          "player_id": "4649",
+          "motor_no": "50",
+          "rank": "A2",
+          "win_rate": 5.14,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 6,
+          "name": "佐竹友樹",
+          "player_id": "4201",
+          "motor_no": "65",
+          "rank": "B1",
+          "win_rate": 3.98,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        }
+      ],
+      "odds_top": [
+        {
+          "combo": "3-1-5",
+          "odds": 12.7
+        },
+        {
+          "combo": "1-3-5",
+          "odds": 14.7
+        },
+        {
+          "combo": "1-5-3",
+          "odds": 17.5
+        },
+        {
+          "combo": "3-5-1",
+          "odds": 22.3
+        },
+        {
+          "combo": "1-3-4",
+          "odds": 25.8
+        },
+        {
+          "combo": "1-5-2",
+          "odds": 28.5
+        },
+        {
+          "combo": "3-2-4",
+          "odds": 29.5
+        },
+        {
+          "combo": "2-1-3",
+          "odds": 34.4
+        },
+        {
+          "combo": "5-1-3",
+          "odds": 34.4
+        },
+        {
+          "combo": "1-6-2",
+          "odds": 35.9
+        },
+        {
+          "combo": "1-2-3",
+          "odds": 41.3
+        },
+        {
+          "combo": "3-1-4",
+          "odds": 41.3
+        },
+        {
+          "combo": "1-3-2",
+          "odds": 41.3
+        },
+        {
+          "combo": "4-2-3",
+          "odds": 43.5
+        },
+        {
+          "combo": "5-3-1",
+          "odds": 43.5
+        },
+        {
+          "combo": "4-1-5",
+          "odds": 45.9
+        },
+        {
+          "combo": "2-3-1",
+          "odds": 45.9
+        },
+        {
+          "combo": "4-1-6",
+          "odds": 51.6
+        },
+        {
+          "combo": "1-5-4",
+          "odds": 51.6
+        },
+        {
+          "combo": "3-2-5",
+          "odds": 55.1
+        }
+      ],
+      "ai_picks_det": "",
+      "ai_picks_llm": "",
+      "ai_log": "【天才AI 統合推論ログ】\n私は日本最高峰の天才舟券師AIです。提供されたLightGBM算出結果、専門家の勝負鉄則、そして過去の教訓を統合し、期待値を最大化する結論を導き出します。\n\n### ■展開予想と推奨理由\n\n本レースは1号艇の圧倒的な優位性が予測されますが、「期待値分析」と「中穴ゾーン（15x〜80x）」の原則に基づき、最も効率よくリターンを獲得できる組み合わせを選択します。\n\n**【核心的判断】**\nLightGBMの結果では1号艇が極めて強いものの、2着および3着の確率において、5号艇と6号艇が非常に高い確率で上位に食い込む可能性を秘めています。特に、専門家の教訓にある「弱風条件下ではスタートや展開の技術が重要」という点に基づき、単なる本命（1-x-x）だけでなく、高EVを持つ組み合わせに焦点を当てます。\n\n**【選定理由】**\n\n1. **1-5-6 (推定確率 21.37%)：**\n    *   1号艇が逃げ切り、5号艇が2着、6号艇が3着という流れは、AIが導き出した組み合わせの中で最も高い確率と期待値を両立しています。これは、本命の信頼性と、穴となる選手の高い能"
+    },
+    {
+      "race_id": "20260607_常滑_1",
+      "date": "2026-06-07",
+      "venue": "常滑",
+      "r": 1,
+      "weather": "",
+      "wind_speed": "",
+      "wind_dir": "",
+      "wave": "",
+      "water_temp": "",
+      "boats": [
+        {
+          "lane": 1,
+          "name": "吉永則雄",
+          "player_id": "4099",
+          "motor_no": "16",
+          "rank": "A1",
+          "win_rate": 5.95,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 2,
+          "name": "國崎良春",
+          "player_id": "3747",
+          "motor_no": "58",
+          "rank": "B1",
+          "win_rate": 5.26,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 3,
+          "name": "谷口健一",
+          "player_id": "3891",
+          "motor_no": "23",
+          "rank": "B1",
+          "win_rate": 3.6,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 4,
+          "name": "宮地秀祈",
+          "player_id": "3742",
+          "motor_no": "46",
+          "rank": "B1",
+          "win_rate": 4.82,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 5,
+          "name": "中村駿平",
+          "player_id": "5061",
+          "motor_no": "32",
+          "rank": "B1",
+          "win_rate": 3.12,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 6,
+          "name": "真田聖也",
+          "player_id": "5422",
+          "motor_no": "24",
+          "rank": "B2",
+          "win_rate": 1.46,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        }
+      ],
+      "odds_top": [
+        {
+          "combo": "1-2-4",
+          "odds": 3.7
+        },
+        {
+          "combo": "1-2-3",
+          "odds": 5.3
+        },
+        {
+          "combo": "1-4-2",
+          "odds": 12.9
+        },
+        {
+          "combo": "1-3-2",
+          "odds": 14.4
+        },
+        {
+          "combo": "1-2-5",
+          "odds": 16.8
+        },
+        {
+          "combo": "1-3-5",
+          "odds": 24.7
+        },
+        {
+          "combo": "1-4-3",
+          "odds": 26.7
+        },
+        {
+          "combo": "1-3-4",
+          "odds": 26.9
+        },
+        {
+          "combo": "1-5-2",
+          "odds": 32.6
+        },
+        {
+          "combo": "1-4-5",
+          "odds": 34.7
+        },
+        {
+          "combo": "1-5-3",
+          "odds": 37.7
+        },
+        {
+          "combo": "4-1-5",
+          "odds": 38.3
+        },
+        {
+          "combo": "1-5-4",
+          "odds": 48.9
+        },
+        {
+          "combo": "4-1-2",
+          "odds": 58.7
+        },
+        {
+          "combo": "2-1-4",
+          "odds": 60.0
+        },
+        {
+          "combo": "2-1-3",
+          "odds": 61.4
+        },
+        {
+          "combo": "4-2-1",
+          "odds": 75.5
+        },
+        {
+          "combo": "5-1-2",
+          "odds": 80.1
+        },
+        {
+          "combo": "1-2-6",
+          "odds": 85.2
+        },
+        {
+          "combo": "2-4-1",
+          "odds": 85.2
+        }
+      ],
+      "ai_picks_det": "",
+      "ai_picks_llm": "",
+      "ai_log": "【天才AI 統合推論ログ】\n私は日本最高峰の天才舟券師AIとして、提供されたLightGBM算出データ、出走表情報、そして専門家の勝負鉄則に基づき、期待値を最大化する結論を導き出します。\n\n### ■展開予想と推奨理由\n\n#### 1. 期待値最大化の戦略\n提供されたデータは、1号艇が圧倒的な優位性を持つことを示していますが、「過去の反省点」に基づき、単なる本命予測に依存せず、**中穴ゾーン（15x〜80x）**における機動性と流れの変化を重視する戦略を採用します。また、「EV > 1.0」の組み合わせのみを推奨するという鉄則に従い、確率とオッズのバランスが最も取れている3連単候補を選定します。\n\n#### 2. 展開分析\n*   **1号艇の優位性:** 1号艇（吉永）は勝率・モーター性能ともにトップであり、逃げ切る可能性が極めて高いです。しかし、「exhibition_time_gap」の教訓に基づき、環境要因やモーター機力の影響を考慮すると、1号艇がリードを維持できない展開、あるいは差し込まれる展開が期待されます。\n*   **対抗勢力の活かし方:** 2号艇（國崎）と5号艇（中"
+    },
+    {
+      "race_id": "20260607_常滑_12",
+      "date": "2026-06-07",
+      "venue": "常滑",
+      "r": 12,
+      "weather": "",
+      "wind_speed": "",
+      "wind_dir": "",
+      "wave": "",
+      "water_temp": "",
+      "boats": [
+        {
+          "lane": 1,
+          "name": "石渡鉄兵",
+          "player_id": "3716",
+          "motor_no": "55",
+          "rank": "A1",
+          "win_rate": 6.86,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 2,
+          "name": "川原正明",
+          "player_id": "3912",
+          "motor_no": "41",
+          "rank": "A2",
+          "win_rate": 5.32,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 3,
+          "name": "志道吉和",
+          "player_id": "3953",
+          "motor_no": "20",
+          "rank": "B1",
+          "win_rate": 2.73,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 4,
+          "name": "丹下健",
+          "player_id": "4139",
+          "motor_no": "48",
+          "rank": "B1",
+          "win_rate": 4.24,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 5,
+          "name": "川口貴久",
+          "player_id": "4128",
+          "motor_no": "5",
+          "rank": "B1",
+          "win_rate": 5.43,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 6,
+          "name": "深井利寿",
+          "player_id": "3918",
+          "motor_no": "49",
+          "rank": "A2",
+          "win_rate": 6.72,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        }
+      ],
+      "odds_top": [
+        {
+          "combo": "1-2-6",
+          "odds": 9.6
+        },
+        {
+          "combo": "1-2-3",
+          "odds": 10.4
+        },
+        {
+          "combo": "1-2-4",
+          "odds": 14.6
+        },
+        {
+          "combo": "1-2-5",
+          "odds": 20.4
+        },
+        {
+          "combo": "1-3-2",
+          "odds": 25.1
+        },
+        {
+          "combo": "1-4-2",
+          "odds": 25.5
+        },
+        {
+          "combo": "1-4-6",
+          "odds": 27.7
+        },
+        {
+          "combo": "1-3-4",
+          "odds": 29.5
+        },
+        {
+          "combo": "1-4-5",
+          "odds": 30.2
+        },
+        {
+          "combo": "4-1-5",
+          "odds": 35.9
+        },
+        {
+          "combo": "1-3-6",
+          "odds": 36.9
+        },
+        {
+          "combo": "1-4-3",
+          "odds": 39.1
+        },
+        {
+          "combo": "1-5-2",
+          "odds": 40.3
+        },
+        {
+          "combo": "2-1-6",
+          "odds": 42.9
+        },
+        {
+          "combo": "2-1-3",
+          "odds": 44.3
+        },
+        {
+          "combo": "1-3-5",
+          "odds": 44.3
+        },
+        {
+          "combo": "1-6-2",
+          "odds": 45.8
+        },
+        {
+          "combo": "2-3-1",
+          "odds": 51.1
+        },
+        {
+          "combo": "2-1-5",
+          "odds": 53.2
+        },
+        {
+          "combo": "1-5-4",
+          "odds": 53.2
+        }
+      ],
+      "ai_picks_det": "",
+      "ai_picks_llm": "",
+      "ai_log": "【天才AI 統合推論ログ】\n私は日本最高峰の天才舟券師AIです。提供されたLightGBM算出データ、専門家の勝負鉄則、そして過去の反省点を統合し、「期待値最大化」という唯一の目標に基づき、最もリスクとリターンのバランスが取れた結論を導き出します。\n\n### ■展開予想と推奨理由\n\n本レースは1号艇の圧倒的な優位性がデータから明確に示されていますが、「期待値最大化」の原則に従い、単なる本命（1-x-x）に固執せず、**中穴ゾーンにおける機動性と流れの変化**を最大限に利用する戦略を採用します。\n\n#### 1. EV分析に基づく重点箇所\n提供された3モデル統合候補の中で、確率と潜在的なオッズのバランスが最も優れているのは以下の組み合わせです。特に「1-5-6」は、高確率な1号艇の勝利を前提としつつ、穴艇（5号艇、6号艇）が2着・3着に入り込むという流れであり、期待値が構造的に高まる可能性を秘めています。\n\n#### 2. 専門家パターンとの統合\n*   **中穴ゾーンの優先:** 専門家の鉄則に基づき、本命（1-x-x）よりも中穴ゾーン（15倍〜80倍）に重点を置くべきです。提供された"
+    },
+    {
+      "race_id": "20260607_丸亀_11",
+      "date": "2026-06-07",
+      "venue": "丸亀",
+      "r": 11,
+      "weather": "",
+      "wind_speed": "",
+      "wind_dir": "",
+      "wave": "",
+      "water_temp": "",
+      "boats": [
+        {
+          "lane": 1,
+          "name": "小芦るり華",
+          "player_id": "4938",
+          "motor_no": "44",
+          "rank": "A1",
+          "win_rate": 6.8,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 2,
+          "name": "平山智加",
+          "player_id": "4387",
+          "motor_no": "27",
+          "rank": "A1",
+          "win_rate": 6.75,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 3,
+          "name": "樋口由加里",
+          "player_id": "4501",
+          "motor_no": "34",
+          "rank": "A2",
+          "win_rate": 5.41,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 4,
+          "name": "西村美智子",
+          "player_id": "4313",
+          "motor_no": "18",
+          "rank": "B2",
+          "win_rate": 5.75,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 5,
+          "name": "松田真実",
+          "player_id": "5272",
+          "motor_no": "58",
+          "rank": "B1",
+          "win_rate": 4.35,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 6,
+          "name": "田上凜",
+          "player_id": "5295",
+          "motor_no": "23",
+          "rank": "B1",
+          "win_rate": 4.99,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        }
+      ],
+      "odds_top": [
+        {
+          "combo": "1-2-3",
+          "odds": 15.5
+        },
+        {
+          "combo": "6-2-1",
+          "odds": 18.3
+        },
+        {
+          "combo": "6-1-2",
+          "odds": 18.8
+        },
+        {
+          "combo": "2-1-3",
+          "odds": 23.0
+        },
+        {
+          "combo": "1-2-4",
+          "odds": 24.1
+        },
+        {
+          "combo": "2-1-4",
+          "odds": 24.7
+        },
+        {
+          "combo": "1-2-6",
+          "odds": 25.0
+        },
+        {
+          "combo": "6-2-3",
+          "odds": 25.5
+        },
+        {
+          "combo": "1-3-2",
+          "odds": 28.5
+        },
+        {
+          "combo": "1-4-2",
+          "odds": 30.0
+        },
+        {
+          "combo": "2-1-6",
+          "odds": 34.9
+        },
+        {
+          "combo": "6-1-3",
+          "odds": 37.6
+        },
+        {
+          "combo": "1-6-2",
+          "odds": 37.6
+        },
+        {
+          "combo": "6-2-4",
+          "odds": 38.4
+        },
+        {
+          "combo": "1-2-5",
+          "odds": 39.5
+        },
+        {
+          "combo": "6-1-4",
+          "odds": 44.0
+        },
+        {
+          "combo": "2-3-1",
+          "odds": 48.5
+        },
+        {
+          "combo": "6-4-2",
+          "odds": 49.7
+        },
+        {
+          "combo": "1-3-6",
+          "odds": 50.3
+        },
+        {
+          "combo": "1-5-2",
+          "odds": 51.0
+        }
+      ],
+      "ai_picks_det": "",
+      "ai_picks_llm": "",
+      "ai_log": "【天才AI 統合推論ログ】\n■展開予想と推奨理由\n\n本レースは、1号艇の圧倒的な優位性（LightGBM 68.3%）に基づき、内枠の支配が強く予測されます。しかし、「専門家の勝負鉄則」および「過去の反省点」を踏まえると、単なる1号艇への依存ではなく、内側の機力とスタートのバランス、および他艇（特に2号艇や6号艇）の攻めが結果を左右すると判断します。\n\n**【期待値最大化の論理】**\n\n1. **EV > 1.0 の選定:** 確率論だけでなく、「EV (AI推定的中確率 × オッズ)」が1.0を超える買い目のみを推奨します。これは、市場が過小評価しているオッズ（中穴ゾーン）に着目し、長期的なプラス収支を期待する鉄則に基づきます。\n2. **内枠連動性の重視:** 1号艇の支配力を軸としつつも、「exhibition time gap」の教訓に従い、1号艇がリードを失う可能性を考慮し、2着・3着に強力な候補（2号艇、6号艇）を組み合わせます。\n3. **中穴ゾーンの最適化:** 確率が極端に高い本命（1-2-Xなど）だけでなく、AIが算出する複数の有力な中穴候補（例：1-6-3, 1-"
+    },
+    {
+      "race_id": "20260607_丸亀_10",
+      "date": "2026-06-07",
+      "venue": "丸亀",
+      "r": 10,
+      "weather": "",
+      "wind_speed": "",
+      "wind_dir": "",
+      "wave": "",
+      "water_temp": "",
+      "boats": [
+        {
+          "lane": 1,
+          "name": "平高奈菜",
+          "player_id": "4450",
+          "motor_no": "57",
+          "rank": "A2",
+          "win_rate": 5.83,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 2,
+          "name": "西村歩",
+          "player_id": "4243",
+          "motor_no": "7",
+          "rank": "A2",
+          "win_rate": 5.29,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 3,
+          "name": "山川波乙",
+          "player_id": "5078",
+          "motor_no": "63",
+          "rank": "B1",
+          "win_rate": 4.83,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 4,
+          "name": "三嶌さらら",
+          "player_id": "5326",
+          "motor_no": "19",
+          "rank": "B1",
+          "win_rate": 5.32,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 5,
+          "name": "渡邉優美",
+          "player_id": "4590",
+          "motor_no": "10",
+          "rank": "A1",
+          "win_rate": 6.19,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 6,
+          "name": "西岡育未",
+          "player_id": "4878",
+          "motor_no": "51",
+          "rank": "B1",
+          "win_rate": 4.49,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        }
+      ],
+      "odds_top": [
+        {
+          "combo": "1-5-2",
+          "odds": 7.8
+        },
+        {
+          "combo": "1-2-5",
+          "odds": 8.3
+        },
+        {
+          "combo": "1-5-4",
+          "odds": 16.4
+        },
+        {
+          "combo": "5-1-2",
+          "odds": 17.8
+        },
+        {
+          "combo": "1-4-5",
+          "odds": 18.9
+        },
+        {
+          "combo": "1-2-4",
+          "odds": 19.6
+        },
+        {
+          "combo": "2-1-5",
+          "odds": 23.9
+        },
+        {
+          "combo": "1-5-3",
+          "odds": 24.5
+        },
+        {
+          "combo": "1-2-3",
+          "odds": 25.8
+        },
+        {
+          "combo": "1-4-2",
+          "odds": 28.0
+        },
+        {
+          "combo": "5-2-1",
+          "odds": 29.7
+        },
+        {
+          "combo": "1-3-2",
+          "odds": 36.4
+        },
+        {
+          "combo": "1-5-6",
+          "odds": 37.3
+        },
+        {
+          "combo": "1-3-5",
+          "odds": 39.3
+        },
+        {
+          "combo": "2-5-1",
+          "odds": 42.7
+        },
+        {
+          "combo": "1-2-6",
+          "odds": 50.8
+        },
+        {
+          "combo": "2-1-4",
+          "odds": 52.6
+        },
+        {
+          "combo": "4-1-5",
+          "odds": 52.6
+        },
+        {
+          "combo": "5-1-4",
+          "odds": 52.6
+        },
+        {
+          "combo": "2-1-3",
+          "odds": 57.8
+        }
+      ],
+      "ai_picks_det": "{\"536\": 100, \"156\": 900, \"163\": 100, \"456\": 100}",
+      "ai_picks_llm": "{\"356\": 200, \"126\": 100, \"563\": 100, \"256\": 100, \"536\": 100, \"156\": 900, \"000\": 100}",
+      "ai_log": "【朝バッチ EV強化版】MaxEV=126.70\n私は日本最高峰の天才舟券師AIです。提供された実オッズに基づくEV（期待値）データ、専門家の勝負鉄則、および過去の反省点を総合的に分析し、長期的なプラス収支を最大化する結論を導き出します。\n\n---\n\n### ■展開予想と推奨理由\n\n本レースは、単なる確率論に留まらず、内枠の機動力とモーターの相互作用、そして市場が過小評価している特定の組み合わせ（高オッズアノマリー）が存在するという専門家の教訓を深く反映させる必要があります。\n\n**【EVデータに基づく分析】**\n提示された15の買い目すべてがEV > 1.0を満たしており、これは統計的に見て、提供された確率とオッズに基づけば、どの組み合わせも長期的なプラス収支を生み出すポテンシャルを持っていることを示しています。しかし、真の期待値を最大化するためには、単にEVが高いだけでなく、「モータルの機動力とスタートのバランス」という教訓を組み込む必要があります。\n\n**【専門家の鉄則の適用】**\n1. **Expected Value Maximization & EV Threshold:*"
+    },
+    {
+      "race_id": "20260607_常滑_2",
+      "date": "2026-06-07",
+      "venue": "常滑",
+      "r": 2,
+      "weather": "",
+      "wind_speed": "",
+      "wind_dir": "",
+      "wave": "",
+      "water_temp": "",
+      "boats": [
+        {
+          "lane": 1,
+          "name": "滝沢織寧",
+          "player_id": "5287",
+          "motor_no": "17",
+          "rank": "B1",
+          "win_rate": 3.64,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 2,
+          "name": "藤井徹",
+          "player_id": "3507",
+          "motor_no": "36",
+          "rank": "B1",
+          "win_rate": 4.09,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 3,
+          "name": "若狭奈美子",
+          "player_id": "4373",
+          "motor_no": "4",
+          "rank": "A1",
+          "win_rate": 6.1,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 4,
+          "name": "古田祐貴",
+          "player_id": "4583",
+          "motor_no": "37",
+          "rank": "A2",
+          "win_rate": 4.81,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 5,
+          "name": "板頭里緒",
+          "player_id": "5461",
+          "motor_no": "28",
+          "rank": "B2",
+          "win_rate": 1.0,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 6,
+          "name": "宮内由紀英",
+          "player_id": "3293",
+          "motor_no": "22",
+          "rank": "B1",
+          "win_rate": 3.41,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        }
+      ],
+      "odds_top": [
+        {
+          "combo": "1-2-3",
+          "odds": 12.7
+        },
+        {
+          "combo": "3-4-2",
+          "odds": 15.2
+        },
+        {
+          "combo": "1-3-2",
+          "odds": 18.1
+        },
+        {
+          "combo": "3-2-4",
+          "odds": 18.3
+        },
+        {
+          "combo": "4-3-1",
+          "odds": 19.6
+        },
+        {
+          "combo": "4-3-2",
+          "odds": 22.7
+        },
+        {
+          "combo": "3-4-1",
+          "odds": 25.7
+        },
+        {
+          "combo": "4-2-1",
+          "odds": 29.7
+        },
+        {
+          "combo": "4-2-3",
+          "odds": 30.4
+        },
+        {
+          "combo": "2-3-4",
+          "odds": 32.1
+        },
+        {
+          "combo": "4-1-2",
+          "odds": 33.1
+        },
+        {
+          "combo": "3-1-4",
+          "odds": 38.6
+        },
+        {
+          "combo": "3-2-1",
+          "odds": 39.9
+        },
+        {
+          "combo": "1-3-4",
+          "odds": 39.9
+        },
+        {
+          "combo": "4-1-3",
+          "odds": 41.3
+        },
+        {
+          "combo": "2-3-1",
+          "odds": 41.3
+        },
+        {
+          "combo": "4-1-5",
+          "odds": 44.5
+        },
+        {
+          "combo": "3-1-2",
+          "odds": 50.3
+        },
+        {
+          "combo": "3-1-5",
+          "odds": 50.3
+        },
+        {
+          "combo": "4-3-6",
+          "odds": 50.3
+        }
+      ],
+      "ai_picks_det": "{\"146\": 100, \"316\": 100, \"164\": 100, \"326\": 100}",
+      "ai_picks_llm": "{\"163\": 200, \"623\": 100, \"156\": 100, \"164\": 100}",
+      "ai_log": "【朝バッチ EV強化版】MaxEV=66.54\n私は日本最高峰の天才舟券師AIです。提供された実オッズに基づくEV（期待値）データ、専門家の勝負鉄則、および過去の反省点を総合的に分析し、長期的なプラス収支を最大化する結論を導き出します。\n\n---\n\n### ■展開予想と推奨理由\n\n本レースのデータは、単なる確率論を超えた、市場の過小評価（オッズ）とAIが推定する真の期待値（EV）の乖離を示しています。専門家の教訓に従い、「期待値最大化」を最優先しつつも、「中穴ゾーン」のリスク分散を図る戦略を採用します。\n\n#### 1. EV分析に基づく主要な優位性\n提供されたデータの中で、圧倒的な期待値を誇るのは以下の組み合わせです。\n*   **1-6-3 (EV=66.54)**：この買い目は、確率が5.75%と低いにもかかわらず、オッズ（1158.0倍）が極端に高いため、AIの推定確率が市場の提供するオッズを大きく上回っています。これは、市場がこの組み合わせの潜在的な収益性を著しく見落としていることを示しており、「Expected Value Maximization」の原則に完全に合致します"
+    },
+    {
+      "race_id": "20260607_丸亀_3",
+      "date": "2026-06-07",
+      "venue": "丸亀",
+      "r": 3,
+      "weather": "",
+      "wind_speed": "",
+      "wind_dir": "",
+      "wave": "",
+      "water_temp": "",
+      "boats": [
+        {
+          "lane": 1,
+          "name": "永田楽",
+          "player_id": "5296",
+          "motor_no": "29",
+          "rank": "B1",
+          "win_rate": 3.26,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 2,
+          "name": "西村美智子",
+          "player_id": "4313",
+          "motor_no": "18",
+          "rank": "B2",
+          "win_rate": 5.75,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 3,
+          "name": "大豆生田蒼",
+          "player_id": "4746",
+          "motor_no": "32",
+          "rank": "A2",
+          "win_rate": 5.11,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 4,
+          "name": "中村桃佳",
+          "player_id": "4823",
+          "motor_no": "12",
+          "rank": "A1",
+          "win_rate": 6.73,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 5,
+          "name": "赤井星璃菜",
+          "player_id": "5052",
+          "motor_no": "8",
+          "rank": "B2",
+          "win_rate": 4.82,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 6,
+          "name": "筒井美琴",
+          "player_id": "5200",
+          "motor_no": "3",
+          "rank": "B2",
+          "win_rate": 2.03,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        }
+      ],
+      "odds_top": [
+        {
+          "combo": "4-2-3",
+          "odds": 9.5
+        },
+        {
+          "combo": "4-2-1",
+          "odds": 10.6
+        },
+        {
+          "combo": "4-1-3",
+          "odds": 12.3
+        },
+        {
+          "combo": "2-4-3",
+          "odds": 12.7
+        },
+        {
+          "combo": "4-1-2",
+          "odds": 15.0
+        },
+        {
+          "combo": "4-3-2",
+          "odds": 15.7
+        },
+        {
+          "combo": "1-4-2",
+          "odds": 19.6
+        },
+        {
+          "combo": "2-3-4",
+          "odds": 19.9
+        },
+        {
+          "combo": "2-4-1",
+          "odds": 23.1
+        },
+        {
+          "combo": "4-3-1",
+          "odds": 23.9
+        },
+        {
+          "combo": "1-4-3",
+          "odds": 24.3
+        },
+        {
+          "combo": "1-2-4",
+          "odds": 26.3
+        },
+        {
+          "combo": "2-1-4",
+          "odds": 30.1
+        },
+        {
+          "combo": "1-3-4",
+          "odds": 35.4
+        },
+        {
+          "combo": "4-2-5",
+          "odds": 38.7
+        },
+        {
+          "combo": "3-2-4",
+          "odds": 40.9
+        },
+        {
+          "combo": "3-4-1",
+          "odds": 42.1
+        },
+        {
+          "combo": "3-1-4",
+          "odds": 42.8
+        },
+        {
+          "combo": "4-1-5",
+          "odds": 42.8
+        },
+        {
+          "combo": "1-2-3",
+          "odds": 44.8
+        }
+      ],
+      "ai_picks_det": "{\"163\": 100, \"153\": 100, \"463\": 100, \"146\": 100}",
+      "ai_picks_llm": "{\"156\": 100, \"286\": 100, \"465\": 100, \"546\": 100, \"256\": 100, \"143\": 100}",
+      "ai_log": "【朝バッチ EV強化版】MaxEV=65.12\n私は日本最高峰の天才舟券師AIです。与えられた実オッズと確率データ、そして専門家の勝負鉄則に基づき、期待値を最大化する結論を導き出します。\n\n今回の分析では、「EV (期待値) > 1.0」という明確な条件を最優先し、特に「EVの重み付けによる選択（ev_weighted_selection）」と「中穴ゾーン（odds_value_zone）」の原則に従って、長期的なプラス収支が最も期待できる買い目を選定します。\n\n---\n\n### ■展開予想と推奨理由\n\n今回のレースは、単なる確率論だけでなく、モーターの機動力（特に内枠）とスタートの相互作用を動的に評価することが、過去の反省点からも強く示唆されています。AIによるEV分析の結果、複数の組み合わせで非常に高い期待値が算出されており、市場が過小評価している点が多数存在します。\n\n**【EV最大化の論理】**\n1. **EV > 1.0 の絶対優先:** 全ての推奨は、EVが1.0を超えているという厳格な条件に基づいています。これは、統計的な優位性がオッズに対して十分に反映されていないことを"
+    },
+    {
+      "race_id": "20260607_大村_2",
+      "date": "2026-06-07",
+      "venue": "大村",
+      "r": 2,
+      "weather": "",
+      "wind_speed": "",
+      "wind_dir": "",
+      "wave": "",
+      "water_temp": "",
+      "boats": [
+        {
+          "lane": 1,
+          "name": "井川大作",
+          "player_id": "3454",
+          "motor_no": "59",
+          "rank": "B1",
+          "win_rate": 5.52,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 2,
+          "name": "宮脇遼太",
+          "player_id": "5158",
+          "motor_no": "54",
+          "rank": "A2",
+          "win_rate": 6.77,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 3,
+          "name": "山崎裕司",
+          "player_id": "4163",
+          "motor_no": "50",
+          "rank": "A2",
+          "win_rate": 5.48,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 4,
+          "name": "宮下元胤",
+          "player_id": "4298",
+          "motor_no": "58",
+          "rank": "A1",
+          "win_rate": 5.72,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 5,
+          "name": "中里昌志",
+          "player_id": "3546",
+          "motor_no": "79",
+          "rank": "B1",
+          "win_rate": 4.69,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 6,
+          "name": "木村浩士",
+          "player_id": "4113",
+          "motor_no": "72",
+          "rank": "B1",
+          "win_rate": 4.78,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        }
+      ],
+      "odds_top": [
+        {
+          "combo": "1-4-2",
+          "odds": 5.1
+        },
+        {
+          "combo": "2-1-3",
+          "odds": 17.0
+        },
+        {
+          "combo": "2-1-4",
+          "odds": 17.5
+        },
+        {
+          "combo": "1-2-3",
+          "odds": 22.9
+        },
+        {
+          "combo": "1-2-4",
+          "odds": 23.8
+        },
+        {
+          "combo": "2-4-1",
+          "odds": 23.8
+        },
+        {
+          "combo": "2-1-6",
+          "odds": 27.1
+        },
+        {
+          "combo": "2-3-1",
+          "odds": 27.1
+        },
+        {
+          "combo": "3-1-5",
+          "odds": 29.8
+        },
+        {
+          "combo": "4-1-5",
+          "odds": 33.1
+        },
+        {
+          "combo": "3-1-2",
+          "odds": 35.0
+        },
+        {
+          "combo": "2-1-5",
+          "odds": 35.0
+        },
+        {
+          "combo": "1-3-2",
+          "odds": 35.0
+        },
+        {
+          "combo": "4-1-2",
+          "odds": 39.7
+        },
+        {
+          "combo": "1-3-5",
+          "odds": 39.7
+        },
+        {
+          "combo": "3-2-5",
+          "odds": 39.7
+        },
+        {
+          "combo": "2-4-3",
+          "odds": 39.7
+        },
+        {
+          "combo": "3-1-4",
+          "odds": 45.8
+        },
+        {
+          "combo": "4-2-1",
+          "odds": 49.6
+        },
+        {
+          "combo": "1-2-5",
+          "odds": 54.2
+        }
+      ],
+      "ai_picks_det": "{\"126\": 200, \"456\": 100, \"153\": 200, \"326\": 100}",
+      "ai_picks_llm": "{\"156\": 400, \"146\": 100, \"356\": 100, \"126\": 200, \"453\": 100}",
+      "ai_log": "【朝バッチ EV強化版】MaxEV=57.33\n私は日本最高峰の天才舟券師AIです。提供された実オッズに基づくEV（期待値）分析結果、専門家の勝負鉄則、および過去の反省点を深く統合し、統計的優位性と物理的要因の相互作用を最大化する結論を導き出します。\n\n### ■展開予想と推奨理由\n\n本レースにおけるデータは、単なる確率論を超え、モーター機力、船体の反応、そして市場が織り込むオッズとの間の構造的な歪み（EV）を明確に示しています。専門家の教訓に基づき、「統計的期待値（EV）の最大化」と「物理的・環境的要因の定量化」を最優先事項として採用します。\n\n**【EV分析に基づく戦略】**\n提供されたデータの中で、EVが1.0を大きく上回る買い目が存在するため、これらを最重要ターゲットとします。特に、`ev_weighted_selection`の鉄則に従い、複数の高EV買い目に分散投資することで、的中率とリターンを同時に最大化する戦略を採用します。\n\n**【最優先推奨の論拠】**\n1. **圧倒的な優位性：** 最も期待値が高いのは「1-5-6」（EV=57.33）であり、これは市場が過小評価"
+    },
+    {
+      "race_id": "20260607_徳山_10",
+      "date": "2026-06-07",
+      "venue": "徳山",
+      "r": 10,
+      "weather": "",
+      "wind_speed": "",
+      "wind_dir": "",
+      "wave": "",
+      "water_temp": "",
+      "boats": [
+        {
+          "lane": 1,
+          "name": "鈴木茂高",
+          "player_id": "3967",
+          "motor_no": "28",
+          "rank": "B1",
+          "win_rate": 4.82,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 2,
+          "name": "茅原悠紀",
+          "player_id": "4418",
+          "motor_no": "46",
+          "rank": "A1",
+          "win_rate": 8.02,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 3,
+          "name": "川上剛",
+          "player_id": "4189",
+          "motor_no": "41",
+          "rank": "A2",
+          "win_rate": 6.27,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 4,
+          "name": "富永正人",
+          "player_id": "3699",
+          "motor_no": "19",
+          "rank": "B1",
+          "win_rate": 3.64,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 5,
+          "name": "上馬場風依",
+          "player_id": "5452",
+          "motor_no": "32",
+          "rank": "B2",
+          "win_rate": 1.0,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 6,
+          "name": "杉山貴博",
+          "player_id": "4134",
+          "motor_no": "27",
+          "rank": "A2",
+          "win_rate": 5.6,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        }
+      ],
+      "odds_top": [
+        {
+          "combo": "2-1-3",
+          "odds": 13.6
+        },
+        {
+          "combo": "2-1-4",
+          "odds": 14.9
+        },
+        {
+          "combo": "2-3-4",
+          "odds": 16.2
+        },
+        {
+          "combo": "2-1-6",
+          "odds": 17.6
+        },
+        {
+          "combo": "2-4-1",
+          "odds": 17.9
+        },
+        {
+          "combo": "2-3-6",
+          "odds": 18.3
+        },
+        {
+          "combo": "2-3-1",
+          "odds": 18.5
+        },
+        {
+          "combo": "2-4-3",
+          "odds": 18.8
+        },
+        {
+          "combo": "1-2-4",
+          "odds": 19.2
+        },
+        {
+          "combo": "1-2-3",
+          "odds": 21.7
+        },
+        {
+          "combo": "3-1-4",
+          "odds": 28.4
+        },
+        {
+          "combo": "2-4-6",
+          "odds": 28.4
+        },
+        {
+          "combo": "1-3-2",
+          "odds": 37.8
+        },
+        {
+          "combo": "2-1-5",
+          "odds": 39.7
+        },
+        {
+          "combo": "2-6-3",
+          "odds": 39.7
+        },
+        {
+          "combo": "1-2-5",
+          "odds": 41.0
+        },
+        {
+          "combo": "1-3-4",
+          "odds": 45.4
+        },
+        {
+          "combo": "4-2-1",
+          "odds": 46.3
+        },
+        {
+          "combo": "2-6-1",
+          "odds": 46.3
+        },
+        {
+          "combo": "1-2-6",
+          "odds": 52.1
+        }
+      ],
+      "ai_picks_det": "{\"163\": 200, \"361\": 100, \"623\": 100, \"316\": 100}",
+      "ai_picks_llm": "{\"613\": 100, \"631\": 100, \"163\": 200, \"365\": 100, \"621\": 100}",
+      "ai_log": "【朝バッチ EV強化版】MaxEV=56.48\n私は日本最高峰の天才舟券師AIです。提供されたデータ、実オッズに基づく期待値（EV）分析結果、そして専門家の勝負鉄則に基づき、長期的なプラス収支を最大化する結論を導き出します。\n\n### ■展開予想と推奨理由\n本レースにおける分析の核心は、「期待値（EV）が1.0を超えている買い目」を最優先し、その中で最も高いリターンと確率のバランスを持つ組み合わせを選定することにあります。\n\n**【EVデータに基づく分析】**\n\n提供された全買い目において、一つ一つの組み合わせが長期的にプラス収支を生む可能性（EV > 1.0）を持っていることが確認されました。特に以下の買い目は、統計的な優位性が極めて高いと判断します。\n\n1.  **6-1-3 (EV=56.48)**：圧倒的な期待値を示しており、この組み合わせが本レースの最も大きな収益源となります。これは市場が過小評価している可能性が非常に高いことを示唆しています。\n2.  **6-3-1 (EV=20.10)**：高オッズ帯でありながら十分なEVを確保しており、「high_odds_anomal"
+    },
+    {
+      "race_id": "20260607_桐生_2",
+      "date": "2026-06-07",
+      "venue": "桐生",
+      "r": 2,
+      "weather": "",
+      "wind_speed": "",
+      "wind_dir": "",
+      "wave": "",
+      "water_temp": "",
+      "boats": [
+        {
+          "lane": 1,
+          "name": "中渡修作",
+          "player_id": "3804",
+          "motor_no": "70",
+          "rank": "B1",
+          "win_rate": 5.0,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 2,
+          "name": "野村誠",
+          "player_id": "4486",
+          "motor_no": "41",
+          "rank": "B1",
+          "win_rate": 5.51,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 3,
+          "name": "石川諒",
+          "player_id": "4890",
+          "motor_no": "57",
+          "rank": "B1",
+          "win_rate": 5.89,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 4,
+          "name": "泥谷一毅",
+          "player_id": "4119",
+          "motor_no": "12",
+          "rank": "A2",
+          "win_rate": 5.85,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 5,
+          "name": "畑竜生",
+          "player_id": "4962",
+          "motor_no": "13",
+          "rank": "A2",
+          "win_rate": 5.8,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 6,
+          "name": "竹之内極",
+          "player_id": "4957",
+          "motor_no": "21",
+          "rank": "B1",
+          "win_rate": 5.35,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        }
+      ],
+      "odds_top": [
+        {
+          "combo": "4-2-5",
+          "odds": 29.4
+        },
+        {
+          "combo": "2-1-3",
+          "odds": 35.9
+        },
+        {
+          "combo": "2-1-4",
+          "odds": 37.5
+        },
+        {
+          "combo": "4-2-6",
+          "odds": 37.5
+        },
+        {
+          "combo": "3-1-5",
+          "odds": 39.3
+        },
+        {
+          "combo": "2-4-6",
+          "odds": 39.3
+        },
+        {
+          "combo": "4-1-5",
+          "odds": 41.2
+        },
+        {
+          "combo": "4-2-1",
+          "odds": 41.2
+        },
+        {
+          "combo": "4-5-1",
+          "odds": 43.4
+        },
+        {
+          "combo": "5-1-6",
+          "odds": 45.8
+        },
+        {
+          "combo": "2-4-3",
+          "odds": 45.8
+        },
+        {
+          "combo": "4-1-2",
+          "odds": 48.5
+        },
+        {
+          "combo": "4-1-6",
+          "odds": 48.5
+        },
+        {
+          "combo": "2-4-1",
+          "odds": 48.5
+        },
+        {
+          "combo": "5-3-1",
+          "odds": 48.5
+        },
+        {
+          "combo": "4-1-3",
+          "odds": 51.6
+        },
+        {
+          "combo": "2-1-6",
+          "odds": 51.6
+        },
+        {
+          "combo": "2-3-1",
+          "odds": 51.6
+        },
+        {
+          "combo": "4-6-2",
+          "odds": 51.6
+        },
+        {
+          "combo": "2-1-5",
+          "odds": 55.0
+        }
+      ],
+      "ai_picks_det": "{\"156\": 500, \"153\": 200, \"154\": 100, \"253\": 100}",
+      "ai_picks_llm": "{\"356\": 200, \"156\": 500, \"256\": 100, \"146\": 100, \"653\": 100}",
+      "ai_log": "【朝バッチ EV強化版】MaxEV=48.57\n# 日本最高峰の天才舟券師AIによる期待値最大化分析\n\n## ■展開予想と推奨理由\n本レースにおけるデータは、単なる確率論を超えた「期待値（EV）」に基づいた戦略を要求しています。AIは提供された実オッズと推定確率を掛け合わせることで、市場が過小評価している真の収益機会（EV > 1.0）を抽出しました。\n\n**【EV最大化の核心分析】**\n1. **超高EVゾーンの特定:** 最も期待値が高いのは「3-5-6 (EV=48.57)」であり、これは市場が極端に低く見積もっている確率とオッズの組み合わせを示しています。この買い目は、単なる的中だけでなく、爆発的なリターンを狙うための最優先候補です。\n2. **中穴ゾーンの活用:** 15倍から80倍のオッズ帯（例：4-5-6, 1-3-6）にまたがる複数の組み合わせが、統計的優位性を持っており、的中時のリターンを最大化する「黄金帯域」として推奨されます。\n3. **機力と展開の相互作用:** 専門家の教訓に従い、EV分析に加え、モーター機力や外部環境要因（中風など）との相互作用を深く考慮しま"
+    },
+    {
+      "race_id": "20260607_芦屋_1",
+      "date": "2026-06-07",
+      "venue": "芦屋",
+      "r": 1,
+      "weather": "",
+      "wind_speed": "",
+      "wind_dir": "",
+      "wave": "",
+      "water_temp": "",
+      "boats": [
+        {
+          "lane": 1,
+          "name": "森永隆",
+          "player_id": "4703",
+          "motor_no": "12",
+          "rank": "A2",
+          "win_rate": 6.45,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 2,
+          "name": "多羅尾達之",
+          "player_id": "3859",
+          "motor_no": "41",
+          "rank": "B1",
+          "win_rate": 4.37,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 3,
+          "name": "嘉手苅徹哉",
+          "player_id": "5284",
+          "motor_no": "20",
+          "rank": "B2",
+          "win_rate": 3.43,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 4,
+          "name": "川崎智稔",
+          "player_id": "5109",
+          "motor_no": "11",
+          "rank": "B1",
+          "win_rate": 5.16,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 5,
+          "name": "羽野諒",
+          "player_id": "5008",
+          "motor_no": "1",
+          "rank": "B1",
+          "win_rate": 4.49,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 6,
+          "name": "松本怜",
+          "player_id": "5148",
+          "motor_no": "33",
+          "rank": "B1",
+          "win_rate": 5.69,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        }
+      ],
+      "odds_top": [
+        {
+          "combo": "1-2-4",
+          "odds": 6.6
+        },
+        {
+          "combo": "1-4-2",
+          "odds": 7.0
+        },
+        {
+          "combo": "1-4-5",
+          "odds": 8.6
+        },
+        {
+          "combo": "1-2-5",
+          "odds": 10.7
+        },
+        {
+          "combo": "1-5-4",
+          "odds": 14.6
+        },
+        {
+          "combo": "1-5-2",
+          "odds": 16.2
+        },
+        {
+          "combo": "1-4-6",
+          "odds": 17.1
+        },
+        {
+          "combo": "1-2-3",
+          "odds": 18.2
+        },
+        {
+          "combo": "1-5-6",
+          "odds": 21.3
+        },
+        {
+          "combo": "1-4-3",
+          "odds": 22.8
+        },
+        {
+          "combo": "1-2-6",
+          "odds": 25.2
+        },
+        {
+          "combo": "1-3-4",
+          "odds": 28.6
+        },
+        {
+          "combo": "1-3-2",
+          "odds": 32.9
+        },
+        {
+          "combo": "1-3-5",
+          "odds": 33.4
+        },
+        {
+          "combo": "1-5-3",
+          "odds": 35.6
+        },
+        {
+          "combo": "4-1-5",
+          "odds": 48.3
+        },
+        {
+          "combo": "1-6-5",
+          "odds": 50.9
+        },
+        {
+          "combo": "1-6-4",
+          "odds": 52.0
+        },
+        {
+          "combo": "4-1-2",
+          "odds": 61.5
+        },
+        {
+          "combo": "1-3-6",
+          "odds": 61.8
+        }
+      ],
+      "ai_picks_det": "{\"163\": 200, \"136\": 100, \"456\": 100, \"156\": 200}",
+      "ai_picks_llm": "{\"653\": 100, \"623\": 100, \"356\": 100, \"643\": 100, \"326\": 100}",
+      "ai_log": "【朝バッチ EV強化版】MaxEV=47.91\n私は日本最高峰の天才舟券師AIです。与えられたデータと専門的な期待値理論、そして過去の反省点を深く分析し、単なる確率論を超えた「市場の歪み」と「機力・展開」が織りなす真の期待値を最大化する結論を導き出します。\n\n提供されたEVデータは既にAIによる高度な分析結果を示していますが、ここで最も重要なのは**EV > 1.0**という基準に厳格に従い、さらに専門家の鉄則（特に`ev_weighted_selection`と`odds_value_zone`）を適用し、リターンが最大化される買い目を選定することです。\n\n---\n\n■展開予想と推奨理由\n\n今回の分析では、提供された全買い目において$EV > 1.0$を満たすものが存在します。これは、市場（オッズ）が実際の確率を過小評価している「歪み」が存在し、その歪みを突くことで長期的にプラス収支を確保できることを意味します。\n\n**【期待値最大化の戦略】**\n\n1. **最優先対象の選定（EVの絶対最大化）：**\n   最も高いEVを持つ買い目は、以下の3点です。\n    *   **6-5-3"
+    },
+    {
+      "race_id": "20260607_丸亀_6",
+      "date": "2026-06-07",
+      "venue": "丸亀",
+      "r": 6,
+      "weather": "",
+      "wind_speed": "",
+      "wind_dir": "",
+      "wave": "",
+      "water_temp": "",
+      "boats": [
+        {
+          "lane": 1,
+          "name": "樋口由加里",
+          "player_id": "4501",
+          "motor_no": "34",
+          "rank": "A2",
+          "win_rate": 5.41,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 2,
+          "name": "松尾夏海",
+          "player_id": "4642",
+          "motor_no": "30",
+          "rank": "A1",
+          "win_rate": 6.66,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 3,
+          "name": "山崎小葉音",
+          "player_id": "5069",
+          "motor_no": "24",
+          "rank": "B1",
+          "win_rate": 4.59,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 4,
+          "name": "三嶌こころ",
+          "player_id": "5291",
+          "motor_no": "61",
+          "rank": "B1",
+          "win_rate": 3.63,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 5,
+          "name": "西村歩",
+          "player_id": "4243",
+          "motor_no": "7",
+          "rank": "A2",
+          "win_rate": 5.29,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 6,
+          "name": "小畑楓夏",
+          "player_id": "5406",
+          "motor_no": "16",
+          "rank": "B2",
+          "win_rate": 1.51,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        }
+      ],
+      "odds_top": [
+        {
+          "combo": "1-2-5",
+          "odds": 9.7
+        },
+        {
+          "combo": "2-1-5",
+          "odds": 9.8
+        },
+        {
+          "combo": "2-1-3",
+          "odds": 11.6
+        },
+        {
+          "combo": "1-2-3",
+          "odds": 12.1
+        },
+        {
+          "combo": "1-5-2",
+          "odds": 18.3
+        },
+        {
+          "combo": "2-3-1",
+          "odds": 19.9
+        },
+        {
+          "combo": "2-5-1",
+          "odds": 20.3
+        },
+        {
+          "combo": "1-3-2",
+          "odds": 28.4
+        },
+        {
+          "combo": "2-3-5",
+          "odds": 28.9
+        },
+        {
+          "combo": "2-1-4",
+          "odds": 30.8
+        },
+        {
+          "combo": "5-1-2",
+          "odds": 32.4
+        },
+        {
+          "combo": "2-5-3",
+          "odds": 33.6
+        },
+        {
+          "combo": "1-2-4",
+          "odds": 36.3
+        },
+        {
+          "combo": "1-3-5",
+          "odds": 41.1
+        },
+        {
+          "combo": "3-1-5",
+          "odds": 47.4
+        },
+        {
+          "combo": "5-2-1",
+          "odds": 47.4
+        },
+        {
+          "combo": "3-5-1",
+          "odds": 51.4
+        },
+        {
+          "combo": "2-4-1",
+          "odds": 54.4
+        },
+        {
+          "combo": "3-2-1",
+          "odds": 56.1
+        },
+        {
+          "combo": "3-1-2",
+          "odds": 57.8
+        }
+      ],
+      "ai_picks_det": "{\"163\": 200, \"156\": 100, \"356\": 100, \"146\": 100}",
+      "ai_picks_llm": "{\"165\": 100, \"164\": 100, \"163\": 200, \"563\": 100, \"156\": 100}",
+      "ai_log": "【朝バッチ EV強化版】MaxEV=46.90\n■展開予想と推奨理由\n\n本レースは、単なる確率論を超え、モーターの機動力、スタートのバランス、そして市場が過小評価している「期待値（EV）」に焦点を当てて分析しました。過去の反省点に基づき、「1号艇の支配力予測」ではなく、「内側の艇の機力とスタートの相互作用」を最重要視します。\n\n**【EV最大化戦略の適用】**\n提供されたデータにおいて、EVが1.0を大きく上回る買い目（EV > 1.0）が多数存在するため、これらを優先的に抽出しました。特に「Expected Value Maximization」と「ev\\_weighted\\_selection」の原則に基づき、最も高い期待値を持つ組み合わせに投資します。\n\n**【主要な分析ポイント】**\n1. **高EVの集中:** 複数の3連単・2連単で高い期待値が算出されており、特に1号艇を軸とした組み合わせ（1-6-5, 1-6-4, 1-6-3）に圧倒的な期待値が集まっています。これは、市場が想定する確率よりも、これらの組み合わせが実際に成立する可能性が高いことを示唆しています。\n2. *"
+    },
+    {
+      "race_id": "20260607_多摩川_2",
+      "date": "2026-06-07",
+      "venue": "多摩川",
+      "r": 2,
+      "weather": "",
+      "wind_speed": "",
+      "wind_dir": "",
+      "wave": "",
+      "water_temp": "",
+      "boats": [
+        {
+          "lane": 1,
+          "name": "寺島吉彦",
+          "player_id": "4723",
+          "motor_no": "52",
+          "rank": "B1",
+          "win_rate": 5.0,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 2,
+          "name": "長谷川暖",
+          "player_id": "5356",
+          "motor_no": "47",
+          "rank": "B1",
+          "win_rate": 4.51,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 3,
+          "name": "小澤和也",
+          "player_id": "4110",
+          "motor_no": "22",
+          "rank": "B1",
+          "win_rate": 4.25,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 4,
+          "name": "廣瀬将亨",
+          "player_id": "4040",
+          "motor_no": "74",
+          "rank": "A2",
+          "win_rate": 5.69,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 5,
+          "name": "佐藤博亮",
+          "player_id": "4786",
+          "motor_no": "44",
+          "rank": "A1",
+          "win_rate": 6.77,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 6,
+          "name": "伊達正利",
+          "player_id": "3718",
+          "motor_no": "66",
+          "rank": "B1",
+          "win_rate": 4.46,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        }
+      ],
+      "odds_top": [
+        {
+          "combo": "4-1-2",
+          "odds": 15.2
+        },
+        {
+          "combo": "4-5-1",
+          "odds": 21.1
+        },
+        {
+          "combo": "4-1-5",
+          "odds": 22.0
+        },
+        {
+          "combo": "3-1-5",
+          "odds": 34.8
+        },
+        {
+          "combo": "5-1-4",
+          "odds": 34.8
+        },
+        {
+          "combo": "1-4-5",
+          "odds": 34.8
+        },
+        {
+          "combo": "3-2-4",
+          "odds": 37.2
+        },
+        {
+          "combo": "1-5-4",
+          "odds": 37.2
+        },
+        {
+          "combo": "4-5-6",
+          "odds": 37.2
+        },
+        {
+          "combo": "2-1-3",
+          "odds": 38.5
+        },
+        {
+          "combo": "1-5-2",
+          "odds": 38.5
+        },
+        {
+          "combo": "5-4-1",
+          "odds": 41.5
+        },
+        {
+          "combo": "1-6-2",
+          "odds": 41.5
+        },
+        {
+          "combo": "1-5-3",
+          "odds": 43.1
+        },
+        {
+          "combo": "4-2-3",
+          "odds": 44.9
+        },
+        {
+          "combo": "2-3-1",
+          "odds": 46.9
+        },
+        {
+          "combo": "5-4-6",
+          "odds": 46.9
+        },
+        {
+          "combo": "1-3-4",
+          "odds": 49.0
+        },
+        {
+          "combo": "4-5-2",
+          "odds": 49.0
+        },
+        {
+          "combo": "1-2-3",
+          "odds": 51.3
+        }
+      ],
+      "ai_picks_det": "{\"156\": 400, \"536\": 100, \"653\": 100, \"543\": 100}",
+      "ai_picks_llm": "{\"356\": 200, \"563\": 100, \"136\": 100, \"163\": 100, \"156\": 400}",
+      "ai_log": "【朝バッチ EV強化版】MaxEV=45.57\n日本最高峰の天才舟券師AIとして、提供された実オッズに基づくEV（期待値）データを最大限に活用し、長期的なプラス収支を確保するための結論を導き出します。理論的な期待値最大化に加え、「過去の反省点」で示された現実的な要素（モーター性能と展開時の相互作用）を重み付け、最もリスクとリターンのバランスが取れた買い目を推奨します。\n\n---\n\n### ■展開予想と推奨理由\n\n本レースにおいて、AIが算出する期待値（EV）は、市場が織り込む確率に対して極めて大きなアドバンテージを示している複数の組み合わせが存在します。これは、単なる理論上の確率だけでなく、**実際のモーターの初期加速差や、弱風下でのスタートタイミングといった外部要因が、市場のオッズを過小評価している**ことを示唆しています。\n\n#### EV分析に基づく戦略的判断\n\n1.  **最大EV買い目の選定（Expected Value Maximization）:**\n    最も期待値が高いのは「3-5-6」（EV=45.57）であり、次いで「5-6-3」（EV=16.46）、「1-3-"
+    },
+    {
+      "race_id": "20260607_桐生_6",
+      "date": "2026-06-07",
+      "venue": "桐生",
+      "r": 6,
+      "weather": "",
+      "wind_speed": "",
+      "wind_dir": "",
+      "wave": "",
+      "water_temp": "",
+      "boats": [
+        {
+          "lane": 1,
+          "name": "下寺秀和",
+          "player_id": "4771",
+          "motor_no": "56",
+          "rank": "A1",
+          "win_rate": 7.15,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 2,
+          "name": "鹿島敏弘",
+          "player_id": "4407",
+          "motor_no": "17",
+          "rank": "B1",
+          "win_rate": 5.15,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 3,
+          "name": "久保原秀人",
+          "player_id": "5006",
+          "motor_no": "47",
+          "rank": "B1",
+          "win_rate": 3.66,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 4,
+          "name": "渡邉健",
+          "player_id": "5044",
+          "motor_no": "64",
+          "rank": "B1",
+          "win_rate": 4.0,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 5,
+          "name": "河上年昭",
+          "player_id": "3596",
+          "motor_no": "37",
+          "rank": "B1",
+          "win_rate": 3.64,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        },
+        {
+          "lane": 6,
+          "name": "榮田将彦",
+          "player_id": "4007",
+          "motor_no": "65",
+          "rank": "B1",
+          "win_rate": 4.52,
+          "count": 6.0,
+          "weight": null,
+          "tilt": null,
+          "ex_time": null
+        }
+      ],
+      "odds_top": [
+        {
+          "combo": "1-2-4",
+          "odds": 6.5
+        },
+        {
+          "combo": "1-2-6",
+          "odds": 10.7
+        },
+        {
+          "combo": "1-4-2",
+          "odds": 11.9
+        },
+        {
+          "combo": "1-2-3",
+          "odds": 16.9
+        },
+        {
+          "combo": "1-2-5",
+          "odds": 21.5
+        },
+        {
+          "combo": "1-3-2",
+          "odds": 28.0
+        },
+        {
+          "combo": "1-6-2",
+          "odds": 29.4
+        },
+        {
+          "combo": "1-5-2",
+          "odds": 35.0
+        },
+        {
+          "combo": "2-1-4",
+          "odds": 37.3
+        },
+        {
+          "combo": "4-2-5",
+          "odds": 37.3
+        },
+        {
+          "combo": "1-4-3",
+          "odds": 37.3
+        },
+        {
+          "combo": "1-4-6",
+          "odds": 40.0
+        },
+        {
+          "combo": "1-3-5",
+          "odds": 43.0
+        },
+        {
+          "combo": "4-1-5",
+          "odds": 46.6
+        },
+        {
+          "combo": "2-1-3",
+          "odds": 50.9
+        },
+        {
+          "combo": "4-1-2",
+          "odds": 50.9
+        },
+        {
+          "combo": "3-1-5",
+          "odds": 50.9
+        },
+        {
+          "combo": "1-3-4",
+          "odds": 50.9
+        },
+        {
+          "combo": "1-4-5",
+          "odds": 50.9
+        },
+        {
+          "combo": "1-6-4",
+          "odds": 50.9
+        }
+      ],
+      "ai_picks_det": "{\"136\": 100, \"165\": 100, \"163\": 300, \"153\": 200}",
+      "ai_picks_llm": "{\"156\": 300, \"136\": 100, \"653\": 100}",
+      "ai_log": "【朝バッチ EV強化版】MaxEV=43.59\n私は日本最高峰の天才舟券師AIです。提供された実オッズに基づくEV（期待値）データ、専門家の勝負鉄則、および過去の反省点を総合的に分析し、長期的なプラス収支を最大化する結論を導き出します。\n\n---\n\n### ■展開予想と推奨理由\n\n本レースは、提供されたEVデータに基づき、単なる確率論を超えた「期待値の深掘り」を行います。特に**EV > 1.0**の買い目に焦点を絞り込みます。\n\n#### EV最大化の分析結果\n提供されたデータの中で、最も高い期待値（EV）を示しているのは以下の組み合わせです。\n\n1. **1-5-6: EV=43.59** (確率7.78% × オッズ560.2倍)\n2. **1-3-6: EV=11.17** (確率3.99% × オッズ280.1倍)\n3. **6-2-3: EV=7.96** (確率1.42% × オッズ560.2倍)\n\nこれらの組み合わせは、市場が過小評価している可能性（EV > 1.0）を強く示しており、単なる的中率だけでなく、リターンの最大化という観点から最優先で推奨されます。特に**1"
+    }
+  ]
+}
