@@ -23,8 +23,10 @@ PREDICTIONS_CSV = os.path.join(DATA_DIR, "daily_predictions.csv")
 RACE_DATA_CSV = os.path.join(DATA_DIR, "daily_raw_race_data.csv")
 BEFOREINFO_CSV = os.path.join(DATA_DIR, "daily_raw_beforeinfo.csv")
 ODDS_CSV = os.path.join(DATA_DIR, "daily_odds_3t.csv")
+GEMINI_CSV = os.path.join(DATA_DIR, "daily_gemini_predictions.csv")  # 任意
 
 OUTPUT_JSON = os.path.join(DATA_DIR, "daily_race_info.json")
+OUTPUT_AI_SUMMARY = os.path.join(DATA_DIR, "ai_predictions_summary.json")
 
 ODDS_TOP_N = 20  # 各レースのオッズ表示上位件数
 
@@ -113,6 +115,22 @@ def main():
             rec[f"b{i}_ex_time"] = safe_float(r.get(f"B{i}_ExTime"))
         before_by_race[rid] = rec
 
+    # Gemini予測 (任意、ファイルがあれば)
+    gemini_by_race = {}
+    if os.path.exists(GEMINI_CSV):
+        gem = pd.read_csv(GEMINI_CSV)
+        gem = gem[gem["Date"] == target_date].copy() if "Date" in gem.columns else gem
+        for _, g in gem.iterrows():
+            rid = safe_str(g.get("RaceID"))
+            if not rid:
+                continue
+            gemini_by_race[rid] = {
+                "stakes": safe_str(g.get("Stakes_Gemini")),
+                "prediction": safe_str(g.get("Prediction_Gemini"))[:1500],
+                "log": safe_str(g.get("Log_Gemini"))[:2500],
+            }
+        print(f"  Gemini予測: {len(gemini_by_race)} レース")
+
     print("[5/5] 統合してJSON出力...")
     races_out = []
     for _, p in preds.iterrows():
@@ -140,7 +158,11 @@ def main():
             "odds_top": odds_by_race.get(rid, []),
             "ai_picks_det": safe_str(p.get("Stakes_Det")),
             "ai_picks_llm": safe_str(p.get("Stakes")),
-            "ai_log": safe_str(p.get("Log"))[:500],  # 長すぎる場合切り詰め
+            "ai_log": safe_str(p.get("Log"))[:2500],  # LLM推論ログ (表示用)
+            "ai_prediction": safe_str(p.get("Prediction"))[:1500],  # LLM最終見解
+            "ai_picks_gemini": gemini_by_race.get(rid, {}).get("stakes", ""),
+            "ai_prediction_gemini": gemini_by_race.get(rid, {}).get("prediction", ""),
+            "ai_log_gemini": gemini_by_race.get(rid, {}).get("log", ""),
         })
 
     out = {
@@ -153,9 +175,36 @@ def main():
         json.dump(out, f, ensure_ascii=False, indent=2)
 
     size_kb = os.path.getsize(OUTPUT_JSON) / 1024
+    print(f"出力: {OUTPUT_JSON} ({size_kb:.1f} KB), レース数: {len(races_out)}")
+
+    # 全期間のAI予測サマリJSON (RaceID -> {stakes, stakes_det, stakes_gemini}) for 履歴比較
+    print("[+] AI予測サマリ (全期間) を生成...")
+    preds_all = pd.read_csv(PREDICTIONS_CSV)
+    ai_summary = {}
+    for _, p in preds_all.iterrows():
+        rid = safe_str(p.get("RaceID"))
+        if not rid:
+            continue
+        ai_summary[rid] = {
+            "stakes": safe_str(p.get("Stakes")),
+            "stakes_det": safe_str(p.get("Stakes_Det")),
+        }
+    # Gemini予測 (もしあれば全期間分も統合)
+    if os.path.exists(GEMINI_CSV):
+        gem_all = pd.read_csv(GEMINI_CSV)
+        for _, g in gem_all.iterrows():
+            rid = safe_str(g.get("RaceID"))
+            if not rid:
+                continue
+            if rid not in ai_summary:
+                ai_summary[rid] = {"stakes": "", "stakes_det": ""}
+            ai_summary[rid]["stakes_gemini"] = safe_str(g.get("Stakes_Gemini"))
+    with open(OUTPUT_AI_SUMMARY, "w", encoding="utf-8") as f:
+        json.dump(ai_summary, f, ensure_ascii=False)
+    size_kb2 = os.path.getsize(OUTPUT_AI_SUMMARY) / 1024
+    print(f"出力: {OUTPUT_AI_SUMMARY} ({size_kb2:.1f} KB), {len(ai_summary)} レース")
+
     print(f"\n完了 ({time.time()-t0:.1f}s)")
-    print(f"出力: {OUTPUT_JSON} ({size_kb:.1f} KB)")
-    print(f"レース数: {len(races_out)}")
 
 
 if __name__ == "__main__":

@@ -85,6 +85,7 @@ const RaceList = ({ races, userPreds, onSelect }) => {
 const RaceDetail = ({ race, userPred, onSave, onBack }) => {
   const aiDet = parseAiPicks(race.ai_picks_det);
   const aiLlm = parseAiPicks(race.ai_picks_llm);
+  const aiGem = parseAiPicks(race.ai_picks_gemini);
 
   const [picks, setPicks] = useState(userPred?.picks?.join(', ') || '');
   const [stake, setStake] = useState(userPred?.stake || '');
@@ -175,28 +176,70 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
         <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
           <Brain size={18} /> AI予測
         </h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.75rem' }}>
-          <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary, #9ca3af)', marginBottom: '0.25rem' }}>Det版 (本番)</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem' }}>
+          <div style={{ padding: '0.5rem', background: 'rgba(96,165,250,0.07)', borderRadius: '6px' }}>
+            <div style={{ fontSize: '0.8rem', color: '#60a5fa', marginBottom: '0.25rem', fontWeight: 600 }}>Det (LightGBM)</div>
             <div style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>
               {aiDet.length > 0
                 ? aiDet.map((p, i) => <div key={i}>{p.combo}{p.stake ? `  ¥${p.stake}` : ''}</div>)
                 : '(なし)'}
             </div>
           </div>
-          <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary, #9ca3af)', marginBottom: '0.25rem' }}>LLM版 (参考)</div>
+          <div style={{ padding: '0.5rem', background: 'rgba(245,158,11,0.07)', borderRadius: '6px' }}>
+            <div style={{ fontSize: '0.8rem', color: '#f59e0b', marginBottom: '0.25rem', fontWeight: 600 }}>LLM (Gemma)</div>
             <div style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>
               {aiLlm.length > 0
                 ? aiLlm.map((p, i) => <div key={i}>{p.combo}{p.stake ? `  ¥${p.stake}` : ''}</div>)
                 : '(なし)'}
             </div>
           </div>
+          <div style={{ padding: '0.5rem', background: 'rgba(16,185,129,0.07)', borderRadius: '6px' }}>
+            <div style={{ fontSize: '0.8rem', color: '#10b981', marginBottom: '0.25rem', fontWeight: 600 }}>Gemini</div>
+            <div style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>
+              {aiGem.length > 0
+                ? aiGem.map((p, i) => <div key={i}>{p.combo}{p.stake ? `  ¥${p.stake}` : ''}</div>)
+                : '(なし)'}
+            </div>
+          </div>
         </div>
+        {race.ai_prediction && (
+          <details open style={{ marginTop: '0.75rem', borderTop: '1px solid var(--border, #374151)', paddingTop: '0.75rem' }}>
+            <summary style={{ cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600, color: 'var(--accent-purple, #a78bfa)' }}>
+              💬 AI(LLM/Gemma)の最終見解
+            </summary>
+            <div style={{ marginTop: '0.5rem', whiteSpace: 'pre-wrap', fontSize: '0.85rem', lineHeight: 1.7, color: 'var(--text-primary, #f3f4f6)' }}>
+              {race.ai_prediction}
+            </div>
+          </details>
+        )}
         {race.ai_log && (
           <details style={{ marginTop: '0.75rem' }}>
-            <summary style={{ cursor: 'pointer', fontSize: '0.85rem', color: 'var(--text-secondary, #9ca3af)' }}>AI推論ログ (展開)</summary>
-            <pre style={{ marginTop: '0.5rem', whiteSpace: 'pre-wrap', fontSize: '0.8rem', color: 'var(--text-secondary, #9ca3af)' }}>{race.ai_log}</pre>
+            <summary style={{ cursor: 'pointer', fontSize: '0.85rem', color: 'var(--text-secondary, #9ca3af)' }}>
+              🔍 AI(LLM)の思考プロセス (長文)
+            </summary>
+            <div style={{ marginTop: '0.5rem', whiteSpace: 'pre-wrap', fontSize: '0.8rem', lineHeight: 1.6, color: 'var(--text-secondary, #9ca3af)' }}>
+              {race.ai_log}
+            </div>
+          </details>
+        )}
+        {race.ai_prediction_gemini && (
+          <details open style={{ marginTop: '0.75rem', borderTop: '1px solid var(--border, #374151)', paddingTop: '0.75rem' }}>
+            <summary style={{ cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600, color: '#10b981' }}>
+              ✨ AI(Gemini)の最終見解
+            </summary>
+            <div style={{ marginTop: '0.5rem', whiteSpace: 'pre-wrap', fontSize: '0.85rem', lineHeight: 1.7, color: 'var(--text-primary, #f3f4f6)' }}>
+              {race.ai_prediction_gemini}
+            </div>
+          </details>
+        )}
+        {race.ai_log_gemini && (
+          <details style={{ marginTop: '0.75rem' }}>
+            <summary style={{ cursor: 'pointer', fontSize: '0.85rem', color: 'var(--text-secondary, #9ca3af)' }}>
+              💭 AI(Gemini)の思考プロセス
+            </summary>
+            <div style={{ marginTop: '0.5rem', whiteSpace: 'pre-wrap', fontSize: '0.85rem', lineHeight: 1.7, color: 'var(--text-secondary, #d1d5db)' }}>
+              {race.ai_log_gemini}
+            </div>
           </details>
         )}
       </div>
@@ -278,42 +321,111 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
   );
 };
 
-/** 履歴サマリパネル (タブの上に表示) */
-const HistorySummary = ({ userPreds, history }) => {
-  // history: daily_history_results.csv をパースした結果 [{ID, Result, Payout}]
+/** 履歴サマリパネル: 3者(Det/LLM/あなた)比較 */
+const HistorySummary = ({ userPreds, history, aiPredsByRid }) => {
   const histByRid = Object.fromEntries(history.map(h => [h.ID, h]));
-  const enriched = userPreds.map(p => {
+
+  // ユーザーが予測したレースのうち、結果が出たもの
+  const settled = userPreds.map(p => {
     const h = histByRid[p.race_id];
-    if (!h) return { ...p, result: null, hit: null, payout: 0 };
+    if (!h) return null;
     const result = String(h.Result).replace(/\s/g, '');
-    const hit = p.picks.some(combo => isHit(combo, result));
-    return { ...p, result, hit, payout: hit ? Number(h.Payout) : 0 };
-  }).filter(p => p.result !== null);
+    const payout = Number(h.Payout) || 0;
+    const ai = aiPredsByRid[p.race_id] || {};
+    const detPicks = parseAiPicks(ai.stakes_det).map(x => x.combo);
+    const llmPicks = parseAiPicks(ai.stakes).map(x => x.combo);
+    const gemPicks = parseAiPicks(ai.stakes_gemini).map(x => x.combo);
+    return {
+      ...p,
+      result,
+      payout,
+      userHit: p.picks.some(c => c === result),
+      detHit: detPicks.length > 0 && detPicks.some(c => c === result),
+      llmHit: llmPicks.length > 0 && llmPicks.some(c => c === result),
+      gemHit: gemPicks.length > 0 && gemPicks.some(c => c === result),
+      detPicks,
+      llmPicks,
+      gemPicks,
+    };
+  }).filter(p => p !== null);
 
-  const total = enriched.length;
-  const hits = enriched.filter(p => p.hit).length;
-  const hitRate = total > 0 ? (hits / total * 100).toFixed(1) : '-';
+  const total = settled.length;
+  const stat = (predicate) => {
+    const evaluable = settled.filter(predicate.has);
+    const n = evaluable.length;
+    const h = evaluable.filter(predicate.hit).length;
+    return {
+      n,
+      hits: h,
+      rate: n > 0 ? (h / n * 100).toFixed(1) : '-',
+    };
+  };
 
-  // ユーザーROI (stake指定があるもののみ)
-  const withStake = enriched.filter(p => p.stake);
-  const invest = withStake.reduce((sum, p) => sum + p.stake * p.picks.length, 0);
-  const ret = withStake.reduce((sum, p) => sum + (p.hit ? p.payout * (p.stake / 100) : 0), 0);
-  const roi = invest > 0 ? (ret / invest * 100).toFixed(1) : '-';
+  const userStat = stat({ has: () => true, hit: s => s.userHit });
+  const detStat = stat({ has: s => s.detPicks.length > 0, hit: s => s.detHit });
+  const llmStat = stat({ has: s => s.llmPicks.length > 0, hit: s => s.llmHit });
+  const gemStat = stat({ has: s => s.gemPicks.length > 0, hit: s => s.gemHit });
 
   return (
     <div className="glass-card" style={{ padding: '1.25rem', marginBottom: '1.5rem' }}>
       <h3 style={{ margin: '0 0 0.75rem 0', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-        <Trophy size={18} /> あなたの戦績 (結果が出たレースのみ)
+        <Trophy size={18} /> 4者対戦戦績 (結果が出た{total}レース)
       </h3>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem' }}>
-        <Stat label="判定済レース" value={total} />
-        <Stat label="的中" value={hits} />
-        <Stat label="的中率" value={`${hitRate}%`} />
-        <Stat label="ROI (想定額入力分)" value={`${roi}%`} accent />
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '0.85rem' }}>
+        <CompetitorCard
+          name="AI Det (LightGBM)"
+          color="#60a5fa"
+          rate={detStat.rate}
+          hits={detStat.hits}
+          n={detStat.n}
+        />
+        <CompetitorCard
+          name="AI LLM (Gemma)"
+          color="#f59e0b"
+          rate={llmStat.rate}
+          hits={llmStat.hits}
+          n={llmStat.n}
+        />
+        <CompetitorCard
+          name="AI Gemini"
+          color="#10b981"
+          rate={gemStat.rate}
+          hits={gemStat.hits}
+          n={gemStat.n}
+        />
+        <CompetitorCard
+          name="あなた"
+          color="#8b5cf6"
+          rate={userStat.rate}
+          hits={userStat.hits}
+          n={userStat.n}
+          highlight
+        />
       </div>
+      {total === 0 && (
+        <div style={{ marginTop: '0.75rem', fontSize: '0.85rem', color: 'var(--text-secondary, #9ca3af)' }}>
+          まだ「あなたの予測 + 結果が出てる」レースがありません。予測を入力して結果を待ってください。
+        </div>
+      )}
     </div>
   );
 };
+
+const CompetitorCard = ({ name, color, rate, hits, n, highlight }) => (
+  <div style={{
+    padding: '0.85rem',
+    background: highlight ? `${color}15` : 'rgba(255,255,255,0.03)',
+    border: `1px solid ${color}40`,
+    borderRadius: '8px',
+    textAlign: 'center',
+  }}>
+    <div style={{ fontSize: '0.8rem', color, marginBottom: '0.4rem', fontWeight: 600 }}>{name}</div>
+    <div style={{ fontSize: '1.6rem', fontWeight: 700, color: 'inherit' }}>{rate}%</div>
+    <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #9ca3af)' }}>
+      {hits}/{n} 的中
+    </div>
+  </div>
+);
 
 const Stat = ({ label, value, accent }) => (
   <div style={{ textAlign: 'center' }}>
@@ -326,6 +438,7 @@ const Stat = ({ label, value, accent }) => (
 const Battle = () => {
   const [info, setInfo] = useState(null);
   const [history, setHistory] = useState([]);
+  const [aiPreds, setAiPreds] = useState({});
   const [error, setError] = useState(null);
   const [selectedRid, setSelectedRid] = useState(null);
   const [userPreds, setUserPreds] = useState(loadUserPredictions());
@@ -335,6 +448,12 @@ const Battle = () => {
       .then(res => res.ok ? res.json() : Promise.reject(`HTTP ${res.status}`))
       .then(setInfo)
       .catch(err => setError(String(err)));
+
+    // AI予測サマリ (全期間、Det/LLM picks)
+    fetch('./daily_data/ai_predictions_summary.json')
+      .then(res => res.ok ? res.json() : {})
+      .then(setAiPreds)
+      .catch(() => {});
 
     // 履歴は CSV を簡易パース
     fetch('./daily_data/daily_history_results.csv')
@@ -396,7 +515,7 @@ const Battle = () => {
         </button>
       </div>
 
-      <HistorySummary userPreds={userPreds} history={history} />
+      <HistorySummary userPreds={userPreds} history={history} aiPredsByRid={aiPreds} />
 
       {selected ? (
         <RaceDetail

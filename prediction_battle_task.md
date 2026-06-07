@@ -58,6 +58,22 @@
 - [ ] 「あなたが勝ったパターン」の傾向分析
 - [ ] レース直前のオッズ自動更新
 
+## Phase 1.5 (3者比較拡張)
+
+- [x] HistorySummary を Det vs LLM vs ユーザー の3者並列に拡張
+- [x] generate_battle_data.py で ai_predictions_summary.json (全期間) を出力
+- [x] Battle.jsx で AI予測サマリを fetch して的中率計算
+
+## Phase 1.6 (Gemini API追加で4者比較)
+
+- [x] credentials.env に GEMINI_API_KEY 設定 (ユーザー作業)
+- [x] generate_gemini_predictions.py - 当日のレース予測を Gemini 2.5 Flash で生成
+- [x] run_gemini_predictions.bat - env load + python実行
+- [x] generate_battle_data.py で Gemini予測 (stakes/見解/思考) を含める
+- [x] Battle.jsx を 4者対応 (Det/LLM/Gemini/ユーザー)
+- [ ] 朝バッチへの Gemini予測統合 (現状は手動実行)
+
 ## 履歴
 
 - 2026-06-07: spec / task 初版作成
+- 2026-06-07: Phase 1.5 (3者比較) + 1.6 (Gemini追加で4者比較) 完了
