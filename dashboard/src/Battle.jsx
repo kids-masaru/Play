@@ -3,22 +3,12 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   LineChart, Line, Legend
 } from 'recharts';
-import { Trophy, Target, Brain, ChevronLeft, Save, Trash2 } from 'lucide-react';
-
-const STORAGE_KEY = 'battle_predictions_v1';
-
-/** ユーザー予測の localStorage 操作 */
-const loadUserPredictions = () => {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
-};
-const saveUserPredictions = (arr) => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
-};
+import { Trophy, Target, Brain, ChevronLeft, Save, Trash2, Cloud, CloudOff, KeyRound, LogOut } from 'lucide-react';
+import {
+  cloudEnabled, hashPassphrase,
+  getStoredPass, setStoredPass, clearStoredPass,
+  loadPredictions, savePrediction, clearAll, migrateLocalToCloud,
+} from './battleStore';
 
 /** AI予測 stakes 文字列をパース ("1-2-3:100, 1-2-4:200" 等の想定) */
 const parseAiPicks = (stakesStr) => {
@@ -434,6 +424,64 @@ const Stat = ({ label, value, accent }) => (
   </div>
 );
 
+/** 合言葉バー: クラウド同期の有効化 / 状態表示 */
+const PassphraseBar = ({ passReady, statusMsg, onSetPass, onLogout }) => {
+  const [val, setVal] = useState('');
+
+  // Firebase 未設定（プレースホルダのまま）＝この端末のみ保存
+  if (!cloudEnabled()) {
+    return (
+      <div className="glass-card" style={{ padding: '0.6rem 0.9rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.8rem', color: 'var(--text-secondary, #9ca3af)' }}>
+        <CloudOff size={15} /> この端末にのみ保存中（クラウド未設定）
+      </div>
+    );
+  }
+
+  // 合言葉 未設定 → 入力フォーム
+  if (!passReady) {
+    return (
+      <div className="glass-card" style={{ padding: '0.85rem 1rem', marginBottom: '1rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.9rem', fontWeight: 600, marginBottom: '0.4rem' }}>
+          <KeyRound size={16} /> 合言葉でクラウド同期
+        </div>
+        <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary, #9ca3af)', marginBottom: '0.5rem' }}>
+          合言葉を入れると複数の端末で予測を共有できます（各端末で同じ合言葉を1回入力）。
+        </div>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <input
+            type="password"
+            value={val}
+            onChange={(e) => setVal(e.target.value)}
+            onKeyDown={(e) => { if (e.key === 'Enter') onSetPass(val); }}
+            placeholder="合言葉"
+            style={{ flex: 1, padding: '0.5rem', background: 'rgba(0,0,0,0.3)', color: 'inherit', border: '1px solid var(--border, #374151)', borderRadius: '6px' }}
+          />
+          <button
+            onClick={() => onSetPass(val)}
+            style={{ padding: '0.5rem 1rem', background: 'var(--accent-purple, #8b5cf6)', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}
+          >設定</button>
+        </div>
+      </div>
+    );
+  }
+
+  // 合言葉 設定済み → 同期中表示
+  return (
+    <div className="glass-card" style={{ padding: '0.6rem 0.9rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
+      <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.82rem', color: 'var(--success, #10b981)' }}>
+        <Cloud size={15} /> {statusMsg || 'クラウド同期中'}
+      </span>
+      <button
+        onClick={onLogout}
+        title="この端末で合言葉を解除"
+        style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', padding: '0.35rem 0.6rem', background: 'transparent', border: '1px solid var(--border, #374151)', borderRadius: '6px', cursor: 'pointer', color: 'var(--text-secondary, #9ca3af)', fontSize: '0.78rem' }}
+      >
+        <LogOut size={13} /> 解除
+      </button>
+    </div>
+  );
+};
+
 /** トップレベルコンポーネント */
 const Battle = () => {
   const [info, setInfo] = useState(null);
@@ -441,7 +489,40 @@ const Battle = () => {
   const [aiPreds, setAiPreds] = useState({});
   const [error, setError] = useState(null);
   const [selectedRid, setSelectedRid] = useState(null);
-  const [userPreds, setUserPreds] = useState(loadUserPredictions());
+  const [userPreds, setUserPreds] = useState([]);
+  // 合言葉(uid)とクラウド状態
+  const [uid, setUid] = useState('');
+  const [passReady, setPassReady] = useState(false);
+  const [statusMsg, setStatusMsg] = useState('');
+
+  // ユーザー予測のロード（uid があればクラウド、無ければローカル）
+  const reloadUserPreds = async (theUid) => {
+    if (cloudEnabled() && theUid) {
+      const moved = await migrateLocalToCloud(theUid);
+      const arr = await loadPredictions(theUid);
+      setUserPreds(arr);
+      setStatusMsg(moved > 0 ? `クラウド同期中（${moved}件をこの端末から移行）` : 'クラウド同期中');
+    } else {
+      const arr = await loadPredictions(null);
+      setUserPreds(arr);
+      setStatusMsg('');
+    }
+  };
+
+  // 初回: 保存済み合言葉があれば復元してロード
+  useEffect(() => {
+    const saved = getStoredPass();
+    if (cloudEnabled() && saved) {
+      hashPassphrase(saved).then((h) => {
+        setUid(h);
+        setPassReady(true);
+        reloadUserPreds(h);
+      });
+    } else {
+      reloadUserPreds(null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     fetch('./daily_data/daily_race_info.json')
@@ -479,16 +560,36 @@ const Battle = () => {
   }, []);
 
   const handleSavePred = (newPred) => {
+    // 即時にUI反映（楽観更新）→ 裏でローカル+クラウドへ永続化
     const updated = userPreds.filter(p => p.race_id !== newPred.race_id);
     updated.push(newPred);
     setUserPreds(updated);
-    saveUserPredictions(updated);
+    savePrediction(uid, newPred);
   };
 
-  const handleClearAll = () => {
+  const handleClearAll = async () => {
     if (!confirm('あなたの予測データをすべて削除します。よろしいですか？')) return;
     setUserPreds([]);
-    saveUserPredictions([]);
+    await clearAll(uid);
+  };
+
+  // 合言葉を設定（複数端末同期を有効化）
+  const handleSetPass = async (pass) => {
+    const p = (pass || '').trim();
+    if (!p) return;
+    const h = await hashPassphrase(p);
+    setStoredPass(p);
+    setUid(h);
+    setPassReady(true);
+    await reloadUserPreds(h);
+  };
+
+  // 合言葉を解除（この端末をログアウト）
+  const handleLogout = () => {
+    clearStoredPass();
+    setUid('');
+    setPassReady(false);
+    setStatusMsg('');
   };
 
   if (error) return <div className="glass-card" style={{ padding: '1.5rem' }}>データ取得エラー: {error}</div>;
@@ -514,6 +615,13 @@ const Battle = () => {
           <Trash2 size={14} /> 全削除
         </button>
       </div>
+
+      <PassphraseBar
+        passReady={passReady}
+        statusMsg={statusMsg}
+        onSetPass={handleSetPass}
+        onLogout={handleLogout}
+      />
 
       <HistorySummary userPreds={userPreds} history={history} aiPredsByRid={aiPreds} />
 
