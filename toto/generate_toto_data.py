@@ -79,12 +79,19 @@ def build(round_no):
         print(f"[ERROR] 第{round_no}回に表示できる試合がありません。")
         return None
 
+    # 答え合わせ結果（あれば）を match_id で引けるように
+    spath = os.path.join(DATA_DIR, f"settled_{round_no}.json")
+    settled = load_json(spath) if os.path.exists(spath) else None
+    sidx = {r["match_id"]: r for r in settled["results"]} if settled else {}
+
     matches = []
     for m in sec["matches"]:
         key = (m.get("date"), m.get("home"), m.get("away"))
         g = gidx.get(key)
+        mid = f"{round_no}-{m.get('no')}"
+        sres = sidx.get(mid, {})
         matches.append({
-            "match_id": f"{round_no}-{m.get('no')}",
+            "match_id": mid,
             "no": m.get("no"),
             "date": m.get("date"),
             "kickoff": m.get("kickoff"),
@@ -94,6 +101,7 @@ def build(round_no):
             "gemini_pick": (g or {}).get("pick", ""),
             "gemini_confidence": (g or {}).get("confidence", ""),
             "gemini_reasoning": (g or {}).get("reasoning", ""),
+            "result": sres.get("actual", ""),  # 確定結果 H/D/A（未確定は空）
         })
 
     return {
@@ -103,16 +111,22 @@ def build(round_no):
         "result_date": sec.get("result_date", ""),
         "generated_date": datetime.date.today().isoformat(),
         "has_gemini": gem is not None,
+        "settled": bool(settled and settled.get("n_settled")),
+        "summary": settled.get("summary") if settled else None,
         "matches": matches,
     }
 
 
 def choose_round(args):
-    """引数指定が無ければ、締切が最も近い round_*.json の回号を返す。"""
+    """表示する回号を決める。
+    引数指定があればそれ。無ければ「販売中（締切が今日以降）で締切が最も近い回」、
+    販売中が無ければ「最新（回号最大）の回」を返す（＝終了直後は結果表示に回る）。"""
     nums = [int(a) for a in args if a.isdigit()]
     if nums:
         return nums[0]
-    best = None  # (deadline_str, round_no)
+    today = datetime.date.today().isoformat()
+    on_sale = []   # (deadline, round_no)
+    latest = None  # round_no
     for p in glob.glob(os.path.join(DATA_DIR, "round_*.json")):
         try:
             d = load_json(p)
@@ -120,9 +134,15 @@ def choose_round(args):
             continue
         _, sec = pick_display_kuji(d)
         dl = (sec or {}).get("deadline", "") if sec else ""
-        if best is None or (dl and dl < best[0]):
-            best = (dl or "9999", d["round"])
-    return best[1] if best else None
+        rno = d["round"]
+        latest = rno if latest is None else max(latest, rno)
+        # 締切日（'YYYY-MM-DD HH:MM' の日付部分）が今日以降なら販売中扱い
+        if dl and dl[:10] >= today:
+            on_sale.append((dl, rno))
+    if on_sale:
+        on_sale.sort()
+        return on_sale[0][1]
+    return latest
 
 
 def main():

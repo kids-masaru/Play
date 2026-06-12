@@ -4,18 +4,17 @@
 
 ## 現在のステータス
 - Phase 1（planning）: **承認済み（2026-06-11）**
-- Phase 2（実装）: **T1〜T7・T9 完了 + T10最小版**。T5ライブAPIは実行済(1635)。
-  次は **push→Actionsビルドで実機確認（T14の一部）**、その後 T8（答え合わせ）・T11〜T13（自動化）
+- Phase 2（実装）: **T1〜T13 完了**（T8答え合わせ含む）。実機(toto タブ)も確認済み。
+  残るは **T13のタスクスケジューラ登録（masaru が schtasks 実行）** と運用観察のみ
 
 ## 次回やること
-- **実機確認**: フロント変更をコミット→push→GitHub Actions ビルド→ https://kids-masaru.github.io/Play/ の
-  「toto」タブを開いて確認（ローカルビルド不可 [[windows_build_impossible]]）。表示データは
-  `dashboard/public/daily_data/toto_info.json`（`generate_toto_data.py` 生成、現在 第1635回）
-- T8: `settle_results.py`（試合結果取得→H/D/A確定→統計/Gemini/ユーザーの的中率比較）。
-  ※ 現在の1635回は W杯で試合が 6/17〜 のため結果はまだ無い。J.League データ源は collect_jleague.py 流用可だが
-    国際試合の結果源は別途必要（後述）
-- T11〜T13: 週次オーケストレーション（fetch→predict_stats→predict_gemini→generate→push）+ バッチ + タスクスケジューラ
-- 利用可能データ: `jleague_matches.csv`(5,554), `round_*.json`, `gemini_round_*.json`, `toto_info.json`
+- **T13 スケジューラ登録（要 masaru 実行）**: 管理者PowerShell等で
+  `schtasks /Create /TN "Toto_Weekly" /TR "\"<repo>\run_toto_weekly.bat\"" /SC DAILY /ST 10:30 /F`
+  （毎日10:30に冪等バッチ。ボート朝9:00と時間をずらす）。登録後 `schtasks /Run /TN "Toto_Weekly"` で初回手動実行可
+- **観察ポイント**: `collect_jleague.py` は当年(2026)のJリーグ表をまだ取得できない（サイト未掲載で cols=[0,1]）。
+  Jリーグの回・結果が出る時期に再確認。国際試合(W杯)の結果取得源は v1 未対応（statsもskip）＝想定内
+- 任意の追加メニュー: 統計モデルを過去複数年でバックテスト→パラメータ調整（LOOKBACK/HOME_BOOST）。数pt改善余地
+- 利用可能データ: `jleague_matches.csv`(5,554), `round_*.json`, `gemini_round_*.json`, `settled_*.json`, `toto_info.json`
 
 ## タスク一覧
 
@@ -37,19 +36,33 @@
 - [x] T6. `Toto.jsx` を Battle.jsx 雛形から作成。1試合カードに 統計/Gemini予想・自信度・推論(開閉)、
   ユーザーは H/D/A をタップで即保存。進捗(n/13)と「Geminiとの一致率」を即時表示。esbuildで構文検証OK
 - [x] T7. `totoStore.js`（battleStore と同方針、保存先 `users/{uid}/toto/{match_id}`、合言葉はボートと共用）
-- [ ] T8. 答え合わせ・的中率比較（統計/Gemini/ユーザー）。`settle_results.py`
+- [x] T8. 答え合わせ・的中率比較（統計/Gemini/ユーザー）。settle結果を toto_info.json に取り込み、
+  Toto.jsx で結果バッジ・的中マーク(✓/✗)・3者の的中率サマリを表示
 - [x] T9. App.jsx に「toto」タブ追加（import + タブボタン + `{page==='toto' && <Toto/>}`）
 
 ### Phase 2-D: 自動化・公開
 - [x] T10.(最小版) `generate_toto_data.py`: round_*.json + gemini_round_*.json を結合し
   `dashboard/public/daily_data/toto_info.json` 生成（締切が最も近い販売中の回を既定表示）。
   ※ 結果反映(答え合わせ)部分は T8/T11 と合わせて拡張予定
-- [ ] T11. 結果取得→答え合わせ（`settle_results.py`）
-- [ ] T12. 週次オーケストレーション（`run_toto_weekly.py` + `run_toto_weekly.bat`）
-- [ ] T13. タスクスケジューラ登録（週次フル自動）
-- [ ] T14. push → Actions ビルド確認 → 公開動作確認
+- [x] T11. 結果取得→答え合わせ（`settle_results.py`）。jleague_matches.csv から (date,home,away) で実結果を引き、
+  統計/Gemini の的中を判定 → `settled_<回号>.json`。国際試合は結果源なしで actual="" のまま（v1想定内）
+- [x] T12. 週次オーケストレーション（`run_toto_weekly.py` + `run_toto_weekly.bat`）。
+  collect→fetch→(未予測のみ)gemini→settle→generate→push の冪等バッチ。--no-push/--skip-gemini/--force-predict。
+  通しテスト OK（exit 0、12秒）
+- [ ] T13. タスクスケジューラ登録 → **masaru が schtasks 実行**（コマンドは上部「次回やること」参照）
+- [x] T14.(toto分) push → GitHub Actions ビルド success → toto タブ実機確認済み（2026-06-13）
 
 ## 作業ログ
+### 2026-06-13 (夕: 自動化 T11/T12 + T8答え合わせ + push)
+- T11 `settle_results.py`: jleague_matches.csv から実結果(H/D/A)を引き統計/Geminiの的中判定→settled_*.json。
+  検証: 国際1635=0件(正常)、合成過去J1=4/4確定・統計3/4/Gemini判定OK
+- T8: settle結果を generate_toto_data が toto_info.json に取り込み(各試合 result, summary)。
+  Toto.jsx に結果バッジ・的中マーク(✓/✗)・あなた/Gemini/統計の的中率サマリ追加。回選択は販売中優先→無ければ最新
+- T12 `run_toto_weekly.py` + `run_toto_weekly.bat`: collect→fetch→未予測のみgemini→settle→generate→push の冪等バッチ。
+  通しテスト(--no-push --skip-gemini)で exit 0。1634は締切超過で販売中から自動除外を確認
+- 観察: collect_jleague 2026 は現状サイトに表が無く0件(allow_failで続行)。Jリーグ回の時期に要再確認
+- push→Actions success（toto タブ実機OK）。残: T13 schtasks 登録(masaru)
+
 ### 2026-06-13 (午後: フロント T6/T7/T9 + T10最小)
 - T10最小: `generate_toto_data.py`。round + gemini を (date,home,away) で結合、toto(13)主軸で
   `dashboard/public/daily_data/toto_info.json` 出力。第1635回で生成（Gemini13/統計0=国際試合）

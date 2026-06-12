@@ -46,6 +46,17 @@ const AiPickBadge = ({ label, color, pick, sub }) => (
   </div>
 );
 
+/** 的中マーク（結果が出ているときだけ表示） */
+const HitMark = ({ pick, result }) => {
+  if (!result || !pick) return null;
+  const ok = pick === result;
+  return (
+    <span style={{ marginLeft: '0.3rem', fontSize: '0.75rem', fontWeight: 700, color: ok ? '#10b981' : '#ef4444' }}>
+      {ok ? '✓' : '✗'}
+    </span>
+  );
+};
+
 /** 1試合カード */
 const MatchCard = ({ match, userPred, onPick }) => {
   const [open, setOpen] = useState(false);
@@ -55,6 +66,7 @@ const MatchCard = ({ match, userPred, onPick }) => {
     ? `H${Math.round(stats.p_H * 100)}/D${Math.round(stats.p_D * 100)}/A${Math.round(stats.p_A * 100)}`
     : null;
   const userPick = userPred?.pick || '';
+  const result = match.result || '';  // 確定結果 H/D/A（未確定は空）
 
   return (
     <div className="glass-card" style={{ padding: '1rem', marginBottom: '0.85rem', borderLeft: userPick ? '3px solid var(--accent-purple, #8b5cf6)' : '3px solid transparent' }}>
@@ -70,10 +82,23 @@ const MatchCard = ({ match, userPred, onPick }) => {
         </div>
       </div>
 
+      {/* 確定結果（答え合わせ済みのとき） */}
+      {result && (
+        <div style={{ marginTop: '0.5rem', padding: '0.4rem 0.6rem', background: 'rgba(16,185,129,0.10)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '6px', fontSize: '0.85rem', fontWeight: 700 }}>
+          結果: {PICK_META[result]?.label || result}
+        </div>
+      )}
+
       {/* AI予想 */}
-      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.65rem' }}>
-        <AiPickBadge label="統計モデル" color="#60a5fa" pick={stats?.pick} sub={statSub} />
-        <AiPickBadge label="Gemini" color="#a78bfa" pick={match.gemini_pick} sub={match.gemini_confidence ? `自信${match.gemini_confidence}` : null} />
+      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.65rem', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <AiPickBadge label="統計モデル" color="#60a5fa" pick={stats?.pick} sub={statSub} />
+          <HitMark pick={stats?.pick} result={result} />
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <AiPickBadge label="Gemini" color="#a78bfa" pick={match.gemini_pick} sub={match.gemini_confidence ? `自信${match.gemini_confidence}` : null} />
+          <HitMark pick={match.gemini_pick} result={result} />
+        </div>
       </div>
 
       {/* Gemini推論（開閉） */}
@@ -92,25 +117,33 @@ const MatchCard = ({ match, userPred, onPick }) => {
       <div style={{ marginTop: '0.75rem' }}>
         <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary, #9ca3af)', marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
           <Target size={14} /> あなたの予想
+          {result && userPick && (
+            <span style={{ fontWeight: 700, color: userPick === result ? '#10b981' : '#ef4444' }}>
+              {userPick === result ? '　的中 ✓' : '　はずれ ✗'}
+            </span>
+          )}
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem' }}>
           {PICKS.map((p) => {
             const active = userPick === p;
+            const isAnswer = result && p === result;  // 正解
             const meta = PICK_META[p];
             return (
               <button
                 key={p}
                 onClick={() => onPick(match, p)}
+                disabled={!!result}
                 style={{
-                  padding: '0.55rem 0.3rem', borderRadius: '8px', cursor: 'pointer',
+                  padding: '0.55rem 0.3rem', borderRadius: '8px', cursor: result ? 'default' : 'pointer',
                   fontWeight: 700, fontSize: '0.9rem',
-                  border: active ? `2px solid ${meta.color}` : '1px solid var(--border, #374151)',
-                  background: active ? `${meta.color}22` : 'rgba(255,255,255,0.03)',
-                  color: active ? meta.color : 'var(--text-primary, #f3f4f6)',
+                  border: isAnswer ? '2px solid #10b981' : active ? `2px solid ${meta.color}` : '1px solid var(--border, #374151)',
+                  background: isAnswer ? 'rgba(16,185,129,0.18)' : active ? `${meta.color}22` : 'rgba(255,255,255,0.03)',
+                  color: isAnswer ? '#10b981' : active ? meta.color : 'var(--text-primary, #f3f4f6)',
+                  opacity: result && !active && !isAnswer ? 0.5 : 1,
                   transition: 'all 0.12s',
                 }}
               >
-                <div style={{ fontSize: '1rem' }}>{p}</div>
+                <div style={{ fontSize: '1rem' }}>{p}{active && '●'}</div>
                 <div style={{ fontSize: '0.7rem', fontWeight: 500 }}>{meta.label}</div>
               </button>
             );
@@ -165,30 +198,53 @@ const PassphraseBar = ({ passReady, statusMsg, onSetPass, onLogout }) => {
   );
 };
 
-/** 進捗・一致率サマリ（結果が出るまでの即時フィードバック） */
+const Metric = ({ label, value, color }) => (
+  <div style={{ textAlign: 'center' }}>
+    <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #9ca3af)', marginBottom: '0.25rem' }}>{label}</div>
+    <div style={{ fontSize: '1.6rem', fontWeight: 700, color }}>{value}</div>
+  </div>
+);
+
+const rate = (hits, n) => (n > 0 ? `${Math.round((hits / n) * 100)}%` : '—');
+
+/** 進捗・一致率・的中率サマリ */
 const ProgressSummary = ({ matches, userByMid }) => {
   const total = matches.length;
   const done = matches.filter((m) => userByMid[m.match_id]?.pick).length;
-  // あなた vs Gemini の一致数（両方予想があるもの）
+
+  // あなた vs Gemini の一致（両方予想あり）
   let both = 0, agree = 0;
+  // 結果が出た試合での的中数
+  let settledN = 0;
+  let uN = 0, uH = 0, gN = 0, gH = 0, sN = 0, sH = 0;
   matches.forEach((m) => {
     const up = userByMid[m.match_id]?.pick;
-    if (up && m.gemini_pick) {
-      both += 1;
-      if (up === m.gemini_pick) agree += 1;
+    if (up && m.gemini_pick) { both += 1; if (up === m.gemini_pick) agree += 1; }
+    if (m.result) {
+      settledN += 1;
+      if (up) { uN += 1; if (up === m.result) uH += 1; }
+      if (m.gemini_pick) { gN += 1; if (m.gemini_pick === m.result) gH += 1; }
+      if (m.stats?.pick) { sN += 1; if (m.stats.pick === m.result) sH += 1; }
     }
   });
-  const agreeRate = both > 0 ? Math.round((agree / both) * 100) : null;
+  const agreeRate = both > 0 ? `${Math.round((agree / both) * 100)}%` : '—';
+
   return (
-    <div className="glass-card" style={{ padding: '1rem 1.25rem', marginBottom: '1.25rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '0.85rem' }}>
-      <div style={{ textAlign: 'center' }}>
-        <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #9ca3af)', marginBottom: '0.25rem' }}>予想入力</div>
-        <div style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--accent-purple, #a78bfa)' }}>{done}/{total}</div>
+    <div className="glass-card" style={{ padding: '1rem 1.25rem', marginBottom: '1.25rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '0.85rem' }}>
+        <Metric label="予想入力" value={`${done}/${total}`} color="var(--accent-purple, #a78bfa)" />
+        <Metric label="Geminiと一致" value={agreeRate} color="#10b981" />
+        {settledN > 0 && <>
+          <Metric label={`あなた的中(${uH}/${uN})`} value={rate(uH, uN)} color="#8b5cf6" />
+          <Metric label={`Gemini的中(${gH}/${gN})`} value={rate(gH, gN)} color="#a78bfa" />
+          <Metric label={`統計的中(${sH}/${sN})`} value={rate(sH, sN)} color="#60a5fa" />
+        </>}
       </div>
-      <div style={{ textAlign: 'center' }}>
-        <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #9ca3af)', marginBottom: '0.25rem' }}>Geminiと一致</div>
-        <div style={{ fontSize: '1.6rem', fontWeight: 700, color: '#10b981' }}>{agreeRate === null ? '—' : `${agreeRate}%`}</div>
-      </div>
+      {settledN > 0 && (
+        <div style={{ marginTop: '0.6rem', fontSize: '0.78rem', color: 'var(--text-secondary, #9ca3af)' }}>
+          ※ {settledN}試合の結果が確定。あなた・Gemini・統計モデルの的中率を比較中。
+        </div>
+      )}
     </div>
   );
 };
