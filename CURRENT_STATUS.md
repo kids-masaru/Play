@@ -26,11 +26,17 @@
 - 既存ページ: Dashboard、AI Lab
 - **新規 (Phase 1.5+1.6): 予測対戦タブ** ← masaru の学習目的
 
-### 4. Gemini API (新規追加 2026-06-07)
+### 4. Gemini API (新規追加 2026-06-07 → 2026-06-11 朝バッチ自動統合)
 - 当日レースを Gemini 2.5 Flash で予測
-- `run_gemini_predictions.bat` 手動実行 (朝バッチ後)
+- **手動実行は廃止。`run_morning.bat` に `update_battle_dashboard.py` を組込み、9:00に自動生成→公開**
 - 無料枠内で運用中
 - credentials.env に `GEMINI_API_KEY` 設定済み
+
+### 5. 予測対戦データ自動化 (2026-06-11 新規)
+- `update_battle_dashboard.py`: コピー→battle_data(1)→Gemini→battle_data(2)→git push を一括実行
+- 朝バッチ `run_morning.bat` 末尾に追加済み (既存9:00タスクで自動)
+- OneDriveロック対策: コピーは temp+os.replace 方式
+- `run_battle_update.bat` 単体でも手動実行可 (`--no-push` / `--skip-gemini` オプションあり)
 
 ---
 
@@ -68,10 +74,9 @@
 
 優先度高い順:
 
-### A. 朝バッチに Gemini予測を統合 (推奨)
-- 現状: `run_gemini_predictions.bat` 手動実行
-- 統合先: `run_morning.bat` の最後に追加 or `daily_scrape.yml` 経由
-- これで毎日自動でGemini予測も生成される
+### A. 朝バッチに Gemini予測を統合 ✅ 完了 (2026-06-11)
+- `update_battle_dashboard.py` を `run_morning.bat` 末尾に追加。9:00に自動で4者予測生成→公開
+- 初回の本番自動実行は次の9:00。それまでは手動で `run_battle_update.bat` でも可
 
 ### B. ダッシュボード機能拡張
 - 月別 ROI/的中率グラフ (4者並列)

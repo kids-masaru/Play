@@ -23,7 +23,7 @@ FEATURES_FILE = os.path.join(ROOT, "past_data", "ml_features.csv")
 RESULTS_FILE = os.path.join(ROOT, "past_data", "past_history_results.csv")
 ODDS_FILE = os.path.join(ROOT, "past_data", "past_odds_3t.csv")
 
-VAL_DAYS = 30
+VAL_DAYS = 365
 RANDOM_STATE = 42
 
 LGB_PARAMS = {

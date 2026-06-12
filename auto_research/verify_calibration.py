@@ -29,8 +29,8 @@ RESULTS_FILE = os.path.join(ROOT, "past_data", "past_history_results.csv")
 ODDS_FILE = os.path.join(ROOT, "past_data", "past_odds_3t.csv")
 CALIB_FILE = os.path.join(ROOT, "models", "calibrators.pkl")
 
-VAL_DAYS = 30
-CALIB_DAYS = 30        # val の直前 30 日を較正に
+VAL_DAYS = 180
+CALIB_DAYS = 60        # val の直前 60 日を較正に
 RANDOM_STATE = 42
 
 LGB_PARAMS = {
