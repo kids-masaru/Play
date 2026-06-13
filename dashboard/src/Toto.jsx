@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Trophy, Target, Brain, Trash2, Cloud, CloudOff, KeyRound, LogOut, Clock } from 'lucide-react';
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Cell,
+} from 'recharts';
+import { Trophy, Target, Brain, Trash2, Cloud, CloudOff, KeyRound, LogOut, Clock, BarChart3 } from 'lucide-react';
 // 合言葉(uid)はボート予測対戦と共用するため battleStore のものを流用
 import {
   cloudEnabled, hashPassphrase,
@@ -249,6 +252,92 @@ const ProgressSummary = ({ matches, userByMid }) => {
   );
 };
 
+const SERIES = { stat: '#60a5fa', gemini: '#a78bfa', user: '#ec4899' };
+
+/** グラフ群: 予想の傾向 + 的中率比較 */
+const TotoCharts = ({ matches, userByMid }) => {
+  // 予想分布: 各予測者が H/D/A をそれぞれ何試合選んだか
+  const dist = [
+    { name: 'ホーム勝(H)', key: 'H' },
+    { name: '引分(D)', key: 'D' },
+    { name: 'アウェイ勝(A)', key: 'A' },
+  ].map((row) => {
+    let stat = 0, gemini = 0, user = 0;
+    matches.forEach((m) => {
+      if (m.stats?.pick === row.key) stat += 1;
+      if (m.gemini_pick === row.key) gemini += 1;
+      if (userByMid[m.match_id]?.pick === row.key) user += 1;
+    });
+    return { name: row.name, 統計: stat, Gemini: gemini, あなた: user };
+  });
+
+  // 的中率: 結果が出た試合のみ
+  let uN = 0, uH = 0, gN = 0, gH = 0, sN = 0, sH = 0;
+  matches.forEach((m) => {
+    if (!m.result) return;
+    const up = userByMid[m.match_id]?.pick;
+    if (up) { uN += 1; if (up === m.result) uH += 1; }
+    if (m.gemini_pick) { gN += 1; if (m.gemini_pick === m.result) gH += 1; }
+    if (m.stats?.pick) { sN += 1; if (m.stats.pick === m.result) sH += 1; }
+  });
+  const hasResult = (uN + gN + sN) > 0;
+  const acc = [
+    { name: '統計', 的中率: sN ? Math.round((sH / sN) * 100) : 0, color: SERIES.stat },
+    { name: 'Gemini', 的中率: gN ? Math.round((gH / gN) * 100) : 0, color: SERIES.gemini },
+    { name: 'あなた', 的中率: uN ? Math.round((uH / uN) * 100) : 0, color: SERIES.user },
+  ];
+
+  const axis = { stroke: 'var(--text-secondary, #9ca3af)', fontSize: 12, tickLine: false, axisLine: false };
+  const tip = { backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', fontSize: '0.8rem' };
+
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', marginBottom: '1.25rem' }}>
+      {/* 予想の傾向 */}
+      <div className="glass-card" style={{ padding: '1rem 1.1rem' }}>
+        <h3 style={{ margin: '0 0 0.75rem 0', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+          <BarChart3 size={17} /> 予想の傾向（{matches.length}試合）
+        </h3>
+        <ResponsiveContainer width="100%" height={220}>
+          <BarChart data={dist} barGap={2}>
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" vertical={false} />
+            <XAxis dataKey="name" {...axis} />
+            <YAxis {...axis} allowDecimals={false} />
+            <Tooltip cursor={{ fill: 'rgba(255,255,255,0.04)' }} contentStyle={tip} />
+            <Legend wrapperStyle={{ fontSize: '0.78rem' }} />
+            <Bar dataKey="統計" fill={SERIES.stat} radius={[3, 3, 0, 0]} />
+            <Bar dataKey="Gemini" fill={SERIES.gemini} radius={[3, 3, 0, 0]} />
+            <Bar dataKey="あなた" fill={SERIES.user} radius={[3, 3, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* 的中率比較 */}
+      <div className="glass-card" style={{ padding: '1rem 1.1rem' }}>
+        <h3 style={{ margin: '0 0 0.75rem 0', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+          <Trophy size={17} /> 的中率比較
+        </h3>
+        {hasResult ? (
+          <ResponsiveContainer width="100%" height={220}>
+            <BarChart data={acc}>
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" vertical={false} />
+              <XAxis dataKey="name" {...axis} />
+              <YAxis {...axis} unit="%" domain={[0, 100]} />
+              <Tooltip cursor={{ fill: 'rgba(255,255,255,0.04)' }} contentStyle={tip} formatter={(v) => [`${v}%`, '的中率']} />
+              <Bar dataKey="的中率" radius={[4, 4, 0, 0]}>
+                {acc.map((e, i) => <Cell key={i} fill={e.color} />)}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        ) : (
+          <div style={{ height: 220, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: 'var(--text-secondary, #9ca3af)', fontSize: '0.85rem', lineHeight: 1.7 }}>
+            試合結果が出ると、<br />統計・Gemini・あなたの的中率を<br />ここで比較します。
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const Toto = () => {
   const [info, setInfo] = useState(null);
   const [error, setError] = useState(null);
@@ -358,6 +447,8 @@ const Toto = () => {
       <PassphraseBar passReady={passReady} statusMsg={statusMsg} onSetPass={handleSetPass} onLogout={handleLogout} />
 
       <ProgressSummary matches={info.matches} userByMid={userByMid} />
+
+      <TotoCharts matches={info.matches} userByMid={userByMid} />
 
       {info.matches.map((m) => (
         <MatchCard key={m.match_id} match={m} userPred={userByMid[m.match_id]} onPick={handlePick} />
