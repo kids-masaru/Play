@@ -10,11 +10,33 @@ import {
   loadPredictions, savePrediction, clearAll, migrateLocalToCloud,
 } from './battleStore';
 
-/** AI予測 stakes 文字列をパース ("1-2-3:100, 1-2-4:200" 等の想定) */
+/** 買い目を "4-5-6" 形式に正規化（"456" でも "4-5-6" でも受ける） */
+const normCombo = (c) => {
+  const s = String(c).trim();
+  if (s.includes('-')) return s;
+  return s.split('').join('-');
+};
+
+/** AI予測 stakes 文字列をパース。2形式に対応:
+ *  (1) JSONオブジェクト '{"456": 100, "356": 100}'  ← ai_predictions_summary.json の Det/LLM
+ *  (2) ダッシュ区切り   "1-2-3:100, 1-2-4:200"        ← daily_race_info.json の各 ai_picks_*
+ *  どちらも combo は "4-5-6" 形式に正規化して返す。 */
 const parseAiPicks = (stakesStr) => {
   if (!stakesStr) return [];
-  return stakesStr.split(/[,、]/).map(s => {
-    const t = s.trim();
+  const s = String(stakesStr).trim();
+  if (s.startsWith('{')) {
+    try {
+      const obj = JSON.parse(s);
+      return Object.entries(obj).map(([combo, stake]) => ({
+        combo: normCombo(combo),
+        stake: typeof stake === 'number' ? stake : (parseInt(stake, 10) || null),
+      }));
+    } catch {
+      return [];
+    }
+  }
+  return s.split(/[,、]/).map(part => {
+    const t = part.trim();
     if (!t) return null;
     const m = t.match(/(\d-\d-\d)\s*[:：]?\s*(\d+)?/);
     if (!m) return null;
@@ -22,8 +44,12 @@ const parseAiPicks = (stakesStr) => {
   }).filter(Boolean);
 };
 
-/** combo の的中判定 (resultは"1-2-3"形式) */
-const isHit = (combo, result) => combo && result && combo === result;
+/** combo の的中判定。ダッシュ有無に左右されないよう数字だけで比較 */
+const comboHit = (combo, result) => {
+  if (!combo || !result) return false;
+  return String(combo).replace(/\D/g, '') === String(result).replace(/\D/g, '');
+};
+const isHit = comboHit;
 
 /** 主要セクション: レース一覧 */
 const RaceList = ({ races, userPreds, onSelect }) => {
@@ -333,12 +359,12 @@ const buildSettled = (history, aiPredsByRid, userPreds) => {
       date: h.Date || '', venue: h.Venue || '', r: h.R || '',
       result,
       detPicks, llmPicks, gemPicks,
-      detHit: detPicks.length > 0 && detPicks.some(c => c === result),
-      llmHit: llmPicks.length > 0 && llmPicks.some(c => c === result),
-      gemHit: gemPicks.length > 0 && gemPicks.some(c => c === result),
+      detHit: detPicks.length > 0 && detPicks.some(c => comboHit(c, result)),
+      llmHit: llmPicks.length > 0 && llmPicks.some(c => comboHit(c, result)),
+      gemHit: gemPicks.length > 0 && gemPicks.some(c => comboHit(c, result)),
       hasUser: !!u,
       userPicks: u ? u.picks : [],
-      userHit: u ? u.picks.some(c => c === result) : false,
+      userHit: u ? u.picks.some(c => comboHit(c, result)) : false,
     };
   }).filter(Boolean);
 };
