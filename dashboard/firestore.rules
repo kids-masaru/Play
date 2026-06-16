@@ -5,14 +5,15 @@ rules_version = '2';
 // ------------------------------------------------------------
 // Firebase コンソール > Firestore Database > ルール に貼り付けて「公開」。
 //
-// users/{uid}/predictions/{raceId} のみ読み書きを許可する。
-// uid は「合言葉」の SHA-256 ハッシュ（推測困難な64桁）なので、
+// users/{uid}/ 配下の各コレクション（predictions=ボート, toto=サッカーくじ 等）の
+// 読み書きを許可する。uid は「合言葉」の SHA-256 ハッシュ（推測困難な64桁）なので、
 // 合言葉を知らない人は自分のデータの場所を特定できない＝軽い保護。
+// ※ サブコレクション名をワイルドカード化したので、今後種目が増えても修正不要。
 // ※ 本格的な本人認証が必要になったら Firebase Authentication を導入する。
 // ============================================================
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /users/{uid}/predictions/{raceId} {
+    match /users/{uid}/{collection}/{docId} {
       allow read, write: if true;
     }
   }
