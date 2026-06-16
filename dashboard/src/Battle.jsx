@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   LineChart, Line, Legend
 } from 'recharts';
-import { Trophy, Target, Brain, ChevronLeft, Save, Trash2, Cloud, CloudOff, KeyRound, LogOut } from 'lucide-react';
+import { Trophy, Target, Brain, ChevronLeft, Save, Trash2, Cloud, CloudOff, KeyRound, LogOut, TrendingUp, ListOrdered } from 'lucide-react';
 import {
   cloudEnabled, hashPassphrase,
   getStoredPass, setStoredPass, clearStoredPass,
@@ -311,15 +311,12 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
   );
 };
 
-/** 履歴サマリパネル: 3者(Det/LLM/あなた)比較 */
-const HistorySummary = ({ userPreds, history, aiPredsByRid }) => {
+/** AI予測×結果を突き合わせた「決着済みレース」配列を作る（戦績/グラフ/一覧で共用）。
+ *  ユーザーの予測有無に関係なく AI/計算(Det) は常に対象。ユーザーは予測した分だけ混ぜる。 */
+const buildSettled = (history, aiPredsByRid, userPreds) => {
   const histByRid = Object.fromEntries(history.map(h => [h.ID, h]));
   const userByRid = Object.fromEntries(userPreds.map(p => [p.race_id, p]));
-
-  // AI予測があるレースのうち、結果が出たものを比較対象にする。
-  // ユーザーの予測有無に関係なく AI/計算(Det)の戦績は常に集計し、
-  // ユーザーが予測したレースだけ「あなた」の的中も混ぜる。
-  const settled = Object.entries(aiPredsByRid).map(([rid, ai]) => {
+  return Object.entries(aiPredsByRid).map(([rid, ai]) => {
     const h = histByRid[rid];
     if (!h || !String(h.Result).trim()) return null;
     const result = String(h.Result).replace(/\s/g, '');
@@ -328,18 +325,22 @@ const HistorySummary = ({ userPreds, history, aiPredsByRid }) => {
     const gemPicks = parseAiPicks(ai.stakes_gemini).map(x => x.combo);
     const u = userByRid[rid];
     return {
+      rid,
+      date: h.Date || '', venue: h.Venue || '', r: h.R || '',
       result,
-      hasUser: !!u,
-      userHit: u ? u.picks.some(c => c === result) : false,
+      detPicks, llmPicks, gemPicks,
       detHit: detPicks.length > 0 && detPicks.some(c => c === result),
       llmHit: llmPicks.length > 0 && llmPicks.some(c => c === result),
       gemHit: gemPicks.length > 0 && gemPicks.some(c => c === result),
-      detPicks,
-      llmPicks,
-      gemPicks,
+      hasUser: !!u,
+      userPicks: u ? u.picks : [],
+      userHit: u ? u.picks.some(c => c === result) : false,
     };
-  }).filter(p => p !== null);
+  }).filter(Boolean);
+};
 
+/** 履歴サマリパネル: 4者(Det/LLM/Gemini/あなた)比較 */
+const HistorySummary = ({ settled }) => {
   const total = settled.length;
   const stat = (predicate) => {
     const evaluable = settled.filter(predicate.has);
@@ -429,6 +430,105 @@ const Stat = ({ label, value, accent }) => (
   </div>
 );
 
+const TREND_AXIS = { stroke: 'var(--text-secondary, #9ca3af)', fontSize: 11, tickLine: false, axisLine: false };
+const TREND_TIP = { backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', fontSize: '0.8rem' };
+
+/** 月別 的中率の推移（折れ線） */
+const HitRateTrend = ({ settled }) => {
+  const byMonth = {};
+  settled.forEach(s => {
+    const m = (s.date || '').slice(0, 7); // YYYY-MM
+    if (!m) return;
+    const b = byMonth[m] || (byMonth[m] = { month: m, dN: 0, dH: 0, lN: 0, lH: 0, gN: 0, gH: 0, uN: 0, uH: 0 });
+    if (s.detPicks.length) { b.dN++; if (s.detHit) b.dH++; }
+    if (s.llmPicks.length) { b.lN++; if (s.llmHit) b.lH++; }
+    if (s.gemPicks.length) { b.gN++; if (s.gemHit) b.gH++; }
+    if (s.hasUser) { b.uN++; if (s.userHit) b.uH++; }
+  });
+  const data = Object.values(byMonth)
+    .sort((a, b) => a.month.localeCompare(b.month))
+    .map(b => ({
+      month: b.month.slice(2), // 'YY-MM'
+      Det: b.dN ? Math.round(b.dH / b.dN * 100) : null,
+      LLM: b.lN ? Math.round(b.lH / b.lN * 100) : null,
+      Gemini: b.gN ? Math.round(b.gH / b.gN * 100) : null,
+      あなた: b.uN ? Math.round(b.uH / b.uN * 100) : null,
+    }));
+  if (data.length === 0) return null;
+  return (
+    <div className="glass-card" style={{ padding: '1rem 1.1rem', marginBottom: '1.25rem' }}>
+      <h3 style={{ margin: '0 0 0.75rem 0', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+        <TrendingUp size={18} /> 月別 的中率の推移
+      </h3>
+      <ResponsiveContainer width="100%" height={260}>
+        <LineChart data={data} margin={{ top: 5, right: 10, bottom: 0, left: -10 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" vertical={false} />
+          <XAxis dataKey="month" {...TREND_AXIS} />
+          <YAxis unit="%" {...TREND_AXIS} />
+          <Tooltip contentStyle={TREND_TIP} formatter={(v) => v == null ? ['-', ''] : [`${v}%`, '']} />
+          <Legend wrapperStyle={{ fontSize: '0.78rem' }} />
+          <Line dataKey="Det" stroke="#60a5fa" connectNulls dot={false} strokeWidth={2} />
+          <Line dataKey="LLM" stroke="#f59e0b" connectNulls dot={false} strokeWidth={2} />
+          <Line dataKey="Gemini" stroke="#10b981" connectNulls dot={false} strokeWidth={2} />
+          <Line dataKey="あなた" stroke="#8b5cf6" connectNulls dot={{ r: 3 }} strokeWidth={2.5} />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
+
+/** 過去レースの予想と結果（新しい順、もっと見るで追加表示） */
+const PastRaces = ({ settled }) => {
+  const [limit, setLimit] = useState(50);
+  const sorted = [...settled].sort((a, b) =>
+    `${b.date}_${b.venue}_${String(b.r).padStart(2, '0')}`.localeCompare(`${a.date}_${a.venue}_${String(a.r).padStart(2, '0')}`));
+  const shown = sorted.slice(0, limit);
+
+  const Pick = ({ picks, hit }) => {
+    if (!picks || picks.length === 0) return <span style={{ color: 'var(--text-secondary, #6b7280)' }}>-</span>;
+    return <span style={{ color: hit ? '#10b981' : 'var(--text-secondary, #9ca3af)', fontWeight: hit ? 700 : 400 }}>
+      {picks[0]}{hit ? ' ✓' : ''}
+    </span>;
+  };
+  const th = { padding: '0.4rem 0.5rem', textAlign: 'left', color: 'var(--text-secondary, #9ca3af)', fontWeight: 600, whiteSpace: 'nowrap' };
+  const td = { padding: '0.4rem 0.5rem', whiteSpace: 'nowrap', fontFamily: 'monospace' };
+
+  return (
+    <div className="glass-card" style={{ padding: '1rem 1.1rem' }}>
+      <h3 style={{ margin: '0 0 0.75rem 0', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+        <ListOrdered size={18} /> 過去レースの予想と結果（{settled.length}件）
+      </h3>
+      <div style={{ overflowX: 'auto' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem', minWidth: '560px' }}>
+          <thead>
+            <tr style={{ borderBottom: '1px solid var(--border, #374151)' }}>
+              {['日付', 'レース', '結果', 'Det', 'LLM', 'Gemini', 'あなた'].map(h => <th key={h} style={th}>{h}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {shown.map(s => (
+              <tr key={s.rid} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                <td style={{ ...td, color: 'var(--text-secondary, #9ca3af)' }}>{s.date}</td>
+                <td style={td}>{s.venue}{s.r}R</td>
+                <td style={{ ...td, fontWeight: 700, color: 'var(--accent-blue, #60a5fa)' }}>{s.result}</td>
+                <td style={td}><Pick picks={s.detPicks} hit={s.detHit} /></td>
+                <td style={td}><Pick picks={s.llmPicks} hit={s.llmHit} /></td>
+                <td style={td}><Pick picks={s.gemPicks} hit={s.gemHit} /></td>
+                <td style={td}>{s.hasUser ? <Pick picks={s.userPicks} hit={s.userHit} /> : <span style={{ color: 'var(--text-secondary, #6b7280)' }}>-</span>}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {limit < sorted.length && (
+        <button onClick={() => setLimit(l => l + 50)} style={{ marginTop: '0.75rem', padding: '0.45rem 1rem', background: 'transparent', border: '1px solid var(--border, #374151)', borderRadius: '6px', cursor: 'pointer', color: 'var(--text-primary, #f3f4f6)', fontSize: '0.85rem' }}>
+          もっと見る（残り {sorted.length - limit} 件）
+        </button>
+      )}
+    </div>
+  );
+};
+
 /** 合言葉バー: クラウド同期の有効化 / 状態表示 */
 const PassphraseBar = ({ passReady, statusMsg, onSetPass, onLogout }) => {
   const [val, setVal] = useState('');
@@ -499,6 +599,13 @@ const Battle = () => {
   const [uid, setUid] = useState('');
   const [passReady, setPassReady] = useState(false);
   const [statusMsg, setStatusMsg] = useState('');
+  const [view, setView] = useState('today'); // 'today' = 今日のレース / 'past' = 過去成績
+
+  // AI予測×結果の決着済みレース（戦績カード・グラフ・一覧で共用）。重い結合なのでメモ化。
+  const settled = useMemo(
+    () => buildSettled(history, aiPreds, userPreds),
+    [history, aiPreds, userPreds]
+  );
 
   // ユーザー予測のロード（uid があればクラウド、無ければローカル）
   const reloadUserPreds = async (theUid) => {
@@ -547,16 +654,19 @@ const Battle = () => {
       .then(text => {
         if (!text) return;
         const lines = text.split('\n').filter(l => l.trim());
-        const headers = lines[0].split(',');
-        const idxID = headers.indexOf('ID');
-        const idxResult = headers.indexOf('Result');
-        const idxPayout = headers.indexOf('Payout');
+        const headers = lines[0].split(',').map(h => h.trim());
+        const idx = (name) => headers.indexOf(name);
+        const iID = idx('ID'), iRes = idx('Result'), iPay = idx('Payout');
+        const iDate = idx('Date'), iVenue = idx('Venue'), iR = idx('R');
         const rows = lines.slice(1).map(l => {
           const cols = l.split(',');
           return {
-            ID: cols[idxID],
-            Result: cols[idxResult],
-            Payout: cols[idxPayout],
+            ID: cols[iID],
+            Result: cols[iRes],
+            Payout: cols[iPay],
+            Date: iDate >= 0 ? cols[iDate] : '',
+            Venue: iVenue >= 0 ? cols[iVenue] : '',
+            R: iR >= 0 ? cols[iR] : '',
           };
         });
         setHistory(rows);
@@ -628,7 +738,7 @@ const Battle = () => {
         onLogout={handleLogout}
       />
 
-      <HistorySummary userPreds={userPreds} history={history} aiPredsByRid={aiPreds} />
+      <HistorySummary settled={settled} />
 
       {selected ? (
         <RaceDetail
@@ -638,7 +748,26 @@ const Battle = () => {
           onBack={() => setSelectedRid(null)}
         />
       ) : (
-        <RaceList races={info.races} userPreds={userPreds} onSelect={setSelectedRid} />
+        <>
+          {/* 今日のレース / 過去成績 の切替 */}
+          <div className="tab-container" style={{ marginBottom: '1rem' }}>
+            <button className={`tab-button ${view === 'today' ? 'active' : ''}`} onClick={() => setView('today')}>
+              今日のレース（{info.races.length}）
+            </button>
+            <button className={`tab-button ${view === 'past' ? 'active' : ''}`} onClick={() => setView('past')}>
+              過去成績・グラフ
+            </button>
+          </div>
+
+          {view === 'today' ? (
+            <RaceList races={info.races} userPreds={userPreds} onSelect={setSelectedRid} />
+          ) : (
+            <>
+              <HitRateTrend settled={settled} />
+              <PastRaces settled={settled} />
+            </>
+          )}
+        </>
       )}
     </div>
   );

@@ -35,6 +35,11 @@ jobs:
         working-directory: dashboard
         run: npm run build
 
+      # Jekyll を無効化（Vite製サイトなので不要）。これが無いと Pages の Jekyll ビルドが
+      # 重く/詰まり、大きめの静的ファイル(結果CSV等)の反映が止まることがある。
+      - name: Disable Jekyll
+        run: touch dashboard/dist/.nojekyll
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
