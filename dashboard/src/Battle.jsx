@@ -31,8 +31,18 @@ const RaceList = ({ races, userPreds, onSelect }) => {
   return (
     <div style={{ display: 'grid', gap: '0.75rem', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}>
       {races.map(race => {
-        const aiPicks = parseAiPicks(race.ai_picks_det);
+        const detPicks = parseAiPicks(race.ai_picks_det);
+        const llmPicks = parseAiPicks(race.ai_picks_llm);
+        const gemPicks = parseAiPicks(race.ai_picks_gemini);
         const hasUser = !!userByRid[race.race_id];
+        const aiRow = (label, color, picks) => (
+          <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.2rem' }}>
+            <span style={{ color, fontWeight: 600, minWidth: '46px' }}>{label}</span>
+            <span style={{ fontFamily: 'monospace', color: picks.length ? 'var(--text-primary, #f3f4f6)' : 'var(--text-secondary, #6b7280)' }}>
+              {picks.length ? picks.slice(0, 2).map(p => p.combo).join(', ') + (picks.length > 2 ? ' …' : '') : 'なし'}
+            </span>
+          </div>
+        );
         return (
           <div
             key={race.race_id}
@@ -53,16 +63,10 @@ const RaceList = ({ races, userPreds, onSelect }) => {
                 <span style={{ fontSize: '0.75rem', color: 'var(--success, #10b981)' }}>✓ 予想済み</span>
               )}
             </div>
-            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary, #9ca3af)' }}>
-              <div>AI予測 (Det):</div>
-              <div style={{ marginTop: '0.25rem', fontFamily: 'monospace', wordBreak: 'break-all' }}>
-                {aiPicks.length > 0
-                  ? aiPicks.slice(0, 3).map((p, i) => (
-                    <span key={i} style={{ marginRight: '0.5rem' }}>{p.combo}{p.stake ? `:${p.stake}` : ''}</span>
-                  ))
-                  : '(なし)'}
-                {aiPicks.length > 3 && <span> ...</span>}
-              </div>
+            <div style={{ fontSize: '0.8rem' }}>
+              {aiRow('Det', '#60a5fa', detPicks)}
+              {aiRow('LLM', '#f59e0b', llmPicks)}
+              {aiRow('Gemini', '#10b981', gemPicks)}
             </div>
           </div>
         );
