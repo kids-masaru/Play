@@ -140,7 +140,10 @@ const App = () => {
           <h1 style={{ margin: 0 }}>BOAT RACE AI | Premium ROI Dashboard</h1>
           <div className="tab-container">
             <button className={`tab-button ${page === 'dashboard' ? 'active' : ''}`} onClick={() => setPage('dashboard')}>Dashboard</button>
-            <button className={`tab-button ${page === 'ailab' ? 'active' : ''}`} onClick={() => setPage('ailab')}>AI Lab</button>
+            {/* AI Lab タブは非表示（自己改善ループ停止中のため）。将来AIが賢くなったら復活できるよう
+                renderAiLab() と loop_results.json・ループ関連スクリプトはそのまま残してある。
+                再表示するにはこの行のコメントを戻すだけ:
+            <button className={`tab-button ${page === 'ailab' ? 'active' : ''}`} onClick={() => setPage('ailab')}>AI Lab</button> */}
             <button className={`tab-button ${page === 'battle' ? 'active' : ''}`} onClick={() => setPage('battle')}>予測対戦</button>
             <button className={`tab-button ${page === 'toto' ? 'active' : ''}`} onClick={() => setPage('toto')}>toto</button>
           </div>
