@@ -44,10 +44,12 @@ SOURCE_CSVS = [
     "daily_odds_3t.csv",          # 3連単オッズ (1行=1組合せ)
 ]
 
-# 公開（push）対象。ダッシュボードが実際に fetch するのはこの2つの JSON。
+# 公開（push）対象。ダッシュボードが実際に fetch するファイル。
 PUBLISH_FILES = [
     "dashboard/public/daily_data/daily_race_info.json",
     "dashboard/public/daily_data/ai_predictions_summary.json",
+    # 予測対戦の「4者戦績」は結果CSVが要る。これが無いと本番で的中率が全部0になる。
+    "dashboard/public/daily_data/daily_history_results.csv",
 ]
 
 
