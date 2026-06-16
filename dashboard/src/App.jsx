@@ -26,7 +26,9 @@ const App = () => {
   };
 
   useEffect(() => {
-    fetch('./daily_data/dashboard_data.json')
+    // 日次更新データの古いキャッシュを避けるためクエリで打ち消す
+    const cb = `?t=${Date.now()}`;
+    fetch(`./daily_data/dashboard_data.json${cb}`)
       .then(res => {
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         return res.json();
@@ -37,7 +39,7 @@ const App = () => {
         setError(err.message);
       });
 
-    fetch('./daily_data/loop_results.json')
+    fetch(`./daily_data/loop_results.json${cb}`)
       .then(res => res.ok ? res.json() : null)
       .then(json => json && setLoopData(json))
       .catch(() => {});

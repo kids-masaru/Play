@@ -641,19 +641,22 @@ const Battle = () => {
   }, []);
 
   useEffect(() => {
-    fetch('./daily_data/daily_race_info.json')
+    // データはGitHub Pagesが日次更新するため、ブラウザ/CDNの古いキャッシュを避ける
+    // よう毎回クエリで打ち消す（これが無いと更新後も古い予測/結果が表示され続ける）。
+    const cb = `?t=${Date.now()}`;
+    fetch(`./daily_data/daily_race_info.json${cb}`)
       .then(res => res.ok ? res.json() : Promise.reject(`HTTP ${res.status}`))
       .then(setInfo)
       .catch(err => setError(String(err)));
 
     // AI予測サマリ (全期間、Det/LLM picks)
-    fetch('./daily_data/ai_predictions_summary.json')
+    fetch(`./daily_data/ai_predictions_summary.json${cb}`)
       .then(res => res.ok ? res.json() : {})
       .then(setAiPreds)
       .catch(() => {});
 
     // 履歴は CSV を簡易パース
-    fetch('./daily_data/daily_history_results.csv')
+    fetch(`./daily_data/daily_history_results.csv${cb}`)
       .then(res => res.ok ? res.text() : '')
       .then(text => {
         if (!text) return;

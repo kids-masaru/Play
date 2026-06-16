@@ -371,7 +371,8 @@ const Toto = () => {
     } else {
       reloadUserPreds(null);
     }
-    fetch('./daily_data/toto_info.json')
+    // 日次更新データの古いキャッシュを避けるためクエリで打ち消す
+    fetch(`./daily_data/toto_info.json?t=${Date.now()}`)
       .then((res) => (res.ok ? res.json() : Promise.reject(`HTTP ${res.status}`)))
       .then(setInfo)
       .catch((err) => setError(String(err)));
