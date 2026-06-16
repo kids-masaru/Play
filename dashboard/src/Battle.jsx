@@ -350,24 +350,46 @@ const buildSettled = (history, aiPredsByRid, userPreds) => {
     const h = histByRid[rid];
     if (!h || !String(h.Result).trim()) return null;
     const result = String(h.Result).replace(/\s/g, '');
-    const detPicks = parseAiPicks(ai.stakes_det).map(x => x.combo);
-    const llmPicks = parseAiPicks(ai.stakes).map(x => x.combo);
-    const gemPicks = parseAiPicks(ai.stakes_gemini).map(x => x.combo);
+    const payout = Number(h.Payout) || 0;  // 3連単の100円あたり払戻金
+    // AI: 各買い目に賭け金。投資=Σ賭け金、払戻=的中買い目の賭け金×payout/100
+    const aiSide = (field) => {
+      const parsed = parseAiPicks(ai[field]);
+      let inv = 0, ret = 0, hit = false;
+      parsed.forEach(({ combo, stake }) => {
+        const s = stake || 0;
+        inv += s;
+        if (comboHit(combo, result)) { ret += s * payout / 100; hit = true; }
+      });
+      return { picks: parsed.map(x => x.combo), hit, inv, ret };
+    };
+    const det = aiSide('stakes_det');
+    const llm = aiSide('stakes');
+    const gem = aiSide('stakes_gemini');
+    // ユーザー: 1点あたり stake(既定100円)で全買い目に賭けたとみなす
     const u = userByRid[rid];
+    const uStake = u ? (Number(u.stake) || 100) : 0;
+    const uHit = u ? u.picks.some(c => comboHit(c, result)) : false;
+    const uInv = u ? uStake * u.picks.length : 0;
+    const uRet = uHit ? uStake * payout / 100 : 0;
     return {
       rid,
       date: h.Date || '', venue: h.Venue || '', r: h.R || '',
-      result,
-      detPicks, llmPicks, gemPicks,
-      detHit: detPicks.length > 0 && detPicks.some(c => comboHit(c, result)),
-      llmHit: llmPicks.length > 0 && llmPicks.some(c => comboHit(c, result)),
-      gemHit: gemPicks.length > 0 && gemPicks.some(c => comboHit(c, result)),
+      result, payout,
+      detPicks: det.picks, llmPicks: llm.picks, gemPicks: gem.picks,
+      detHit: det.hit, llmHit: llm.hit, gemHit: gem.hit,
+      detMoney: { inv: det.inv, ret: det.ret },
+      llmMoney: { inv: llm.inv, ret: llm.ret },
+      gemMoney: { inv: gem.inv, ret: gem.ret },
       hasUser: !!u,
       userPicks: u ? u.picks : [],
-      userHit: u ? u.picks.some(c => comboHit(c, result)) : false,
+      userHit: uHit,
+      userMoney: { inv: uInv, ret: uRet },
     };
   }).filter(Boolean);
 };
+
+/** 円の符号付き表記 */
+const yen = (v) => `${v >= 0 ? '+' : '-'}¥${Math.abs(Math.round(v)).toLocaleString()}`;
 
 /** 履歴サマリパネル: 4者(Det/LLM/Gemini/あなた)比較 */
 const HistorySummary = ({ settled }) => {
@@ -388,41 +410,27 @@ const HistorySummary = ({ settled }) => {
   const llmStat = stat({ has: s => s.llmPicks.length > 0, hit: s => s.llmHit });
   const gemStat = stat({ has: s => s.gemPicks.length > 0, hit: s => s.gemHit });
 
+  // 金額集計（投資・払戻・収支・ROI）
+  const money = (key) => {
+    let inv = 0, ret = 0;
+    settled.forEach(s => { inv += s[key].inv; ret += s[key].ret; });
+    return { inv, ret, profit: ret - inv, roi: inv > 0 ? (ret / inv * 100).toFixed(1) : null };
+  };
+  const detM = money('detMoney');
+  const llmM = money('llmMoney');
+  const gemM = money('gemMoney');
+  const userM = money('userMoney');
+
   return (
     <div className="glass-card" style={{ padding: '1.25rem', marginBottom: '1.5rem' }}>
       <h3 style={{ margin: '0 0 0.75rem 0', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
         <Trophy size={18} /> 4者対戦戦績 (AI比較は結果が出た{total}レース／あなたは予想した{userStat.n}レース)
       </h3>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '0.85rem' }}>
-        <CompetitorCard
-          name="AI Det (LightGBM)"
-          color="#60a5fa"
-          rate={detStat.rate}
-          hits={detStat.hits}
-          n={detStat.n}
-        />
-        <CompetitorCard
-          name="AI LLM (Gemma)"
-          color="#f59e0b"
-          rate={llmStat.rate}
-          hits={llmStat.hits}
-          n={llmStat.n}
-        />
-        <CompetitorCard
-          name="AI Gemini"
-          color="#10b981"
-          rate={gemStat.rate}
-          hits={gemStat.hits}
-          n={gemStat.n}
-        />
-        <CompetitorCard
-          name="あなた"
-          color="#8b5cf6"
-          rate={userStat.rate}
-          hits={userStat.hits}
-          n={userStat.n}
-          highlight
-        />
+        <CompetitorCard name="AI Det (LightGBM)" color="#60a5fa" rate={detStat.rate} hits={detStat.hits} n={detStat.n} money={detM} />
+        <CompetitorCard name="AI LLM (Gemma)" color="#f59e0b" rate={llmStat.rate} hits={llmStat.hits} n={llmStat.n} money={llmM} />
+        <CompetitorCard name="AI Gemini" color="#10b981" rate={gemStat.rate} hits={gemStat.hits} n={gemStat.n} money={gemM} />
+        <CompetitorCard name="あなた" color="#8b5cf6" rate={userStat.rate} hits={userStat.hits} n={userStat.n} money={userM} highlight />
       </div>
       {total === 0 ? (
         <div style={{ marginTop: '0.75rem', fontSize: '0.85rem', color: 'var(--text-secondary, #9ca3af)' }}>
@@ -437,21 +445,30 @@ const HistorySummary = ({ settled }) => {
   );
 };
 
-const CompetitorCard = ({ name, color, rate, hits, n, highlight }) => (
-  <div style={{
-    padding: '0.85rem',
-    background: highlight ? `${color}15` : 'rgba(255,255,255,0.03)',
-    border: `1px solid ${color}40`,
-    borderRadius: '8px',
-    textAlign: 'center',
-  }}>
-    <div style={{ fontSize: '0.8rem', color, marginBottom: '0.4rem', fontWeight: 600 }}>{name}</div>
-    <div style={{ fontSize: '1.6rem', fontWeight: 700, color: 'inherit' }}>{rate}%</div>
-    <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #9ca3af)' }}>
-      {hits}/{n} 的中
+const CompetitorCard = ({ name, color, rate, hits, n, money, highlight }) => {
+  const profit = money ? money.profit : null;
+  return (
+    <div style={{
+      padding: '0.85rem',
+      background: highlight ? `${color}15` : 'rgba(255,255,255,0.03)',
+      border: `1px solid ${color}40`,
+      borderRadius: '8px',
+      textAlign: 'center',
+    }}>
+      <div style={{ fontSize: '0.8rem', color, marginBottom: '0.4rem', fontWeight: 600 }}>{name}</div>
+      <div style={{ fontSize: '1.6rem', fontWeight: 700, color: 'inherit' }}>{rate}%</div>
+      <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #9ca3af)' }}>{hits}/{n} 的中</div>
+      {money && money.inv > 0 && (
+        <div style={{ marginTop: '0.5rem', paddingTop: '0.4rem', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+          <div style={{ fontSize: '0.95rem', fontWeight: 700, color: profit >= 0 ? '#10b981' : '#ef4444' }}>{yen(profit)}</div>
+          <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary, #9ca3af)' }}>
+            ROI {money.roi ?? '-'}%・投資¥{Math.round(money.inv).toLocaleString()}
+          </div>
+        </div>
+      )}
     </div>
-  </div>
-);
+  );
+};
 
 const Stat = ({ label, value, accent }) => (
   <div style={{ textAlign: 'center' }}>
@@ -501,6 +518,52 @@ const HitRateTrend = ({ settled }) => {
           <Line dataKey="LLM" stroke="#f59e0b" connectNulls dot={false} strokeWidth={2} />
           <Line dataKey="Gemini" stroke="#10b981" connectNulls dot={false} strokeWidth={2} />
           <Line dataKey="あなた" stroke="#8b5cf6" connectNulls dot={{ r: 3 }} strokeWidth={2.5} />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
+
+/** 収支の推移（日ごとの累積収支・折れ線） */
+const BalanceTrend = ({ settled }) => {
+  const byDate = {};
+  settled.forEach(s => {
+    const d = s.date;
+    if (!d) return;
+    const b = byDate[d] || (byDate[d] = { date: d, det: 0, llm: 0, gem: 0, user: 0 });
+    b.det += s.detMoney.ret - s.detMoney.inv;
+    b.llm += s.llmMoney.ret - s.llmMoney.inv;
+    b.gem += s.gemMoney.ret - s.gemMoney.inv;
+    b.user += s.userMoney.ret - s.userMoney.inv;
+  });
+  const days = Object.values(byDate).sort((a, b) => a.date.localeCompare(b.date));
+  if (days.length === 0) return null;
+  let cd = 0, cl = 0, cg = 0, cu = 0;
+  let userHasData = false;
+  const data = days.map(b => {
+    cd += b.det; cl += b.llm; cg += b.gem; cu += b.user;
+    if (b.user !== 0) userHasData = true;
+    return { date: b.date.slice(5), Det: Math.round(cd), LLM: Math.round(cl), Gemini: Math.round(cg), あなた: Math.round(cu) };
+  });
+  return (
+    <div className="glass-card" style={{ padding: '1rem 1.1rem', marginBottom: '1.25rem' }}>
+      <h3 style={{ margin: '0 0 0.25rem 0', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+        <TrendingUp size={18} /> 収支の推移（累積・100円賭け換算）
+      </h3>
+      <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #9ca3af)', marginBottom: '0.6rem' }}>
+        各AIの買い目どおり賭け続けたら今いくらか（実際の払戻金ベース）。控除率があるため基本は右肩下がり。
+      </div>
+      <ResponsiveContainer width="100%" height={280}>
+        <LineChart data={data} margin={{ top: 5, right: 10, bottom: 0, left: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" vertical={false} />
+          <XAxis dataKey="date" {...TREND_AXIS} minTickGap={28} />
+          <YAxis {...TREND_AXIS} tickFormatter={(v) => `${Math.round(v / 1000)}k`} />
+          <Tooltip contentStyle={TREND_TIP} formatter={(v) => [`¥${Number(v).toLocaleString()}`, '']} />
+          <Legend wrapperStyle={{ fontSize: '0.78rem' }} />
+          <Line dataKey="Det" stroke="#60a5fa" dot={false} strokeWidth={2} />
+          <Line dataKey="LLM" stroke="#f59e0b" dot={false} strokeWidth={2} />
+          <Line dataKey="Gemini" stroke="#10b981" dot={false} strokeWidth={2} />
+          {userHasData && <Line dataKey="あなた" stroke="#8b5cf6" dot={false} strokeWidth={2.5} />}
         </LineChart>
       </ResponsiveContainer>
     </div>
@@ -796,6 +859,7 @@ const Battle = () => {
             <RaceList races={info.races} userPreds={userPreds} onSelect={setSelectedRid} />
           ) : (
             <>
+              <BalanceTrend settled={settled} />
               <HitRateTrend settled={settled} />
               <PastRaces settled={settled} />
             </>
