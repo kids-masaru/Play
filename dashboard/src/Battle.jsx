@@ -314,22 +314,23 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
 /** 履歴サマリパネル: 3者(Det/LLM/あなた)比較 */
 const HistorySummary = ({ userPreds, history, aiPredsByRid }) => {
   const histByRid = Object.fromEntries(history.map(h => [h.ID, h]));
+  const userByRid = Object.fromEntries(userPreds.map(p => [p.race_id, p]));
 
-  // ユーザーが予測したレースのうち、結果が出たもの
-  const settled = userPreds.map(p => {
-    const h = histByRid[p.race_id];
-    if (!h) return null;
+  // AI予測があるレースのうち、結果が出たものを比較対象にする。
+  // ユーザーの予測有無に関係なく AI/計算(Det)の戦績は常に集計し、
+  // ユーザーが予測したレースだけ「あなた」の的中も混ぜる。
+  const settled = Object.entries(aiPredsByRid).map(([rid, ai]) => {
+    const h = histByRid[rid];
+    if (!h || !String(h.Result).trim()) return null;
     const result = String(h.Result).replace(/\s/g, '');
-    const payout = Number(h.Payout) || 0;
-    const ai = aiPredsByRid[p.race_id] || {};
     const detPicks = parseAiPicks(ai.stakes_det).map(x => x.combo);
     const llmPicks = parseAiPicks(ai.stakes).map(x => x.combo);
     const gemPicks = parseAiPicks(ai.stakes_gemini).map(x => x.combo);
+    const u = userByRid[rid];
     return {
-      ...p,
       result,
-      payout,
-      userHit: p.picks.some(c => c === result),
+      hasUser: !!u,
+      userHit: u ? u.picks.some(c => c === result) : false,
       detHit: detPicks.length > 0 && detPicks.some(c => c === result),
       llmHit: llmPicks.length > 0 && llmPicks.some(c => c === result),
       gemHit: gemPicks.length > 0 && gemPicks.some(c => c === result),
@@ -351,7 +352,7 @@ const HistorySummary = ({ userPreds, history, aiPredsByRid }) => {
     };
   };
 
-  const userStat = stat({ has: () => true, hit: s => s.userHit });
+  const userStat = stat({ has: s => s.hasUser, hit: s => s.userHit });
   const detStat = stat({ has: s => s.detPicks.length > 0, hit: s => s.detHit });
   const llmStat = stat({ has: s => s.llmPicks.length > 0, hit: s => s.llmHit });
   const gemStat = stat({ has: s => s.gemPicks.length > 0, hit: s => s.gemHit });
@@ -359,7 +360,7 @@ const HistorySummary = ({ userPreds, history, aiPredsByRid }) => {
   return (
     <div className="glass-card" style={{ padding: '1.25rem', marginBottom: '1.5rem' }}>
       <h3 style={{ margin: '0 0 0.75rem 0', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-        <Trophy size={18} /> 4者対戦戦績 (結果が出た{total}レース)
+        <Trophy size={18} /> 4者対戦戦績 (AI比較は結果が出た{total}レース／あなたは予想した{userStat.n}レース)
       </h3>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '0.85rem' }}>
         <CompetitorCard
@@ -392,9 +393,13 @@ const HistorySummary = ({ userPreds, history, aiPredsByRid }) => {
           highlight
         />
       </div>
-      {total === 0 && (
+      {total === 0 ? (
         <div style={{ marginTop: '0.75rem', fontSize: '0.85rem', color: 'var(--text-secondary, #9ca3af)' }}>
-          まだ「あなたの予測 + 結果が出てる」レースがありません。予測を入力して結果を待ってください。
+          まだ結果データがありません。
+        </div>
+      ) : userStat.n === 0 && (
+        <div style={{ marginTop: '0.75rem', fontSize: '0.85rem', color: 'var(--text-secondary, #9ca3af)' }}>
+          AI/計算の戦績は常に集計中です。あなたが予想を入れたレースだけ「あなた」の的中にも反映されます。
         </div>
       )}
     </div>
