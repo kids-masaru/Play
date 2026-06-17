@@ -34,7 +34,9 @@ OUTPUT_CSV = os.path.join(DATA_DIR, "daily_gemini_predictions.csv")
 SLEEP_BETWEEN_CALLS = 1.5  # rate limit余裕
 
 PROMPT_TEMPLATE = """あなたはボートレース予想のプロです。
-以下のレース情報をもとに、3連単(1着-2着-3着)の予想を立ててください。
+以下のレース情報を分析し、まず「買う価値（妙味）があるレースか」を判断してください。
+オッズに対して期待値が見込めない（本命が堅すぎてオッズに妙味がない／荒れすぎて読めない等）と
+判断した場合は、無理に賭けず「見送り」にしてください。"買わない判断"もプロの腕のうちです。
 
 【会場】{venue} {r}R
 【天候】{weather} / 風: {wind_dir} {wind_speed} / 波: {wave} / 水温: {water_temp}
@@ -46,13 +48,14 @@ PROMPT_TEMPLATE = """あなたはボートレース予想のプロです。
 以下のフォーマットで必ず回答してください。
 
 [思考]
-（推論プロセス、3-5行で。インコース有利か、各艇の調子、オッズの妙味など）
+（推論プロセス、3-5行で。インコース有利か、各艇の調子、オッズに妙味があるか）
 
 [最終見解]
-（1-2行で結論。何号艇が軸でなぜか）
+（1-2行で結論。買うなら軸と理由、見送るならその理由）
 
 [買い目]
-（3連単を3-5点、1行1点で「1-2-3」形式のみ。他のテキストは含めない）
+（妙味があれば3連単を3-5点、1行1点で「1-2-3」形式のみ。
+　買う価値がないと判断したら「見送り」とだけ書き、買い目は出さないこと）
 """
 
 
@@ -83,6 +86,7 @@ def format_race(race):
 def parse_response(text):
     sections = {"thought": "", "verdict": "", "picks": []}
     current = None
+    skip = False  # 「見送り」判定（買う価値なし）
     for line in text.split("\n"):
         stripped = line.strip()
         if stripped.startswith("[思考]"):
@@ -100,11 +104,17 @@ def parse_response(text):
         elif current == "verdict":
             sections["verdict"] += stripped + "\n"
         elif current == "picks":
+            if "見送り" in stripped:
+                skip = True
+                continue
             for m in re.findall(r"[1-6]-[1-6]-[1-6]", stripped):
                 # 同じ艇番号重複は除外
                 a, b, c = m.split("-")
                 if len({a, b, c}) == 3:
                     sections["picks"].append(m)
+    if skip:
+        # 見送り宣言があれば買い目は出さない（妙味なしレース）
+        sections["picks"] = []
     # 重複除去・上限5
     seen = set()
     unique = []
