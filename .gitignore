@@ -82,3 +82,8 @@ desktop.ini
 
 # SQLite database (too large for GitHub)
 data/
+
+# Gemma微調整: スクリプトは追跡、生成物(jsonl/モデル)は除外
+!gemma_finetune/data/
+gemma_finetune/data/*.jsonl
+gemma_finetune/outputs/
