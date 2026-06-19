@@ -28,6 +28,18 @@ def push_to_github():
     except Exception as e:
         print(f"  [WARN] generate_loop_data 失敗（無視して続行）: {e}")
 
+    # 予測対戦ダッシュボードも結果込みで再生成（深夜に旧ダッシュボードと足並みを揃える）。
+    # Gemini/学習Gemmaは朝バッチが生成するのでここでは叩かない(--skip)。push もしない(--no-push)＝
+    # 下の git add/commit/push でまとめて公開する。
+    try:
+        subprocess.run(
+            [sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "update_battle_dashboard.py"),
+             "--skip-gemini", "--skip-gemma", "--no-push"],
+            check=False, env=env,
+        )
+    except Exception as e:
+        print(f"  [WARN] 予測対戦の再生成に失敗（無視して続行）: {e}")
+
     # 1. Add（夜バッチで更新されうるファイルをすべて追加）
     files_to_add = [
         "dashboard/public/daily_data/dashboard_data.json",
@@ -38,6 +50,12 @@ def push_to_github():
         "dashboard/public/daily_data/daily_player_course_stats.csv",
         "daily_data/daily_odds_3t.csv",
         "daily_data/daily_reflections.csv",
+        # 予測対戦（結果込み）の公開ファイル。深夜に旧ダッシュボードと同時更新するため追加。
+        "dashboard/public/daily_data/daily_race_info.json",
+        "dashboard/public/daily_data/ai_predictions_summary.json",
+        "dashboard/public/daily_data/daily_history_results.csv",
+        "dashboard/public/daily_data/daily_gemini_predictions.csv",
+        "dashboard/public/daily_data/daily_gemma_predictions.csv",
     ]
     for f in files_to_add:
         if os.path.exists(f):
