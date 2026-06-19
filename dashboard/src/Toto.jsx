@@ -339,12 +339,18 @@ const TotoCharts = ({ matches, userByMid }) => {
 };
 
 const Toto = () => {
-  const [info, setInfo] = useState(null);
+  const [roundsData, setRoundsData] = useState(null);   // { default_round, rounds:[...] }
+  const [selectedRound, setSelectedRound] = useState(null);
   const [error, setError] = useState(null);
   const [userPreds, setUserPreds] = useState([]);
   const [uid, setUid] = useState('');
   const [passReady, setPassReady] = useState(false);
   const [statusMsg, setStatusMsg] = useState('');
+
+  // 選択中の回データ（toto_rounds.json から選ぶ）
+  const info = (roundsData && selectedRound != null)
+    ? (roundsData.rounds.find((r) => r.round === selectedRound) || roundsData.rounds[0])
+    : null;
 
   const reloadUserPreds = async (theUid) => {
     if (cloudEnabled() && theUid) {
@@ -372,10 +378,17 @@ const Toto = () => {
       reloadUserPreds(null);
     }
     // 日次更新データの古いキャッシュを避けるためクエリで打ち消す
-    fetch(`./daily_data/toto_info.json?t=${Date.now()}`)
+    const cb = `?t=${Date.now()}`;
+    // 全回データ（過去の答え合わせも回切替で閲覧）。無ければ単一回にフォールバック。
+    fetch(`./daily_data/toto_rounds.json${cb}`)
       .then((res) => (res.ok ? res.json() : Promise.reject(`HTTP ${res.status}`)))
-      .then(setInfo)
-      .catch((err) => setError(String(err)));
+      .then((d) => { setRoundsData(d); setSelectedRound(d.default_round); })
+      .catch(() => {
+        fetch(`./daily_data/toto_info.json${cb}`)
+          .then((res) => (res.ok ? res.json() : Promise.reject(`HTTP ${res.status}`)))
+          .then((one) => { setRoundsData({ default_round: one.round, rounds: [one] }); setSelectedRound(one.round); })
+          .catch((err) => setError(String(err)));
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -420,7 +433,7 @@ const Toto = () => {
     setStatusMsg('');
   };
 
-  if (error) return <div className="glass-card" style={{ padding: '1.5rem' }}>toto データ取得エラー: {error}<div style={{ fontSize: '0.8rem', color: 'var(--text-secondary, #9ca3af)', marginTop: '0.5rem' }}>※ toto_info.json が未生成の可能性。`python toto/generate_toto_data.py` を実行してください。</div></div>;
+  if (error) return <div className="glass-card" style={{ padding: '1.5rem' }}>toto データ取得エラー: {error}<div style={{ fontSize: '0.8rem', color: 'var(--text-secondary, #9ca3af)', marginTop: '0.5rem' }}>※ toto_rounds.json / toto_info.json が未生成の可能性。`python toto/generate_toto_data.py` を実行してください。</div></div>;
   if (!info) return <div className="glass-card" style={{ padding: '1.5rem' }}>Loading...</div>;
 
   const userByMid = Object.fromEntries(userPreds.map((p) => [p.match_id, p]));
@@ -439,6 +452,29 @@ const Toto = () => {
         </button>
       </div>
 
+      {/* 回の切替（過去の答え合わせも見られる） */}
+      {roundsData.rounds.length > 1 && (
+        <div style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+          <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary, #9ca3af)' }}>回を選ぶ:</span>
+          <select
+            value={selectedRound}
+            onChange={(e) => setSelectedRound(Number(e.target.value))}
+            style={{ padding: '0.4rem 0.6rem', background: 'rgba(0,0,0,0.3)', color: 'inherit', border: '1px solid var(--border, #374151)', borderRadius: '6px', fontSize: '0.85rem' }}
+          >
+            {roundsData.rounds.map((r) => {
+              const sm = r.summary;
+              const tag = r.settled
+                ? `結果あり${sm && sm.gemini && sm.gemini.n ? ` (Gemini的中${sm.gemini.hits}/${sm.gemini.n})` : ''}`
+                : (deadlineText(r.deadline) || '');
+              return <option key={r.round} value={r.round}>第{r.round}回{tag ? `　${tag}` : ''}</option>;
+            })}
+          </select>
+          {info.round === roundsData.default_round && (
+            <span style={{ fontSize: '0.75rem', color: 'var(--accent-purple, #a78bfa)' }}>← 最新</span>
+          )}
+        </div>
+      )}
+
       {!info.has_gemini && (
         <div className="glass-card" style={{ padding: '0.6rem 0.9rem', marginBottom: '1rem', fontSize: '0.8rem', color: 'var(--text-secondary, #9ca3af)' }}>
           ※ この回はまだ AI(Gemini) 予想が未生成です。
@@ -456,7 +492,7 @@ const Toto = () => {
       ))}
 
       <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary, #9ca3af)', marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-        <Trophy size={13} /> 試合結果が出たら、統計・Gemini・あなたの的中率を比較表示します（次の機能で対応予定）。
+        <Trophy size={13} /> 結果が出た回は上の「回を選ぶ」で切替えて答え合わせ（あなた・Gemini・統計の的中）を確認できます。
       </div>
     </div>
   );

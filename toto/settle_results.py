@@ -33,6 +33,10 @@ except Exception:
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(ROOT, "data")
 MATCHES_CSV = os.path.join(DATA_DIR, "jleague_matches.csv")
+# 国際試合(W杯等)など Jリーグ結果源で引けない試合の手入力フォールバック。
+#   { "1635-1": "H", "1635-2": "A", ... }  (match_id -> H/D/A)
+# Jリーグの自動結果が優先。無いものだけこのファイルで補う。
+MANUAL_RESULTS = os.path.join(DATA_DIR, "manual_results.json")
 
 # 表示と同じく toto を主軸に答え合わせ
 DISPLAY_KUJI_ORDER = ["toto", "mini_a", "mini_b"]
@@ -41,6 +45,20 @@ DISPLAY_KUJI_ORDER = ["toto", "mini_a", "mini_b"]
 def load_json(path):
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
+
+
+def load_manual():
+    """手入力結果 {match_id: 'H'/'D'/'A'} を読む。無ければ空dict。"""
+    if not os.path.exists(MANUAL_RESULTS):
+        return {}
+    try:
+        data = load_json(MANUAL_RESULTS)
+        # 値を大文字H/D/Aに正規化し、妥当なものだけ採用
+        return {str(k): str(v).strip().upper() for k, v in data.items()
+                if str(v).strip().upper() in ("H", "D", "A")}
+    except Exception as e:
+        print(f"[WARN] manual_results.json 読み込み失敗: {type(e).__name__}: {e}")
+        return {}
 
 
 def load_jleague():
@@ -85,7 +103,8 @@ def lookup_actual(match, lut, teams, normalize):
     return lut.get((str(match.get("date")), h, a), "")
 
 
-def settle_round(round_no, lut, teams, normalize, today):
+def settle_round(round_no, lut, teams, normalize, today, manual=None):
+    manual = manual or {}
     rpath = os.path.join(DATA_DIR, f"round_{round_no}.json")
     if not os.path.exists(rpath):
         return None
@@ -100,7 +119,9 @@ def settle_round(round_no, lut, teams, normalize, today):
     results = []
     stat_n = stat_hits = gem_n = gem_hits = 0
     for m in sec["matches"]:
-        actual = lookup_actual(m, lut, teams, normalize)
+        mid = f"{round_no}-{m.get('no')}"
+        # Jリーグ自動結果を優先。引けなければ手入力フォールバック(国際試合等)。
+        actual = lookup_actual(m, lut, teams, normalize) or manual.get(mid, "")
         g = gidx.get((m.get("date"), m.get("home"), m.get("away"))) or {}
         stats_pick = (g.get("stats") or {}).get("pick", "")
         gemini_pick = g.get("pick", "")
@@ -119,7 +140,7 @@ def settle_round(round_no, lut, teams, normalize, today):
                     gem_hits += 1
 
         results.append({
-            "match_id": f"{round_no}-{m.get('no')}",
+            "match_id": mid,
             "no": m.get("no"),
             "home": m.get("home"),
             "away": m.get("away"),
@@ -164,6 +185,9 @@ def main():
     lut, teams = load_jleague()
     if not lut:
         print("[WARN] jleague_matches.csv が無い/空のため、Jリーグ結果の答え合わせはできません。")
+    manual = load_manual()
+    if manual:
+        print(f"[INFO] 手入力結果 {len(manual)} 件を読み込み（国際試合等のフォールバック）")
 
     if args:
         rounds = [int(a) for a in args]
@@ -177,7 +201,7 @@ def main():
 
     print(f"=== 答え合わせ (基準日 {today.isoformat()}) ===")
     for rno in sorted(rounds):
-        out = settle_round(rno, lut, teams, normalize_team, today)
+        out = settle_round(rno, lut, teams, normalize_team, today, manual)
         if out is None:
             continue
         path = save(out)

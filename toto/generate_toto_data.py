@@ -30,7 +30,8 @@ except Exception:
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(ROOT, "data")
 OUT_DIR = os.path.join(ROOT, "..", "dashboard", "public", "daily_data")
-OUT_JSON = os.path.join(OUT_DIR, "toto_info.json")
+OUT_JSON = os.path.join(OUT_DIR, "toto_info.json")          # 既定表示の1回（後方互換）
+OUT_ALL_JSON = os.path.join(OUT_DIR, "toto_rounds.json")    # 全回（過去の答え合わせ閲覧用）
 
 DISPLAY_KUJI_ORDER = ["toto", "mini_a", "mini_b"]  # 表示に使うくじ（先にあるものを採用）
 
@@ -167,6 +168,23 @@ def main():
           f"/ 締切 {data['deadline']}")
     print(f"Gemini予想あり {n_gem} / 統計予想あり {n_stat}")
     print(f"→ {os.path.abspath(OUT_JSON)}")
+
+    # --- 全回分も出力（ダッシュボードで過去の答え合わせを回切替で閲覧できるように）---
+    all_rounds = []
+    for p in glob.glob(os.path.join(DATA_DIR, "round_*.json")):
+        try:
+            rno = load_json(p)["round"]
+        except Exception:
+            continue
+        d = build(rno)
+        if d:
+            all_rounds.append(d)
+    all_rounds.sort(key=lambda x: x["round"], reverse=True)  # 新しい回を先頭に
+    out_all = {"default_round": data["round"], "rounds": all_rounds}
+    with open(OUT_ALL_JSON, "w", encoding="utf-8") as f:
+        json.dump(out_all, f, ensure_ascii=False, indent=2)
+    settled_cnt = sum(1 for r in all_rounds if r.get("settled"))
+    print(f"→ {os.path.abspath(OUT_ALL_JSON)} (全{len(all_rounds)}回 / 答え合わせ済み {settled_cnt}回)")
 
 
 if __name__ == "__main__":

@@ -70,6 +70,7 @@ credentials.env
 !dashboard/public/daily_data/daily_race_info.json
 !dashboard/public/daily_data/ai_predictions_summary.json
 !dashboard/public/daily_data/toto_info.json
+!dashboard/public/daily_data/toto_rounds.json
 !auto_research/wf_baseline.json
 # 予測対戦の戦績表示に必要（結果CSV）。本番配信のため除外解除
 !dashboard/public/daily_data/daily_history_results.csv
