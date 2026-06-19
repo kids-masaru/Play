@@ -65,6 +65,17 @@ def pick_display_kuji(round_data):
     return None, None
 
 
+def load_payouts():
+    """各回の1等当せん金(1口=100円あたり,円) {round(str): {toto:.., mini_a:.., mini_b:..}}。"""
+    ppath = os.path.join(DATA_DIR, "manual_payouts.json")
+    if not os.path.exists(ppath):
+        return {}
+    try:
+        return load_json(ppath)
+    except Exception:
+        return {}
+
+
 def load_game_actual(round_no):
     """settled_<回>.json から (date,home,away)->H/D/A の確定結果マップを作る。
     toto(13試合)は mini(5試合)の試合を包含するので、これ1つで全くじの結果を引ける。"""
@@ -92,6 +103,7 @@ def build(round_no, kuji_key=None):
     gem = load_json(gpath) if os.path.exists(gpath) else None
     gidx = gemini_index(gem)
     game_actual = load_game_actual(round_no)
+    payouts = load_payouts()
 
     if kuji_key is None:
         kuji_key, sec = pick_display_kuji(round_data)
@@ -140,10 +152,12 @@ def build(round_no, kuji_key=None):
         })
 
     n_settled = sum(1 for m in matches if m["result"])
+    payout = (payouts.get(str(round_no), {}) or {}).get(kuji_key, None)  # 1等当せん金(円/100円). None=未取得, 0=該当なし
     return {
         "round": round_no,
         "kuji": kuji_key,
         "kuji_label": KUJI_LABEL.get(kuji_key, kuji_key),
+        "payout": payout,
         "deadline": sec.get("deadline", ""),
         "result_date": sec.get("result_date", ""),
         "generated_date": datetime.date.today().isoformat(),

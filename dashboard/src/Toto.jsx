@@ -338,8 +338,11 @@ const TotoCharts = ({ matches, userByMid }) => {
   );
 };
 
+/** 円の符号付き表記 */
+const yen = (v) => `${v >= 0 ? '+' : '-'}¥${Math.abs(Math.round(v)).toLocaleString()}`;
+
 /** 当せん判定: そのくじ(toto/mini)を全問正解＝当せんしたか、予測者ごとに表示 */
-const KujiVerdict = ({ kujiLabel, matches, userByMid }) => {
+const KujiVerdict = ({ kujiLabel, matches, userByMid, payout }) => {
   const total = matches.length;
   const settledN = matches.filter((m) => m.result).length;
   if (total === 0 || settledN === 0) return null;  // 結果がまだ1つも無ければ出さない
@@ -377,6 +380,11 @@ const KujiVerdict = ({ kujiLabel, matches, userByMid }) => {
       </h3>
       <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary, #9ca3af)', marginBottom: '0.6rem' }}>
         {total}問すべて正解で当せん。1問でも外すとその時点で終了です。
+        {payout != null && (
+          <span style={{ marginLeft: '0.4rem', color: payout > 0 ? '#10b981' : 'var(--text-secondary, #9ca3af)', fontWeight: 600 }}>
+            ／ この回の1等当せん金: {payout > 0 ? `¥${payout.toLocaleString()}（1口100円あたり）` : '該当者なし（キャリーオーバー）'}
+          </span>
+        )}
       </div>
       {rows.map((r) => {
         const v = verdictOf(r.e);
@@ -387,6 +395,58 @@ const KujiVerdict = ({ kujiLabel, matches, userByMid }) => {
           </div>
         );
       })}
+    </div>
+  );
+};
+
+/** 収支シミュレーション: 各回1口(100円)買い、全問的中なら1等当せん金が返る想定で投資/払戻/ROI */
+const MoneySummary = ({ rounds, kuji, kujiLabel, userByMid }) => {
+  // 全試合が確定した回だけ対象（勝敗・当せん金が確定するため）
+  const done = rounds.filter((r) => r.kuji === kuji && r.matches.length > 0 && r.matches.every((m) => m.result));
+  if (done.length === 0) return null;
+
+  const calc = (getPick) => {
+    let inv = 0, ret = 0, tickets = 0, wins = 0;
+    done.forEach((r) => {
+      const pickedAll = r.matches.every((m) => !!getPick(m));
+      if (!pickedAll) return;           // 全試合の予想がそろって初めて1枚の券
+      tickets += 1; inv += 100;
+      if (r.matches.every((m) => getPick(m) === m.result)) { wins += 1; ret += (r.payout || 0); }
+    });
+    return { inv, ret, tickets, wins, profit: ret - inv, roi: inv > 0 ? Math.round((ret / inv) * 100) : null };
+  };
+
+  const cards = [
+    { name: 'あなた', color: SERIES.user, m: calc((mm) => userByMid[mm.match_id]?.pick) },
+    { name: 'Gemini', color: SERIES.gemini, m: calc((mm) => mm.gemini_pick) },
+    { name: '統計', color: SERIES.stat, m: calc((mm) => mm.stats?.pick) },
+  ];
+
+  return (
+    <div className="glass-card" style={{ padding: '1rem 1.25rem', marginBottom: '1.25rem' }}>
+      <h3 style={{ margin: '0 0 0.25rem 0', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+        <Trophy size={17} /> 収支シミュレーション（{kujiLabel}・1口100円換算）
+      </h3>
+      <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary, #9ca3af)', marginBottom: '0.6rem' }}>
+        各回1口(100円)買い、全問的中なら1等当せん金が返る想定。全試合確定した{done.length}回が対象。totoは還元率約50%＝基本は負け越し。
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.75rem' }}>
+        {cards.map((c) => (
+          <div key={c.name} style={{ padding: '0.75rem', background: 'rgba(255,255,255,0.03)', border: `1px solid ${c.color}40`, borderRadius: '8px', textAlign: 'center' }}>
+            <div style={{ fontSize: '0.8rem', color: c.color, fontWeight: 600, marginBottom: '0.3rem' }}>{c.name}</div>
+            {c.m.tickets > 0 ? (
+              <>
+                <div style={{ fontSize: '1.25rem', fontWeight: 700, color: c.m.profit >= 0 ? '#10b981' : '#ef4444' }}>{yen(c.m.profit)}</div>
+                <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary, #9ca3af)', marginTop: '0.2rem' }}>
+                  ROI {c.m.roi ?? '-'}%・{c.m.wins}当せん<br />投資¥{c.m.inv.toLocaleString()}／払戻¥{Math.round(c.m.ret).toLocaleString()}
+                </div>
+              </>
+            ) : (
+              <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary, #9ca3af)' }}>対象の購入なし</div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
@@ -591,7 +651,9 @@ const Toto = () => {
 
       <PassphraseBar passReady={passReady} statusMsg={statusMsg} onSetPass={handleSetPass} onLogout={handleLogout} />
 
-      <KujiVerdict kujiLabel={info.kuji_label || info.kuji} matches={info.matches} userByMid={userByMid} />
+      <KujiVerdict kujiLabel={info.kuji_label || info.kuji} matches={info.matches} userByMid={userByMid} payout={info.payout} />
+
+      <MoneySummary rounds={roundsData.rounds} kuji={info.kuji} kujiLabel={info.kuji_label || info.kuji} userByMid={userByMid} />
 
       <ProgressSummary matches={info.matches} userByMid={userByMid} />
 
