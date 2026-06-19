@@ -6,8 +6,9 @@
   1. 必要な当日CSVを daily_data/ -> dashboard/public/daily_data/ にコピー
   2. generate_battle_data.py  (1回目: daily_race_info.json を生成)
   3. generate_gemini_predictions.py  (race_info.json を読んで Gemini 予測)
-  4. generate_battle_data.py  (2回目: Gemini を取り込んだ最終版)
-  5. 成果物 JSON を git add -> commit -> push (GitHub Pages へ公開)
+  4. predict_gemma_ft.py  (race_info.json を読んで 学習版Gemma 予測 / Ollama)
+  5. generate_battle_data.py  (2回目: Gemini と 学習版Gemma を取り込んだ最終版)
+  6. 成果物 JSON を git add -> commit -> push (GitHub Pages へ公開)
 
 なぜこの順番か:
   generate_gemini は daily_race_info.json を入力に取り、
@@ -166,6 +167,7 @@ def publish(no_push=False):
 def main():
     no_push = "--no-push" in sys.argv
     skip_gemini = "--skip-gemini" in sys.argv
+    skip_gemma = "--skip-gemma" in sys.argv  # 学習版Gemma(Ollama)をスキップ
 
     t0 = datetime.now()
     log("===== 予測対戦ダッシュボード更新 開始 =====")
@@ -182,8 +184,16 @@ def main():
     else:
         # Gemini 予測（quota 超過等で失敗しても、Det/LLM だけで公開を続行する）
         run_py("generate_gemini_predictions.py", allow_fail=True)
-        # 2回目: Gemini を取り込んだ最終版
-        run_py("generate_battle_data.py")
+
+    # 学習版Gemma 予測（Ollama 未起動/未登録でも、他を止めず続行）
+    if skip_gemma:
+        log("--skip-gemma 指定のため 学習版Gemma 予測をスキップ")
+    else:
+        run_py("predict_gemma_ft.py", allow_fail=True)
+
+    # 2回目: Gemini と 学習版Gemma を取り込んだ最終版
+    # （--skip-gemini かつ --skip-gemma でも、再生成は無害なので常に回す）
+    run_py("generate_battle_data.py")
 
     # 穴③: 公開
     publish(no_push=no_push)

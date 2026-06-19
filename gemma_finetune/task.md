@@ -55,9 +55,17 @@
       llama.cppの`convert_hf_to_gguf.py --outtype q8_0`(ビルド不要)→`ollama create gemma-boat:1b`。
       GGUF: C:\Users\HP\gemma-boat\gemma-boat-q8_0.gguf / Modelfile同梱。テンプレ gemma3-instruct 自動検出。
       動作確認: サンプルレースで [推論]→[買い目] を生成。**モデル名は実体に合わせ `gemma-boat:1b`**（2bでなく1b）。
-- [ ] T13. `predict_gemma_ft.py`: 学習版Gemmaで予想生成（既存pipeline流用、Ollama API /api/generate）
-- [ ] T14. 予測対戦ダッシュボードに「学習版Gemma」を追加し、学習前/後/Det/Gemini/ユーザーを比較
+- [x] T13. **完了（2026-06-19）**: `predict_gemma_ft.py`。Ollama `gemma-boat:1b` を /api/generate で呼び、
+      学習時と同じ instruction で当日レースを予測 → `daily_gemma_predictions.csv`（**追記式=履歴蓄積**）。
+      今日19レース生成OK（傾向: 1-2-3 など本命寄りが多い＝1bらしい）。
+- [x] T14. **完了（2026-06-19）**: 予測対戦ダッシュボードに「学習版Gemma」(ピンク#ec4899)を5者目として追加。
+      `generate_battle_data.py`がrace_info(ai_picks_gemmaft)とサマリ(stakes_gemmaft)に取り込み、
+      `Battle.jsx`を5者対戦化(一覧/詳細/戦績カード/月別的中率/収支推移/履歴表)。esbuild構文OK。
+      `update_battle_dashboard.py`の朝バッチに`predict_gemma_ft.py`を組み込み(--skip-gemma対応)。
+      **副次の重要修正**: Gemini予測が毎日上書きで履歴に残らないバグ(履歴でGeminiが常に"-")を、
+      `generate_gemini_predictions.py`を追記式upsertに変更して解消。学習版Gemmaも同方式で最初から永続化。
 - [ ] T15. 振り返り（masaru の学び・気づきを整理、必要なら2周目の方針）
+- [ ] (デプロイ) push→GitHub Actionsビルド後に実機(ダッシュボード)で5者表示を確認
 
 ## 作業ログ
 ### 2026-06-18

@@ -169,11 +169,26 @@ def main():
         })
         time.sleep(SLEEP_BETWEEN_CALLS)
 
-    df = pd.DataFrame(results)
-    df.to_csv(OUTPUT_CSV, index=False, encoding="utf-8")
+    new_df = pd.DataFrame(results)
+    # --- 永続化（追記式）---
+    # 旧実装は毎回 OUTPUT_CSV を当日分だけで上書きしていたため、決着前に翌日分へ
+    # 上書きされ Gemini の履歴が貯まらなかった（履歴で Gemini が常に "-" になる原因）。
+    # 既存CSVを読み、今回予測した RaceID だけ差し替えて過去分は保持する upsert に変更。
+    if os.path.exists(OUTPUT_CSV):
+        try:
+            old = pd.read_csv(OUTPUT_CSV)
+            if "RaceID" in old.columns and len(new_df):
+                old = old[~old["RaceID"].astype(str).isin(new_df["RaceID"].astype(str))]
+            combined = pd.concat([old, new_df], ignore_index=True)
+        except Exception as e:
+            print(f"  [WARN] 既存CSV読み込み失敗のため新規分のみ保存: {type(e).__name__}: {e}")
+            combined = new_df
+    else:
+        combined = new_df
+    combined.to_csv(OUTPUT_CSV, index=False, encoding="utf-8")
     print(f"\n=== 完了 ({time.time()-t_overall:.1f}s) ===")
-    print(f"出力: {OUTPUT_CSV} ({len(results)} レース)")
-    print(f"予測あり: {sum(1 for r in results if r['Stakes_Gemini'])} レース")
+    print(f"出力: {OUTPUT_CSV} (今回 {len(results)} レース / 累計 {len(combined)} レース)")
+    print(f"今回予測あり: {sum(1 for r in results if r['Stakes_Gemini'])} レース")
 
 
 if __name__ == "__main__":
