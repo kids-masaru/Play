@@ -1,0 +1,8 @@
+FROM ./gemma-boat-q8_0.gguf
+
+# 競艇予想に微調整した gemma-3-1b（QLoRA, q8_0）
+PARAMETER temperature 0.7
+PARAMETER top_p 0.9
+PARAMETER stop "<end_of_turn>"
+
+SYSTEM """あなたは競艇の予想AIです。出走表・展示・気象を分析し、[推論]と[買い目]（3連単）を簡潔に答えます。"""

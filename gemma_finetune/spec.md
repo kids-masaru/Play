@@ -1,9 +1,13 @@
 # Gemma ローカル微調整 — 学習体験プロジェクト spec
 
+> **モデル変更履歴（2026-06-19）**: 当初は Gemma 2-2b を予定したが、transformers 5.5.0 × unsloth 2026.6.7 で
+> gemma-2 推論が壊れる不具合に遭遇。Gemma 4 は最小 E2B でも 4bit 重みが 7GB 級で VRAM 6GB の学習が OOM 必至のため見送り。
+> **最終的に `unsloth/gemma-3-1b-it`（4bit QLoRA）を採用**。本文中の「Gemma 2B」記述は gemma-3-1b に読み替え。
+
 ## 概要
 
 ### 何を作るのか（目的・背景）
-ローカルPC（WSL2 + RTX A3000 6GB）で **Gemma 2B を QLoRA 微調整**し、ボートレース予想の
+ローカルPC（WSL2 + RTX A3000 6GB）で **Gemma 3 (1B) を QLoRA 微調整**し、ボートレース予想の
 **「推論・説明」を強化**する。最終的に学習済みモデルを Ollama に取り込み、既存の予測対戦
 ダッシュボードで **学習前 / 学習後 / Det / Gemini / ユーザー** を並べて比較する。
 
@@ -22,9 +26,10 @@ masaru 本人（学習教材）。
 ## 技術スタック
 - **OS/環境**: WSL2（Ubuntu）+ CUDA on WSL（ドライバ 591.86 はWSL CUDA対応）
 - **学習**: Unsloth（省VRAM QLoRA に最適化）/ 内部は transformers + PEFT + bitsandbytes
-- **ベースモデル**: `google/gemma-2-2b-it`（Hugging Face、ライセンス同意要。HF認証済み: Helpyu）
+- **ベースモデル**: `unsloth/gemma-3-1b-it`（4bit、Hugging Face。当初予定の gemma-2-2b は前述の不具合で不採用）
 - **手法**: 4bit QLoRA（6GB VRAM 制約に対応）
-- **変換/推論**: llama.cpp で GGUF 化 → Ollama に Modelfile で登録（例: `gemma-boat:2b`）
+- **変換/推論**: LoRAをマージ→16bit→llama.cpp `convert_hf_to_gguf.py`(--outtype q8_0, ビルド不要) で GGUF 化
+  → Windows Ollama に Modelfile で登録（`gemma-boat:1b`）
 - **教師データ生成**: Gemini API（理由文の"先生役"、既存 `GEMINI_API_KEY` 流用）
 - **比較UI**: 既存 `dashboard/src/Battle.jsx` に学習版Gemmaの予想列を追加
 
@@ -50,7 +55,7 @@ masaru 本人（学習教材）。
 
 ### F4. 評価・変換
 - 学習前後で同じレースに対する出力を**並べて比較**（説明がどう変わったか）
-- GGUF 変換 → Ollama に学習版を登録（既存 `gemma2:2b` は壊さず別名で追加）
+- GGUF 変換 → Ollama に学習版を登録（既存 `gemma2:2b` は壊さず別名 `gemma-boat:1b` で追加）
 
 ### F5. ダッシュボードで学習前後を比較
 - 予測パイプラインに学習版Gemmaの予想生成を追加
@@ -85,11 +90,13 @@ gemma_finetune/
     sources/                # 収集素材（既存ログ/結果/Web等）
     train.jsonl / val.jsonl # 学習・検証データ
   collect_web_tips.py       # (任意) Web/X の競艇予想収集
-  train_qlora.py            # QLoRA 学習（WSL2/Unsloth）
-  eval_compare.py           # 学習前後の出力比較
-  export_gguf.sh            # GGUF 変換 + Ollama 登録
-  Modelfile                 # Ollama 用
-  outputs/                  # LoRAアダプタ・GGUF・ログ（gitignore対象）
+  train_qlora.py            # QLoRA 学習（WSL2/Unsloth）※BASE=unsloth/gemma-3-1b-it
+  eval_compare.py           # 学習前後の出力比較（1モデル+disable_adapter()でON/OFF）
+  merge_export.py           # LoRA→16bitマージ（merged_16bit/ 生成）
+  llama.cpp/                # 変換スクリプト用にclone（convert_hf_to_gguf.py を使用）
+  lora_boat/                # 学習済みLoRAアダプタ
+  outputs/                  # 学習ログ・チェックポイント（gitignore対象）
+  ※GGUF実体とModelfileはWindows側: C:\Users\HP\gemma-boat\
 predict_gemma_ft.py         # (既存pipeline側) 学習版Gemmaで予想生成
 dashboard/src/Battle.jsx    # 「学習版Gemma」列を追加
 ```
@@ -97,9 +104,9 @@ dashboard/src/Battle.jsx    # 「学習版Gemma」列を追加
 ---
 
 ## 外部連携
-- **Hugging Face**: `google/gemma-2-2b-it`（ライセンス同意要）
+- **Hugging Face**: `unsloth/gemma-3-1b-it`（4bit）
 - **Gemini API**: 理由文生成（既存 `credentials.env` の `GEMINI_API_KEY`）
-- **Ollama**: 学習版モデル登録（`gemma-boat:2b` 等）
+- **Ollama**: 学習版モデル登録（`gemma-boat:1b`）
 - **（任意）Web / X**: 競艇予想家情報の収集（ToS・著作権留意、best-effort）
 
 ---
