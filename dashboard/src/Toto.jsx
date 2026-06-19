@@ -338,6 +338,56 @@ const TotoCharts = ({ matches, userByMid }) => {
   );
 };
 
+/** 回ごとの的中率の経緯（複数回の棒グラフ） */
+const RoundTrend = ({ rounds, userByMid }) => {
+  const data = [...rounds]
+    .filter((r) => r.settled)
+    .sort((a, b) => a.round - b.round)  // 古い回→新しい回
+    .map((r) => {
+      const sm = r.summary || {};
+      const g = sm.gemini || { n: 0, hits: 0 };
+      const s = sm.stat || { n: 0, hits: 0 };
+      let uN = 0, uH = 0;
+      r.matches.forEach((m) => {
+        if (!m.result) return;
+        const up = userByMid[m.match_id]?.pick;
+        if (up) { uN += 1; if (up === m.result) uH += 1; }
+      });
+      return {
+        name: `第${r.round}回`,
+        統計: s.n ? Math.round((s.hits / s.n) * 100) : null,
+        Gemini: g.n ? Math.round((g.hits / g.n) * 100) : null,
+        あなた: uN ? Math.round((uH / uN) * 100) : null,
+      };
+    });
+  if (data.length === 0) return null;
+
+  const axis = { stroke: 'var(--text-secondary, #9ca3af)', fontSize: 12, tickLine: false, axisLine: false };
+  const tip = { backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', fontSize: '0.8rem' };
+  return (
+    <div className="glass-card" style={{ padding: '1rem 1.1rem', marginBottom: '1.25rem' }}>
+      <h3 style={{ margin: '0 0 0.25rem 0', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+        <BarChart3 size={17} /> 回ごとの的中率の経緯（答え合わせ済み {data.length} 回）
+      </h3>
+      <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #9ca3af)', marginBottom: '0.6rem' }}>
+        各回の的中率(%)を統計・Gemini・あなたで比較。※統計モデルはJリーグ対戦のみ（国際試合は空）。
+      </div>
+      <ResponsiveContainer width="100%" height={240}>
+        <BarChart data={data} barGap={2}>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" vertical={false} />
+          <XAxis dataKey="name" {...axis} />
+          <YAxis {...axis} unit="%" domain={[0, 100]} />
+          <Tooltip cursor={{ fill: 'rgba(255,255,255,0.04)' }} contentStyle={tip} formatter={(v) => [`${v}%`, '']} />
+          <Legend wrapperStyle={{ fontSize: '0.78rem' }} />
+          <Bar dataKey="統計" fill={SERIES.stat} radius={[3, 3, 0, 0]} />
+          <Bar dataKey="Gemini" fill={SERIES.gemini} radius={[3, 3, 0, 0]} />
+          <Bar dataKey="あなた" fill={SERIES.user} radius={[3, 3, 0, 0]} />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
+
 const Toto = () => {
   const [roundsData, setRoundsData] = useState(null);   // { default_round, rounds:[...] }
   const [selectedRound, setSelectedRound] = useState(null);
@@ -484,6 +534,8 @@ const Toto = () => {
       <PassphraseBar passReady={passReady} statusMsg={statusMsg} onSetPass={handleSetPass} onLogout={handleLogout} />
 
       <ProgressSummary matches={info.matches} userByMid={userByMid} />
+
+      <RoundTrend rounds={roundsData.rounds} userByMid={userByMid} />
 
       <TotoCharts matches={info.matches} userByMid={userByMid} />
 
