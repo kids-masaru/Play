@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Cell,
+  LineChart, Line,
 } from 'recharts';
 import { Trophy, Target, Brain, Trash2, Cloud, CloudOff, KeyRound, LogOut, Clock, BarChart3 } from 'lucide-react';
 // 合言葉(uid)はボート予測対戦と共用するため battleStore のものを流用
@@ -430,19 +431,19 @@ const MoneySummary = ({ rounds, kuji, kujiLabel, userByMid }) => {
       <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary, #9ca3af)', marginBottom: '0.6rem' }}>
         各回1口(100円)買い、全問的中なら1等当せん金が返る想定。全試合確定した{done.length}回が対象。totoは還元率約50%＝基本は負け越し。
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.75rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem' }}>
         {cards.map((c) => (
-          <div key={c.name} style={{ padding: '0.75rem', background: 'rgba(255,255,255,0.03)', border: `1px solid ${c.color}40`, borderRadius: '8px', textAlign: 'center' }}>
-            <div style={{ fontSize: '0.8rem', color: c.color, fontWeight: 600, marginBottom: '0.3rem' }}>{c.name}</div>
+          <div key={c.name} style={{ padding: '0.6rem 0.4rem', background: 'rgba(255,255,255,0.03)', border: `1px solid ${c.color}40`, borderRadius: '8px', textAlign: 'center' }}>
+            <div style={{ fontSize: '0.76rem', color: c.color, fontWeight: 600, marginBottom: '0.25rem' }}>{c.name}</div>
             {c.m.tickets > 0 ? (
               <>
-                <div style={{ fontSize: '1.25rem', fontWeight: 700, color: c.m.profit >= 0 ? '#10b981' : '#ef4444' }}>{yen(c.m.profit)}</div>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary, #9ca3af)', marginTop: '0.2rem' }}>
-                  ROI {c.m.roi ?? '-'}%・{c.m.wins}当せん<br />投資¥{c.m.inv.toLocaleString()}／払戻¥{Math.round(c.m.ret).toLocaleString()}
+                <div style={{ fontSize: '1.1rem', fontWeight: 700, color: c.m.profit >= 0 ? '#10b981' : '#ef4444' }}>{yen(c.m.profit)}</div>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-secondary, #9ca3af)', marginTop: '0.2rem' }}>
+                  ROI {c.m.roi ?? '-'}%<br />{c.m.wins}当せん<br />投資¥{c.m.inv.toLocaleString()}
                 </div>
               </>
             ) : (
-              <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary, #9ca3af)' }}>対象の購入なし</div>
+              <div style={{ fontSize: '0.74rem', color: 'var(--text-secondary, #9ca3af)' }}>購入なし</div>
             )}
           </div>
         ))}
@@ -451,7 +452,67 @@ const MoneySummary = ({ rounds, kuji, kujiLabel, userByMid }) => {
   );
 };
 
-/** 回ごとの的中率の経緯（同じくじ種別の複数回を棒グラフで） */
+/** 累積収支の推移（時系列・線グラフ）。1口100円・全問的中で当せん金。基本は右肩下がり。 */
+const BalanceTrendToto = ({ rounds, kuji, kujiLabel, userByMid }) => {
+  const done = rounds
+    .filter((r) => r.kuji === kuji && r.matches.length > 0 && r.matches.every((m) => m.result))
+    .sort((a, b) => a.round - b.round);  // 古い回→新しい回
+  if (done.length === 0) return null;
+
+  const step = (r, getPick) => {
+    const pickedAll = r.matches.every((m) => !!getPick(m));
+    if (!pickedAll) return null;  // 買っていない回は加算しない
+    const won = r.matches.every((m) => getPick(m) === m.result);
+    return (won ? (r.payout || 0) : 0) - 100;  // 払戻−投資(100円)
+  };
+  const getters = {
+    あなた: (m) => userByMid[m.match_id]?.pick,
+    Gemini: (m) => m.gemini_pick,
+    統計: (m) => (m.stats ? m.stats.pick : ''),
+  };
+  // 1回でも券を買った系列だけ描画（統計は国際試合で買えず=非表示にする）
+  const active = Object.keys(getters).filter((k) => done.some((r) => r.matches.every((m) => !!getters[k](m))));
+  if (active.length === 0) return null;
+
+  const cum = { あなた: 0, Gemini: 0, 統計: 0 };
+  const data = done.map((r) => {
+    const row = { name: `第${r.round}回` };
+    active.forEach((k) => {
+      const s = step(r, getters[k]);
+      if (s !== null) cum[k] += s;
+      row[k] = Math.round(cum[k]);
+    });
+    return row;
+  });
+
+  const axis = { stroke: 'var(--text-secondary, #9ca3af)', fontSize: 12, tickLine: false, axisLine: false };
+  const tip = { backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', fontSize: '0.8rem' };
+  const colorOf = { あなた: SERIES.user, Gemini: SERIES.gemini, 統計: SERIES.stat };
+  return (
+    <div className="glass-card" style={{ padding: '1rem 1.1rem', marginBottom: '1.25rem' }}>
+      <h3 style={{ margin: '0 0 0.25rem 0', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+        <Trophy size={17} /> 累積収支の推移（{kujiLabel}・1口100円換算）
+      </h3>
+      <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #9ca3af)', marginBottom: '0.6rem' }}>
+        毎回1口買い続けたら今いくらか。当せんしなければ各回−100円ずつ。基本は右肩下がり。
+      </div>
+      <ResponsiveContainer width="100%" height={240}>
+        <LineChart data={data} margin={{ top: 5, right: 10, bottom: 0, left: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" vertical={false} />
+          <XAxis dataKey="name" {...axis} />
+          <YAxis {...axis} tickFormatter={(v) => `¥${v.toLocaleString()}`} width={64} />
+          <Tooltip contentStyle={tip} formatter={(v) => [`¥${Number(v).toLocaleString()}`, '']} />
+          <Legend wrapperStyle={{ fontSize: '0.78rem' }} />
+          {active.map((k) => (
+            <Line key={k} dataKey={k} stroke={colorOf[k]} dot={{ r: 3 }} strokeWidth={2.2} />
+          ))}
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
+
+/** 回ごとの的中率の経緯（同じくじ種別の複数回を線グラフで） */
 const RoundTrend = ({ rounds, userByMid, kuji, kujiLabel }) => {
   const data = [...rounds]
     .filter((r) => r.settled && r.kuji === kuji)
@@ -486,16 +547,16 @@ const RoundTrend = ({ rounds, userByMid, kuji, kujiLabel }) => {
         各回の的中率(%)を統計・Gemini・あなたで比較。※統計モデルはJリーグ対戦のみ（国際試合は空）。
       </div>
       <ResponsiveContainer width="100%" height={240}>
-        <BarChart data={data} barGap={2}>
+        <LineChart data={data} margin={{ top: 5, right: 10, bottom: 0, left: -10 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" vertical={false} />
           <XAxis dataKey="name" {...axis} />
           <YAxis {...axis} unit="%" domain={[0, 100]} />
-          <Tooltip cursor={{ fill: 'rgba(255,255,255,0.04)' }} contentStyle={tip} formatter={(v) => [`${v}%`, '']} />
+          <Tooltip contentStyle={tip} formatter={(v) => v == null ? ['-', ''] : [`${v}%`, '']} />
           <Legend wrapperStyle={{ fontSize: '0.78rem' }} />
-          <Bar dataKey="統計" fill={SERIES.stat} radius={[3, 3, 0, 0]} />
-          <Bar dataKey="Gemini" fill={SERIES.gemini} radius={[3, 3, 0, 0]} />
-          <Bar dataKey="あなた" fill={SERIES.user} radius={[3, 3, 0, 0]} />
-        </BarChart>
+          <Line dataKey="統計" stroke={SERIES.stat} connectNulls dot={{ r: 3 }} strokeWidth={2} />
+          <Line dataKey="Gemini" stroke={SERIES.gemini} connectNulls dot={{ r: 3 }} strokeWidth={2} />
+          <Line dataKey="あなた" stroke={SERIES.user} connectNulls dot={{ r: 3 }} strokeWidth={2} />
+        </LineChart>
       </ResponsiveContainer>
     </div>
   );
@@ -654,6 +715,8 @@ const Toto = () => {
       <KujiVerdict kujiLabel={info.kuji_label || info.kuji} matches={info.matches} userByMid={userByMid} payout={info.payout} />
 
       <MoneySummary rounds={roundsData.rounds} kuji={info.kuji} kujiLabel={info.kuji_label || info.kuji} userByMid={userByMid} />
+
+      <BalanceTrendToto rounds={roundsData.rounds} kuji={info.kuji} kujiLabel={info.kuji_label || info.kuji} userByMid={userByMid} />
 
       <ProgressSummary matches={info.matches} userByMid={userByMid} />
 

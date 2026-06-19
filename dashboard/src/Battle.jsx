@@ -451,12 +451,15 @@ const HistorySummary = ({ settled }) => {
       <h3 style={{ margin: '0 0 0.75rem 0', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
         <Trophy size={18} /> 5者対戦戦績 (AI比較は結果が出た{total}レース／あなたは予想した{userStat.n}レース)
       </h3>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '0.85rem' }}>
-        <CompetitorCard name="AI Det (LightGBM)" color="#60a5fa" rate={detStat.rate} hits={detStat.hits} n={detStat.n} money={detM} />
-        <CompetitorCard name="AI LLM (Gemma)" color="#f59e0b" rate={llmStat.rate} hits={llmStat.hits} n={llmStat.n} money={llmM} />
-        <CompetitorCard name="AI Gemini" color="#10b981" rate={gemStat.rate} hits={gemStat.hits} n={gemStat.n} money={gemM} />
+      {/* AI4者は2×2でコンパクトに、あなたは下に横長で */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
+        <CompetitorCard name="Det (計算)" color="#60a5fa" rate={detStat.rate} hits={detStat.hits} n={detStat.n} money={detM} />
+        <CompetitorCard name="LLM (Gemma)" color="#f59e0b" rate={llmStat.rate} hits={llmStat.hits} n={llmStat.n} money={llmM} />
+        <CompetitorCard name="Gemini" color="#10b981" rate={gemStat.rate} hits={gemStat.hits} n={gemStat.n} money={gemM} />
         <CompetitorCard name="学習版Gemma" color="#ec4899" rate={ftStat.rate} hits={ftStat.hits} n={ftStat.n} money={ftM} />
-        <CompetitorCard name="あなた" color="#8b5cf6" rate={userStat.rate} hits={userStat.hits} n={userStat.n} money={userM} highlight />
+      </div>
+      <div style={{ marginTop: '0.6rem' }}>
+        <CompetitorCard name="あなた" color="#8b5cf6" rate={userStat.rate} hits={userStat.hits} n={userStat.n} money={userM} highlight wide />
       </div>
       {total === 0 ? (
         <div style={{ marginTop: '0.75rem', fontSize: '0.85rem', color: 'var(--text-secondary, #9ca3af)' }}>
@@ -471,23 +474,45 @@ const HistorySummary = ({ settled }) => {
   );
 };
 
-const CompetitorCard = ({ name, color, rate, hits, n, money, highlight }) => {
+const CompetitorCard = ({ name, color, rate, hits, n, money, highlight, wide }) => {
   const profit = money ? money.profit : null;
+  // 横長・低め（あなた用）: 名前 | 的中率 | 的中数 | 収支 を1行に
+  if (wide) {
+    return (
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem',
+        padding: '0.5rem 0.9rem',
+        background: highlight ? `${color}15` : 'rgba(255,255,255,0.03)',
+        border: `1px solid ${color}40`, borderRadius: '8px',
+      }}>
+        <span style={{ fontSize: '0.85rem', color, fontWeight: 700 }}>{name}</span>
+        <span style={{ display: 'flex', alignItems: 'baseline', gap: '0.6rem', flexWrap: 'wrap' }}>
+          <span style={{ fontSize: '1.3rem', fontWeight: 700 }}>{rate}%</span>
+          <span style={{ fontSize: '0.72rem', color: 'var(--text-secondary, #9ca3af)' }}>{hits}/{n} 的中</span>
+          {money && money.inv > 0 && (
+            <span style={{ fontSize: '0.8rem', fontWeight: 700, color: profit >= 0 ? '#10b981' : '#ef4444' }}>
+              {yen(profit)}<span style={{ fontSize: '0.7rem', color: 'var(--text-secondary, #9ca3af)', fontWeight: 400 }}> ROI {money.roi ?? '-'}%</span>
+            </span>
+          )}
+        </span>
+      </div>
+    );
+  }
   return (
     <div style={{
-      padding: '0.85rem',
+      padding: '0.7rem 0.6rem',
       background: highlight ? `${color}15` : 'rgba(255,255,255,0.03)',
       border: `1px solid ${color}40`,
       borderRadius: '8px',
       textAlign: 'center',
     }}>
-      <div style={{ fontSize: '0.8rem', color, marginBottom: '0.4rem', fontWeight: 600 }}>{name}</div>
-      <div style={{ fontSize: '1.6rem', fontWeight: 700, color: 'inherit' }}>{rate}%</div>
-      <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #9ca3af)' }}>{hits}/{n} 的中</div>
+      <div style={{ fontSize: '0.78rem', color, marginBottom: '0.3rem', fontWeight: 600 }}>{name}</div>
+      <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'inherit' }}>{rate}%</div>
+      <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary, #9ca3af)' }}>{hits}/{n} 的中</div>
       {money && money.inv > 0 && (
-        <div style={{ marginTop: '0.5rem', paddingTop: '0.4rem', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-          <div style={{ fontSize: '0.95rem', fontWeight: 700, color: profit >= 0 ? '#10b981' : '#ef4444' }}>{yen(profit)}</div>
-          <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary, #9ca3af)' }}>
+        <div style={{ marginTop: '0.4rem', paddingTop: '0.35rem', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+          <div style={{ fontSize: '0.9rem', fontWeight: 700, color: profit >= 0 ? '#10b981' : '#ef4444' }}>{yen(profit)}</div>
+          <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary, #9ca3af)' }}>
             ROI {money.roi ?? '-'}%・投資¥{Math.round(money.inv).toLocaleString()}
           </div>
         </div>
