@@ -34,6 +34,7 @@ OUT_JSON = os.path.join(OUT_DIR, "toto_info.json")          # 既定表示の1�
 OUT_ALL_JSON = os.path.join(OUT_DIR, "toto_rounds.json")    # 全回（過去の答え合わせ閲覧用）
 
 DISPLAY_KUJI_ORDER = ["toto", "mini_a", "mini_b"]  # 表示に使うくじ（先にあるものを採用）
+KUJI_LABEL = {"toto": "toto (13試合)", "mini_a": "mini toto-A (5試合)", "mini_b": "mini toto-B (5試合)"}
 
 
 def load_json(path):
@@ -64,7 +65,23 @@ def pick_display_kuji(round_data):
     return None, None
 
 
-def build(round_no):
+def load_game_actual(round_no):
+    """settled_<回>.json から (date,home,away)->H/D/A の確定結果マップを作る。
+    toto(13試合)は mini(5試合)の試合を包含するので、これ1つで全くじの結果を引ける。"""
+    spath = os.path.join(DATA_DIR, f"settled_{round_no}.json")
+    if not os.path.exists(spath):
+        return {}
+    settled = load_json(spath)
+    out = {}
+    for r in settled.get("results", []):
+        if r.get("actual"):
+            out[(r.get("date"), r.get("home"), r.get("away"))] = r["actual"]
+    return out
+
+
+def build(round_no, kuji_key=None):
+    """指定くじ(無ければ表示既定=toto優先)の1ビューを組み立てる。
+    match_id は試合ベース（toto内の試合番号）に統一＝ユーザー予測がくじ間で引き継がれる。"""
     rpath = os.path.join(DATA_DIR, f"round_{round_no}.json")
     if not os.path.exists(rpath):
         print(f"[ERROR] {rpath} がありません。先に fetch_toto_round.py を実行してください。")
@@ -74,46 +91,66 @@ def build(round_no):
     gpath = os.path.join(DATA_DIR, f"gemini_round_{round_no}.json")
     gem = load_json(gpath) if os.path.exists(gpath) else None
     gidx = gemini_index(gem)
+    game_actual = load_game_actual(round_no)
 
-    kuji_key, sec = pick_display_kuji(round_data)
-    if not sec:
-        print(f"[ERROR] 第{round_no}回に表示できる試合がありません。")
+    if kuji_key is None:
+        kuji_key, sec = pick_display_kuji(round_data)
+    else:
+        sec = round_data["kuji"].get(kuji_key)
+    if not sec or not sec.get("matches"):
         return None
 
-    # 答え合わせ結果（あれば）を match_id で引けるように
-    spath = os.path.join(DATA_DIR, f"settled_{round_no}.json")
-    settled = load_json(spath) if os.path.exists(spath) else None
-    sidx = {r["match_id"]: r for r in settled["results"]} if settled else {}
+    # 試合(date,home,away)->toto内の試合番号。match_id を全くじで一致させる。
+    toto_sec = round_data["kuji"].get("toto") or {}
+    toto_no_by_game = {(m.get("date"), m.get("home"), m.get("away")): m.get("no")
+                       for m in toto_sec.get("matches", [])}
 
     matches = []
+    stat_n = stat_h = gem_n = gem_h = 0
     for m in sec["matches"]:
         key = (m.get("date"), m.get("home"), m.get("away"))
-        g = gidx.get(key)
-        mid = f"{round_no}-{m.get('no')}"
-        sres = sidx.get(mid, {})
+        g = gidx.get(key) or {}
+        actual = game_actual.get(key, "")
+        gp = g.get("pick", "")
+        stats = g.get("stats")
+        sp = (stats or {}).get("pick", "")
+        if actual:
+            if gp:
+                gem_n += 1
+                if gp == actual:
+                    gem_h += 1
+            if sp:
+                stat_n += 1
+                if sp == actual:
+                    stat_h += 1
+        # 試合ベースの match_id（toto番号。mini も同じ試合は同じID）
+        toto_no = toto_no_by_game.get(key, m.get("no"))
         matches.append({
-            "match_id": mid,
+            "match_id": f"{round_no}-{toto_no}",
             "no": m.get("no"),
             "date": m.get("date"),
             "kickoff": m.get("kickoff"),
             "home": m.get("home"),
             "away": m.get("away"),
-            "stats": (g or {}).get("stats"),
-            "gemini_pick": (g or {}).get("pick", ""),
-            "gemini_confidence": (g or {}).get("confidence", ""),
-            "gemini_reasoning": (g or {}).get("reasoning", ""),
-            "result": sres.get("actual", ""),  # 確定結果 H/D/A（未確定は空）
+            "stats": stats,
+            "gemini_pick": gp,
+            "gemini_confidence": g.get("confidence", ""),
+            "gemini_reasoning": g.get("reasoning", ""),
+            "result": actual,  # 確定結果 H/D/A（未確定は空）
         })
 
+    n_settled = sum(1 for m in matches if m["result"])
     return {
         "round": round_no,
         "kuji": kuji_key,
+        "kuji_label": KUJI_LABEL.get(kuji_key, kuji_key),
         "deadline": sec.get("deadline", ""),
         "result_date": sec.get("result_date", ""),
         "generated_date": datetime.date.today().isoformat(),
         "has_gemini": gem is not None,
-        "settled": bool(settled and settled.get("n_settled")),
-        "summary": settled.get("summary") if settled else None,
+        "settled": bool(n_settled),
+        "summary": {"stat": {"n": stat_n, "hits": stat_h},
+                    "gemini": {"n": gem_n, "hits": gem_h}},
         "matches": matches,
     }
 
@@ -153,7 +190,7 @@ def main():
         print("対象の round_*.json がありません。fetch_toto_round.py を先に実行してください。")
         return
 
-    data = build(round_no)
+    data = build(round_no, "toto") or build(round_no)
     if data is None:
         return
 
@@ -169,22 +206,28 @@ def main():
     print(f"Gemini予想あり {n_gem} / 統計予想あり {n_stat}")
     print(f"→ {os.path.abspath(OUT_JSON)}")
 
-    # --- 全回分も出力（ダッシュボードで過去の答え合わせを回切替で閲覧できるように）---
-    all_rounds = []
+    # --- 全回 × 全くじ種別(toto/mini-A/mini-B) を出力（回切替＋くじ切替で閲覧）---
+    order = {k: i for i, k in enumerate(DISPLAY_KUJI_ORDER)}
+    all_views = []
     for p in glob.glob(os.path.join(DATA_DIR, "round_*.json")):
         try:
             rno = load_json(p)["round"]
         except Exception:
             continue
-        d = build(rno)
-        if d:
-            all_rounds.append(d)
-    all_rounds.sort(key=lambda x: x["round"], reverse=True)  # 新しい回を先頭に
-    out_all = {"default_round": data["round"], "rounds": all_rounds}
+        for kuji_key in DISPLAY_KUJI_ORDER:
+            d = build(rno, kuji_key)
+            if d:
+                all_views.append(d)
+    all_views.sort(key=lambda x: (-x["round"], order.get(x["kuji"], 9)))  # 新しい回→toto/miniA/miniB順
+    out_all = {
+        "default_round": data["round"],
+        "default_key": f"{data['round']}-toto",
+        "rounds": all_views,
+    }
     with open(OUT_ALL_JSON, "w", encoding="utf-8") as f:
         json.dump(out_all, f, ensure_ascii=False, indent=2)
-    settled_cnt = sum(1 for r in all_rounds if r.get("settled"))
-    print(f"→ {os.path.abspath(OUT_ALL_JSON)} (全{len(all_rounds)}回 / 答え合わせ済み {settled_cnt}回)")
+    settled_cnt = sum(1 for r in all_views if r.get("settled"))
+    print(f"→ {os.path.abspath(OUT_ALL_JSON)} (全{len(all_views)}ビュー / 答え合わせ済み {settled_cnt})")
 
 
 if __name__ == "__main__":

@@ -338,10 +338,10 @@ const TotoCharts = ({ matches, userByMid }) => {
   );
 };
 
-/** 回ごとの的中率の経緯（複数回の棒グラフ） */
-const RoundTrend = ({ rounds, userByMid }) => {
+/** 回ごとの的中率の経緯（同じくじ種別の複数回を棒グラフで） */
+const RoundTrend = ({ rounds, userByMid, kuji, kujiLabel }) => {
   const data = [...rounds]
-    .filter((r) => r.settled)
+    .filter((r) => r.settled && r.kuji === kuji)
     .sort((a, b) => a.round - b.round)  // 古い回→新しい回
     .map((r) => {
       const sm = r.summary || {};
@@ -367,7 +367,7 @@ const RoundTrend = ({ rounds, userByMid }) => {
   return (
     <div className="glass-card" style={{ padding: '1rem 1.1rem', marginBottom: '1.25rem' }}>
       <h3 style={{ margin: '0 0 0.25rem 0', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-        <BarChart3 size={17} /> 回ごとの的中率の経緯（答え合わせ済み {data.length} 回）
+        <BarChart3 size={17} /> 回ごとの的中率の経緯（{kujiLabel} / 答え合わせ済み {data.length} 回）
       </h3>
       <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #9ca3af)', marginBottom: '0.6rem' }}>
         各回の的中率(%)を統計・Gemini・あなたで比較。※統計モデルはJリーグ対戦のみ（国際試合は空）。
@@ -389,17 +389,17 @@ const RoundTrend = ({ rounds, userByMid }) => {
 };
 
 const Toto = () => {
-  const [roundsData, setRoundsData] = useState(null);   // { default_round, rounds:[...] }
-  const [selectedRound, setSelectedRound] = useState(null);
+  const [roundsData, setRoundsData] = useState(null);   // { default_round, default_key, rounds:[...] }
+  const [selectedKey, setSelectedKey] = useState(null); // `${round}-${kuji}`
   const [error, setError] = useState(null);
   const [userPreds, setUserPreds] = useState([]);
   const [uid, setUid] = useState('');
   const [passReady, setPassReady] = useState(false);
   const [statusMsg, setStatusMsg] = useState('');
 
-  // 選択中の回データ（toto_rounds.json から選ぶ）
-  const info = (roundsData && selectedRound != null)
-    ? (roundsData.rounds.find((r) => r.round === selectedRound) || roundsData.rounds[0])
+  // 選択中のビュー（回×くじ種別）。toto_rounds.json から選ぶ
+  const info = (roundsData && selectedKey)
+    ? (roundsData.rounds.find((r) => `${r.round}-${r.kuji}` === selectedKey) || roundsData.rounds[0])
     : null;
 
   const reloadUserPreds = async (theUid) => {
@@ -432,11 +432,15 @@ const Toto = () => {
     // 全回データ（過去の答え合わせも回切替で閲覧）。無ければ単一回にフォールバック。
     fetch(`./daily_data/toto_rounds.json${cb}`)
       .then((res) => (res.ok ? res.json() : Promise.reject(`HTTP ${res.status}`)))
-      .then((d) => { setRoundsData(d); setSelectedRound(d.default_round); })
+      .then((d) => { setRoundsData(d); setSelectedKey(d.default_key || `${d.default_round}-toto`); })
       .catch(() => {
         fetch(`./daily_data/toto_info.json${cb}`)
           .then((res) => (res.ok ? res.json() : Promise.reject(`HTTP ${res.status}`)))
-          .then((one) => { setRoundsData({ default_round: one.round, rounds: [one] }); setSelectedRound(one.round); })
+          .then((one) => {
+            const kuji = one.kuji || 'toto';
+            setRoundsData({ default_round: one.round, default_key: `${one.round}-${kuji}`, rounds: [{ ...one, kuji, kuji_label: one.kuji_label || 'toto' }] });
+            setSelectedKey(`${one.round}-${kuji}`);
+          })
           .catch((err) => setError(String(err)));
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -492,7 +496,7 @@ const Toto = () => {
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
         <div>
-          <h2 style={{ margin: 0 }}>toto 予測対戦　第{info.round}回</h2>
+          <h2 style={{ margin: 0 }}>toto 予測対戦　第{info.round}回 <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary, #9ca3af)' }}>{info.kuji_label || ''}</span></h2>
           <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary, #9ca3af)', display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.2rem' }}>
             <Clock size={14} /> 投票締切 {info.deadline}（{deadlineText(info.deadline)}）・{info.matches.length}試合
           </div>
@@ -502,13 +506,13 @@ const Toto = () => {
         </button>
       </div>
 
-      {/* 回の切替（過去の答え合わせも見られる） */}
+      {/* 回・くじ種別の切替（過去の答え合わせ / mini toto も見られる） */}
       {roundsData.rounds.length > 1 && (
         <div style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-          <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary, #9ca3af)' }}>回を選ぶ:</span>
+          <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary, #9ca3af)' }}>回・種別を選ぶ:</span>
           <select
-            value={selectedRound}
-            onChange={(e) => setSelectedRound(Number(e.target.value))}
+            value={selectedKey || ''}
+            onChange={(e) => setSelectedKey(e.target.value)}
             style={{ padding: '0.4rem 0.6rem', background: 'rgba(0,0,0,0.3)', color: 'inherit', border: '1px solid var(--border, #374151)', borderRadius: '6px', fontSize: '0.85rem' }}
           >
             {roundsData.rounds.map((r) => {
@@ -516,10 +520,11 @@ const Toto = () => {
               const tag = r.settled
                 ? `結果あり${sm && sm.gemini && sm.gemini.n ? ` (Gemini的中${sm.gemini.hits}/${sm.gemini.n})` : ''}`
                 : (deadlineText(r.deadline) || '');
-              return <option key={r.round} value={r.round}>第{r.round}回{tag ? `　${tag}` : ''}</option>;
+              const key = `${r.round}-${r.kuji}`;
+              return <option key={key} value={key}>第{r.round}回 {r.kuji_label || r.kuji}{tag ? `　${tag}` : ''}</option>;
             })}
           </select>
-          {info.round === roundsData.default_round && (
+          {selectedKey === (roundsData.default_key || `${roundsData.default_round}-toto`) && (
             <span style={{ fontSize: '0.75rem', color: 'var(--accent-purple, #a78bfa)' }}>← 最新</span>
           )}
         </div>
@@ -535,7 +540,7 @@ const Toto = () => {
 
       <ProgressSummary matches={info.matches} userByMid={userByMid} />
 
-      <RoundTrend rounds={roundsData.rounds} userByMid={userByMid} />
+      <RoundTrend rounds={roundsData.rounds} userByMid={userByMid} kuji={info.kuji} kujiLabel={info.kuji_label || info.kuji} />
 
       <TotoCharts matches={info.matches} userByMid={userByMid} />
 
