@@ -338,6 +338,59 @@ const TotoCharts = ({ matches, userByMid }) => {
   );
 };
 
+/** 当せん判定: そのくじ(toto/mini)を全問正解＝当せんしたか、予測者ごとに表示 */
+const KujiVerdict = ({ kujiLabel, matches, userByMid }) => {
+  const total = matches.length;
+  const settledN = matches.filter((m) => m.result).length;
+  if (total === 0 || settledN === 0) return null;  // 結果がまだ1つも無ければ出さない
+  const allSettled = settledN === total;
+
+  const evalP = (getPick) => {
+    let picked = 0, settledPicked = 0, hits = 0, missed = 0;
+    matches.forEach((m) => {
+      const p = getPick(m);
+      if (!p) return;
+      picked += 1;
+      if (m.result) { settledPicked += 1; if (p === m.result) hits += 1; else missed += 1; }
+    });
+    return { picked, settledPicked, hits, missed, predictedAll: picked === total };
+  };
+
+  const rows = [
+    { name: 'あなた', color: SERIES.user, e: evalP((m) => userByMid[m.match_id]?.pick) },
+    { name: 'Gemini', color: SERIES.gemini, e: evalP((m) => m.gemini_pick) },
+    { name: '統計', color: SERIES.stat, e: evalP((m) => m.stats?.pick) },
+  ];
+
+  const verdictOf = (e) => {
+    if (e.picked === 0) return { txt: '予想なし', color: 'var(--text-secondary, #6b7280)' };
+    if (e.missed > 0) return { txt: `はずれ（${e.hits}/${e.settledPicked}的中）`, color: '#ef4444' };
+    if (allSettled && e.predictedAll) return { txt: `当せん🎉（全${total}問的中）`, color: '#10b981' };
+    if (allSettled && !e.predictedAll) return { txt: `対象外（${e.picked}/${total}試合しか予想なし）`, color: 'var(--text-secondary, #9ca3af)' };
+    return { txt: `まだ可能性あり（${e.hits}/${settledN}的中・残り${total - settledN}試合）`, color: '#f59e0b' };
+  };
+
+  return (
+    <div className="glass-card" style={{ padding: '1rem 1.25rem', marginBottom: '1.25rem' }}>
+      <h3 style={{ margin: '0 0 0.25rem 0', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+        <Trophy size={17} /> 当せん判定（{kujiLabel}・{allSettled ? `全${total}問確定` : `確定${settledN}/${total}問`}）
+      </h3>
+      <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary, #9ca3af)', marginBottom: '0.6rem' }}>
+        {total}問すべて正解で当せん。1問でも外すとその時点で終了です。
+      </div>
+      {rows.map((r) => {
+        const v = verdictOf(r.e);
+        return (
+          <div key={r.name} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.45rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+            <span style={{ color: r.color, fontWeight: 600 }}>{r.name}</span>
+            <span style={{ color: v.color, fontWeight: 700, fontSize: '0.9rem' }}>{v.txt}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 /** 回ごとの的中率の経緯（同じくじ種別の複数回を棒グラフで） */
 const RoundTrend = ({ rounds, userByMid, kuji, kujiLabel }) => {
   const data = [...rounds]
@@ -537,6 +590,8 @@ const Toto = () => {
       )}
 
       <PassphraseBar passReady={passReady} statusMsg={statusMsg} onSetPass={handleSetPass} onLogout={handleLogout} />
+
+      <KujiVerdict kujiLabel={info.kuji_label || info.kuji} matches={info.matches} userByMid={userByMid} />
 
       <ProgressSummary matches={info.matches} userByMid={userByMid} />
 
