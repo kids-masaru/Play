@@ -98,6 +98,15 @@ def format_race(race):
             f"勝率{wr_str} モーター#{b.get('motor_no', '-')} "
             f"体重{b.get('weight', '-')}kg 展示{ex_str}"
         )
+    # オッズ(上位8)も渡す。教師データ(build_dataset)とGeminiに合わせ、学習時と同じ入力に揃える。
+    odds_top = race.get("odds_top") or []
+    if odds_top:
+        lines.append("【3連単オッズ(低い順 上位8)】")
+        for o in odds_top[:8]:
+            try:
+                lines.append(f"  {o['combo']}: {float(o['odds']):.1f}倍")
+            except (KeyError, TypeError, ValueError):
+                continue
     return INSTRUCTION + "\n".join(lines)
 
 
