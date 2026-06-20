@@ -24,7 +24,8 @@ RACE_DATA_CSV = os.path.join(DATA_DIR, "daily_raw_race_data.csv")
 BEFOREINFO_CSV = os.path.join(DATA_DIR, "daily_raw_beforeinfo.csv")
 ODDS_CSV = os.path.join(DATA_DIR, "daily_odds_3t.csv")
 GEMINI_CSV = os.path.join(DATA_DIR, "daily_gemini_predictions.csv")  # 任意
-GEMMA_FT_CSV = os.path.join(DATA_DIR, "daily_gemma_predictions.csv")  # 任意(学習版Gemma)
+GEMMA_FT_CSV = os.path.join(DATA_DIR, "daily_gemma_predictions.csv")  # 任意(学習版Gemma/Gemini先生)
+GEMMA_CLAUDE_CSV = os.path.join(DATA_DIR, "daily_gemma_claude_predictions.csv")  # 任意(学習版Gemma/Claude先生)
 
 OUTPUT_JSON = os.path.join(DATA_DIR, "daily_race_info.json")
 OUTPUT_AI_SUMMARY = os.path.join(DATA_DIR, "ai_predictions_summary.json")
@@ -146,7 +147,23 @@ def main():
                 "prediction": safe_str(g.get("Prediction_GemmaFT"))[:1500],
                 "log": safe_str(g.get("Log_GemmaFT"))[:2500],
             }
-        print(f"  学習版Gemma予測: {len(gemmaft_by_race)} レース")
+        print(f"  学習版Gemma(Gemini先生)予測: {len(gemmaft_by_race)} レース")
+
+    # 学習版Gemma(Claude先生)予測 (任意、ファイルがあれば)
+    gemmaclaude_by_race = {}
+    if os.path.exists(GEMMA_CLAUDE_CSV):
+        gmc = pd.read_csv(GEMMA_CLAUDE_CSV)
+        gmc = gmc[gmc["Date"] == target_date].copy() if "Date" in gmc.columns else gmc
+        for _, g in gmc.iterrows():
+            rid = safe_str(g.get("RaceID"))
+            if not rid:
+                continue
+            gemmaclaude_by_race[rid] = {
+                "stakes": safe_str(g.get("Stakes_GemmaClaude")),
+                "prediction": safe_str(g.get("Prediction_GemmaClaude"))[:1500],
+                "log": safe_str(g.get("Log_GemmaClaude"))[:2500],
+            }
+        print(f"  学習版Gemma(Claude先生)予測: {len(gemmaclaude_by_race)} レース")
 
     print("[5/5] 統合してJSON出力...")
     races_out = []
@@ -183,6 +200,9 @@ def main():
             "ai_picks_gemmaft": gemmaft_by_race.get(rid, {}).get("stakes", ""),
             "ai_prediction_gemmaft": gemmaft_by_race.get(rid, {}).get("prediction", ""),
             "ai_log_gemmaft": gemmaft_by_race.get(rid, {}).get("log", ""),
+            "ai_picks_gemmaclaude": gemmaclaude_by_race.get(rid, {}).get("stakes", ""),
+            "ai_prediction_gemmaclaude": gemmaclaude_by_race.get(rid, {}).get("prediction", ""),
+            "ai_log_gemmaclaude": gemmaclaude_by_race.get(rid, {}).get("log", ""),
         })
 
     out = {
@@ -219,7 +239,7 @@ def main():
             if rid not in ai_summary:
                 ai_summary[rid] = {"stakes": "", "stakes_det": ""}
             ai_summary[rid]["stakes_gemini"] = safe_str(g.get("Stakes_Gemini"))
-    # 学習版Gemma予測 (もしあれば全期間分も統合)
+    # 学習版Gemma(Gemini先生)予測 (もしあれば全期間分も統合)
     if os.path.exists(GEMMA_FT_CSV):
         gmf_all = pd.read_csv(GEMMA_FT_CSV)
         for _, g in gmf_all.iterrows():
@@ -229,6 +249,16 @@ def main():
             if rid not in ai_summary:
                 ai_summary[rid] = {"stakes": "", "stakes_det": ""}
             ai_summary[rid]["stakes_gemmaft"] = safe_str(g.get("Stakes_GemmaFT"))
+    # 学習版Gemma(Claude先生)予測 (もしあれば全期間分も統合)
+    if os.path.exists(GEMMA_CLAUDE_CSV):
+        gmc_all = pd.read_csv(GEMMA_CLAUDE_CSV)
+        for _, g in gmc_all.iterrows():
+            rid = safe_str(g.get("RaceID"))
+            if not rid:
+                continue
+            if rid not in ai_summary:
+                ai_summary[rid] = {"stakes": "", "stakes_det": ""}
+            ai_summary[rid]["stakes_gemmaclaude"] = safe_str(g.get("Stakes_GemmaClaude"))
     with open(OUTPUT_AI_SUMMARY, "w", encoding="utf-8") as f:
         json.dump(ai_summary, f, ensure_ascii=False)
     size_kb2 = os.path.getsize(OUTPUT_AI_SUMMARY) / 1024

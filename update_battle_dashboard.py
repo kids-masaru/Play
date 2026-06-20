@@ -59,15 +59,16 @@ def log(msg):
     print(f"[{datetime.now().strftime('%H:%M:%S')}] {msg}", flush=True)
 
 
-def run_py(script, allow_fail=False):
+def run_py(script, allow_fail=False, extra_args=None):
     """同一フォルダの Python スクリプトをサブプロセスで実行する。
 
     サブプロセス化する理由: generate_gemini は API キー未設定で sys.exit() するため、
     import で呼ぶと本体まで巻き込まれて落ちる。プロセス分離で失敗を局所化する。
     """
-    log(f"実行: {script}")
+    cmd = [sys.executable, os.path.join(ROOT, script)] + (extra_args or [])
+    log(f"実行: {script} {' '.join(extra_args or [])}")
     result = subprocess.run(
-        [sys.executable, os.path.join(ROOT, script)],
+        cmd,
         cwd=ROOT,
         env=os.environ.copy(),
     )
@@ -186,10 +187,15 @@ def main():
         run_py("generate_gemini_predictions.py", allow_fail=True)
 
     # 学習版Gemma 予測（Ollama 未起動/未登録でも、他を止めず続行）
+    # 2モデル: Gemini先生版(gemma-boat:1b) と Claude先生版(gemma-boat-claude:1b)
     if skip_gemma:
         log("--skip-gemma 指定のため 学習版Gemma 予測をスキップ")
     else:
-        run_py("predict_gemma_ft.py", allow_fail=True)
+        run_py("predict_gemma_ft.py", allow_fail=True)  # Gemini先生版(既定)
+        run_py("predict_gemma_ft.py", allow_fail=True, extra_args=[
+            "--model", "gemma-boat-claude:1b",
+            "--out", "daily_gemma_claude_predictions.csv",
+            "--tag", "GemmaClaude"])  # Claude先生版
 
     # 2回目: Gemini と 学習版Gemma を取り込んだ最終版
     # （--skip-gemini かつ --skip-gemma でも、再生成は無害なので常に回す）

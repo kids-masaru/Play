@@ -1,11 +1,18 @@
 # Gemma ローカル微調整 — タスク管理
 
-## 最終更新: 2026-06-18
+## 最終更新: 2026-06-21
 
 ## 現在のステータス
 - Phase 1（planning）: **承認済み（2026-06-17）**
-- Phase 2（実装）: **T1〜T5・T8・T9・T11・T12 完了**。学習成功→学習前後比較→GGUF化→Ollama登録(`gemma-boat:1b`)まで到達。
-  **学習体験の核は達成**。残りは T13/T14（既存予測パイプライン／ダッシュボードへの参戦）。
+- Phase 2（実装）: **T1〜T14 完了**。学習→比較→GGUF→Ollama→ダッシュボード参戦まで一通り達成。
+- **2026-06-21 大幅拡張「先生対決」**: 教師データ 80→**1000件**に増量し再学習。さらに
+  **教師2種**を用意し弟子Gemmaを2つ作成して対決させる構成に:
+  - `gemma-boat:1b`（**Gemini先生**・1000件, train_loss 1.41）
+  - `gemma-boat-claude:1b`（**Claude先生**・1000件, train_loss 1.09）※Claudeがサブエージェントでお手本生成
+  - 同一1000レースの状況で教師だけ差し替え＝フェアな先生比較。
+  - ダッシュボードは **6者対戦**（Det/LLM/Gemini/学習Gem(Gemini先生)/学習Cla(Claude先生)/あなた）。
+  - 関連: `dump_situations.py`(状況抽出), `compare_teachers.py`(2モデル比較),
+    `predict_gemma_ft.py`(--model/--out/--tagでモデル切替), train_claude.jsonl(1000)。
 - 方針確定: WSL2ローカル一本 / ゴール=学習前後を予測対戦で比較(フル) /
   教師データ=既存ログ＋過去結果＋Gemini理由文（＋任意でWeb/X）
 - **モデル確定: `unsloth/gemma-3-1b-it`（4bit QLoRA）**。

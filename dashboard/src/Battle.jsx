@@ -61,10 +61,11 @@ const RaceList = ({ races, userPreds, onSelect }) => {
         const llmPicks = parseAiPicks(race.ai_picks_llm);
         const gemPicks = parseAiPicks(race.ai_picks_gemini);
         const ftPicks = parseAiPicks(race.ai_picks_gemmaft);
+        const fcPicks = parseAiPicks(race.ai_picks_gemmaclaude);
         const hasUser = !!userByRid[race.race_id];
         const aiRow = (label, color, picks) => (
           <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.2rem' }}>
-            <span style={{ color, fontWeight: 600, minWidth: '46px' }}>{label}</span>
+            <span style={{ color, fontWeight: 600, minWidth: '54px' }}>{label}</span>
             <span style={{ fontFamily: 'monospace', color: picks.length ? 'var(--text-primary, #f3f4f6)' : 'var(--text-secondary, #6b7280)' }}>
               {picks.length ? picks.slice(0, 2).map(p => p.combo).join(', ') + (picks.length > 2 ? ' …' : '') : 'なし'}
             </span>
@@ -94,7 +95,8 @@ const RaceList = ({ races, userPreds, onSelect }) => {
               {aiRow('Det', '#60a5fa', detPicks)}
               {aiRow('LLM', '#f59e0b', llmPicks)}
               {aiRow('Gemini', '#10b981', gemPicks)}
-              {aiRow('学習G', '#ec4899', ftPicks)}
+              {aiRow('学Gem', '#ec4899', ftPicks)}
+              {aiRow('学Cla', '#06b6d4', fcPicks)}
             </div>
           </div>
         );
@@ -109,6 +111,7 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
   const aiLlm = parseAiPicks(race.ai_picks_llm);
   const aiGem = parseAiPicks(race.ai_picks_gemini);
   const aiFt = parseAiPicks(race.ai_picks_gemmaft);
+  const aiFc = parseAiPicks(race.ai_picks_gemmaclaude);
 
   const [picks, setPicks] = useState(userPred?.picks?.join(', ') || '');
   const [stake, setStake] = useState(userPred?.stake || '');
@@ -225,10 +228,18 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
             </div>
           </div>
           <div style={{ padding: '0.5rem', background: 'rgba(236,72,153,0.07)', borderRadius: '6px' }}>
-            <div style={{ fontSize: '0.8rem', color: '#ec4899', marginBottom: '0.25rem', fontWeight: 600 }}>学習版Gemma</div>
+            <div style={{ fontSize: '0.8rem', color: '#ec4899', marginBottom: '0.25rem', fontWeight: 600 }}>学習版Gemma (Gemini先生)</div>
             <div style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>
               {aiFt.length > 0
                 ? aiFt.map((p, i) => <div key={i}>{p.combo}{p.stake ? `  ¥${p.stake}` : ''}</div>)
+                : '(なし)'}
+            </div>
+          </div>
+          <div style={{ padding: '0.5rem', background: 'rgba(6,182,212,0.07)', borderRadius: '6px' }}>
+            <div style={{ fontSize: '0.8rem', color: '#06b6d4', marginBottom: '0.25rem', fontWeight: 600 }}>学習版Gemma (Claude先生)</div>
+            <div style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>
+              {aiFc.length > 0
+                ? aiFc.map((p, i) => <div key={i}>{p.combo}{p.stake ? `  ¥${p.stake}` : ''}</div>)
                 : '(なし)'}
             </div>
           </div>
@@ -276,10 +287,20 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
         {race.ai_prediction_gemmaft && (
           <details open style={{ marginTop: '0.75rem', borderTop: '1px solid var(--border, #374151)', paddingTop: '0.75rem' }}>
             <summary style={{ cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600, color: '#ec4899' }}>
-              🎓 学習版Gemmaの推論
+              🎓 学習版Gemma (Gemini先生) の推論
             </summary>
             <div style={{ marginTop: '0.5rem', whiteSpace: 'pre-wrap', fontSize: '0.85rem', lineHeight: 1.7, color: 'var(--text-primary, #f3f4f6)' }}>
               {race.ai_prediction_gemmaft}
+            </div>
+          </details>
+        )}
+        {race.ai_prediction_gemmaclaude && (
+          <details open style={{ marginTop: '0.75rem', borderTop: '1px solid var(--border, #374151)', paddingTop: '0.75rem' }}>
+            <summary style={{ cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600, color: '#06b6d4' }}>
+              🎓 学習版Gemma (Claude先生) の推論
+            </summary>
+            <div style={{ marginTop: '0.5rem', whiteSpace: 'pre-wrap', fontSize: '0.85rem', lineHeight: 1.7, color: 'var(--text-primary, #f3f4f6)' }}>
+              {race.ai_prediction_gemmaclaude}
             </div>
           </details>
         )}
@@ -387,6 +408,7 @@ const buildSettled = (history, aiPredsByRid, userPreds) => {
     const llm = aiSide('stakes');
     const gem = aiSide('stakes_gemini');
     const ft = aiSide('stakes_gemmaft');
+    const fc = aiSide('stakes_gemmaclaude');
     // ユーザー: 1点あたり stake(既定100円)で全買い目に賭けたとみなす
     const u = userByRid[rid];
     const uStake = u ? (Number(u.stake) || 100) : 0;
@@ -397,12 +419,13 @@ const buildSettled = (history, aiPredsByRid, userPreds) => {
       rid,
       date: h.Date || '', venue: h.Venue || '', r: h.R || '',
       result, payout,
-      detPicks: det.picks, llmPicks: llm.picks, gemPicks: gem.picks, ftPicks: ft.picks,
-      detHit: det.hit, llmHit: llm.hit, gemHit: gem.hit, ftHit: ft.hit,
+      detPicks: det.picks, llmPicks: llm.picks, gemPicks: gem.picks, ftPicks: ft.picks, fcPicks: fc.picks,
+      detHit: det.hit, llmHit: llm.hit, gemHit: gem.hit, ftHit: ft.hit, fcHit: fc.hit,
       detMoney: { inv: det.inv, ret: det.ret },
       llmMoney: { inv: llm.inv, ret: llm.ret },
       gemMoney: { inv: gem.inv, ret: gem.ret },
       ftMoney: { inv: ft.inv, ret: ft.ret },
+      fcMoney: { inv: fc.inv, ret: fc.ret },
       hasUser: !!u,
       userPicks: u ? u.picks : [],
       userHit: uHit,
@@ -433,6 +456,7 @@ const HistorySummary = ({ settled }) => {
   const llmStat = stat({ has: s => s.llmPicks.length > 0, hit: s => s.llmHit });
   const gemStat = stat({ has: s => s.gemPicks.length > 0, hit: s => s.gemHit });
   const ftStat = stat({ has: s => s.ftPicks.length > 0, hit: s => s.ftHit });
+  const fcStat = stat({ has: s => s.fcPicks.length > 0, hit: s => s.fcHit });
 
   // 金額集計（投資・払戻・収支・ROI）
   const money = (key) => {
@@ -444,19 +468,21 @@ const HistorySummary = ({ settled }) => {
   const llmM = money('llmMoney');
   const gemM = money('gemMoney');
   const ftM = money('ftMoney');
+  const fcM = money('fcMoney');
   const userM = money('userMoney');
 
   return (
     <div className="glass-card" style={{ padding: '1.25rem', marginBottom: '1.5rem' }}>
       <h3 style={{ margin: '0 0 0.75rem 0', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-        <Trophy size={18} /> 5者対戦戦績 (AI比較は結果が出た{total}レース／あなたは予想した{userStat.n}レース)
+        <Trophy size={18} /> 6者対戦戦績 (AI比較は結果が出た{total}レース／あなたは予想した{userStat.n}レース)
       </h3>
-      {/* AI4者は2×2でコンパクトに、あなたは下に横長で */}
+      {/* AI5者は2列でコンパクトに、あなたは下に横長で */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
         <CompetitorCard name="Det (計算)" color="#60a5fa" rate={detStat.rate} hits={detStat.hits} n={detStat.n} money={detM} />
         <CompetitorCard name="LLM (Gemma)" color="#f59e0b" rate={llmStat.rate} hits={llmStat.hits} n={llmStat.n} money={llmM} />
         <CompetitorCard name="Gemini" color="#10b981" rate={gemStat.rate} hits={gemStat.hits} n={gemStat.n} money={gemM} />
-        <CompetitorCard name="学習版Gemma" color="#ec4899" rate={ftStat.rate} hits={ftStat.hits} n={ftStat.n} money={ftM} />
+        <CompetitorCard name="学習Gemma(Gemini先生)" color="#ec4899" rate={ftStat.rate} hits={ftStat.hits} n={ftStat.n} money={ftM} />
+        <CompetitorCard name="学習Gemma(Claude先生)" color="#06b6d4" rate={fcStat.rate} hits={fcStat.hits} n={fcStat.n} money={fcM} />
       </div>
       <div style={{ marginTop: '0.6rem' }}>
         <CompetitorCard name="あなた" color="#8b5cf6" rate={userStat.rate} hits={userStat.hits} n={userStat.n} money={userM} highlight wide />
@@ -537,11 +563,12 @@ const HitRateTrend = ({ settled }) => {
   settled.forEach(s => {
     const m = (s.date || '').slice(0, 7); // YYYY-MM
     if (!m) return;
-    const b = byMonth[m] || (byMonth[m] = { month: m, dN: 0, dH: 0, lN: 0, lH: 0, gN: 0, gH: 0, fN: 0, fH: 0, uN: 0, uH: 0 });
+    const b = byMonth[m] || (byMonth[m] = { month: m, dN: 0, dH: 0, lN: 0, lH: 0, gN: 0, gH: 0, fN: 0, fH: 0, cN: 0, cH: 0, uN: 0, uH: 0 });
     if (s.detPicks.length) { b.dN++; if (s.detHit) b.dH++; }
     if (s.llmPicks.length) { b.lN++; if (s.llmHit) b.lH++; }
     if (s.gemPicks.length) { b.gN++; if (s.gemHit) b.gH++; }
     if (s.ftPicks.length) { b.fN++; if (s.ftHit) b.fH++; }
+    if (s.fcPicks.length) { b.cN++; if (s.fcHit) b.cH++; }
     if (s.hasUser) { b.uN++; if (s.userHit) b.uH++; }
   });
   const data = Object.values(byMonth)
@@ -551,7 +578,8 @@ const HitRateTrend = ({ settled }) => {
       Det: b.dN ? Math.round(b.dH / b.dN * 100) : null,
       LLM: b.lN ? Math.round(b.lH / b.lN * 100) : null,
       Gemini: b.gN ? Math.round(b.gH / b.gN * 100) : null,
-      学習Gemma: b.fN ? Math.round(b.fH / b.fN * 100) : null,
+      学習Gem: b.fN ? Math.round(b.fH / b.fN * 100) : null,
+      学習Cla: b.cN ? Math.round(b.cH / b.cN * 100) : null,
       あなた: b.uN ? Math.round(b.uH / b.uN * 100) : null,
     }));
   if (data.length === 0) return null;
@@ -570,7 +598,8 @@ const HitRateTrend = ({ settled }) => {
           <Line dataKey="Det" stroke="#60a5fa" connectNulls dot={false} strokeWidth={2} />
           <Line dataKey="LLM" stroke="#f59e0b" connectNulls dot={false} strokeWidth={2} />
           <Line dataKey="Gemini" stroke="#10b981" connectNulls dot={false} strokeWidth={2} />
-          <Line dataKey="学習Gemma" stroke="#ec4899" connectNulls dot={false} strokeWidth={2} />
+          <Line dataKey="学習Gem" stroke="#ec4899" connectNulls dot={false} strokeWidth={2} />
+          <Line dataKey="学習Cla" stroke="#06b6d4" connectNulls dot={false} strokeWidth={2} />
           <Line dataKey="あなた" stroke="#8b5cf6" connectNulls dot={{ r: 3 }} strokeWidth={2.5} />
         </LineChart>
       </ResponsiveContainer>
@@ -584,21 +613,22 @@ const BalanceTrend = ({ settled }) => {
   settled.forEach(s => {
     const d = s.date;
     if (!d) return;
-    const b = byDate[d] || (byDate[d] = { date: d, det: 0, llm: 0, gem: 0, ft: 0, user: 0 });
+    const b = byDate[d] || (byDate[d] = { date: d, det: 0, llm: 0, gem: 0, ft: 0, fc: 0, user: 0 });
     b.det += s.detMoney.ret - s.detMoney.inv;
     b.llm += s.llmMoney.ret - s.llmMoney.inv;
     b.gem += s.gemMoney.ret - s.gemMoney.inv;
     b.ft += s.ftMoney.ret - s.ftMoney.inv;
+    b.fc += s.fcMoney.ret - s.fcMoney.inv;
     b.user += s.userMoney.ret - s.userMoney.inv;
   });
   const days = Object.values(byDate).sort((a, b) => a.date.localeCompare(b.date));
   if (days.length === 0) return null;
-  let cd = 0, cl = 0, cg = 0, cf = 0, cu = 0;
+  let cd = 0, cl = 0, cg = 0, cf = 0, cc = 0, cu = 0;
   let userHasData = false;
   const data = days.map(b => {
-    cd += b.det; cl += b.llm; cg += b.gem; cf += b.ft; cu += b.user;
+    cd += b.det; cl += b.llm; cg += b.gem; cf += b.ft; cc += b.fc; cu += b.user;
     if (b.user !== 0) userHasData = true;
-    return { date: b.date.slice(5), Det: Math.round(cd), LLM: Math.round(cl), Gemini: Math.round(cg), 学習Gemma: Math.round(cf), あなた: Math.round(cu) };
+    return { date: b.date.slice(5), Det: Math.round(cd), LLM: Math.round(cl), Gemini: Math.round(cg), 学習Gem: Math.round(cf), 学習Cla: Math.round(cc), あなた: Math.round(cu) };
   });
   return (
     <div className="glass-card" style={{ padding: '1rem 1.1rem', marginBottom: '1.25rem' }}>
@@ -618,7 +648,8 @@ const BalanceTrend = ({ settled }) => {
           <Line dataKey="Det" stroke="#60a5fa" dot={false} strokeWidth={2} />
           <Line dataKey="LLM" stroke="#f59e0b" dot={false} strokeWidth={2} />
           <Line dataKey="Gemini" stroke="#10b981" dot={false} strokeWidth={2} />
-          <Line dataKey="学習Gemma" stroke="#ec4899" dot={false} strokeWidth={2} />
+          <Line dataKey="学習Gem" stroke="#ec4899" dot={false} strokeWidth={2} />
+          <Line dataKey="学習Cla" stroke="#06b6d4" dot={false} strokeWidth={2} />
           {userHasData && <Line dataKey="あなた" stroke="#8b5cf6" dot={false} strokeWidth={2.5} />}
         </LineChart>
       </ResponsiveContainer>
@@ -651,7 +682,7 @@ const PastRaces = ({ settled }) => {
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem', minWidth: '560px' }}>
           <thead>
             <tr style={{ borderBottom: '1px solid var(--border, #374151)' }}>
-              {['日付', 'レース', '結果', 'Det', 'LLM', 'Gemini', '学習G', 'あなた'].map(h => <th key={h} style={th}>{h}</th>)}
+              {['日付', 'レース', '結果', 'Det', 'LLM', 'Gemini', '学Gem', '学Cla', 'あなた'].map(h => <th key={h} style={th}>{h}</th>)}
             </tr>
           </thead>
           <tbody>
@@ -664,6 +695,7 @@ const PastRaces = ({ settled }) => {
                 <td style={td}><Pick picks={s.llmPicks} hit={s.llmHit} /></td>
                 <td style={td}><Pick picks={s.gemPicks} hit={s.gemHit} /></td>
                 <td style={td}><Pick picks={s.ftPicks} hit={s.ftHit} /></td>
+                <td style={td}><Pick picks={s.fcPicks} hit={s.fcHit} /></td>
                 <td style={td}>{s.hasUser ? <Pick picks={s.userPicks} hit={s.userHit} /> : <span style={{ color: 'var(--text-secondary, #6b7280)' }}>-</span>}</td>
               </tr>
             ))}

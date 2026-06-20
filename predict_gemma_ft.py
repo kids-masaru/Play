@@ -15,6 +15,7 @@ import io
 import json
 import time
 import re
+import argparse
 import requests
 import pandas as pd
 
@@ -37,7 +38,7 @@ SLEEP_BETWEEN_CALLS = 0.3  # ローカルなので軽め
 INSTRUCTION = "次のボートレースを分析し、3連単(1着-2着-3着)の推論と買い目を答えてください。\n\n"
 
 
-def check_ollama():
+def check_ollama(model):
     """Ollama 起動と対象モデルの登録を確認。NGなら False。"""
     try:
         resp = requests.get("http://localhost:11434/api/tags", timeout=5)
@@ -45,8 +46,8 @@ def check_ollama():
             print(f"[ERROR] Ollama 応答エラー (HTTP {resp.status_code})")
             return False
         names = [m.get("name", "") for m in resp.json().get("models", [])]
-        if not any(n == MODEL_NAME or n.startswith(MODEL_NAME) for n in names):
-            print(f"[ERROR] '{MODEL_NAME}' が Ollama に未登録です。登録済みモデル: {names}")
+        if not any(n == model or n.startswith(model) for n in names):
+            print(f"[ERROR] '{model}' が Ollama に未登録です。登録済みモデル: {names}")
             return False
         return True
     except Exception as e:
@@ -55,12 +56,12 @@ def check_ollama():
         return False
 
 
-def call_gemma(prompt, max_retries=3):
+def call_gemma(prompt, model, max_retries=3):
     """学習版Gemma(Ollama)を呼び出して応答テキストを返す。"""
     for attempt in range(max_retries):
         try:
             response = requests.post(OLLAMA_URL, json={
-                "model": MODEL_NAME,
+                "model": model,
                 "prompt": prompt,
                 "stream": False,
                 "options": {
@@ -121,13 +122,21 @@ def parse_response(text):
 
 
 def main():
-    if not check_ollama():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--model", default=MODEL_NAME, help="Ollamaモデル名 (例 gemma-boat:1b / gemma-boat-claude:1b)")
+    ap.add_argument("--out", default="daily_gemma_predictions.csv", help="出力CSV(DATA_DIR相対 or 絶対)")
+    ap.add_argument("--tag", default="GemmaFT", help="CSV列サフィックス (Prediction_<tag> 等)")
+    args = ap.parse_args()
+    model, tag = args.model, args.tag
+    out_csv = args.out if os.path.isabs(args.out) else os.path.join(DATA_DIR, args.out)
+
+    if not check_ollama(model):
         sys.exit(1)
 
     with open(RACE_INFO_JSON, "r", encoding="utf-8") as f:
         info = json.load(f)
     races = info["races"]
-    print(f"=== 学習版Gemma予測 ({MODEL_NAME}) ===")
+    print(f"=== 学習版Gemma予測 ({model}) ===")
     print(f"対象日: {info['date']} / レース数: {len(races)}")
 
     results = []
@@ -137,7 +146,7 @@ def main():
         print(f"\n[{i}/{len(races)}] {race['venue']} {race['r']}R", flush=True)
         prompt = format_race(race)
         t0 = time.time()
-        text = call_gemma(prompt)
+        text = call_gemma(prompt, model)
         parsed = parse_response(text)
         print(f"  ({time.time()-t0:.1f}s) {len(parsed['picks'])} 点: {parsed['picks'][:5]}")
 
@@ -147,17 +156,17 @@ def main():
             "Date": race["date"],
             "Venue": race["venue"],
             "R": race["r"],
-            "Prediction_GemmaFT": parsed["reasoning"][:1500],
-            "Log_GemmaFT": text.strip()[:2500],
-            "Stakes_GemmaFT": stakes_str,
+            f"Prediction_{tag}": parsed["reasoning"][:1500],
+            f"Log_{tag}": text.strip()[:2500],
+            f"Stakes_{tag}": stakes_str,
         })
         time.sleep(SLEEP_BETWEEN_CALLS)
 
     new_df = pd.DataFrame(results)
     # 永続化（追記式 upsert）: 今回の RaceID だけ差し替え、過去分は保持
-    if os.path.exists(OUTPUT_CSV):
+    if os.path.exists(out_csv):
         try:
-            old = pd.read_csv(OUTPUT_CSV)
+            old = pd.read_csv(out_csv)
             if "RaceID" in old.columns and len(new_df):
                 old = old[~old["RaceID"].astype(str).isin(new_df["RaceID"].astype(str))]
             combined = pd.concat([old, new_df], ignore_index=True)
@@ -166,10 +175,10 @@ def main():
             combined = new_df
     else:
         combined = new_df
-    combined.to_csv(OUTPUT_CSV, index=False, encoding="utf-8")
+    combined.to_csv(out_csv, index=False, encoding="utf-8")
     print(f"\n=== 完了 ({time.time()-t_overall:.1f}s) ===")
-    print(f"出力: {OUTPUT_CSV} (今回 {len(results)} レース / 累計 {len(combined)} レース)")
-    print(f"今回予測あり: {sum(1 for r in results if r['Stakes_GemmaFT'])} レース")
+    print(f"出力: {out_csv} (今回 {len(results)} レース / 累計 {len(combined)} レース)")
+    print(f"今回予測あり: {sum(1 for r in results if r[f'Stakes_{tag}'])} レース")
 
 
 if __name__ == "__main__":
