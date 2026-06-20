@@ -1,10 +1,10 @@
 # toto予測対戦システム — タスク管理
 
-## 最終更新: 2026-06-19
+## 最終更新: 2026-06-20
 
 ## 現在のステータス
 - Phase 1（planning）: **承認済み（2026-06-11）**
-- Phase 2（実装）: **T1〜T13 完了**（T8答え合わせ含む）。実機(toto タブ)も確認済み。
+- Phase 2（実装）: **T1〜T14 完了**（T8答え合わせ含む）。実機(toto タブ)も確認済み。
 - **2026-06-19 追加対応（W杯期間に結果が出ない問題）**:
   - 原因: 現行回(1634-1636)が全てW杯=国際試合で結果源(jleague_matches.csv)に無く actual="" のまま。
     かつダッシュボードは販売中の現行回しか表示せず、予測した過去回(1635等)が見えなかった。
@@ -12,7 +12,14 @@
     ②W杯結果をWeb検索で取得し manual_results.json に記入(1634全13・1635消化9)→ re-settle で的中判定。
     ③`generate_toto_data.py` が全回を `toto_rounds.json` 出力、`Toto.jsx` に回セレクタ追加(過去の答え合わせ閲覧可)。
   - 結果: 1635 Gemini 7/9的中・1634 Gemini 5/13。統計は国際試合のため-(想定内)。
-  - 残: 6/19の未確定2試合(1635-4,9)と6/20分(1635-5,10)は試合後に manual_results.json 追記で確定。
+- **2026-06-20 UI拡張（見やすさ・お金の可視化）**:
+  - **mini toto(5試合)対応**: 回×くじ種別(toto/mini-A/mini-B)で切替。match_idは試合ベースで統一し
+    ユーザー予想がくじ間で引き継がれる。mini-A=toto試合1-5, mini-B=試合6-10。
+  - **当せん判定(KujiVerdict)**: 全問正解=当せん/はずれ/まだ可能性あり を あなた/Gemini/統計 別に表示。
+  - **収支シミュレーション+ROI**: 1口100円・全問的中で1等当せん金が返る想定。`data/manual_payouts.json`に
+    1等当せん金を手入力(第1634回: toto=0キャリーオーバー/mini-A 10,140円/mini-B 67,340円)。
+  - **線グラフ化**: 累積収支の推移(右肩下がり)を線で追加。回ごと的中率も棒→線に変更。
+  - 残: 6/19-20の未確定試合(1635-4,5,9,10)は試合後に manual_results.json/manual_payouts.json 追記で確定。
 
 ## 次回やること
 - **T13 スケジューラ登録（要 masaru 実行）**: 管理者PowerShell等で
@@ -56,8 +63,17 @@
 - [x] T12. 週次オーケストレーション（`run_toto_weekly.py` + `run_toto_weekly.bat`）。
   collect→fetch→(未予測のみ)gemini→settle→generate→push の冪等バッチ。--no-push/--skip-gemini/--force-predict。
   通しテスト OK（exit 0、12秒）
-- [ ] T13. タスクスケジューラ登録 → **masaru が schtasks 実行**（コマンドは上部「次回やること」参照）
+- [x] T13. タスクスケジューラ `Toto_Weekly` 登録済み（毎日10:30・Ready）。settled_*.json が10:30更新で稼働確認。
 - [x] T14.(toto分) push → GitHub Actions ビルド success → toto タブ実機確認済み（2026-06-13）
+
+### Phase 2-E: 結果反映＆UI拡張（2026-06-19〜20）
+- [x] T15. 国際試合(W杯)結果の手入力フォールバック（`settle_results.py` + `data/manual_results.json`）。Web検索で実結果記入。
+- [x] T16. 全回×くじ種別を `toto_rounds.json` 出力 + `Toto.jsx` に回・種別セレクタ（過去回/ mini toto 閲覧可）。
+- [x] T17. mini toto(5試合)対応。match_idを試合ベースで統一（くじ間でユーザー予想を引き継ぎ）。
+- [x] T18. 当せん判定(全問正解=当せん) + 収支シミュレーション(投資/払戻/ROI, `data/manual_payouts.json`の1等当せん金)。
+- [x] T19. 累積収支の線グラフ追加・回ごと的中率を線グラフ化（スマホ見やすさ重視）。
+- [ ] T20. 残: 未確定試合の結果＆1等当せん金を試合後に manual_results.json / manual_payouts.json へ追記。
+       Jリーグ回が始まれば統計モデルも稼働（国際試合は v1 対象外）。
 
 ## 作業ログ
 ### 2026-06-13 (夕: 自動化 T11/T12 + T8答え合わせ + push)

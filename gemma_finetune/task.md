@@ -19,10 +19,15 @@
   Gemma4は最小E2Bでも4bit重みが7GB級→VRAM 6GBで学習OOM必至＝見送り（2026-06-18 実測）。
 
 ## 次回やること
-- **T13（既存pipelineから `gemma-boat:1b` を Ollama API で呼ぶ予想生成）→ T14（ダッシュボードに「学習版Gemma」枠を追加）**
-- WSL実行は `~/gemma-ft/venv/bin/python`。作業は ~/gemma-ft 配下。
-- 学習コマンド: `~/gemma-ft/venv/bin/python ~/gemma-ft/train_qlora.py --epochs 3`（約6.5分・80件）
-- 推論: Windows Ollama `gemma-boat:1b`（既存 `gemma2:2b` と並行・温存）
+- **運用観察**: 6者対戦の戦績が毎朝自動で積み上がる。Gemini先生版 vs Claude先生版 の的中率/収支推移を見守る。
+- **T15 振り返り**: ある程度レースが溜まったら「どちらの先生に習った方が良い予想か」を総括。
+- （任意）データ再増量や3周目の方針。モデルは 6GB 制約で gemma-3-1b 据え置き。
+- 実行メモ:
+  - 学習: `~/gemma-ft/venv/bin/python ~/gemma-ft/train_qlora.py --epochs 2`（1000件・約45〜60分）
+  - データ作成(Gemini先生): `run_build_dataset.bat <件数>` / (Claude先生): `dump_situations.py`→サブエージェントでお手本→`train_claude.jsonl`
+  - GGUF化: `merge_export.py`→`llama.cpp/convert_hf_to_gguf.py --outtype q8_0`→`ollama create`
+  - 推論モデル: Ollama `gemma-boat:1b`(Gemini先生) / `gemma-boat-claude:1b`(Claude先生)
+  - LoRAバックアップ: `~/gemma-ft/lora_boat_gemini` / `lora_boat_claude`
 
 ## タスク一覧
 
@@ -71,10 +76,26 @@
       `update_battle_dashboard.py`の朝バッチに`predict_gemma_ft.py`を組み込み(--skip-gemma対応)。
       **副次の重要修正**: Gemini予測が毎日上書きで履歴に残らないバグ(履歴でGeminiが常に"-")を、
       `generate_gemini_predictions.py`を追記式upsertに変更して解消。学習版Gemmaも同方式で最初から永続化。
-- [ ] T15. 振り返り（masaru の学び・気づきを整理、必要なら2周目の方針）
-- [ ] (デプロイ) push→GitHub Actionsビルド後に実機(ダッシュボード)で5者表示を確認
+- [x] T15(一部). デプロイ済み・実機で5者→6者表示OK。**最終振り返りはレース蓄積後**に実施予定。
+
+### Phase 2-E: データ増量＆「先生対決」（2026-06-21）
+- [x] T16. 教師データ 80→**1000件**に増量（`run_build_dataset.bat 1000`、Gemini生成・失敗1のみ）→再学習(train_loss 1.41)。
+- [x] T17. **Claude先生版**を作成。`dump_situations.py`で同一1000レースの状況+結果を抽出→20バッチ→
+      Claudeサブエージェントがお手本生成→`train_claude.jsonl`(1000)→学習(train_loss 1.09)→`gemma-boat-claude:1b`。
+- [x] T18. `predict_gemma_ft.py`を--model/--out/--tagでモデル切替可能に。`compare_teachers.py`で2モデル比較。
+- [x] T19. ダッシュボードを**6者対戦**化（Battle.jsx + generate_battle_data + 朝バッチで両モデル生成）。push済み。
 
 ## 作業ログ
+### 2026-06-21
+- 教師80→1000件に増量し再学習(Gemini先生版, loss1.41)。
+- 「Gemini先生 vs Claude先生」構想を採用。同一1000レースで教師だけ差し替え。
+  Claude(サブエージェント)が1000件のお手本を生成→学習(Claude先生版, loss1.09)。
+- 2モデルをOllama登録(`gemma-boat:1b`/`gemma-boat-claude:1b`)、未学習レースで比較=先生の個性が弟子に出ると確認。
+- ダッシュボード6者対戦化してデプロイ。朝バッチで両モデル自動生成。
+
+### 2026-06-19〜20（toto/ダッシュボード関連は toto/task.md 参照）
+- T11〜T14 完了（学習前後比較→GGUF→Ollama→5者対戦）。Gemini履歴永続化バグ修正。
+
 ### 2026-06-18
 - T9 リベンジ（前回の判断待ちを解消）。masaru 方針: 「Gemma3でOK、可能ならGemma4」
 - Gemma4 実測検証: 最小 `gemma-4-E2B-it` 4bit でもDLキャッシュ7GB級・マルチモーダルで
