@@ -71,9 +71,22 @@
 - [x] run_gemini_predictions.bat - env load + python実行
 - [x] generate_battle_data.py で Gemini予測 (stakes/見解/思考) を含める
 - [x] Battle.jsx を 4者対応 (Det/LLM/Gemini/ユーザー)
-- [ ] 朝バッチへの Gemini予測統合 (現状は手動実行)
+- [x] 朝バッチへの Gemini予測統合 (2026-06-11 `update_battle_dashboard.py` を run_morning.bat に組込み・9:00自動)
+
+## Phase 2.0 (傾向タブ・偏り分析) 2026-06-21
+
+- [x] 偏り集計: Detの3連単買い目 × 実結果で会場別/レース番号別の的中率・ROIを集計 (`analysis/boat_bias_analysis.py`)
+  - 結果: 対象346レース/的中11(3.2%)/ROI72%。母数が薄く「得意ゾーン」はほぼノイズと判明（鳴門・12Rの肌感は3連単では不成立）
+- [x] 指標切替: 母数の大きい **1号艇1着率(イン率)** で再集計 (`analysis/boat_venue_tendency.py`、全17,580レース)
+  - 会場偏り本物(徳山62.9%↔戸田39.8%)、レース番号偏り本物(2R46%→12R72%)、ただし「当たる≠儲かる」
+  - 発見: Det本命1着率53.5%≒イン率54.8%＝モデルはほぼ1号艇買いで上積み乏しい（[[roi_structural_limit]] に追記）
+- [x] ダッシュボード「傾向」タブ追加 (`dashboard/src/Tendency.jsx` + App.jsx タブ、`boat_tendency.json` を fetch)
+  - 会場別/レース番号別イン率のヒートマップ（緑=堅い/赤=荒れる）、Det本命1着率・中央払戻も表示
+- [x] 朝バッチ自動化: `update_battle_dashboard.py` に集計実行を追加＋`boat_tendency.json` を公開対象に。毎朝9:00更新
+- [ ] (将来) イン堅め戦略の第7予測者（後半R×堅い会場で1号艇本命）。ただしROIは控除率の壁で100%困難の見込み
 
 ## 履歴
 
 - 2026-06-07: spec / task 初版作成
 - 2026-06-07: Phase 1.5 (3者比較) + 1.6 (Gemini追加で4者比較) 完了
+- 2026-06-21: Phase 2.0 傾向タブ・偏り分析 完了（イン率ヒートマップ＋朝バッチ自動化）
