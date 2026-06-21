@@ -51,6 +51,8 @@ PUBLISH_FILES = [
     "dashboard/public/daily_data/ai_predictions_summary.json",
     # 予測対戦の「4者戦績」は結果CSVが要る。これが無いと本番で的中率が全部0になる。
     "dashboard/public/daily_data/daily_history_results.csv",
+    # 傾向(攻略図)タブの会場別/レース番号別イン率ヒートマップ用
+    "dashboard/public/daily_data/boat_tendency.json",
 ]
 
 
@@ -200,6 +202,10 @@ def main():
     # 2回目: Gemini と 学習版Gemma を取り込んだ最終版
     # （--skip-gemini かつ --skip-gemma でも、再生成は無害なので常に回す）
     run_py("generate_battle_data.py")
+
+    # 傾向(攻略図)タブのデータを再生成（会場別/レース番号別のイン率ヒートマップ）。
+    # 最新の結果・予想CSVが揃った後に集計する。失敗しても他の公開は止めない。
+    run_py("analysis/boat_venue_tendency.py", allow_fail=True)
 
     # 穴③: 公開
     publish(no_push=no_push)
