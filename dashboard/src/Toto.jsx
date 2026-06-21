@@ -562,6 +562,110 @@ const RoundTrend = ({ rounds, userByMid, kuji, kujiLabel }) => {
   );
 };
 
+// くじ種別の短縮表示
+const KUJI_SHORT = { toto: 'toto', mini_a: 'mini-A', mini_b: 'mini-B' };
+
+/**
+ * 全回まとめ表：プルダウンで切り替えなくても、結果が出た全ての回×くじ種別を
+ * 一覧で比較できる。各セルは「的中数/確定数 (％)」。当せん（全問確定で全問的中）と
+ * 配当金も併記する。
+ */
+const RoundsTable = ({ rounds, userByMid }) => {
+  // 結果が1つでも出ている回だけを対象（新しい回→古い回、同回内は toto→A→B）
+  const order = { toto: 0, mini_a: 1, mini_b: 2 };
+  const rows = [...rounds]
+    .filter((r) => r.matches.some((m) => m.result))
+    .sort((a, b) => (b.round - a.round) || ((order[a.kuji] ?? 9) - (order[b.kuji] ?? 9)));
+  if (rows.length === 0) return null;
+
+  // ある予測者について、確定試合での的中数などを集計
+  const evalP = (matches, getPick) => {
+    let picked = 0, hits = 0, settledPicked = 0;
+    matches.forEach((m) => {
+      const p = getPick(m);
+      if (!p) return;
+      picked += 1;
+      if (m.result) { settledPicked += 1; if (p === m.result) hits += 1; }
+    });
+    return { picked, hits, settledPicked };
+  };
+  // セル表示「的中/確定 (％)」
+  const cell = (e) =>
+    e.settledPicked > 0 ? `${e.hits}/${e.settledPicked} (${Math.round((e.hits / e.settledPicked) * 100)}%)` : '—';
+  // その予測者が当せんしたか（全試合確定 & 全問予想 & 全問的中）
+  const isWin = (total, settledN, e) => settledN === total && e.picked === total && e.hits === total;
+
+  const th = { padding: '0.5rem 0.6rem', textAlign: 'center', fontSize: '0.74rem', color: 'var(--text-secondary, #9ca3af)', fontWeight: 600, whiteSpace: 'nowrap', borderBottom: '1px solid rgba(255,255,255,0.12)' };
+  const td = { padding: '0.5rem 0.6rem', textAlign: 'center', fontSize: '0.82rem', whiteSpace: 'nowrap', borderBottom: '1px solid rgba(255,255,255,0.06)' };
+
+  // 配当表示
+  const payoutText = (p) => {
+    if (p == null) return <span style={{ color: 'var(--text-secondary, #6b7280)' }}>未取得</span>;
+    if (p === 0) return <span style={{ color: '#f59e0b' }}>CO</span>; // キャリーオーバー
+    return <span style={{ color: '#10b981', fontWeight: 600 }}>¥{p.toLocaleString()}</span>;
+  };
+
+  // 的中セル（当せんなら🎉を付ける）
+  const HitCell = ({ total, settledN, e, color }) => {
+    const win = isWin(total, settledN, e);
+    return (
+      <td style={{ ...td, color: e.settledPicked > 0 ? color : 'var(--text-secondary, #6b7280)', fontWeight: win ? 700 : 500 }}>
+        {cell(e)}{win && ' 🎉'}
+      </td>
+    );
+  };
+
+  return (
+    <div className="glass-card" style={{ padding: '1rem 1.1rem', marginBottom: '1.25rem' }}>
+      <h3 style={{ margin: '0 0 0.25rem 0', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+        <BarChart3 size={17} /> 全回まとめ（結果が出た {rows.length} 件）
+      </h3>
+      <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #9ca3af)', marginBottom: '0.6rem' }}>
+        各セルは「的中数 / 確定した試合数（％）」。🎉＝そのくじを全問的中＝当せん。プルダウンで切替えなくても全回を一覧できます。
+      </div>
+      <div style={{ overflowX: 'auto' }}>
+        <table style={{ borderCollapse: 'collapse', width: '100%', minWidth: '520px' }}>
+          <thead>
+            <tr>
+              <th style={{ ...th, textAlign: 'left' }}>回</th>
+              <th style={{ ...th, textAlign: 'left' }}>くじ</th>
+              <th style={th}>確定</th>
+              <th style={{ ...th, color: SERIES.stat }}>統計</th>
+              <th style={{ ...th, color: SERIES.gemini }}>Gemini</th>
+              <th style={{ ...th, color: SERIES.user }}>あなた</th>
+              <th style={th}>1等配当</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => {
+              const total = r.matches.length;
+              const settledN = r.matches.filter((m) => m.result).length;
+              const eS = evalP(r.matches, (m) => m.stats?.pick);
+              const eG = evalP(r.matches, (m) => m.gemini_pick);
+              const eU = evalP(r.matches, (m) => userByMid[m.match_id]?.pick);
+              return (
+                <tr key={`${r.round}-${r.kuji}`}>
+                  <td style={{ ...td, textAlign: 'left', fontWeight: 600 }}>第{r.round}回</td>
+                  <td style={{ ...td, textAlign: 'left' }}>{KUJI_SHORT[r.kuji] || r.kuji}</td>
+                  <td style={{ ...td, color: settledN === total ? '#10b981' : '#f59e0b' }}>{settledN}/{total}</td>
+                  <HitCell total={total} settledN={settledN} e={eS} color={SERIES.stat} />
+                  <HitCell total={total} settledN={settledN} e={eG} color={SERIES.gemini} />
+                  <HitCell total={total} settledN={settledN} e={eU} color={SERIES.user} />
+                  <td style={td}>{payoutText(r.payout)}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary, #6b7280)', marginTop: '0.5rem', lineHeight: 1.6 }}>
+        ※「確定 3/5」＝5試合中3つだけ結果が出ている状態。全試合が確定して全問的中して初めて当せん（🎉）。<br />
+        ※ 1等配当：CO＝該当者なしでキャリーオーバー、未取得＝結果がまだ公式反映前。
+      </div>
+    </div>
+  );
+};
+
 const Toto = () => {
   const [roundsData, setRoundsData] = useState(null);   // { default_round, default_key, rounds:[...] }
   const [selectedKey, setSelectedKey] = useState(null); // `${round}-${kuji}`
@@ -711,6 +815,9 @@ const Toto = () => {
       )}
 
       <PassphraseBar passReady={passReady} statusMsg={statusMsg} onSetPass={handleSetPass} onLogout={handleLogout} />
+
+      {/* 全回まとめ表（プルダウン不要で全回を一覧比較） */}
+      <RoundsTable rounds={roundsData.rounds} userByMid={userByMid} />
 
       <KujiVerdict kujiLabel={info.kuji_label || info.kuji} matches={info.matches} userByMid={userByMid} payout={info.payout} />
 
