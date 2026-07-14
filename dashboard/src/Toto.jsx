@@ -342,6 +342,47 @@ const TotoCharts = ({ matches, userByMid }) => {
 /** 円の符号付き表記 */
 const yen = (v) => `${v >= 0 ? '+' : '-'}¥${Math.abs(Math.round(v)).toLocaleString()}`;
 
+/** 等級別当せん金テーブル（toto公式の確定結果：1等〜の当せん金・口数） */
+const PayoutTable = ({ detail, kujiLabel }) => {
+  if (!Array.isArray(detail) || detail.length === 0) return null;
+  const th = { padding: '0.5rem 0.7rem', textAlign: 'right', fontSize: '0.74rem', color: 'var(--text-secondary, #9ca3af)', fontWeight: 600, whiteSpace: 'nowrap', borderBottom: '1px solid rgba(255,255,255,0.12)' };
+  const td = { padding: '0.55rem 0.7rem', textAlign: 'right', fontSize: '0.92rem', whiteSpace: 'nowrap', borderBottom: '1px solid rgba(255,255,255,0.06)' };
+  return (
+    <div className="glass-card" style={{ padding: '1rem 1.25rem', marginBottom: '1.25rem' }}>
+      <h3 style={{ margin: '0 0 0.25rem 0', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+        <Trophy size={17} /> 当せん金（{kujiLabel}・公式確定結果）
+      </h3>
+      <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary, #9ca3af)', marginBottom: '0.6rem' }}>
+        toto公式の等級別当せん金（1口=100円あたり）と当せん口数です。
+      </div>
+      <div style={{ overflowX: 'auto' }}>
+        <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+          <thead>
+            <tr>
+              <th style={{ ...th, textAlign: 'left' }}>等級</th>
+              <th style={th}>当せん金</th>
+              <th style={th}>当せん口数</th>
+            </tr>
+          </thead>
+          <tbody>
+            {detail.map((d) => (
+              <tr key={d.rank}>
+                <td style={{ ...td, textAlign: 'left', fontWeight: 700 }}>{d.rank}等</td>
+                <td style={{ ...td, color: d.amount > 0 ? '#10b981' : '#f59e0b', fontWeight: 700 }}>
+                  {d.amount > 0 ? `¥${d.amount.toLocaleString()}` : 'キャリーオーバー'}
+                </td>
+                <td style={{ ...td, color: 'var(--text-primary, #f3f4f6)' }}>
+                  {d.count != null ? `${d.count.toLocaleString()}口` : '—'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
 /** 当せん判定: そのくじ(toto/mini)を全問正解＝当せんしたか、予測者ごとに表示 */
 const KujiVerdict = ({ kujiLabel, matches, userByMid, payout }) => {
   const total = matches.length;
@@ -820,6 +861,8 @@ const Toto = () => {
       <RoundsTable rounds={roundsData.rounds} userByMid={userByMid} />
 
       <KujiVerdict kujiLabel={info.kuji_label || info.kuji} matches={info.matches} userByMid={userByMid} payout={info.payout} />
+
+      <PayoutTable detail={info.payout_detail} kujiLabel={info.kuji_label || info.kuji} />
 
       <MoneySummary rounds={roundsData.rounds} kuji={info.kuji} kujiLabel={info.kuji_label || info.kuji} userByMid={userByMid} />
 

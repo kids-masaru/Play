@@ -152,12 +152,16 @@ def build(round_no, kuji_key=None):
         })
 
     n_settled = sum(1 for m in matches if m["result"])
-    payout = (payouts.get(str(round_no), {}) or {}).get(kuji_key, None)  # 1等当せん金(円/100円). None=未取得, 0=該当なし
+    round_pay = payouts.get(str(round_no), {}) or {}
+    payout = round_pay.get(kuji_key, None)  # 1等当せん金(円/100円). None=未取得, 0=該当なし
+    # 等級別明細（あれば）: [{rank, amount(円), count(口数)}, ...]
+    payout_detail = (round_pay.get("detail", {}) or {}).get(kuji_key, None)
     return {
         "round": round_no,
         "kuji": kuji_key,
         "kuji_label": KUJI_LABEL.get(kuji_key, kuji_key),
         "payout": payout,
+        "payout_detail": payout_detail,
         "deadline": sec.get("deadline", ""),
         "result_date": sec.get("result_date", ""),
         "generated_date": datetime.date.today().isoformat(),

@@ -35,7 +35,12 @@ except Exception:
 TOTO_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(TOTO_DIR)                 # リポジトリ直下
 DATA_DIR = os.path.join(TOTO_DIR, "data")
-PUBLISH_FILE = "dashboard/public/daily_data/toto_info.json"  # REPO からの相対
+# 公開対象（REPO からの相対）。フロントの主データは toto_rounds.json（全回＋答え合わせ）で、
+# toto_info.json は後方互換のフォールバック。両方 push しないと答え合わせが反映されない。
+PUBLISH_FILES = [
+    "dashboard/public/daily_data/toto_rounds.json",
+    "dashboard/public/daily_data/toto_info.json",
+]
 
 
 def log(msg):
@@ -71,18 +76,18 @@ def round_numbers():
 
 
 def publish(no_push=False):
-    """toto_info.json を git add -> commit -> push。"""
+    """toto の表示データ（toto_rounds.json / toto_info.json）を git add -> commit -> push。"""
     if no_push:
         log("--no-push 指定のため公開（push）はスキップ")
         return
-    path = os.path.join(REPO, PUBLISH_FILE)
-    if not os.path.exists(path):
-        log(f"  [WARN] 公開対象が無い: {PUBLISH_FILE}")
+    exist = [f for f in PUBLISH_FILES if os.path.exists(os.path.join(REPO, f))]
+    if not exist:
+        log(f"  [WARN] 公開対象が無い: {PUBLISH_FILES}")
         return
     log("GitHub へ公開...")
     env = os.environ.copy()
     env["GIT_TERMINAL_PROMPT"] = "0"
-    subprocess.run(["git", "add", PUBLISH_FILE], cwd=REPO, env=env)
+    subprocess.run(["git", "add", *exist], cwd=REPO, env=env)
     msg = f"Auto-update toto dashboard: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
     commit = subprocess.run(["git", "commit", "-m", msg, "--no-verify"],
                             cwd=REPO, env=env, capture_output=True, text=True)
