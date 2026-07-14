@@ -3,6 +3,23 @@
   "kuji": "toto",
   "kuji_label": "toto (13試合)",
   "payout": 589850,
+  "payout_detail": [
+    {
+      "rank": 1,
+      "amount": 589850,
+      "count": 212
+    },
+    {
+      "rank": 2,
+      "amount": 4200,
+      "count": 6378
+    },
+    {
+      "rank": 3,
+      "amount": 480,
+      "count": 55379
+    }
+  ],
   "deadline": "2026-06-25 19:00",
   "result_date": "2026-06-28",
   "generated_date": "2026-07-14",
