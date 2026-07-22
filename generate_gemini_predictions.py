@@ -24,7 +24,7 @@ if not API_KEY:
 import google.generativeai as genai
 genai.configure(api_key=API_KEY)
 
-MODEL_NAME = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+MODEL_NAME = os.environ.get("GEMINI_MODEL", "gemini-3.6-flash")
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(ROOT, "dashboard", "public", "daily_data")
