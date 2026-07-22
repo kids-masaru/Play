@@ -43,7 +43,7 @@ RACE_CSV = os.path.join(PAST, "past_race_data.csv")
 BEFORE_CSV = os.path.join(PAST, "past_raw_beforeinfo.csv")
 ODDS_DIR = os.path.join(PAST, "past_odds_3t_backfill")
 
-MODEL_NAME = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+MODEL_NAME = os.environ.get("GEMINI_MODEL", "gemini-3.6-flash")
 SLEEP = 1.5            # API レート配慮
 ODDS_TOP = 8          # オッズ上位の表示数
 

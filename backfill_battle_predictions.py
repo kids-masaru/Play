@@ -290,7 +290,7 @@ def make_gemini_predict():
     import google.generativeai as genai
     from google.api_core import exceptions as gexc
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel(os.environ.get("GEMINI_MODEL", "gemini-2.5-flash"))
+    model = genai.GenerativeModel(os.environ.get("GEMINI_MODEL", "gemini-3.6-flash"))
 
     def predict(race):
         try:
