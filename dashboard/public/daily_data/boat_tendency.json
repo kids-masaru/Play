@@ -1,17 +1,17 @@
 {
-  "generated_date": "2026-07-19",
+  "generated_date": "2026-07-22",
   "date_from": "2026-02-27",
-  "date_to": "2026-07-18",
+  "date_to": "2026-07-21",
   "overall": {
-    "races": 22056,
+    "races": 22392,
     "in_rate": 54.9,
-    "det_in_rate": 55.3,
-    "det_races": 606
+    "det_in_rate": 54.8,
+    "det_races": 626
   },
   "venues": [
     {
       "venue": "徳山",
-      "races": 1080,
+      "races": 1092,
       "in_rate": 62.6,
       "med_payout": 1910,
       "det_races": 41,
@@ -19,19 +19,19 @@
     },
     {
       "venue": "下関",
-      "races": 744,
-      "in_rate": 62.2,
-      "med_payout": 2075,
-      "det_races": 19,
-      "det_in_rate": 73.7
+      "races": 768,
+      "in_rate": 62.1,
+      "med_payout": 2085,
+      "det_races": 20,
+      "det_in_rate": 70.0
     },
     {
       "venue": "芦屋",
-      "races": 984,
-      "in_rate": 60.1,
-      "med_payout": 2355,
-      "det_races": 36,
-      "det_in_rate": 61.1
+      "races": 996,
+      "in_rate": 59.7,
+      "med_payout": 2385,
+      "det_races": 37,
+      "det_in_rate": 62.2
     },
     {
       "venue": "大村",
@@ -50,92 +50,92 @@
       "det_in_rate": 63.4
     },
     {
-      "venue": "児島",
-      "races": 984,
-      "in_rate": 58.5,
-      "med_payout": 2555,
-      "det_races": 6,
-      "det_in_rate": 83.3
-    },
-    {
       "venue": "丸亀",
-      "races": 900,
-      "in_rate": 58.1,
+      "races": 912,
+      "in_rate": 58.3,
       "med_payout": 2420,
       "det_races": 17,
       "det_in_rate": 47.1
     },
     {
-      "venue": "宮島",
-      "races": 840,
-      "in_rate": 57.4,
-      "med_payout": 2240,
-      "det_races": 14,
-      "det_in_rate": 50.0
+      "venue": "児島",
+      "races": 1008,
+      "in_rate": 58.0,
+      "med_payout": 2605,
+      "det_races": 6,
+      "det_in_rate": 83.3
     },
     {
       "venue": "若松",
-      "races": 915,
-      "in_rate": 57.3,
-      "med_payout": 2210,
+      "races": 939,
+      "in_rate": 57.5,
+      "med_payout": 2200,
       "det_races": 16,
       "det_in_rate": 50.0
     },
     {
+      "venue": "宮島",
+      "races": 852,
+      "in_rate": 57.3,
+      "med_payout": 2250,
+      "det_races": 14,
+      "det_in_rate": 50.0
+    },
+    {
       "venue": "福岡",
-      "races": 924,
+      "races": 948,
       "in_rate": 57.1,
-      "med_payout": 1920,
+      "med_payout": 1965,
       "det_races": 39,
       "det_in_rate": 71.8
     },
     {
       "venue": "唐津",
-      "races": 906,
-      "in_rate": 57.0,
+      "races": 918,
+      "in_rate": 57.1,
       "med_payout": 2130,
       "det_races": 35,
       "det_in_rate": 54.3
     },
     {
       "venue": "住之江",
-      "races": 852,
-      "in_rate": 56.1,
+      "races": 876,
+      "in_rate": 55.9,
       "med_payout": 2375,
-      "det_races": 31,
-      "det_in_rate": 48.4
+      "det_races": 32,
+      "det_in_rate": 46.9
     },
     {
       "venue": "常滑",
-      "races": 1146,
-      "in_rate": 55.8,
-      "med_payout": 2145,
+      "races": 1158,
+      "in_rate": 55.7,
+      "med_payout": 2160,
       "det_races": 25,
       "det_in_rate": 60.0
     },
     {
-      "venue": "津",
-      "races": 847,
-      "in_rate": 55.4,
-      "med_payout": 2370,
-      "det_races": 19,
-      "det_in_rate": 52.6
-    },
-    {
       "venue": "多摩川",
-      "races": 828,
-      "in_rate": 55.3,
-      "med_payout": 2480,
+      "races": 852,
+      "in_rate": 55.6,
+      "med_payout": 2475,
       "det_races": 17,
       "det_in_rate": 52.9
     },
     {
+      "venue": "津",
+      "races": 871,
+      "in_rate": 55.3,
+      "med_payout": 2410,
+      "det_races": 21,
+      "det_in_rate": 47.6
+    },
+    {
       "venue": "びわこ",
-      "races": 849,
-      "in_rate": 54.3,
-      "med_payout": 2490,
-      "det_races": 24,
-      "det_in_rate": 50.0
+      "races": 873,
+      "in_rate": 54.1,
+      "med_payout": 2520,
+      "det_races": 28,
+      "det_in_rate": 57.1
     },
     {
       "venue": "浜名湖",
@@ -155,19 +155,19 @@
     },
     {
       "venue": "桐生",
-      "races": 985,
-      "in_rate": 50.7,
+      "races": 997,
+      "in_rate": 50.6,
       "med_payout": 2850,
-      "det_races": 30,
-      "det_in_rate": 50.0
+      "det_races": 31,
+      "det_in_rate": 48.4
     },
     {
       "venue": "三国",
-      "races": 811,
+      "races": 835,
       "in_rate": 48.6,
-      "med_payout": 2950,
-      "det_races": 27,
-      "det_in_rate": 48.1
+      "med_payout": 2970,
+      "det_races": 31,
+      "det_in_rate": 45.2
     },
     {
       "venue": "鳴門",
@@ -179,11 +179,11 @@
     },
     {
       "venue": "平和島",
-      "races": 835,
-      "in_rate": 47.2,
+      "races": 859,
+      "in_rate": 46.8,
       "med_payout": 2870,
-      "det_races": 16,
-      "det_in_rate": 62.5
+      "det_races": 22,
+      "det_in_rate": 54.5
     },
     {
       "venue": "江戸川",
@@ -195,9 +195,9 @@
     },
     {
       "venue": "戸田",
-      "races": 828,
-      "in_rate": 42.0,
-      "med_payout": 3255,
+      "races": 840,
+      "in_rate": 41.9,
+      "med_payout": 3220,
       "det_races": 30,
       "det_in_rate": 33.3
     }
@@ -205,95 +205,95 @@
   "races": [
     {
       "r": 1,
-      "races": 1848,
-      "in_rate": 57.4,
-      "med_payout": 2475,
-      "det_races": 88,
-      "det_in_rate": 59.1
+      "races": 1876,
+      "in_rate": 57.3,
+      "med_payout": 2470,
+      "det_races": 90,
+      "det_in_rate": 58.9
     },
     {
       "r": 2,
-      "races": 1848,
-      "in_rate": 46.6,
-      "med_payout": 2985,
+      "races": 1876,
+      "in_rate": 46.4,
+      "med_payout": 3010,
       "det_races": 96,
       "det_in_rate": 45.8
     },
     {
       "r": 3,
-      "races": 1847,
-      "in_rate": 46.1,
+      "races": 1875,
+      "in_rate": 46.2,
       "med_payout": 2710,
-      "det_races": 55,
-      "det_in_rate": 45.5
+      "det_races": 56,
+      "det_in_rate": 46.4
     },
     {
       "r": 4,
-      "races": 1847,
+      "races": 1875,
       "in_rate": 47.6,
       "med_payout": 2690,
-      "det_races": 34,
-      "det_in_rate": 44.1
+      "det_races": 38,
+      "det_in_rate": 44.7
     },
     {
       "r": 5,
-      "races": 1846,
+      "races": 1874,
       "in_rate": 52.3,
-      "med_payout": 2540,
-      "det_races": 25,
-      "det_in_rate": 76.0
+      "med_payout": 2530,
+      "det_races": 27,
+      "det_in_rate": 74.1
     },
     {
       "r": 6,
-      "races": 1842,
-      "in_rate": 48.6,
-      "med_payout": 2590,
-      "det_races": 21,
-      "det_in_rate": 38.1
+      "races": 1870,
+      "in_rate": 48.3,
+      "med_payout": 2600,
+      "det_races": 22,
+      "det_in_rate": 36.4
     },
     {
       "r": 7,
-      "races": 1837,
-      "in_rate": 49.6,
+      "races": 1865,
+      "in_rate": 49.9,
       "med_payout": 2450,
       "det_races": 35,
       "det_in_rate": 48.6
     },
     {
       "r": 8,
-      "races": 1830,
-      "in_rate": 51.0,
+      "races": 1858,
+      "in_rate": 50.9,
       "med_payout": 2490,
-      "det_races": 35,
-      "det_in_rate": 45.7
+      "det_races": 37,
+      "det_in_rate": 45.9
     },
     {
       "r": 9,
-      "races": 1830,
-      "in_rate": 59.5,
-      "med_payout": 2220,
-      "det_races": 47,
-      "det_in_rate": 59.6
+      "races": 1858,
+      "in_rate": 59.3,
+      "med_payout": 2235,
+      "det_races": 48,
+      "det_in_rate": 58.3
     },
     {
       "r": 10,
-      "races": 1828,
-      "in_rate": 60.9,
-      "med_payout": 2200,
-      "det_races": 59,
-      "det_in_rate": 59.3
+      "races": 1856,
+      "in_rate": 60.8,
+      "med_payout": 2230,
+      "det_races": 61,
+      "det_in_rate": 57.4
     },
     {
       "r": 11,
-      "races": 1827,
-      "in_rate": 67.2,
+      "races": 1855,
+      "in_rate": 67.3,
       "med_payout": 2000,
-      "det_races": 55,
-      "det_in_rate": 72.7
+      "det_races": 60,
+      "det_in_rate": 70.0
     },
     {
       "r": 12,
-      "races": 1826,
+      "races": 1854,
       "in_rate": 72.3,
       "med_payout": 1870,
       "det_races": 56,

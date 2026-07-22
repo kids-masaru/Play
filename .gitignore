@@ -32,6 +32,9 @@ daily_raw_race_data.csv
 daily_raw_beforeinfo.csv
 daily_history_results.csv
 past_data/
+# 100MB超でGitHub上限を超えるため除外（配信フロントは未参照・パイプラインで日次再生成）
+daily_data/daily_odds_3t.csv
+dashboard/public/daily_data/daily_odds_3t.csv
 
 # Logs
 *.log
