@@ -60,6 +60,7 @@ const RaceList = ({ races, userPreds, onSelect }) => {
         const detPicks = parseAiPicks(race.ai_picks_det);
         const llmPicks = parseAiPicks(race.ai_picks_llm);
         const gemPicks = parseAiPicks(race.ai_picks_gemini);
+        const grokPicks = parseAiPicks(race.ai_picks_grok);
         const ftPicks = parseAiPicks(race.ai_picks_gemmaft);
         const fcPicks = parseAiPicks(race.ai_picks_gemmaclaude);
         const hasUser = !!userByRid[race.race_id];
@@ -95,6 +96,7 @@ const RaceList = ({ races, userPreds, onSelect }) => {
               {aiRow('Det', '#60a5fa', detPicks)}
               {aiRow('LLM', '#f59e0b', llmPicks)}
               {aiRow('Gemini', '#10b981', gemPicks)}
+              {aiRow('Grok', '#a78bfa', grokPicks)}
               {aiRow('学Gem', '#ec4899', ftPicks)}
               {aiRow('学Cla', '#06b6d4', fcPicks)}
             </div>
@@ -110,6 +112,7 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
   const aiDet = parseAiPicks(race.ai_picks_det);
   const aiLlm = parseAiPicks(race.ai_picks_llm);
   const aiGem = parseAiPicks(race.ai_picks_gemini);
+  const aiGrok = parseAiPicks(race.ai_picks_grok);
   const aiFt = parseAiPicks(race.ai_picks_gemmaft);
   const aiFc = parseAiPicks(race.ai_picks_gemmaclaude);
 
@@ -227,6 +230,12 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
                 : '(なし)'}
             </div>
           </div>
+          <div style={{ padding: '0.5rem', background: 'rgba(167,139,250,0.07)', borderRadius: '6px' }}>
+            <div style={{ fontSize: '0.8rem', color: '#a78bfa', marginBottom: '0.25rem', fontWeight: 600 }}>Grok</div>
+            <div style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>
+              {aiGrok.length > 0 ? aiGrok.map((p, i) => <div key={i}>{p.combo}{p.stake ? `  ¥${p.stake}` : ''}</div>) : '(なし)'}
+            </div>
+          </div>
           <div style={{ padding: '0.5rem', background: 'rgba(236,72,153,0.07)', borderRadius: '6px' }}>
             <div style={{ fontSize: '0.8rem', color: '#ec4899', marginBottom: '0.25rem', fontWeight: 600 }}>学習版Gemma (Gemini先生)</div>
             <div style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>
@@ -282,6 +291,12 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
             <div style={{ marginTop: '0.5rem', whiteSpace: 'pre-wrap', fontSize: '0.85rem', lineHeight: 1.7, color: 'var(--text-secondary, #d1d5db)' }}>
               {race.ai_log_gemini}
             </div>
+          </details>
+        )}
+        {race.ai_prediction_grok && (
+          <details open style={{ marginTop: '0.75rem', borderTop: '1px solid var(--border, #374151)', paddingTop: '0.75rem' }}>
+            <summary style={{ cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600, color: '#a78bfa' }}>AI(Grok)の予測</summary>
+            <div style={{ marginTop: '0.5rem', whiteSpace: 'pre-wrap', fontSize: '0.85rem', lineHeight: 1.7 }}>{race.ai_prediction_grok}</div>
           </details>
         )}
         {race.ai_prediction_gemmaft && (
@@ -407,6 +422,7 @@ const buildSettled = (history, aiPredsByRid, userPreds) => {
     const det = aiSide('stakes_det');
     const llm = aiSide('stakes');
     const gem = aiSide('stakes_gemini');
+    const grok = aiSide('stakes_grok');
     const ft = aiSide('stakes_gemmaft');
     const fc = aiSide('stakes_gemmaclaude');
     // ユーザー: 1点あたり stake(既定100円)で全買い目に賭けたとみなす
@@ -419,11 +435,12 @@ const buildSettled = (history, aiPredsByRid, userPreds) => {
       rid,
       date: h.Date || '', venue: h.Venue || '', r: h.R || '',
       result, payout,
-      detPicks: det.picks, llmPicks: llm.picks, gemPicks: gem.picks, ftPicks: ft.picks, fcPicks: fc.picks,
-      detHit: det.hit, llmHit: llm.hit, gemHit: gem.hit, ftHit: ft.hit, fcHit: fc.hit,
+      detPicks: det.picks, llmPicks: llm.picks, gemPicks: gem.picks, grokPicks: grok.picks, ftPicks: ft.picks, fcPicks: fc.picks,
+      detHit: det.hit, llmHit: llm.hit, gemHit: gem.hit, grokHit: grok.hit, ftHit: ft.hit, fcHit: fc.hit,
       detMoney: { inv: det.inv, ret: det.ret },
       llmMoney: { inv: llm.inv, ret: llm.ret },
       gemMoney: { inv: gem.inv, ret: gem.ret },
+      grokMoney: { inv: grok.inv, ret: grok.ret },
       ftMoney: { inv: ft.inv, ret: ft.ret },
       fcMoney: { inv: fc.inv, ret: fc.ret },
       hasUser: !!u,
@@ -455,6 +472,7 @@ const HistorySummary = ({ settled }) => {
   const detStat = stat({ has: s => s.detPicks.length > 0, hit: s => s.detHit });
   const llmStat = stat({ has: s => s.llmPicks.length > 0, hit: s => s.llmHit });
   const gemStat = stat({ has: s => s.gemPicks.length > 0, hit: s => s.gemHit });
+  const grokStat = stat({ has: s => s.grokPicks.length > 0, hit: s => s.grokHit });
   const ftStat = stat({ has: s => s.ftPicks.length > 0, hit: s => s.ftHit });
   const fcStat = stat({ has: s => s.fcPicks.length > 0, hit: s => s.fcHit });
 
@@ -467,6 +485,7 @@ const HistorySummary = ({ settled }) => {
   const detM = money('detMoney');
   const llmM = money('llmMoney');
   const gemM = money('gemMoney');
+  const grokM = money('grokMoney');
   const ftM = money('ftMoney');
   const fcM = money('fcMoney');
   const userM = money('userMoney');
@@ -481,6 +500,7 @@ const HistorySummary = ({ settled }) => {
         <CompetitorCard name="Det (計算)" color="#60a5fa" rate={detStat.rate} hits={detStat.hits} n={detStat.n} money={detM} />
         <CompetitorCard name="LLM (Gemma)" color="#f59e0b" rate={llmStat.rate} hits={llmStat.hits} n={llmStat.n} money={llmM} />
         <CompetitorCard name="Gemini" color="#10b981" rate={gemStat.rate} hits={gemStat.hits} n={gemStat.n} money={gemM} />
+        <CompetitorCard name="Grok" color="#a78bfa" rate={grokStat.rate} hits={grokStat.hits} n={grokStat.n} money={grokM} />
         <CompetitorCard name="学習Gemma(Gemini先生)" color="#ec4899" rate={ftStat.rate} hits={ftStat.hits} n={ftStat.n} money={ftM} />
         <CompetitorCard name="学習Gemma(Claude先生)" color="#06b6d4" rate={fcStat.rate} hits={fcStat.hits} n={fcStat.n} money={fcM} />
       </div>

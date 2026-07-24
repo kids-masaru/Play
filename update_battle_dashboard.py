@@ -170,6 +170,7 @@ def publish(no_push=False):
 def main():
     no_push = "--no-push" in sys.argv
     skip_gemini = "--skip-gemini" in sys.argv
+    skip_grok = "--skip-grok" in sys.argv
     skip_gemma = "--skip-gemma" in sys.argv  # 学習版Gemma(Ollama)をスキップ
 
     t0 = datetime.now()
@@ -187,6 +188,12 @@ def main():
     else:
         # Gemini 予測（quota 超過等で失敗しても、Det/LLM だけで公開を続行する）
         run_py("generate_gemini_predictions.py", allow_fail=True)
+
+    if skip_grok:
+        log("--skip-grok specified; Grok prediction skipped")
+    else:
+        # API key 未設定・一時的なAPI障害は、他の対戦者と公開を止めない。
+        run_py("generate_grok_predictions.py", allow_fail=True)
 
     # 学習版Gemma 予測（Ollama 未起動/未登録でも、他を止めず続行）
     # 2モデル: Gemini先生版(gemma-boat:1b) と Claude先生版(gemma-boat-claude:1b)

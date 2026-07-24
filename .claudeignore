@@ -1,0 +1,8 @@
+# 機密情報・認証情報を含むファイルはエージェントの対象外にする
+.env
+.env.*
+*.env
+credentials.json
+*.pem
+*.key
+secrets.*

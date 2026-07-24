@@ -24,6 +24,7 @@ RACE_DATA_CSV = os.path.join(DATA_DIR, "daily_raw_race_data.csv")
 BEFOREINFO_CSV = os.path.join(DATA_DIR, "daily_raw_beforeinfo.csv")
 ODDS_CSV = os.path.join(DATA_DIR, "daily_odds_3t.csv")
 GEMINI_CSV = os.path.join(DATA_DIR, "daily_gemini_predictions.csv")  # 任意
+GROK_CSV = os.path.join(DATA_DIR, "daily_grok_predictions.csv")  # 任意
 GEMMA_FT_CSV = os.path.join(DATA_DIR, "daily_gemma_predictions.csv")  # 任意(学習版Gemma/Gemini先生)
 GEMMA_CLAUDE_CSV = os.path.join(DATA_DIR, "daily_gemma_claude_predictions.csv")  # 任意(学習版Gemma/Claude先生)
 
@@ -134,6 +135,15 @@ def main():
         print(f"  Gemini予測: {len(gemini_by_race)} レース")
 
     # 学習版Gemma予測 (任意、ファイルがあれば)
+    grok_by_race = {}
+    if os.path.exists(GROK_CSV):
+        grok = pd.read_csv(GROK_CSV)
+        grok = grok[grok["Date"] == target_date].copy() if "Date" in grok.columns else grok
+        for _, g in grok.iterrows():
+            rid = safe_str(g.get("RaceID"))
+            if rid:
+                grok_by_race[rid] = {"stakes": safe_str(g.get("Stakes_Grok")), "prediction": safe_str(g.get("Prediction_Grok"))[:1500], "log": safe_str(g.get("Log_Grok"))[:2500]}
+
     gemmaft_by_race = {}
     if os.path.exists(GEMMA_FT_CSV):
         gmf = pd.read_csv(GEMMA_FT_CSV)
@@ -197,6 +207,9 @@ def main():
             "ai_picks_gemini": gemini_by_race.get(rid, {}).get("stakes", ""),
             "ai_prediction_gemini": gemini_by_race.get(rid, {}).get("prediction", ""),
             "ai_log_gemini": gemini_by_race.get(rid, {}).get("log", ""),
+            "ai_picks_grok": grok_by_race.get(rid, {}).get("stakes", ""),
+            "ai_prediction_grok": grok_by_race.get(rid, {}).get("prediction", ""),
+            "ai_log_grok": grok_by_race.get(rid, {}).get("log", ""),
             "ai_picks_gemmaft": gemmaft_by_race.get(rid, {}).get("stakes", ""),
             "ai_prediction_gemmaft": gemmaft_by_race.get(rid, {}).get("prediction", ""),
             "ai_log_gemmaft": gemmaft_by_race.get(rid, {}).get("log", ""),
@@ -240,6 +253,15 @@ def main():
                 ai_summary[rid] = {"stakes": "", "stakes_det": ""}
             ai_summary[rid]["stakes_gemini"] = safe_str(g.get("Stakes_Gemini"))
     # 学習版Gemma(Gemini先生)予測 (もしあれば全期間分も統合)
+    if os.path.exists(GROK_CSV):
+        grok_all = pd.read_csv(GROK_CSV)
+        for _, g in grok_all.iterrows():
+            rid = safe_str(g.get("RaceID"))
+            if not rid:
+                continue
+            if rid not in ai_summary:
+                ai_summary[rid] = {"stakes": "", "stakes_det": ""}
+            ai_summary[rid]["stakes_grok"] = safe_str(g.get("Stakes_Grok"))
     if os.path.exists(GEMMA_FT_CSV):
         gmf_all = pd.read_csv(GEMMA_FT_CSV)
         for _, g in gmf_all.iterrows():
