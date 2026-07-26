@@ -5,6 +5,7 @@ import lightgbm as lgb
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
 import matplotlib.pyplot as plt
+from det_feature_schema import select_live_features
 
 # --- 設定 ---
 INPUT_FILE = os.path.join("past_data", "ml_features.csv")
@@ -32,7 +33,8 @@ def main():
     # 教師データに使わない列（IDや日付、文字の列）を除外
     exclude_cols = ['ID', 'Date', 'Venue', 'Weather', 'WindDir', 'Result', 'Payout', 'Target_1st']
     # 文字列の列は自動で除外
-    feature_cols = [c for c in df.columns if c not in exclude_cols and df[c].dtype in ['int64', 'float64']]
+    numeric_cols = [c for c in df.columns if c not in exclude_cols and df[c].dtype in ['int64', 'float64']]
+    feature_cols = select_live_features(numeric_cols)
     
     print("\n[使用する特徴量（AIに教える項目）]")
     print(", ".join(feature_cols[:10]) + " ...など全 " + str(len(feature_cols)) + " 項目")
@@ -42,7 +44,13 @@ def main():
 
     # 3. データを「学習用(80%)」と「テスト用(20%)」に分割する
     # これにより、AIが答えを丸暗記していないか（カンニング検証）をテストできる
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    dates = pd.to_datetime(df['Date'], errors='coerce')
+    order = dates.fillna(pd.Timestamp.min).sort_values(kind='stable').index
+    split_at = max(1, int(len(order) * 0.8))
+    X_sorted = X.loc[order]
+    y_sorted = y.loc[order]
+    X_train, X_test = X_sorted.iloc[:split_at], X_sorted.iloc[split_at:]
+    y_train, y_test = y_sorted.iloc[:split_at], y_sorted.iloc[split_at:]
     print(f"\n学習データ: {len(X_train)}件, テストデータ: {len(X_test)}件")
 
     # 4. LightGBMモデルの構築と学習

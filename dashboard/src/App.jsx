@@ -153,6 +153,11 @@ const App = () => {
           </div>
         </div>
         {page === 'dashboard' && (
+          <div style={{ marginTop: '0.45rem', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+            通常予測: {data?.prediction_model || 'gemma4:e2b + Det (LightGBM)'} ／ 集計最終日: {data?.latest_result_date || '-'} ／ 更新: {data?.generated_at ? new Date(data.generated_at).toLocaleString('ja-JP') : '-'}
+          </div>
+        )}
+        {page === 'dashboard' && (
           <div className="tab-container" style={{ marginTop: '0.75rem' }}>
             {['weekly', 'monthly', 'total'].map(p => (
               <button

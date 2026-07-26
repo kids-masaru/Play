@@ -13,6 +13,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from datetime import datetime, timedelta, timezone
 import database as db
+from det_feature_schema import select_live_features
 
 # --- 設定 ---
 DAILY_DIR = "daily_data"
@@ -127,30 +128,45 @@ def rebuild_features():
 def _get_feature_and_target(target_col):
     """特徴量とターゲットを取得する共通関数"""
     if not os.path.exists(FEATURES_FILE):
-        return None, None, None
+        return None, None, None, None
 
     df = pd.read_csv(FEATURES_FILE)
     df = df.dropna(subset=[target_col])
 
     exclude_cols = ['ID', 'Date', 'Venue', 'Weather', 'WindDir', 'Result', 'Payout',
                     'Target_1st', 'Target_2nd', 'Target_3rd']
-    feature_cols = [c for c in df.columns if c not in exclude_cols and df[c].dtype in ['int64', 'float64']]
+    numeric_cols = [c for c in df.columns if c not in exclude_cols and df[c].dtype in ['int64', 'float64']]
+    feature_cols = select_live_features(numeric_cols)
+    if not feature_cols:
+        raise ValueError("本番互換のDet特徴量が見つかりません")
 
     X = df[feature_cols]
     y = df[target_col].astype(int) - 1  # 0-indexed (0-5)
-    return X, y, feature_cols
+    dates = pd.to_datetime(df['Date'], errors='coerce')
+    return X, y, feature_cols, dates
+
+
+def temporal_train_test_split(X, y, dates, test_ratio=0.2):
+    """未来のレースを学習に混ぜない、時系列順の検証分割。"""
+    order = dates.fillna(pd.Timestamp.min).sort_values(kind='stable').index
+    X_sorted = X.loc[order]
+    y_sorted = y.loc[order]
+    split_at = max(1, int(len(X_sorted) * (1 - test_ratio)))
+    if split_at >= len(X_sorted):
+        split_at = len(X_sorted) - 1
+    return X_sorted.iloc[:split_at], X_sorted.iloc[split_at:], y_sorted.iloc[:split_at], y_sorted.iloc[split_at:]
 
 
 def train_single_model(target_col, label):
     """指定したターゲットカラムで1つのモデルを学習する"""
-    X, y, feature_cols = _get_feature_and_target(target_col)
+    X, y, feature_cols, dates = _get_feature_and_target(target_col)
     if X is None:
         print(f"  [ERROR] {label}: 学習データが見つかりません。")
         return None, 0
 
     print(f"  [{label}] 学習データ: {len(X)} 件")
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = temporal_train_test_split(X, y, dates)
 
     train_data = lgb.Dataset(X_train, label=y_train)
     test_data = lgb.Dataset(X_test, label=y_test, reference=train_data)
@@ -187,11 +203,11 @@ def evaluate_old_single_model(model_file, target_col, label):
         print(f"  [{label}] 旧モデルが存在しません。新モデルを無条件で採用します。")
         return 0
 
-    X, y, feature_cols = _get_feature_and_target(target_col)
+    X, y, feature_cols, dates = _get_feature_and_target(target_col)
     if X is None:
         return 0
 
-    _, X_test, _, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    _, X_test, _, y_test = temporal_train_test_split(X, y, dates)
 
     try:
         old_model = lgb.Booster(model_file=model_file)

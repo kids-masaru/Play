@@ -198,6 +198,9 @@ def calculate_roi():
     ev_stats = ev_grouped.to_dict('records')
 
     summary = {
+        "generated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
+        "latest_result_date": now.strftime('%Y-%m-%d'),
+        "prediction_model": "gemma4:e2b + Det (LightGBM)",
         "total": get_stats(df_res),
         "monthly": get_stats(df_res[df_res['date'] > last_30d]),
         "weekly": get_stats(df_res[df_res['date'] > last_7d]),
