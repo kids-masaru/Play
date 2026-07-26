@@ -86,6 +86,12 @@
 - [x] T19. ダッシュボードを**6者対戦**化（Battle.jsx + generate_battle_data + 朝バッチで両モデル生成）。push済み。
 
 ## 作業ログ
+### 2026-07-26
+- Grok の X 検索つき教師データを674レース分生成し、的中候補を重み付けして899件のSFTデータにした。
+- Gemma 3 1B を2 epoch学習（450 step、train loss 1.2753）し、GGUF化後に `gemma-boat-grok-x:1b` としてOllama登録済み。
+- `update_battle_dashboard.py` と対戦画面へ「学習Gemma(Grok+X先生)」を追加。次回の日次更新から7者対戦として記録する。
+- Gemini先生版の再作成はGemini API無料枠の429で21件のみ。現行のGemini先生モデルは維持し、十分な教師データが揃うまで再学習しない。
+
 ### 2026-06-21
 - 教師80→1000件に増量し再学習(Gemini先生版, loss1.41)。
 - 「Gemini先生 vs Claude先生」構想を採用。同一1000レースで教師だけ差し替え。

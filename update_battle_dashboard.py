@@ -205,6 +205,10 @@ def main():
             "--model", "gemma-boat-claude:1b",
             "--out", "daily_gemma_claude_predictions.csv",
             "--tag", "GemmaClaude"])  # Claude先生版
+        run_py("predict_gemma_ft.py", allow_fail=True, extra_args=[
+            "--model", "gemma-boat-grok-x:1b",
+            "--out", "daily_gemma_grok_x_predictions.csv",
+            "--tag", "GemmaGrokX"])
 
     # 2回目: Gemini と 学習版Gemma を取り込んだ最終版
     # （--skip-gemini かつ --skip-gemma でも、再生成は無害なので常に回す）

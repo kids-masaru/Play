@@ -27,6 +27,7 @@ GEMINI_CSV = os.path.join(DATA_DIR, "daily_gemini_predictions.csv")  # 任意
 GROK_CSV = os.path.join(DATA_DIR, "daily_grok_predictions.csv")  # 任意
 GEMMA_FT_CSV = os.path.join(DATA_DIR, "daily_gemma_predictions.csv")  # 任意(学習版Gemma/Gemini先生)
 GEMMA_CLAUDE_CSV = os.path.join(DATA_DIR, "daily_gemma_claude_predictions.csv")  # 任意(学習版Gemma/Claude先生)
+GEMMA_GROK_X_CSV = os.path.join(DATA_DIR, "daily_gemma_grok_x_predictions.csv")
 
 OUTPUT_JSON = os.path.join(DATA_DIR, "daily_race_info.json")
 OUTPUT_AI_SUMMARY = os.path.join(DATA_DIR, "ai_predictions_summary.json")
@@ -176,6 +177,15 @@ def main():
         print(f"  学習版Gemma(Claude先生)予測: {len(gemmaclaude_by_race)} レース")
 
     print("[5/5] 統合してJSON出力...")
+    gemmagrokx_by_race = {}
+    if os.path.exists(GEMMA_GROK_X_CSV):
+        gmx = pd.read_csv(GEMMA_GROK_X_CSV)
+        gmx = gmx[gmx["Date"] == target_date].copy() if "Date" in gmx.columns else gmx
+        for _, g in gmx.iterrows():
+            rid = safe_str(g.get("RaceID"))
+            if rid:
+                gemmagrokx_by_race[rid] = {"stakes": safe_str(g.get("Stakes_GemmaGrokX")), "prediction": safe_str(g.get("Prediction_GemmaGrokX"))[:1500], "log": safe_str(g.get("Log_GemmaGrokX"))[:2500]}
+
     races_out = []
     for _, p in preds.iterrows():
         rid = str(p["RaceID"])
@@ -216,6 +226,9 @@ def main():
             "ai_picks_gemmaclaude": gemmaclaude_by_race.get(rid, {}).get("stakes", ""),
             "ai_prediction_gemmaclaude": gemmaclaude_by_race.get(rid, {}).get("prediction", ""),
             "ai_log_gemmaclaude": gemmaclaude_by_race.get(rid, {}).get("log", ""),
+            "ai_picks_gemmagrokx": gemmagrokx_by_race.get(rid, {}).get("stakes", ""),
+            "ai_prediction_gemmagrokx": gemmagrokx_by_race.get(rid, {}).get("prediction", ""),
+            "ai_log_gemmagrokx": gemmagrokx_by_race.get(rid, {}).get("log", ""),
         })
 
     out = {
@@ -281,6 +294,15 @@ def main():
             if rid not in ai_summary:
                 ai_summary[rid] = {"stakes": "", "stakes_det": ""}
             ai_summary[rid]["stakes_gemmaclaude"] = safe_str(g.get("Stakes_GemmaClaude"))
+    if os.path.exists(GEMMA_GROK_X_CSV):
+        gmx_all = pd.read_csv(GEMMA_GROK_X_CSV)
+        for _, g in gmx_all.iterrows():
+            rid = safe_str(g.get("RaceID"))
+            if not rid:
+                continue
+            if rid not in ai_summary:
+                ai_summary[rid] = {"stakes": "", "stakes_det": ""}
+            ai_summary[rid]["stakes_gemmagrokx"] = safe_str(g.get("Stakes_GemmaGrokX"))
     with open(OUTPUT_AI_SUMMARY, "w", encoding="utf-8") as f:
         json.dump(ai_summary, f, ensure_ascii=False)
     size_kb2 = os.path.getsize(OUTPUT_AI_SUMMARY) / 1024

@@ -63,6 +63,7 @@ const RaceList = ({ races, userPreds, onSelect }) => {
         const grokPicks = parseAiPicks(race.ai_picks_grok);
         const ftPicks = parseAiPicks(race.ai_picks_gemmaft);
         const fcPicks = parseAiPicks(race.ai_picks_gemmaclaude);
+        const gxPicks = parseAiPicks(race.ai_picks_gemmagrokx);
         const hasUser = !!userByRid[race.race_id];
         const aiRow = (label, color, picks) => (
           <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.2rem' }}>
@@ -99,6 +100,7 @@ const RaceList = ({ races, userPreds, onSelect }) => {
               {aiRow('Grok', '#a78bfa', grokPicks)}
               {aiRow('学Gem', '#ec4899', ftPicks)}
               {aiRow('学Cla', '#06b6d4', fcPicks)}
+              {aiRow('学Grok', '#f97316', gxPicks)}
             </div>
           </div>
         );
@@ -115,6 +117,7 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
   const aiGrok = parseAiPicks(race.ai_picks_grok);
   const aiFt = parseAiPicks(race.ai_picks_gemmaft);
   const aiFc = parseAiPicks(race.ai_picks_gemmaclaude);
+  const aiGx = parseAiPicks(race.ai_picks_gemmagrokx);
 
   const [picks, setPicks] = useState(userPred?.picks?.join(', ') || '');
   const [stake, setStake] = useState(userPred?.stake || '');
@@ -252,6 +255,12 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
                 : '(なし)'}
             </div>
           </div>
+          <div style={{ padding: '0.5rem', background: 'rgba(249,115,22,0.07)', borderRadius: '6px' }}>
+            <div style={{ fontSize: '0.8rem', color: '#f97316', marginBottom: '0.25rem', fontWeight: 600 }}>学習Gemma (Grok+X先生)</div>
+            <div style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>
+              {aiGx.length > 0 ? aiGx.map((p, i) => <div key={i}>{p.combo}{p.stake ? `  ¥${p.stake}` : ''}</div>) : '(なし)'}
+            </div>
+          </div>
         </div>
         {race.ai_prediction && (
           <details open style={{ marginTop: '0.75rem', borderTop: '1px solid var(--border, #374151)', paddingTop: '0.75rem' }}>
@@ -317,6 +326,12 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
             <div style={{ marginTop: '0.5rem', whiteSpace: 'pre-wrap', fontSize: '0.85rem', lineHeight: 1.7, color: 'var(--text-primary, #f3f4f6)' }}>
               {race.ai_prediction_gemmaclaude}
             </div>
+          </details>
+        )}
+        {race.ai_prediction_gemmagrokx && (
+          <details open style={{ marginTop: '0.75rem', borderTop: '1px solid var(--border, #374151)', paddingTop: '0.75rem' }}>
+            <summary style={{ cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600, color: '#f97316' }}>学習Gemma (Grok+X先生) の予測</summary>
+            <div style={{ marginTop: '0.5rem', whiteSpace: 'pre-wrap', fontSize: '0.85rem', lineHeight: 1.7 }}>{race.ai_prediction_gemmagrokx}</div>
           </details>
         )}
       </div>
@@ -425,6 +440,7 @@ const buildSettled = (history, aiPredsByRid, userPreds) => {
     const grok = aiSide('stakes_grok');
     const ft = aiSide('stakes_gemmaft');
     const fc = aiSide('stakes_gemmaclaude');
+    const gx = aiSide('stakes_gemmagrokx');
     // ユーザー: 1点あたり stake(既定100円)で全買い目に賭けたとみなす
     const u = userByRid[rid];
     const uStake = u ? (Number(u.stake) || 100) : 0;
@@ -435,14 +451,15 @@ const buildSettled = (history, aiPredsByRid, userPreds) => {
       rid,
       date: h.Date || '', venue: h.Venue || '', r: h.R || '',
       result, payout,
-      detPicks: det.picks, llmPicks: llm.picks, gemPicks: gem.picks, grokPicks: grok.picks, ftPicks: ft.picks, fcPicks: fc.picks,
-      detHit: det.hit, llmHit: llm.hit, gemHit: gem.hit, grokHit: grok.hit, ftHit: ft.hit, fcHit: fc.hit,
+      detPicks: det.picks, llmPicks: llm.picks, gemPicks: gem.picks, grokPicks: grok.picks, ftPicks: ft.picks, fcPicks: fc.picks, gxPicks: gx.picks,
+      detHit: det.hit, llmHit: llm.hit, gemHit: gem.hit, grokHit: grok.hit, ftHit: ft.hit, fcHit: fc.hit, gxHit: gx.hit,
       detMoney: { inv: det.inv, ret: det.ret },
       llmMoney: { inv: llm.inv, ret: llm.ret },
       gemMoney: { inv: gem.inv, ret: gem.ret },
       grokMoney: { inv: grok.inv, ret: grok.ret },
       ftMoney: { inv: ft.inv, ret: ft.ret },
       fcMoney: { inv: fc.inv, ret: fc.ret },
+      gxMoney: { inv: gx.inv, ret: gx.ret },
       hasUser: !!u,
       userPicks: u ? u.picks : [],
       userHit: uHit,
@@ -475,6 +492,7 @@ const HistorySummary = ({ settled }) => {
   const grokStat = stat({ has: s => s.grokPicks.length > 0, hit: s => s.grokHit });
   const ftStat = stat({ has: s => s.ftPicks.length > 0, hit: s => s.ftHit });
   const fcStat = stat({ has: s => s.fcPicks.length > 0, hit: s => s.fcHit });
+  const gxStat = stat({ has: s => s.gxPicks.length > 0, hit: s => s.gxHit });
 
   // 金額集計（投資・払戻・収支・ROI）
   const money = (key) => {
@@ -488,12 +506,13 @@ const HistorySummary = ({ settled }) => {
   const grokM = money('grokMoney');
   const ftM = money('ftMoney');
   const fcM = money('fcMoney');
+  const gxM = money('gxMoney');
   const userM = money('userMoney');
 
   return (
     <div className="glass-card" style={{ padding: '1.25rem', marginBottom: '1.5rem' }}>
       <h3 style={{ margin: '0 0 0.75rem 0', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-        <Trophy size={18} /> 6者対戦戦績 (AI比較は結果が出た{total}レース／あなたは予想した{userStat.n}レース)
+        <Trophy size={18} /> 7者対戦戦績 (AI比較は結果が出た{total}レース／あなたは予想した{userStat.n}レース)
       </h3>
       {/* AI5者は2列でコンパクトに、あなたは下に横長で */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
@@ -503,6 +522,7 @@ const HistorySummary = ({ settled }) => {
         <CompetitorCard name="Grok" color="#a78bfa" rate={grokStat.rate} hits={grokStat.hits} n={grokStat.n} money={grokM} />
         <CompetitorCard name="学習Gemma(Gemini先生)" color="#ec4899" rate={ftStat.rate} hits={ftStat.hits} n={ftStat.n} money={ftM} />
         <CompetitorCard name="学習Gemma(Claude先生)" color="#06b6d4" rate={fcStat.rate} hits={fcStat.hits} n={fcStat.n} money={fcM} />
+        <CompetitorCard name="学習Gemma(Grok+X先生)" color="#f97316" rate={gxStat.rate} hits={gxStat.hits} n={gxStat.n} money={gxM} />
       </div>
       <div style={{ marginTop: '0.6rem' }}>
         <CompetitorCard name="あなた" color="#8b5cf6" rate={userStat.rate} hits={userStat.hits} n={userStat.n} money={userM} highlight wide />

@@ -37,6 +37,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--epochs", type=float, default=3.0)
     ap.add_argument("--lr", type=float, default=2e-4)
+    ap.add_argument("--data", default=DATA, help="学習JSONLのパス")
+    ap.add_argument("--out", default=OUT, help="チェックポイント出力先")
+    ap.add_argument("--adapter", default=ADAPTER, help="LoRAアダプタ出力先")
     args = ap.parse_args()
 
     print(f"=== Gemma QLoRA 微調整 開始 (epochs={args.epochs}) ===", flush=True)
@@ -60,7 +63,7 @@ def main():
         ]
         return {"text": tok.apply_chat_template(msgs, tokenize=False)}
 
-    ds = load_dataset("json", data_files=DATA, split="train").map(fmt)
+    ds = load_dataset("json", data_files=args.data, split="train").map(fmt)
     print(f"学習データ: {len(ds)} 件", flush=True)
 
     cfg = SFTConfig(
@@ -75,7 +78,7 @@ def main():
         weight_decay=0.01,
         lr_scheduler_type="linear",
         seed=42,
-        output_dir=OUT,
+        output_dir=args.out,
         report_to="none",
     )
     trainer = SFTTrainer(model=model, processing_class=tok, train_dataset=ds, args=cfg)
@@ -92,15 +95,15 @@ def main():
     print(f"\n=== 学習完了 ===", flush=True)
     print(f"最終 train loss: {stats.training_loss:.4f}", flush=True)
 
-    model.save_pretrained(ADAPTER)
-    tok.save_pretrained(ADAPTER)
-    print(f"LoRAアダプタ保存: {ADAPTER}", flush=True)
+    model.save_pretrained(args.adapter)
+    tok.save_pretrained(args.adapter)
+    print(f"LoRAアダプタ保存: {args.adapter}", flush=True)
 
     # 学習後の話し方を1件だけ確認（サンプル入力で生成）
     sample = ds[0]["instruction"] if False else None
     try:
         import json
-        first = json.loads(open(DATA, encoding="utf-8").readline())
+        first = json.loads(open(args.data, encoding="utf-8").readline())
         prompt = tok.apply_chat_template(
             [{"role": "user", "content": INSTRUCTION + first["instruction"]}],
             tokenize=False, add_generation_prompt=True)
