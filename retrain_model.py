@@ -197,26 +197,29 @@ def train_single_model(target_col, label):
     return model, accuracy
 
 
-def evaluate_old_single_model(model_file, target_col, label):
-    """旧モデルの精度を評価する"""
+def evaluate_saved_model(model_file, target_col, label):
+    """指定済みモデルを、現在の時系列ホールドアウトで評価する。"""
     if not os.path.exists(model_file):
         print(f"  [{label}] 旧モデルが存在しません。新モデルを無条件で採用します。")
         return 0
 
-    X, y, feature_cols, dates = _get_feature_and_target(target_col)
-    if X is None:
+    X_live, y, feature_cols, dates = _get_feature_and_target(target_col)
+    if X_live is None:
         return 0
-
-    _, X_test, _, y_test = temporal_train_test_split(X, y, dates)
 
     try:
         old_model = lgb.Booster(model_file=model_file)
         old_features = old_model.feature_name()
-        available_features = [f for f in old_features if f in X_test.columns]
-        if len(available_features) < len(old_features):
-            print(f"  [{label}] [WARN] 旧フィーチャー {len(old_features)} 中 {len(available_features)} 利用可能")
-
-        X_test_old = X_test[available_features]
+        # 旧モデルは旧スキーマ（例: 202列）で学習済み。本番互換スキーマへ
+        # 切り替えた後でも、旧モデルの列数・列順を保って公平に比較する。
+        raw = pd.read_csv(FEATURES_FILE)
+        raw = raw.dropna(subset=[target_col])
+        raw_dates = pd.to_datetime(raw['Date'], errors='coerce')
+        X_legacy = raw.reindex(columns=old_features, fill_value=0).apply(pd.to_numeric, errors='coerce').fillna(0)
+        _, X_test_old, _, y_test = temporal_train_test_split(X_legacy, y, raw_dates)
+        missing = [f for f in old_features if f not in raw.columns]
+        if missing:
+            print(f"  [{label}] [INFO] 旧専用の欠損特徴 {len(missing)} 件は0で補完して比較")
         y_pred_probs = old_model.predict(X_test_old)
         y_pred = np.argmax(y_pred_probs, axis=1)
         accuracy = accuracy_score(y_test, y_pred)
@@ -225,6 +228,11 @@ def evaluate_old_single_model(model_file, target_col, label):
     except Exception as e:
         print(f"  [{label}] [WARN] 旧モデル評価失敗: {e}")
         return 0
+
+
+def evaluate_old_single_model(model_file, target_col, label):
+    """後方互換用: 旧モデルの精度を評価する。"""
+    return evaluate_saved_model(model_file, target_col, label)
 
 
 def train_new_model():
