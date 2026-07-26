@@ -58,7 +58,6 @@ const RaceList = ({ races, userPreds, onSelect }) => {
     <div style={{ display: 'grid', gap: '0.75rem', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}>
       {races.map(race => {
         const detPicks = parseAiPicks(race.ai_picks_det);
-        const llmPicks = parseAiPicks(race.ai_picks_llm);
         const gemPicks = parseAiPicks(race.ai_picks_gemini);
         const grokPicks = parseAiPicks(race.ai_picks_grok);
         const ftPicks = parseAiPicks(race.ai_picks_gemmaft);
@@ -95,7 +94,6 @@ const RaceList = ({ races, userPreds, onSelect }) => {
             </div>
             <div style={{ fontSize: '0.8rem' }}>
               {aiRow('Det', '#60a5fa', detPicks)}
-              {aiRow('LLM', '#f59e0b', llmPicks)}
               {aiRow('Gemini', '#10b981', gemPicks)}
               {aiRow('Grok', '#a78bfa', grokPicks)}
               {aiRow('学Gem', '#ec4899', ftPicks)}
@@ -112,7 +110,6 @@ const RaceList = ({ races, userPreds, onSelect }) => {
 /** 主要セクション: レース詳細 */
 const RaceDetail = ({ race, userPred, onSave, onBack }) => {
   const aiDet = parseAiPicks(race.ai_picks_det);
-  const aiLlm = parseAiPicks(race.ai_picks_llm);
   const aiGem = parseAiPicks(race.ai_picks_gemini);
   const aiGrok = parseAiPicks(race.ai_picks_grok);
   const aiFt = parseAiPicks(race.ai_picks_gemmaft);
@@ -214,14 +211,6 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
             <div style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>
               {aiDet.length > 0
                 ? aiDet.map((p, i) => <div key={i}>{p.combo}{p.stake ? `  ¥${p.stake}` : ''}</div>)
-                : '(なし)'}
-            </div>
-          </div>
-          <div style={{ padding: '0.5rem', background: 'rgba(245,158,11,0.07)', borderRadius: '6px' }}>
-            <div style={{ fontSize: '0.8rem', color: '#f59e0b', marginBottom: '0.25rem', fontWeight: 600 }}>LLM (Gemma)</div>
-            <div style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>
-              {aiLlm.length > 0
-                ? aiLlm.map((p, i) => <div key={i}>{p.combo}{p.stake ? `  ¥${p.stake}` : ''}</div>)
                 : '(なし)'}
             </div>
           </div>
@@ -435,7 +424,6 @@ const buildSettled = (history, aiPredsByRid, userPreds) => {
       return { picks: parsed.map(x => x.combo), hit, inv, ret };
     };
     const det = aiSide('stakes_det');
-    const llm = aiSide('stakes');
     const gem = aiSide('stakes_gemini');
     const grok = aiSide('stakes_grok');
     const ft = aiSide('stakes_gemmaft');
@@ -451,10 +439,9 @@ const buildSettled = (history, aiPredsByRid, userPreds) => {
       rid,
       date: h.Date || '', venue: h.Venue || '', r: h.R || '',
       result, payout,
-      detPicks: det.picks, llmPicks: llm.picks, gemPicks: gem.picks, grokPicks: grok.picks, ftPicks: ft.picks, fcPicks: fc.picks, gxPicks: gx.picks,
-      detHit: det.hit, llmHit: llm.hit, gemHit: gem.hit, grokHit: grok.hit, ftHit: ft.hit, fcHit: fc.hit, gxHit: gx.hit,
+      detPicks: det.picks, gemPicks: gem.picks, grokPicks: grok.picks, ftPicks: ft.picks, fcPicks: fc.picks, gxPicks: gx.picks,
+      detHit: det.hit, gemHit: gem.hit, grokHit: grok.hit, ftHit: ft.hit, fcHit: fc.hit, gxHit: gx.hit,
       detMoney: { inv: det.inv, ret: det.ret },
-      llmMoney: { inv: llm.inv, ret: llm.ret },
       gemMoney: { inv: gem.inv, ret: gem.ret },
       grokMoney: { inv: grok.inv, ret: grok.ret },
       ftMoney: { inv: ft.inv, ret: ft.ret },
@@ -487,7 +474,6 @@ const HistorySummary = ({ settled }) => {
 
   const userStat = stat({ has: s => s.hasUser, hit: s => s.userHit });
   const detStat = stat({ has: s => s.detPicks.length > 0, hit: s => s.detHit });
-  const llmStat = stat({ has: s => s.llmPicks.length > 0, hit: s => s.llmHit });
   const gemStat = stat({ has: s => s.gemPicks.length > 0, hit: s => s.gemHit });
   const grokStat = stat({ has: s => s.grokPicks.length > 0, hit: s => s.grokHit });
   const ftStat = stat({ has: s => s.ftPicks.length > 0, hit: s => s.ftHit });
@@ -501,7 +487,6 @@ const HistorySummary = ({ settled }) => {
     return { inv, ret, profit: ret - inv, roi: inv > 0 ? (ret / inv * 100).toFixed(1) : null };
   };
   const detM = money('detMoney');
-  const llmM = money('llmMoney');
   const gemM = money('gemMoney');
   const grokM = money('grokMoney');
   const ftM = money('ftMoney');
@@ -512,12 +497,11 @@ const HistorySummary = ({ settled }) => {
   return (
     <div className="glass-card" style={{ padding: '1.25rem', marginBottom: '1.5rem' }}>
       <h3 style={{ margin: '0 0 0.75rem 0', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-        <Trophy size={18} /> 7者対戦戦績 (AI比較は結果が出た{total}レース／あなたは予想した{userStat.n}レース)
+        <Trophy size={18} /> 6者対戦戦績 (AI比較は結果が出た{total}レース／あなたは予想した{userStat.n}レース)
       </h3>
       {/* AI5者は2列でコンパクトに、あなたは下に横長で */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
         <CompetitorCard name="Det (計算)" color="#60a5fa" rate={detStat.rate} hits={detStat.hits} n={detStat.n} money={detM} />
-        <CompetitorCard name="LLM (Gemma)" color="#f59e0b" rate={llmStat.rate} hits={llmStat.hits} n={llmStat.n} money={llmM} />
         <CompetitorCard name="Gemini" color="#10b981" rate={gemStat.rate} hits={gemStat.hits} n={gemStat.n} money={gemM} />
         <CompetitorCard name="Grok" color="#a78bfa" rate={grokStat.rate} hits={grokStat.hits} n={grokStat.n} money={grokM} />
         <CompetitorCard name="学習Gemma(Gemini先生)" color="#ec4899" rate={ftStat.rate} hits={ftStat.hits} n={ftStat.n} money={ftM} />
@@ -603,9 +587,8 @@ const HitRateTrend = ({ settled }) => {
   settled.forEach(s => {
     const m = (s.date || '').slice(0, 7); // YYYY-MM
     if (!m) return;
-    const b = byMonth[m] || (byMonth[m] = { month: m, dN: 0, dH: 0, lN: 0, lH: 0, gN: 0, gH: 0, fN: 0, fH: 0, cN: 0, cH: 0, uN: 0, uH: 0 });
+    const b = byMonth[m] || (byMonth[m] = { month: m, dN: 0, dH: 0, gN: 0, gH: 0, fN: 0, fH: 0, cN: 0, cH: 0, uN: 0, uH: 0 });
     if (s.detPicks.length) { b.dN++; if (s.detHit) b.dH++; }
-    if (s.llmPicks.length) { b.lN++; if (s.llmHit) b.lH++; }
     if (s.gemPicks.length) { b.gN++; if (s.gemHit) b.gH++; }
     if (s.ftPicks.length) { b.fN++; if (s.ftHit) b.fH++; }
     if (s.fcPicks.length) { b.cN++; if (s.fcHit) b.cH++; }
@@ -616,7 +599,6 @@ const HitRateTrend = ({ settled }) => {
     .map(b => ({
       month: b.month.slice(2), // 'YY-MM'
       Det: b.dN ? Math.round(b.dH / b.dN * 100) : null,
-      LLM: b.lN ? Math.round(b.lH / b.lN * 100) : null,
       Gemini: b.gN ? Math.round(b.gH / b.gN * 100) : null,
       学習Gem: b.fN ? Math.round(b.fH / b.fN * 100) : null,
       学習Cla: b.cN ? Math.round(b.cH / b.cN * 100) : null,
@@ -636,7 +618,6 @@ const HitRateTrend = ({ settled }) => {
           <Tooltip contentStyle={TREND_TIP} formatter={(v) => v == null ? ['-', ''] : [`${v}%`, '']} />
           <Legend wrapperStyle={{ fontSize: '0.78rem' }} />
           <Line dataKey="Det" stroke="#60a5fa" connectNulls dot={false} strokeWidth={2} />
-          <Line dataKey="LLM" stroke="#f59e0b" connectNulls dot={false} strokeWidth={2} />
           <Line dataKey="Gemini" stroke="#10b981" connectNulls dot={false} strokeWidth={2} />
           <Line dataKey="学習Gem" stroke="#ec4899" connectNulls dot={false} strokeWidth={2} />
           <Line dataKey="学習Cla" stroke="#06b6d4" connectNulls dot={false} strokeWidth={2} />
@@ -653,9 +634,8 @@ const BalanceTrend = ({ settled }) => {
   settled.forEach(s => {
     const d = s.date;
     if (!d) return;
-    const b = byDate[d] || (byDate[d] = { date: d, det: 0, llm: 0, gem: 0, ft: 0, fc: 0, user: 0 });
+    const b = byDate[d] || (byDate[d] = { date: d, det: 0, gem: 0, ft: 0, fc: 0, user: 0 });
     b.det += s.detMoney.ret - s.detMoney.inv;
-    b.llm += s.llmMoney.ret - s.llmMoney.inv;
     b.gem += s.gemMoney.ret - s.gemMoney.inv;
     b.ft += s.ftMoney.ret - s.ftMoney.inv;
     b.fc += s.fcMoney.ret - s.fcMoney.inv;
@@ -666,7 +646,7 @@ const BalanceTrend = ({ settled }) => {
   let cd = 0, cl = 0, cg = 0, cf = 0, cc = 0, cu = 0;
   let userHasData = false;
   const data = days.map(b => {
-    cd += b.det; cl += b.llm; cg += b.gem; cf += b.ft; cc += b.fc; cu += b.user;
+    cd += b.det; cg += b.gem; cf += b.ft; cc += b.fc; cu += b.user;
     if (b.user !== 0) userHasData = true;
     return { date: b.date.slice(5), Det: Math.round(cd), LLM: Math.round(cl), Gemini: Math.round(cg), 学習Gem: Math.round(cf), 学習Cla: Math.round(cc), あなた: Math.round(cu) };
   });
@@ -686,7 +666,6 @@ const BalanceTrend = ({ settled }) => {
           <Tooltip contentStyle={TREND_TIP} formatter={(v) => [`¥${Number(v).toLocaleString()}`, '']} />
           <Legend wrapperStyle={{ fontSize: '0.78rem' }} />
           <Line dataKey="Det" stroke="#60a5fa" dot={false} strokeWidth={2} />
-          <Line dataKey="LLM" stroke="#f59e0b" dot={false} strokeWidth={2} />
           <Line dataKey="Gemini" stroke="#10b981" dot={false} strokeWidth={2} />
           <Line dataKey="学習Gem" stroke="#ec4899" dot={false} strokeWidth={2} />
           <Line dataKey="学習Cla" stroke="#06b6d4" dot={false} strokeWidth={2} />
@@ -722,7 +701,7 @@ const PastRaces = ({ settled }) => {
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem', minWidth: '560px' }}>
           <thead>
             <tr style={{ borderBottom: '1px solid var(--border, #374151)' }}>
-              {['日付', 'レース', '結果', 'Det', 'LLM', 'Gemini', '学Gem', '学Cla', 'あなた'].map(h => <th key={h} style={th}>{h}</th>)}
+              {['日付', 'レース', '結果', 'Det', 'Gemini', '学Gem', '学Cla', 'あなた'].map(h => <th key={h} style={th}>{h}</th>)}
             </tr>
           </thead>
           <tbody>
@@ -732,7 +711,6 @@ const PastRaces = ({ settled }) => {
                 <td style={td}>{s.venue}{s.r}R</td>
                 <td style={{ ...td, fontWeight: 700, color: 'var(--accent-blue, #60a5fa)' }}>{s.result}</td>
                 <td style={td}><Pick picks={s.detPicks} hit={s.detHit} /></td>
-                <td style={td}><Pick picks={s.llmPicks} hit={s.llmHit} /></td>
                 <td style={td}><Pick picks={s.gemPicks} hit={s.gemHit} /></td>
                 <td style={td}><Pick picks={s.ftPicks} hit={s.ftHit} /></td>
                 <td style={td}><Pick picks={s.fcPicks} hit={s.fcHit} /></td>

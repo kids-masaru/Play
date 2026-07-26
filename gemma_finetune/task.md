@@ -87,6 +87,7 @@
 
 ## 作業ログ
 ### 2026-07-26
+- 対戦画面から旧「LLM (Gemma)」を除外。Det・Gemini・Grok・学習Gemma3種の6者対戦へ整理し、通常予測用の元データは保持。
 - Grok の X 検索つき教師データを674レース分生成し、的中候補を重み付けして899件のSFTデータにした。
 - Gemma 3 1B を2 epoch学習（450 step、train loss 1.2753）し、GGUF化後に `gemma-boat-grok-x:1b` としてOllama登録済み。
 - `update_battle_dashboard.py` と対戦画面へ「学習Gemma(Grok+X先生)」を追加。次回の日次更新から7者対戦として記録する。
