@@ -86,7 +86,7 @@ const ModelDashboard = () => {
       <button className="toggle-reasoning" onClick={() => setRecentOpen(open => !open)}>
         {recentOpen ? '▼ 直近の確定レースを閉じる' : '▶ 直近の確定レースを表示'}
       </button>
-      {recentOpen && [...races].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 20).map(r => <div key={r.id} className={`race-card ${r.hit ? 'hit' : 'miss'}><strong>{r.date} {r.venue} {r.r}R</strong><span>{r.hit ? 'HIT' : 'MISS'} / {r.result}</span><span>{r.picks.map(p => p.combo).join(', ')}</span><span>収支 ¥{Math.round(r.ret - r.invest).toLocaleString()}</span></div>)}
+      {recentOpen && [...races].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 20).map(r => <div key={r.id} className={r.hit ? 'race-card hit' : 'race-card miss'}><strong>{r.date} {r.venue} {r.r}R</strong><span>{r.hit ? 'HIT' : 'MISS'} / {r.result}</span><span>{r.picks.map(p => p.combo).join(', ')}</span><span>収支 ¥{Math.round(r.ret - r.invest).toLocaleString()}</span></div>)}
     </div>
   </div>;
 };
