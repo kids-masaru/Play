@@ -6,7 +6,7 @@ import {
 import { TrendingUp, Award, DollarSign, Activity } from 'lucide-react';
 import Battle from './Battle';
 import Toto from './Toto';
-import Tendency from './Tendency';
+import ModelDashboard from './ModelDashboard';
 import './index.css';
 
 const App = () => {
@@ -148,7 +148,6 @@ const App = () => {
                 再表示するにはこの行のコメントを戻すだけ:
             <button className={`tab-button ${page === 'ailab' ? 'active' : ''}`} onClick={() => setPage('ailab')}>AI Lab</button> */}
             <button className={`tab-button ${page === 'battle' ? 'active' : ''}`} onClick={() => setPage('battle')}>予測対戦</button>
-            <button className={`tab-button ${page === 'tendency' ? 'active' : ''}`} onClick={() => setPage('tendency')}>傾向</button>
             <button className={`tab-button ${page === 'toto' ? 'active' : ''}`} onClick={() => setPage('toto')}>toto</button>
           </div>
         </div>
@@ -176,11 +175,11 @@ const App = () => {
 
       {page === 'battle' && <Battle />}
 
-      {page === 'tendency' && <Tendency />}
-
       {page === 'toto' && <Toto />}
 
-      {page === 'dashboard' && <>
+      {page === 'dashboard' && <ModelDashboard />}
+
+      {false && page === 'dashboard' && <>
       <div className="stats-grid">
         <div className="glass-card stat-item">
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
