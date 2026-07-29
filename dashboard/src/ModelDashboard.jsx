@@ -33,6 +33,7 @@ const ModelDashboard = () => {
   const [summary, setSummary] = useState({});
   const [results, setResults] = useState([]);
   const [error, setError] = useState('');
+  const [recentOpen, setRecentOpen] = useState(false);
 
   useEffect(() => {
     const cb = `?t=${Date.now()}`;
@@ -81,7 +82,12 @@ const ModelDashboard = () => {
       <div className="glass-card chart-container full-width-chart"><h3>ROI推移</h3><ResponsiveContainer width="100%" height="85%"><AreaChart data={trend}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="date" /><YAxis unit="%" /><Tooltip /><Area dataKey="roi" stroke={source.color} fill={source.color} fillOpacity={0.18} /></AreaChart></ResponsiveContainer></div>
       <div className="glass-card chart-container"><h3>会場別的中率</h3><ResponsiveContainer width="100%" height="85%"><BarChart data={venue}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="venue" /><YAxis unit="%" /><Tooltip /><Bar dataKey="hitRate" fill={source.color} /></BarChart></ResponsiveContainer></div>
     </div>
-    <div className="prediction-list"><h3>直近の確定レース</h3>{[...races].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 20).map(r => <div key={r.id} className={`race-card ${r.hit ? 'hit' : 'miss'}><strong>{r.date} {r.venue} {r.r}R</strong><span>{r.hit ? 'HIT' : 'MISS'} / {r.result}</span><span>{r.picks.map(p => p.combo).join(', ')}</span><span>収支 ¥{Math.round(r.ret - r.invest).toLocaleString()}</span></div>)}</div>
+    <div className="prediction-list">
+      <button className="toggle-reasoning" onClick={() => setRecentOpen(open => !open)}>
+        {recentOpen ? '▼ 直近の確定レースを閉じる' : '▶ 直近の確定レースを表示'}
+      </button>
+      {recentOpen && [...races].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 20).map(r => <div key={r.id} className={`race-card ${r.hit ? 'hit' : 'miss'}><strong>{r.date} {r.venue} {r.r}R</strong><span>{r.hit ? 'HIT' : 'MISS'} / {r.result}</span><span>{r.picks.map(p => p.combo).join(', ')}</span><span>収支 ¥{Math.round(r.ret - r.invest).toLocaleString()}</span></div>)}
+    </div>
   </div>;
 };
 
