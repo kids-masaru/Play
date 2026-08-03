@@ -1,7 +1,10 @@
 $ErrorActionPreference = 'Stop'
 
 # このスクリプトはレポートの保存以外に、予測・モデル・ダッシュボードを変更しない。
-$root = Split-Path -Parent $MyInvocation.MyCommand.Path
+$root = $PSScriptRoot
+if ([string]::IsNullOrWhiteSpace($root)) {
+    throw 'The script folder could not be determined.'
+}
 $promptPath = Join-Path $root 'codex_prediction_review_prompt.md'
 $reportsDir = Join-Path $root 'reports'
 $outputPath = Join-Path $reportsDir 'codex_prediction_review_latest.md'
