@@ -2,6 +2,7 @@ $ErrorActionPreference = 'Stop'
 
 # このスクリプトはレポートの保存以外に、予測・モデル・ダッシュボードを変更しない。
 $root = (Get-Location).Path
+$root = (Get-Location).Path
 $promptPath = Join-Path $root 'codex_prediction_review_prompt.md'
 $reportsDir = Join-Path $root 'reports'
 $outputPath = Join-Path $reportsDir 'codex_prediction_review_latest.md'
