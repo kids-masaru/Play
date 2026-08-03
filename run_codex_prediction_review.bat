@@ -1,33 +1,3 @@
 @echo off
-setlocal
-cd /d "%~dp0"
-
-if not exist "reports" mkdir "reports"
-
-echo.
-echo ===== Codex prediction review =====
-echo This run is read-only. It will not change models, predictions, or dashboard files.
-echo.
-
-for /f "usebackq delims=" %%I in (`powershell.exe -NoProfile -Command "(Get-Command codex.exe -ErrorAction SilentlyContinue).Source"`) do set "CODEX_EXE=%%I"
-if not defined CODEX_EXE (
-  echo [ERROR] Codex CLI was not found. Open the Codex app once and sign in, then try again.
-  echo.
-  pause
-  exit /b 1
-)
-
-"%CODEX_EXE%" exec --sandbox read-only --ask-for-approval never --output-last-message "reports\codex_prediction_review_latest.md" - < "codex_prediction_review_prompt.md"
-if errorlevel 1 (
-  echo.
-  echo [ERROR] The review did not finish. Check that Codex is signed in and that your Codex usage is available.
-  echo.
-  pause
-  exit /b 1
-)
-
-echo.
-echo Done.
-echo Report: %~dp0reports\codex_prediction_review_latest.md
-echo.
+PowerShell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0run_codex_prediction_review.ps1"
 pause
