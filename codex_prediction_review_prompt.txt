@@ -3,7 +3,7 @@ Return only the report body in Japanese. Do not use markdown fences.
 
 SAFETY RULES
 - This is a read-only review. Do not create, edit, delete, or rename any file.
-- Do not run commands, Git operations, or network requests.
+- Only run read-only commands needed to inspect the four permitted files. Do not run Git operations or network requests.
 - Never open .env files, credential files, API keys, tokens, or secret material.
 - Do not give betting advice or recommend any purchase.
 

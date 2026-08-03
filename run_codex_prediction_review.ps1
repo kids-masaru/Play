@@ -26,7 +26,7 @@ try {
 
     New-Item -ItemType Directory -Force -Path $reportsDir | Out-Null
     Get-Content -LiteralPath $promptPath -Raw -Encoding UTF8 |
-        & $codexExe --sandbox read-only --ask-for-approval never exec --output-last-message $outputPath -
+        & $codexExe --sandbox read-only --ask-for-approval never exec --ignore-user-config --ephemeral --output-last-message $outputPath -
 
     if ($LASTEXITCODE -ne 0) {
         throw "Codex finished with exit code $LASTEXITCODE."
