@@ -17,8 +17,12 @@ try {
         throw 'The review prompt file was not found.'
     }
 
-    $codexExe = (Get-Command codex.exe -ErrorAction Stop).Source
-    if (-not $codexExe) {
+    $codexCommand = Get-Command codex.exe -ErrorAction Stop
+    $codexExe = $codexCommand.Path
+    if ([string]::IsNullOrWhiteSpace($codexExe)) {
+        $codexExe = $codexCommand.Source
+    }
+    if ([string]::IsNullOrWhiteSpace($codexExe) -or -not (Test-Path -LiteralPath $codexExe)) {
         throw 'Codex CLI was not found. Open the Codex app once and sign in, then try again.'
     }
 
