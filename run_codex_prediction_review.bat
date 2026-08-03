@@ -1,3 +1,4 @@
 @echo off
-PowerShell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0run_codex_prediction_review.ps1" -ProjectRoot "%~dp0"
+cd /d "%~dp0"
+PowerShell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0run_codex_prediction_review.ps1"
 pause
