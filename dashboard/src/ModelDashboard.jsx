@@ -9,6 +9,7 @@ const SOURCES = [
   { key: 'stakes_gemmaft', label: '学Gemini', color: '#ec4899' },
   { key: 'stakes_gemmaclaude', label: '学Claude', color: '#06b6d4' },
   { key: 'stakes_gemmagrokx', label: '学Grok+X', color: '#f97316' },
+  { key: 'stakes_codex', label: 'Codex', color: '#14b8a6' },
 ];
 
 const parseStakes = (value) => {

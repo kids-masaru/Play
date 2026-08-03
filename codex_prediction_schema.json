@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["predictions"],
+  "properties": {
+    "predictions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["race_id", "picks", "explanation"],
+        "properties": {
+          "race_id": {
+            "type": "string"
+          },
+          "picks": {
+            "type": "array",
+            "minItems": 5,
+            "maxItems": 5,
+            "items": {
+              "type": "string",
+              "pattern": "^[1-6]-[1-6]-[1-6]$"
+            }
+          },
+          "explanation": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

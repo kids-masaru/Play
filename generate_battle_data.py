@@ -28,6 +28,7 @@ GROK_CSV = os.path.join(DATA_DIR, "daily_grok_predictions.csv")  # 任意
 GEMMA_FT_CSV = os.path.join(DATA_DIR, "daily_gemma_predictions.csv")  # 任意(学習版Gemma/Gemini先生)
 GEMMA_CLAUDE_CSV = os.path.join(DATA_DIR, "daily_gemma_claude_predictions.csv")  # 任意(学習版Gemma/Claude先生)
 GEMMA_GROK_X_CSV = os.path.join(DATA_DIR, "daily_gemma_grok_x_predictions.csv")
+CODEX_CSV = os.path.join(DATA_DIR, "daily_codex_predictions.csv")
 
 OUTPUT_JSON = os.path.join(DATA_DIR, "daily_race_info.json")
 OUTPUT_AI_SUMMARY = os.path.join(DATA_DIR, "ai_predictions_summary.json")
@@ -186,6 +187,20 @@ def main():
             if rid:
                 gemmagrokx_by_race[rid] = {"stakes": safe_str(g.get("Stakes_GemmaGrokX")), "prediction": safe_str(g.get("Prediction_GemmaGrokX"))[:1500], "log": safe_str(g.get("Log_GemmaGrokX"))[:2500]}
 
+    codex_by_race = {}
+    if os.path.exists(CODEX_CSV):
+        codex = pd.read_csv(CODEX_CSV)
+        codex = codex[codex["Date"] == target_date].copy() if "Date" in codex.columns else codex
+        for _, cdx in codex.iterrows():
+            rid = safe_str(cdx.get("RaceID"))
+            if rid:
+                codex_by_race[rid] = {
+                    "stakes": safe_str(cdx.get("Stakes_Codex")),
+                    "prediction": safe_str(cdx.get("Prediction_Codex"))[:1500],
+                    "log": safe_str(cdx.get("Log_Codex"))[:2500],
+                }
+        print(f"  Codex predictions: {len(codex_by_race)} races")
+
     races_out = []
     for _, p in preds.iterrows():
         rid = str(p["RaceID"])
@@ -229,6 +244,9 @@ def main():
             "ai_picks_gemmagrokx": gemmagrokx_by_race.get(rid, {}).get("stakes", ""),
             "ai_prediction_gemmagrokx": gemmagrokx_by_race.get(rid, {}).get("prediction", ""),
             "ai_log_gemmagrokx": gemmagrokx_by_race.get(rid, {}).get("log", ""),
+            "ai_picks_codex": codex_by_race.get(rid, {}).get("stakes", ""),
+            "ai_prediction_codex": codex_by_race.get(rid, {}).get("prediction", ""),
+            "ai_log_codex": codex_by_race.get(rid, {}).get("log", ""),
         })
 
     out = {
@@ -303,6 +321,15 @@ def main():
             if rid not in ai_summary:
                 ai_summary[rid] = {"stakes": "", "stakes_det": ""}
             ai_summary[rid]["stakes_gemmagrokx"] = safe_str(g.get("Stakes_GemmaGrokX"))
+    if os.path.exists(CODEX_CSV):
+        codex_all = pd.read_csv(CODEX_CSV)
+        for _, cdx in codex_all.iterrows():
+            rid = safe_str(cdx.get("RaceID"))
+            if not rid:
+                continue
+            if rid not in ai_summary:
+                ai_summary[rid] = {"stakes": "", "stakes_det": ""}
+            ai_summary[rid]["stakes_codex"] = safe_str(cdx.get("Stakes_Codex"))
     with open(OUTPUT_AI_SUMMARY, "w", encoding="utf-8") as f:
         json.dump(ai_summary, f, ensure_ascii=False)
     size_kb2 = os.path.getsize(OUTPUT_AI_SUMMARY) / 1024
