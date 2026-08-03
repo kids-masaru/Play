@@ -3,7 +3,7 @@ $ErrorActionPreference = 'Stop'
 # このスクリプトはレポートの保存以外に、予測・モデル・ダッシュボードを変更しない。
 $root = (Get-Location).Path
 $root = (Get-Location).Path
-$promptPath = Join-Path $root 'codex_prediction_review_prompt.md'
+$promptPath = Join-Path $root 'codex_prediction_review_prompt.txt'
 $reportsDir = Join-Path $root 'reports'
 $outputPath = Join-Path $reportsDir 'codex_prediction_review_latest.md'
 
@@ -17,18 +17,16 @@ try {
         throw 'The review prompt file was not found.'
     }
 
-    $codexCommand = Get-Command codex.exe -ErrorAction Stop
-    $codexExe = $codexCommand.Path
-    if ([string]::IsNullOrWhiteSpace($codexExe)) {
-        $codexExe = $codexCommand.Source
-    }
-    if ([string]::IsNullOrWhiteSpace($codexExe) -or -not (Test-Path -LiteralPath $codexExe)) {
+    # 公式インストーラーの標準パスを優先し、Storeアプリの実行エイリアスを避ける。
+    $codexExe = Join-Path $env:LOCALAPPDATA 'Programs\OpenAI\Codex\bin\codex.exe'
+    $codexExe = Join-Path $env:LOCALAPPDATA 'Programs\OpenAI\Codex\bin\codex.exe'
+    if (-not (Test-Path -LiteralPath $codexExe)) {
         throw 'Codex CLI was not found. Open the Codex app once and sign in, then try again.'
     }
 
     New-Item -ItemType Directory -Force -Path $reportsDir | Out-Null
     Get-Content -LiteralPath $promptPath -Raw -Encoding UTF8 |
-        & $codexExe exec --sandbox read-only --ask-for-approval never --output-last-message $outputPath -
+        & $codexExe --sandbox read-only --ask-for-approval never exec --output-last-message $outputPath -
 
     if ($LASTEXITCODE -ne 0) {
         throw "Codex finished with exit code $LASTEXITCODE."
