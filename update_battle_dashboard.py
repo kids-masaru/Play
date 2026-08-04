@@ -51,6 +51,7 @@ PUBLISH_FILES = [
     "dashboard/public/daily_data/daily_race_info.json",
     "dashboard/public/daily_data/ai_predictions_summary.json",
     "dashboard/public/daily_data/daily_codex_predictions.csv",
+    "dashboard/public/daily_data/codex_learning_summary.json",
     # 予測対戦の「4者戦績」は結果CSVが要る。これが無いと本番で的中率が全部0になる。
     "dashboard/public/daily_data/daily_history_results.csv",
     # 傾向(攻略図)タブの会場別/レース番号別イン率ヒートマップ用

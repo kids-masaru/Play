@@ -14,11 +14,19 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
+from codex_learning import (
+    LEARNING_STRATEGY_VERSION,
+    build_codex_learning_context,
+    learning_context_for_prompt,
+    save_learning_context,
+)
+
 
 ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "dashboard" / "public" / "daily_data"
 INPUT_JSON = DATA_DIR / "daily_race_info.json"
 OUTPUT_CSV = DATA_DIR / "daily_codex_predictions.csv"
+LEARNING_JSON = DATA_DIR / "codex_learning_summary.json"
 SCHEMA_JSON = ROOT / "codex_prediction_schema.json"
 CSV_FIELDS = [
     "RaceID",
@@ -28,6 +36,9 @@ CSV_FIELDS = [
     "Prediction_Codex",
     "Log_Codex",
     "Stakes_Codex",
+    "Strategy_Codex",
+    "LearningHistoryCount",
+    "LearningCodexSettledCount",
 ]
 COMBO_PATTERN = re.compile(r"^[1-6]-[1-6]-[1-6]$")
 
@@ -102,12 +113,13 @@ def compact_race(race: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def build_prompt(races: list[dict[str, Any]]) -> str:
+def build_prompt(races: list[dict[str, Any]], learning_context: dict[str, Any]) -> str:
     race_json = json.dumps(
         [compact_race(race) for race in races],
         ensure_ascii=False,
         separators=(",", ":"),
     )
+    learning_json = json.dumps(learning_context, ensure_ascii=False, separators=(",", ":"))
     return f"""You are one competitor in a Japanese boat-race prediction benchmark.
 This is a simulation and evaluation task; do not encourage real-money gambling.
 
@@ -118,12 +130,21 @@ Rank the five picks from most likely to least likely. Consider lane advantage, r
 class and win rate, motor/exhibition information when present, weather, wind, waves,
 and the supplied market odds. Do not copy another AI's prediction because none is supplied.
 
+HISTORICAL_LEARNING_JSON contains only races completed before the prediction date.
+Use its similar-race rates, actual outcomes, and Codex feedback as supporting evidence.
+Do not mechanically copy a frequent combination. Give current race data priority, respect
+sample sizes, and do not overfit preliminary Codex feedback. Aim to improve both five-pick
+hit rate and simulated ROI over many races, not a single day's result.
+
 Return every race exactly once using the required JSON schema. In explanation, write a
 concise Japanese rationale (roughly 80-220 Japanese characters). The race_id must match
 the input exactly.
 
 RACE_DATA_JSON:
 {race_json}
+
+HISTORICAL_LEARNING_JSON:
+{learning_json}
 """
 
 
@@ -200,6 +221,7 @@ def save_rows(
     existing: dict[str, dict[str, str]],
     races_by_id: dict[str, dict[str, Any]],
     result: dict[str, Any],
+    learning_context: dict[str, Any],
 ) -> int:
     expected_ids = set(races_by_id)
     received_ids: set[str] = set()
@@ -224,6 +246,9 @@ def save_rows(
             "Prediction_Codex": ", ".join(picks),
             "Log_Codex": explanation[:2500],
             "Stakes_Codex": ", ".join(f"{pick}:100" for pick in picks),
+            "Strategy_Codex": LEARNING_STRATEGY_VERSION,
+            "LearningHistoryCount": str(learning_context.get("historical_results_used", 0)),
+            "LearningCodexSettledCount": str(learning_context.get("codex_feedback", {}).get("settled_count", 0)),
         }
         saved_count += 1
 
@@ -231,13 +256,17 @@ def save_rows(
     if missing:
         raise ValueError(f"Codex出力に不足レースがあります: {', '.join(sorted(missing))}")
 
+    write_rows(existing)
+    return saved_count
+
+
+def write_rows(existing: dict[str, dict[str, str]]) -> None:
     OUTPUT_CSV.parent.mkdir(parents=True, exist_ok=True)
     with OUTPUT_CSV.open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=CSV_FIELDS)
         writer.writeheader()
         for row in sorted(existing.values(), key=lambda value: value.get("RaceID", "")):
             writer.writerow({field: row.get(field, "") for field in CSV_FIELDS})
-    return saved_count
 
 
 def parse_args() -> argparse.Namespace:
@@ -253,6 +282,25 @@ def main() -> int:
     target_date, races = load_input()
     existing = load_existing_rows()
 
+    try:
+        learning_context = build_codex_learning_context(DATA_DIR, target_date, races)
+        save_learning_context(LEARNING_JSON, learning_context)
+        feedback_count = learning_context.get("codex_feedback", {}).get("settled_count", 0)
+        print(
+            f"学習情報: 過去{learning_context.get('historical_results_used', 0):,}レース / "
+            f"Codex結果確定{feedback_count}レース"
+        )
+    except (OSError, ValueError, csv.Error, json.JSONDecodeError) as error:
+        # 学習情報の一時的な不備で、当日の予測全体を止めない。
+        print(f"[WARN] 学習情報を生成できないため当日データのみで予測します: {error}")
+        learning_context = {
+            "target_date": target_date,
+            "strategy_version": LEARNING_STRATEGY_VERSION,
+            "historical_results_used": 0,
+            "codex_feedback": {"settled_count": 0, "status": "unavailable"},
+            "races": {},
+        }
+
     pending = []
     for race in races:
         race_id = str(race.get("race_id", "")).strip()
@@ -267,9 +315,11 @@ def main() -> int:
         return 0
 
     print(f"Codexで{len(pending)}レースを一括予測します（対象日: {target_date}）。")
-    result = run_codex(build_prompt(pending))
+    pending_ids = {str(race.get("race_id", "")) for race in pending}
+    prompt_learning = learning_context_for_prompt(learning_context, pending_ids)
+    result = run_codex(build_prompt(pending, prompt_learning))
     races_by_id = {str(race.get("race_id", "")): race for race in pending}
-    saved = save_rows(existing, races_by_id, result)
+    saved = save_rows(existing, races_by_id, result, learning_context)
     print(f"完了: {OUTPUT_CSV} に {saved} レースを保存しました。")
     return 0
 

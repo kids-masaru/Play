@@ -33,6 +33,7 @@ const ModelDashboard = () => {
   const [sourceKey, setSourceKey] = useState('stakes');
   const [summary, setSummary] = useState({});
   const [results, setResults] = useState([]);
+  const [codexLearning, setCodexLearning] = useState(null);
   const [error, setError] = useState('');
   const [recentOpen, setRecentOpen] = useState(false);
 
@@ -41,7 +42,8 @@ const ModelDashboard = () => {
     Promise.all([
       fetch(`./daily_data/ai_predictions_summary.json${cb}`).then(r => r.ok ? r.json() : {}),
       fetch(`./daily_data/daily_history_results.csv${cb}`).then(r => r.ok ? r.text() : ''),
-    ]).then(([s, csv]) => { setSummary(s); setResults(csv ? parseCsv(csv) : []); })
+      fetch(`./daily_data/codex_learning_summary.json${cb}`).then(r => r.ok ? r.json() : null),
+    ]).then(([s, csv, learning]) => { setSummary(s); setResults(csv ? parseCsv(csv) : []); setCodexLearning(learning); })
       .catch(() => setError('成績データを読み込めませんでした。'));
   }, []);
 
@@ -75,6 +77,21 @@ const ModelDashboard = () => {
       {SOURCES.map(s => <button key={s.key} className={`tab-button ${s.key === sourceKey ? 'active' : ''}`} onClick={() => setSourceKey(s.key)}>{s.label}</button>)}
     </div>
     <div style={{ marginBottom: '1rem', fontSize: '0.85rem', color: source.color, fontWeight: 700 }}>{source.label} の成績ダッシュボード（結果確定済み {stats.n} レース）</div>
+    {sourceKey === 'stakes_codex' && codexLearning && (
+      <div className="glass-card" style={{ padding: '0.9rem 1rem', marginBottom: '1rem', border: '1px solid rgba(20,184,166,0.35)' }}>
+        <div style={{ color: '#14b8a6', fontWeight: 700, marginBottom: '0.4rem' }}>Codex 自動フィードバック学習</div>
+        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', fontSize: '0.82rem' }}>
+          <span>過去結果 <strong>{Number(codexLearning.historical_results_used || 0).toLocaleString()}</strong> レース</span>
+          <span>Codex結果確定 <strong>{Number(codexLearning.codex_feedback?.settled_count || 0).toLocaleString()}</strong> レース</span>
+          <span>学習対象日 <strong>{codexLearning.target_date || '-'}</strong></span>
+          <span>方式 <strong>{codexLearning.strategy_version || 'feedback_v1'}</strong></span>
+        </div>
+        <div style={{ marginTop: '0.45rem', fontSize: '0.76rem', color: 'var(--text-secondary, #9ca3af)', lineHeight: 1.5 }}>
+          類似レースの実結果とCodex自身の失敗傾向を、翌日の予測材料へ自動反映しています。
+          {codexLearning.codex_feedback?.status === 'preliminary' && ' Codex固有の成績は200レースまで参考値として扱います。'}
+        </div>
+      </div>
+    )}
     {error && <div className="glass-card" style={{ padding: '1rem' }}>{error}</div>}
     <div className="stats-grid">
       {[['ROI', `${stats.roi.toFixed(1)}%`], ['Hit Rate', stats.n ? `${(stats.hits / stats.n * 100).toFixed(1)}%` : '-'], ['Invest', `¥${stats.invest.toLocaleString()}`], ['Return', `¥${stats.ret.toLocaleString()}`]].map(([label, value]) => <div className="glass-card stat-item" key={label}><span className="stat-label">{label}</span><span className="stat-value">{value}</span></div>)}
