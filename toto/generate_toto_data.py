@@ -3,12 +3,14 @@
 入力:
   toto/data/round_<回号>.json          (fetch_toto_round.py)
   toto/data/gemini_round_<回号>.json    (predict_gemini.py) ※あれば
+  toto/data/codex_round_<回号>.json     (predict_codex.py) ※あれば
 出力:
   dashboard/public/daily_data/toto_info.json
 
 表示は toto（13試合）を主軸（無ければ mini-A組）。各試合に
   - 統計モデルの P(H/D/A)（Geminiデータ内 stats を流用。国際試合等は null）
   - Gemini の 予想(H/D/A)・自信度・推論
+  - Codex の 予想(H/D/A)・自信度・推論
 を結合する。複数回が販売中なら「締切が最も近い回」を既定で出す（予想が急ぎな回）。
 
 CLI:
@@ -42,12 +44,12 @@ def load_json(path):
         return json.load(f)
 
 
-def gemini_index(gem_data):
-    """Gemini予測を (date,home,away) で引ける dict に。"""
+def prediction_index(prediction_data):
+    """AI予測を (date,home,away) で引ける dict に。"""
     idx = {}
-    if not gem_data:
+    if not prediction_data:
         return idx
-    for p in gem_data.get("predictions", []):
+    for p in prediction_data.get("predictions", []):
         idx[(p.get("date"), p.get("home"), p.get("away"))] = p
     return idx
 
@@ -101,7 +103,10 @@ def build(round_no, kuji_key=None):
 
     gpath = os.path.join(DATA_DIR, f"gemini_round_{round_no}.json")
     gem = load_json(gpath) if os.path.exists(gpath) else None
-    gidx = gemini_index(gem)
+    gidx = prediction_index(gem)
+    cpath = os.path.join(DATA_DIR, f"codex_round_{round_no}.json")
+    codex = load_json(cpath) if os.path.exists(cpath) else None
+    cidx = prediction_index(codex)
     game_actual = load_game_actual(round_no)
     payouts = load_payouts()
 
@@ -118,19 +123,26 @@ def build(round_no, kuji_key=None):
                        for m in toto_sec.get("matches", [])}
 
     matches = []
-    stat_n = stat_h = gem_n = gem_h = 0
+    stat_n = stat_h = gem_n = gem_h = codex_n = codex_h = 0
     for m in sec["matches"]:
         key = (m.get("date"), m.get("home"), m.get("away"))
         g = gidx.get(key) or {}
+        c = cidx.get(key) or {}
         actual = game_actual.get(key, "")
         gp = g.get("pick", "")
-        stats = g.get("stats")
+        cp = c.get("pick", "")
+        # 統計確率はどちらかのAI予測に付属していれば表示できる。
+        stats = g.get("stats") or c.get("stats")
         sp = (stats or {}).get("pick", "")
         if actual:
             if gp:
                 gem_n += 1
                 if gp == actual:
                     gem_h += 1
+            if cp:
+                codex_n += 1
+                if cp == actual:
+                    codex_h += 1
             if sp:
                 stat_n += 1
                 if sp == actual:
@@ -148,6 +160,9 @@ def build(round_no, kuji_key=None):
             "gemini_pick": gp,
             "gemini_confidence": g.get("confidence", ""),
             "gemini_reasoning": g.get("reasoning", ""),
+            "codex_pick": cp,
+            "codex_confidence": c.get("confidence", ""),
+            "codex_reasoning": c.get("reasoning", ""),
             "result": actual,  # 確定結果 H/D/A（未確定は空）
         })
 
@@ -166,9 +181,11 @@ def build(round_no, kuji_key=None):
         "result_date": sec.get("result_date", ""),
         "generated_date": datetime.date.today().isoformat(),
         "has_gemini": gem is not None,
+        "has_codex": codex is not None,
         "settled": bool(n_settled),
         "summary": {"stat": {"n": stat_n, "hits": stat_h},
-                    "gemini": {"n": gem_n, "hits": gem_h}},
+                    "gemini": {"n": gem_n, "hits": gem_h},
+                    "codex": {"n": codex_n, "hits": codex_h}},
         "matches": matches,
     }
 
@@ -217,11 +234,12 @@ def main():
         json.dump(data, f, ensure_ascii=False, indent=2)
 
     n_gem = sum(1 for m in data["matches"] if m["gemini_pick"])
+    n_codex = sum(1 for m in data["matches"] if m["codex_pick"])
     n_stat = sum(1 for m in data["matches"] if m["stats"])
     print(f"=== toto表示データ生成 ===")
     print(f"第{data['round']}回 ({data['kuji']}) 試合{len(data['matches'])} "
           f"/ 締切 {data['deadline']}")
-    print(f"Gemini予想あり {n_gem} / 統計予想あり {n_stat}")
+    print(f"Gemini予想あり {n_gem} / Codex予想あり {n_codex} / 統計予想あり {n_stat}")
     print(f"→ {os.path.abspath(OUT_JSON)}")
 
     # --- 全回 × 全くじ種別(toto/mini-A/mini-B) を出力（回切替＋くじ切替で閲覧）---

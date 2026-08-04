@@ -67,6 +67,7 @@ dashboard/.env.production.local
 credentials.env
 *.json
 !expert_knowledge.json
+!toto/codex_toto_schema.json
 !dashboard/package.json
 !dashboard/package-lock.json
 !dashboard/public/daily_data/dashboard_data.json

@@ -3,11 +3,12 @@
 毎日でも回せる冪等バッチ。実行内容（順序に意味あり）:
   1. collect_jleague.py        当年のJリーグ結果を更新（答え合わせ用）
   2. fetch_toto_round.py       販売中の回・対象試合・締切を取得 → round_*.json
-  3. predict_gemini.py <回号>  まだ予測していない回だけ Gemini 予測（quota節約・冪等）
+  3. settle_results.py         終了済み試合の答え合わせ → settled_*.json
+  4. predict_gemini.py <回号>  まだ予測していない回だけ Gemini 予測（quota節約・冪等）
                                ※統計モデルの確率も予測内に同梱される
-  4. settle_results.py         終了済み試合の答え合わせ → settled_*.json
-  5. generate_toto_data.py     表示データ → dashboard/public/daily_data/toto_info.json
-  6. git add/commit/push       GitHub Pages へ公開（toto_info.json のみ）
+  5. predict_codex.py <回号>   ChatGPT認証の Codex で未予測回を一括予測
+  6. generate_toto_data.py     表示データ → dashboard/public/daily_data/toto_info.json
+  7. git add/commit/push       GitHub Pages へ公開
 
 壊れにくさ: スクレイピングや API が失敗しても全体は止めず、できたところまで公開する
 （既存ボートの update_battle_dashboard.py と同方針）。
@@ -15,7 +16,8 @@
 オプション:
   --no-push         git push しない（生成のみ。テスト用）
   --skip-gemini     Gemini 予測をスキップ（API を呼ばない）
-  --force-predict   既に予測済みの回も Gemini 予測し直す
+  --skip-codex      Codex 予測をスキップ
+  --force-predict   既に予測済みの回も予測し直す
 
 前提: GEMINI_API_KEY を環境に展開した状態で実行（run_toto_weekly.bat 経由 / credentials.env）。
 """
@@ -63,13 +65,27 @@ def run_py(script_rel, *args, allow_fail=False):
     return True
 
 
-def round_numbers():
-    """ローカルにある round_*.json の回号一覧。"""
+def round_numbers(on_sale_only=False):
+    """ローカルにある round_*.json の回号一覧。
+
+    Codexの新規参加時に過去回を後付け予測しないよう、
+    on_sale_only=True では今日以降が締切の回だけを返す。
+    """
     nums = []
+    today = datetime.now().date().isoformat()
     for p in glob.glob(os.path.join(DATA_DIR, "round_*.json")):
         try:
             with open(p, "r", encoding="utf-8") as f:
-                nums.append(json.load(f)["round"])
+                payload = json.load(f)
+            if on_sale_only:
+                deadlines = [
+                    str(section.get("deadline", ""))[:10]
+                    for section in (payload.get("kuji") or {}).values()
+                    if section and section.get("deadline")
+                ]
+                if not any(deadline >= today for deadline in deadlines):
+                    continue
+            nums.append(payload["round"])
         except Exception:
             pass
     return sorted(nums)
@@ -109,6 +125,7 @@ def publish(no_push=False):
 def main():
     no_push = "--no-push" in sys.argv
     skip_gemini = "--skip-gemini" in sys.argv
+    skip_codex = "--skip-codex" in sys.argv
     force_predict = "--force-predict" in sys.argv
 
     t0 = datetime.now()
@@ -120,24 +137,35 @@ def main():
     # 2. 販売中の回を取得（失敗したら以降は既存 round_*.json で続行）
     run_py("toto/fetch_toto_round.py", allow_fail=True)
 
-    # 3. 未予測の回だけ Gemini 予測
+    # 3. 先に答え合わせし、最新の結果を Codex の次回予測材料にする。
+    run_py("toto/settle_results.py", allow_fail=True)
+
+    # 4. 未予測の回だけ Gemini 予測
     if skip_gemini:
         log("--skip-gemini 指定のため Gemini 予測をスキップ")
     else:
-        for n in round_numbers():
+        for n in round_numbers(on_sale_only=True):
             gem = os.path.join(DATA_DIR, f"gemini_round_{n}.json")
             if force_predict or not os.path.exists(gem):
                 run_py("toto/predict_gemini.py", str(n), allow_fail=True)
             else:
-                log(f"第{n}回は予測済み（スキップ）")
+                log(f"第{n}回はGemini予測済み（スキップ）")
 
-    # 4. 答え合わせ（終了試合があれば）
-    run_py("toto/settle_results.py", allow_fail=True)
+    # 5. 未予測の回だけ Codex で一括予測（ChatGPT契約側の利用枠）
+    if skip_codex:
+        log("--skip-codex 指定のため Codex 予測をスキップ")
+    else:
+        for n in round_numbers(on_sale_only=True):
+            codex = os.path.join(DATA_DIR, f"codex_round_{n}.json")
+            if force_predict or not os.path.exists(codex):
+                run_py("toto/predict_codex.py", str(n), allow_fail=True)
+            else:
+                log(f"第{n}回はCodex予測済み（スキップ）")
 
-    # 5. 表示データ生成
+    # 6. 表示データ生成
     run_py("toto/generate_toto_data.py", allow_fail=True)
 
-    # 6. 公開
+    # 7. 公開
     publish(no_push=no_push)
 
     log(f"===== 完了（所要 {datetime.now() - t0}） =====")

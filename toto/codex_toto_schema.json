@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["predictions"],
+  "properties": {
+    "predictions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["match_key", "pick", "confidence", "reasoning"],
+        "properties": {
+          "match_key": { "type": "string" },
+          "pick": { "type": "string", "enum": ["H", "D", "A"] },
+          "confidence": { "type": "integer", "minimum": 1, "maximum": 99 },
+          "reasoning": { "type": "string" }
+        }
+      }
+    }
+  }
+}

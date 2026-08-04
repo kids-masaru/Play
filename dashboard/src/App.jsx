@@ -138,33 +138,39 @@ const App = () => {
 
   return (
     <div className="dashboard-container">
-      <header className="header">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
-          <h1 style={{ margin: 0 }}>BOAT RACE AI | Premium ROI Dashboard</h1>
-          <div className="tab-container">
-            <button className={`tab-button ${page === 'dashboard' ? 'active' : ''}`} onClick={() => setPage('dashboard')}>Dashboard</button>
+      <header className="header app-header">
+        <div className="app-header-top">
+          <div className="brand-lockup">
+            <span className="brand-mark">BR</span>
+            <div><span className="brand-kicker">BOAT RACE INTELLIGENCE</span><h1>Prediction Studio</h1></div>
+          </div>
+          <nav className="tab-container primary-nav" aria-label="メインメニュー">
+            <button className={`tab-button ${page === 'dashboard' ? 'active' : ''}`} onClick={() => setPage('dashboard')}>成績ダッシュボード</button>
             {/* AI Lab タブは非表示（自己改善ループ停止中のため）。将来AIが賢くなったら復活できるよう
                 renderAiLab() と loop_results.json・ループ関連スクリプトはそのまま残してある。
                 再表示するにはこの行のコメントを戻すだけ:
             <button className={`tab-button ${page === 'ailab' ? 'active' : ''}`} onClick={() => setPage('ailab')}>AI Lab</button> */}
             <button className={`tab-button ${page === 'battle' ? 'active' : ''}`} onClick={() => setPage('battle')}>予測対戦</button>
             <button className={`tab-button ${page === 'toto' ? 'active' : ''}`} onClick={() => setPage('toto')}>toto</button>
-          </div>
+          </nav>
         </div>
         {page === 'dashboard' && (
-          <div style={{ marginTop: '0.45rem', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-            通常予測: {data?.prediction_model || 'gemma4:e2b + Det (LightGBM)'} ／ 集計最終日: {data?.latest_result_date || '-'} ／ 更新: {data?.generated_at ? new Date(data.generated_at).toLocaleString('ja-JP') : '-'}
+          <div className="dashboard-status">
+            <span><i className="status-dot" /> DATA LIVE</span>
+            <span>通常予測: {data?.prediction_model || 'gemma4:e2b + Det (LightGBM)'}</span>
+            <span>集計最終日: {data?.latest_result_date || '-'}</span>
+            <span>更新: {data?.generated_at ? new Date(data.generated_at).toLocaleString('ja-JP') : '-'}</span>
           </div>
         )}
         {page === 'dashboard' && (
-          <div className="tab-container" style={{ marginTop: '0.75rem' }}>
+          <div className="period-switcher">
             {['weekly', 'monthly', 'total'].map(p => (
               <button
                 key={p}
                 className={`tab-button ${period === p ? 'active' : ''}`}
                 onClick={() => setPeriod(p)}
               >
-                {p === 'weekly' ? '7 Days' : p === 'monthly' ? '30 Days' : 'All Time'}
+                {p === 'weekly' ? '7日' : p === 'monthly' ? '30日' : '全期間'}
               </button>
             ))}
           </div>
@@ -177,7 +183,7 @@ const App = () => {
 
       {page === 'toto' && <Toto />}
 
-      {page === 'dashboard' && <ModelDashboard />}
+      {page === 'dashboard' && <ModelDashboard period={period} />}
 
       {false && page === 'dashboard' && <>
       <div className="stats-grid">

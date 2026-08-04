@@ -1,15 +1,16 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Activity, CircleDollarSign, Database, Sparkles, Target, TrendingUp } from 'lucide-react';
 
 const SOURCES = [
-  { key: 'stakes', label: '通常予測', color: '#6366f1' },
-  { key: 'stakes_det', label: 'Det', color: '#60a5fa' },
-  { key: 'stakes_gemini', label: 'Gemini', color: '#10b981' },
-  { key: 'stakes_grok', label: 'Grok', color: '#a78bfa' },
-  { key: 'stakes_gemmaft', label: '学Gemini', color: '#ec4899' },
-  { key: 'stakes_gemmaclaude', label: '学Claude', color: '#06b6d4' },
-  { key: 'stakes_gemmagrokx', label: '学Grok+X', color: '#f97316' },
-  { key: 'stakes_codex', label: 'Codex', color: '#14b8a6' },
+  { key: 'stakes', label: '通常予測', short: '通常', color: '#6366f1', description: 'gemma4:e2b と計算モデルの通常運用' },
+  { key: 'stakes_det', label: 'Det（計算）', short: 'Det', color: '#2563eb', description: '過去実績を特徴量にした LightGBM 予測' },
+  { key: 'stakes_gemini', label: 'Gemini', short: 'Gemini', color: '#059669', description: 'Gemini が出走表と直前情報から判断' },
+  { key: 'stakes_grok', label: 'Grok', short: 'Grok', color: '#7c3aed', description: 'Grok がレース情報を読んで予測' },
+  { key: 'stakes_gemmaft', label: '学習Gemma（Gemini先生）', short: '学Gemini', color: '#db2777', description: 'Gemini教師データで学習した Gemma' },
+  { key: 'stakes_gemmaclaude', label: '学習Gemma（Claude先生）', short: '学Claude', color: '#0891b2', description: 'Claude教師データで学習した Gemma' },
+  { key: 'stakes_gemmagrokx', label: '学習Gemma（Grok+X先生）', short: '学Grok+X', color: '#ea580c', description: 'GrokとX情報を教師に学習した Gemma' },
+  { key: 'stakes_codex', label: 'Codex', short: 'Codex', color: '#0d9488', description: '過去の結果から自動フィードバックする Codex' },
 ];
 
 const parseStakes = (value) => {
@@ -18,7 +19,7 @@ const parseStakes = (value) => {
   try {
     const obj = JSON.parse(text);
     return Object.entries(obj).map(([combo, stake]) => ({ combo: combo.replace(/(\d)(\d)(\d)/, '$1-$2-$3'), stake: Number(stake) || 0 }));
-  } catch (_) {
+  } catch {
     return [...text.matchAll(/(\d-\d-\d)\s*:\s*(\d+)/g)].map(m => ({ combo: m[1], stake: Number(m[2]) }));
   }
 };
@@ -29,7 +30,9 @@ const parseCsv = (text) => {
   return lines.map(line => Object.fromEntries(keys.map((key, i) => [key, line.split(',')[i] || ''])));
 };
 
-const ModelDashboard = () => {
+const PERIOD_LABEL = { weekly: '直近7日', monthly: '直近30日', total: '全期間' };
+
+const ModelDashboard = ({ period = 'total' }) => {
   const [sourceKey, setSourceKey] = useState('stakes');
   const [summary, setSummary] = useState({});
   const [results, setResults] = useState([]);
@@ -48,7 +51,7 @@ const ModelDashboard = () => {
   }, []);
 
   const source = SOURCES.find(s => s.key === sourceKey) || SOURCES[0];
-  const races = useMemo(() => results.map(r => {
+  const allRaces = useMemo(() => results.map(r => {
     const rid = String(r.ID || r.RaceID || '');
     const picks = parseStakes(summary[rid]?.[sourceKey]);
     const result = String(r.Result || '').replace(/\s/g, '');
@@ -59,26 +62,84 @@ const ModelDashboard = () => {
     return { id: rid, date: r.Date || '', venue: r.Venue || '', r: r.R || '', result, picks, invest, ret, hit: !!hitPick };
   }).filter(r => r.picks.length > 0), [results, summary, sourceKey]);
 
+  const races = useMemo(() => {
+    if (period === 'total' || allRaces.length === 0) return allRaces;
+    const dated = allRaces.map(r => r.date).filter(Boolean).sort();
+    if (dated.length === 0) return allRaces;
+    const latest = new Date(`${dated[dated.length - 1]}T00:00:00`);
+    const days = period === 'weekly' ? 7 : 30;
+    const cutoff = new Date(latest);
+    cutoff.setDate(cutoff.getDate() - (days - 1));
+    return allRaces.filter(r => r.date && new Date(`${r.date}T00:00:00`) >= cutoff);
+  }, [allRaces, period]);
+
   const stats = useMemo(() => {
     const invest = races.reduce((n, r) => n + r.invest, 0);
     const ret = races.reduce((n, r) => n + r.ret, 0);
     return { n: races.length, hits: races.filter(r => r.hit).length, invest, ret, roi: invest ? ret / invest * 100 : 0 };
   }, [races]);
   const trend = useMemo(() => {
-    const byDate = {};
-    races.forEach(r => { const d = byDate[r.date] || (byDate[r.date] = { date: r.date, invest: 0, ret: 0 }); d.invest += r.invest; d.ret += r.ret; });
-    let invest = 0, ret = 0;
-    return Object.values(byDate).sort((a, b) => a.date.localeCompare(b.date)).map(d => { invest += d.invest; ret += d.ret; return { date: d.date.slice(5), roi: invest ? Math.round(ret / invest * 1000) / 10 : 0 }; });
+    const byDate = races.reduce((map, race) => ({
+      ...map,
+      [race.date]: {
+        date: race.date,
+        invest: (map[race.date]?.invest || 0) + race.invest,
+        ret: (map[race.date]?.ret || 0) + race.ret,
+      },
+    }), {});
+    return Object.values(byDate)
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .reduce((rows, day) => {
+        const previous = rows[rows.length - 1];
+        const totalInvest = (previous?.totalInvest || 0) + day.invest;
+        const totalReturn = (previous?.totalReturn || 0) + day.ret;
+        return [...rows, {
+          date: day.date.slice(5),
+          roi: totalInvest ? Math.round(totalReturn / totalInvest * 1000) / 10 : 0,
+          totalInvest,
+          totalReturn,
+        }];
+      }, []);
   }, [races]);
-  const venue = useMemo(() => Object.values(races.reduce((m, r) => { const v = m[r.venue] || (m[r.venue] = { venue: r.venue, n: 0, hits: 0 }); v.n++; if (r.hit) v.hits++; return m; }, {})).map(v => ({ ...v, hitRate: Math.round(v.hits / v.n * 1000) / 10 })).sort((a, b) => b.hitRate - a.hitRate), [races]);
+  const venue = useMemo(() => Object.values(races.reduce((map, race) => ({
+    ...map,
+    [race.venue]: {
+      venue: race.venue,
+      n: (map[race.venue]?.n || 0) + 1,
+      hits: (map[race.venue]?.hits || 0) + (race.hit ? 1 : 0),
+    },
+  }), {})).map(v => ({ ...v, hitRate: Math.round(v.hits / v.n * 1000) / 10 })).sort((a, b) => b.hitRate - a.hitRate), [races]);
 
-  return <div>
-    <div className="tab-container" style={{ marginBottom: '1rem', flexWrap: 'wrap' }}>
-      {SOURCES.map(s => <button key={s.key} className={`tab-button ${s.key === sourceKey ? 'active' : ''}`} onClick={() => setSourceKey(s.key)}>{s.label}</button>)}
-    </div>
-    <div style={{ marginBottom: '1rem', fontSize: '0.85rem', color: source.color, fontWeight: 700 }}>{source.label} の成績ダッシュボード（結果確定済み {stats.n} レース）</div>
+  const hitRate = stats.n ? stats.hits / stats.n * 100 : 0;
+  const profit = stats.ret - stats.invest;
+  const metricCards = [
+    { label: 'ROI', value: `${stats.roi.toFixed(1)}%`, note: stats.roi >= 100 ? '投資額を上回っています' : '回収率100%が目安', icon: TrendingUp, tone: stats.roi >= 100 ? 'positive' : 'neutral' },
+    { label: '的中率', value: stats.n ? `${hitRate.toFixed(1)}%` : '—', note: `${stats.hits.toLocaleString()} / ${stats.n.toLocaleString()} レース`, icon: Target, tone: 'accent' },
+    { label: '収支', value: `${profit >= 0 ? '+' : '-'}¥${Math.abs(Math.round(profit)).toLocaleString()}`, note: `投資 ¥${Math.round(stats.invest).toLocaleString()}`, icon: CircleDollarSign, tone: profit >= 0 ? 'positive' : 'negative' },
+    { label: '払戻', value: `¥${Math.round(stats.ret).toLocaleString()}`, note: `${PERIOD_LABEL[period]} の合計`, icon: Activity, tone: 'accent' },
+  ];
+
+  const chartAxis = { stroke: '#94a3b8', fontSize: 11, tickLine: false, axisLine: false };
+  const tooltipStyle = { backgroundColor: '#0f172a', border: 'none', borderRadius: '12px', color: '#f8fafc', boxShadow: '0 14px 32px rgba(15,23,42,.22)' };
+
+  return <main className="model-dashboard">
+    <section className="model-switcher" aria-label="予測モデルを選択">
+      <div className="model-switcher-label"><Sparkles size={15} /> モデル別パフォーマンス</div>
+      <div className="model-switcher-scroll">
+        {SOURCES.map(s => <button key={s.key} className={`model-chip ${s.key === sourceKey ? 'active' : ''}`} style={{ '--model-color': s.color }} onClick={() => setSourceKey(s.key)}>{s.short}</button>)}
+      </div>
+    </section>
+
+    <section className="model-hero" style={{ '--model-color': source.color }}>
+      <div>
+        <div className="model-eyebrow"><span className="live-dot" /> {PERIOD_LABEL[period]} / 結果確定済み</div>
+        <h2>{source.label}</h2>
+        <p>{source.description}</p>
+      </div>
+      <div className="model-sample"><Database size={17} /><strong>{stats.n.toLocaleString()}</strong><span>レース</span></div>
+    </section>
     {sourceKey === 'stakes_codex' && codexLearning && (
-      <div className="glass-card" style={{ padding: '0.9rem 1rem', marginBottom: '1rem', border: '1px solid rgba(20,184,166,0.35)' }}>
+      <div className="glass-card learning-card">
         <div style={{ color: '#14b8a6', fontWeight: 700, marginBottom: '0.4rem' }}>Codex 自動フィードバック学習</div>
         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', fontSize: '0.82rem' }}>
           <span>過去結果 <strong>{Number(codexLearning.historical_results_used || 0).toLocaleString()}</strong> レース</span>
@@ -93,20 +154,32 @@ const ModelDashboard = () => {
       </div>
     )}
     {error && <div className="glass-card" style={{ padding: '1rem' }}>{error}</div>}
-    <div className="stats-grid">
-      {[['ROI', `${stats.roi.toFixed(1)}%`], ['Hit Rate', stats.n ? `${(stats.hits / stats.n * 100).toFixed(1)}%` : '-'], ['Invest', `¥${stats.invest.toLocaleString()}`], ['Return', `¥${stats.ret.toLocaleString()}`]].map(([label, value]) => <div className="glass-card stat-item" key={label}><span className="stat-label">{label}</span><span className="stat-value">{value}</span></div>)}
+    <div className="metric-grid">
+      {metricCards.map(({ label, value, note, icon, tone }) => (
+        <article className={`metric-card ${tone}`} key={label}>
+          <div className="metric-card-head"><span>{label}</span>{React.createElement(icon, { size: 18 })}</div>
+          <strong>{value}</strong>
+          <small>{note}</small>
+        </article>
+      ))}
     </div>
-    <div className="charts-grid">
-      <div className="glass-card chart-container full-width-chart"><h3>ROI推移</h3><ResponsiveContainer width="100%" height="85%"><AreaChart data={trend}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="date" /><YAxis unit="%" /><Tooltip /><Area dataKey="roi" stroke={source.color} fill={source.color} fillOpacity={0.18} /></AreaChart></ResponsiveContainer></div>
-      <div className="glass-card chart-container"><h3>会場別的中率</h3><ResponsiveContainer width="100%" height="85%"><BarChart data={venue}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="venue" /><YAxis unit="%" /><Tooltip /><Bar dataKey="hitRate" fill={source.color} /></BarChart></ResponsiveContainer></div>
+    <div className="performance-grid">
+      <section className="glass-card performance-chart performance-chart-wide">
+        <div className="section-heading"><div><span>PERFORMANCE</span><h3>ROIの推移</h3></div><small>累積回収率</small></div>
+        <ResponsiveContainer width="100%" height={280}><AreaChart data={trend} margin={{ top: 8, right: 6, left: -12, bottom: 0 }}><defs><linearGradient id="roiGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={source.color} stopOpacity={0.34} /><stop offset="100%" stopColor={source.color} stopOpacity={0.02} /></linearGradient></defs><CartesianGrid strokeDasharray="3 5" stroke="#e2e8f0" vertical={false} /><XAxis dataKey="date" {...chartAxis} /><YAxis unit="%" {...chartAxis} /><Tooltip contentStyle={tooltipStyle} formatter={(v) => [`${v}%`, 'ROI']} /><Area type="monotone" dataKey="roi" stroke={source.color} strokeWidth={2.5} fill="url(#roiGradient)" /></AreaChart></ResponsiveContainer>
+      </section>
+      <section className="glass-card performance-chart">
+        <div className="section-heading"><div><span>VENUE</span><h3>会場別的中率</h3></div><small>上位から表示</small></div>
+        <ResponsiveContainer width="100%" height={280}><BarChart data={venue.slice(0, 12)} margin={{ top: 8, right: 0, left: -18, bottom: 0 }}><CartesianGrid strokeDasharray="3 5" stroke="#e2e8f0" vertical={false} /><XAxis dataKey="venue" {...chartAxis} /><YAxis unit="%" {...chartAxis} /><Tooltip contentStyle={tooltipStyle} formatter={(v) => [`${v}%`, '的中率']} /><Bar dataKey="hitRate" fill={source.color} radius={[5, 5, 0, 0]} /></BarChart></ResponsiveContainer>
+      </section>
     </div>
-    <div className="prediction-list">
-      <button className="toggle-reasoning" onClick={() => setRecentOpen(open => !open)}>
-        {recentOpen ? '▼ 直近の確定レースを閉じる' : '▶ 直近の確定レースを表示'}
+    <section className="recent-section">
+      <button className="recent-toggle" onClick={() => setRecentOpen(open => !open)} aria-expanded={recentOpen}>
+        <span><Activity size={16} /> 直近の確定レース</span><strong>{recentOpen ? '閉じる −' : '表示する ＋'}</strong>
       </button>
-      {recentOpen && [...races].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 20).map(r => <div key={r.id} className={r.hit ? 'race-card hit' : 'race-card miss'}><strong>{r.date} {r.venue} {r.r}R</strong><span>{r.hit ? 'HIT' : 'MISS'} / {r.result}</span><span>{r.picks.map(p => p.combo).join(', ')}</span><span>収支 ¥{Math.round(r.ret - r.invest).toLocaleString()}</span></div>)}
-    </div>
-  </div>;
+      {recentOpen && <div className="recent-list">{[...races].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 20).map(r => <div key={r.id} className={r.hit ? 'recent-race hit' : 'recent-race miss'}><div><strong>{r.venue} {r.r}R</strong><small>{r.date}</small></div><span className="result-badge">{r.hit ? 'HIT' : 'MISS'}</span><span className="race-picks">{r.picks.map(p => p.combo).join(' / ')}</span><strong className={r.ret - r.invest >= 0 ? 'profit' : 'loss'}>{r.ret - r.invest >= 0 ? '+' : '-'}¥{Math.abs(Math.round(r.ret - r.invest)).toLocaleString()}</strong></div>)}</div>}
+    </section>
+  </main>;
 };
 
 export default ModelDashboard;
