@@ -1,16 +1,23 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Area, AreaChart, Bar, BarChart, CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { Activity, CircleDollarSign, Database, Sparkles, Target, TrendingUp } from 'lucide-react';
 
 const SOURCES = [
-  { key: 'stakes', label: '通常予測', short: '通常', color: '#6366f1', description: 'gemma4:e2b と計算モデルの通常運用' },
-  { key: 'stakes_det', label: 'Det（計算）', short: 'Det', color: '#2563eb', description: '過去実績を特徴量にした LightGBM 予測' },
+  { key: 'stakes', label: '通常予測', short: '通常', color: '#6366f1', description: 'gemma4:e2b による通常運用' },
   { key: 'stakes_gemini', label: 'Gemini', short: 'Gemini', color: '#059669', description: 'Gemini が出走表と直前情報から判断' },
   { key: 'stakes_grok', label: 'Grok', short: 'Grok', color: '#7c3aed', description: 'Grok がレース情報を読んで予測' },
   { key: 'stakes_gemmaft', label: '学習Gemma（Gemini先生）', short: '学Gemini', color: '#db2777', description: 'Gemini教師データで学習した Gemma' },
   { key: 'stakes_gemmaclaude', label: '学習Gemma（Claude先生）', short: '学Claude', color: '#0891b2', description: 'Claude教師データで学習した Gemma' },
   { key: 'stakes_gemmagrokx', label: '学習Gemma（Grok+X先生）', short: '学Grok+X', color: '#ea580c', description: 'GrokとX情報を教師に学習した Gemma' },
   { key: 'stakes_codex', label: 'Codex', short: 'Codex', color: '#0d9488', description: '過去の結果から自動フィードバックする Codex' },
+];
+
+const TREND_METRICS = [
+  { key: 'roi', label: 'ROI', title: '累積ROI', unit: '%', reference: 100 },
+  { key: 'profit', label: '収支', title: '累積収支', unit: '円', reference: 0 },
+  { key: 'hitRate', label: '的中率', title: '累積的中率', unit: '%', reference: null },
+  { key: 'hits', label: '的中件数', title: '累積的中件数', unit: '件', reference: null },
+  { key: 'returnAmount', label: '的中金額', title: '累積払戻金額', unit: '円', reference: null },
 ];
 
 const parseStakes = (value) => {
@@ -32,6 +39,76 @@ const parseCsv = (text) => {
 
 const PERIOD_LABEL = { weekly: '直近7日', monthly: '直近30日', total: '全期間' };
 
+const buildRaces = (results, summary, sourceKey) => results.map(r => {
+  const rid = String(r.ID || r.RaceID || '');
+  const picks = parseStakes(summary[rid]?.[sourceKey]);
+  const result = String(r.Result || '').replace(/\s/g, '');
+  const payout = Number(r.Payout) || 0;
+  const hitPick = picks.find(p => p.combo === result);
+  const invest = picks.reduce((n, p) => n + p.stake, 0);
+  const ret = hitPick ? hitPick.stake * payout / 100 : 0;
+  return { id: rid, date: r.Date || '', venue: r.Venue || '', r: r.R || '', result, picks, invest, ret, hit: !!hitPick };
+}).filter(r => r.picks.length > 0);
+
+const filterRacesByPeriod = (races, period, latestDate) => {
+  if (period === 'total' || !latestDate) return races;
+  const days = period === 'weekly' ? 7 : 30;
+  const cutoff = new Date(`${latestDate}T00:00:00`);
+  cutoff.setDate(cutoff.getDate() - (days - 1));
+  return races.filter(r => r.date && new Date(`${r.date}T00:00:00`) >= cutoff);
+};
+
+const buildTrend = (races) => {
+  const byDate = races.reduce((map, race) => ({
+    ...map,
+    [race.date]: {
+      dateKey: race.date,
+      invest: (map[race.date]?.invest || 0) + race.invest,
+      ret: (map[race.date]?.ret || 0) + race.ret,
+      races: (map[race.date]?.races || 0) + 1,
+      hits: (map[race.date]?.hits || 0) + (race.hit ? 1 : 0),
+    },
+  }), {});
+
+  return Object.values(byDate)
+    .sort((a, b) => a.dateKey.localeCompare(b.dateKey))
+    .reduce((rows, day) => {
+      const previous = rows[rows.length - 1];
+      const totalInvest = (previous?.totalInvest || 0) + day.invest;
+      const totalReturn = (previous?.totalReturn || 0) + day.ret;
+      const totalRaces = (previous?.totalRaces || 0) + day.races;
+      const totalHits = (previous?.hits || 0) + day.hits;
+      return [...rows, {
+        dateKey: day.dateKey,
+        date: day.dateKey.slice(5),
+        roi: totalInvest ? Math.round(totalReturn / totalInvest * 1000) / 10 : 0,
+        profit: Math.round(totalReturn - totalInvest),
+        hitRate: totalRaces ? Math.round(totalHits / totalRaces * 1000) / 10 : 0,
+        hits: totalHits,
+        returnAmount: Math.round(totalReturn),
+        totalInvest,
+        totalReturn,
+        totalRaces,
+      }];
+    }, []);
+};
+
+const formatMetricValue = (value, metric) => {
+  if (value == null) return '—';
+  if (metric.unit === '円') return `${Number(value) >= 0 ? '' : '-'}¥${Math.abs(Math.round(Number(value))).toLocaleString()}`;
+  if (metric.unit === '%') return `${Number(value).toFixed(1)}%`;
+  return `${Math.round(Number(value)).toLocaleString()}件`;
+};
+
+const formatAxisValue = (value, metric) => {
+  const number = Number(value) || 0;
+  if (metric.unit === '円') {
+    if (Math.abs(number) >= 10000) return `${Math.round(number / 1000)}千`;
+    return Math.round(number).toLocaleString();
+  }
+  return metric.unit === '%' ? `${number}%` : Math.round(number).toLocaleString();
+};
+
 const ModelDashboard = ({ period = 'total' }) => {
   const [sourceKey, setSourceKey] = useState('stakes');
   const [summary, setSummary] = useState({});
@@ -39,6 +116,7 @@ const ModelDashboard = ({ period = 'total' }) => {
   const [codexLearning, setCodexLearning] = useState(null);
   const [error, setError] = useState('');
   const [recentOpen, setRecentOpen] = useState(false);
+  const [trendMetricKey, setTrendMetricKey] = useState('roi');
 
   useEffect(() => {
     const cb = `?t=${Date.now()}`;
@@ -51,56 +129,36 @@ const ModelDashboard = ({ period = 'total' }) => {
   }, []);
 
   const source = SOURCES.find(s => s.key === sourceKey) || SOURCES[0];
-  const allRaces = useMemo(() => results.map(r => {
-    const rid = String(r.ID || r.RaceID || '');
-    const picks = parseStakes(summary[rid]?.[sourceKey]);
-    const result = String(r.Result || '').replace(/\s/g, '');
-    const payout = Number(r.Payout) || 0;
-    const hitPick = picks.find(p => p.combo === result);
-    const invest = picks.reduce((n, p) => n + p.stake, 0);
-    const ret = hitPick ? hitPick.stake * payout / 100 : 0;
-    return { id: rid, date: r.Date || '', venue: r.Venue || '', r: r.R || '', result, picks, invest, ret, hit: !!hitPick };
-  }).filter(r => r.picks.length > 0), [results, summary, sourceKey]);
-
-  const races = useMemo(() => {
-    if (period === 'total' || allRaces.length === 0) return allRaces;
-    const dated = allRaces.map(r => r.date).filter(Boolean).sort();
-    if (dated.length === 0) return allRaces;
-    const latest = new Date(`${dated[dated.length - 1]}T00:00:00`);
-    const days = period === 'weekly' ? 7 : 30;
-    const cutoff = new Date(latest);
-    cutoff.setDate(cutoff.getDate() - (days - 1));
-    return allRaces.filter(r => r.date && new Date(`${r.date}T00:00:00`) >= cutoff);
-  }, [allRaces, period]);
+  const latestDate = useMemo(() => results.map(r => r.Date || '').filter(Boolean).sort().at(-1) || '', [results]);
+  const racesBySource = useMemo(() => Object.fromEntries(SOURCES.map(s => [
+    s.key,
+    filterRacesByPeriod(buildRaces(results, summary, s.key), period, latestDate),
+  ])), [results, summary, period, latestDate]);
+  const races = useMemo(() => racesBySource[sourceKey] || [], [racesBySource, sourceKey]);
 
   const stats = useMemo(() => {
     const invest = races.reduce((n, r) => n + r.invest, 0);
     const ret = races.reduce((n, r) => n + r.ret, 0);
     return { n: races.length, hits: races.filter(r => r.hit).length, invest, ret, roi: invest ? ret / invest * 100 : 0 };
   }, [races]);
-  const trend = useMemo(() => {
-    const byDate = races.reduce((map, race) => ({
-      ...map,
-      [race.date]: {
-        date: race.date,
-        invest: (map[race.date]?.invest || 0) + race.invest,
-        ret: (map[race.date]?.ret || 0) + race.ret,
-      },
-    }), {});
-    return Object.values(byDate)
-      .sort((a, b) => a.date.localeCompare(b.date))
-      .reduce((rows, day) => {
-        const previous = rows[rows.length - 1];
-        const totalInvest = (previous?.totalInvest || 0) + day.invest;
-        const totalReturn = (previous?.totalReturn || 0) + day.ret;
-        return [...rows, {
-          date: day.date.slice(5),
-          roi: totalInvest ? Math.round(totalReturn / totalInvest * 1000) / 10 : 0,
-          totalInvest,
-          totalReturn,
-        }];
-      }, []);
-  }, [races]);
+  const trendsBySource = useMemo(() => Object.fromEntries(SOURCES.map(s => [s.key, buildTrend(racesBySource[s.key] || [])])), [racesBySource]);
+  const trend = trendsBySource[sourceKey] || [];
+  const comparisonTrend = useMemo(() => {
+    const dates = [...new Set(Object.values(trendsBySource).flatMap(rows => rows.map(row => row.dateKey)))].sort();
+    const latestBySource = {};
+    const rowBySourceAndDate = Object.fromEntries(SOURCES.map(s => [
+      s.key,
+      Object.fromEntries((trendsBySource[s.key] || []).map(row => [row.dateKey, row])),
+    ]));
+    return dates.map(dateKey => {
+      const row = { dateKey, date: dateKey.slice(5) };
+      SOURCES.forEach(s => {
+        latestBySource[s.key] = rowBySourceAndDate[s.key][dateKey] || latestBySource[s.key];
+        row[s.key] = latestBySource[s.key]?.[trendMetricKey] ?? null;
+      });
+      return row;
+    });
+  }, [trendsBySource, trendMetricKey]);
   const venue = useMemo(() => Object.values(races.reduce((map, race) => ({
     ...map,
     [race.venue]: {
@@ -112,6 +170,7 @@ const ModelDashboard = ({ period = 'total' }) => {
 
   const hitRate = stats.n ? stats.hits / stats.n * 100 : 0;
   const profit = stats.ret - stats.invest;
+  const trendMetric = TREND_METRICS.find(metric => metric.key === trendMetricKey) || TREND_METRICS[0];
   const metricCards = [
     { label: 'ROI', value: `${stats.roi.toFixed(1)}%`, note: stats.roi >= 100 ? '投資額を上回っています' : '回収率100%が目安', icon: TrendingUp, tone: stats.roi >= 100 ? 'positive' : 'neutral' },
     { label: '的中率', value: stats.n ? `${hitRate.toFixed(1)}%` : '—', note: `${stats.hits.toLocaleString()} / ${stats.n.toLocaleString()} レース`, icon: Target, tone: 'accent' },
@@ -163,10 +222,60 @@ const ModelDashboard = ({ period = 'total' }) => {
         </article>
       ))}
     </div>
+    <section className="trend-controls" aria-label="推移グラフの指標を選択">
+      <div>
+        <strong>推移指標</strong>
+        <small>表示期間内の初日から累積して比較します</small>
+      </div>
+      <div className="trend-metric-tabs">
+        {TREND_METRICS.map(metric => (
+          <button
+            key={metric.key}
+            className={metric.key === trendMetricKey ? 'active' : ''}
+            onClick={() => setTrendMetricKey(metric.key)}
+          >
+            {metric.label}
+          </button>
+        ))}
+      </div>
+    </section>
+    <section className="glass-card performance-chart comparison-chart">
+      <div className="section-heading">
+        <div><span>ALL MODELS</span><h3>全モデル比較：{trendMetric.title}</h3></div>
+        <small>同じ期間・同じ計算基準</small>
+      </div>
+      <div className="comparison-legend" aria-label="比較モデル一覧">
+        {SOURCES.map(s => <span key={s.key}><i style={{ backgroundColor: s.color }} />{s.short}</span>)}
+      </div>
+      <ResponsiveContainer width="100%" height={340}>
+        <LineChart data={comparisonTrend} margin={{ top: 12, right: 14, left: 4, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 5" stroke="#e2e8f0" vertical={false} />
+          <XAxis dataKey="date" {...chartAxis} />
+          <YAxis {...chartAxis} tickFormatter={value => formatAxisValue(value, trendMetric)} width={58} />
+          <Tooltip
+            contentStyle={tooltipStyle}
+            formatter={(value, key) => [formatMetricValue(value, trendMetric), SOURCES.find(s => s.key === key)?.short || key]}
+          />
+          {trendMetric.reference != null && <ReferenceLine y={trendMetric.reference} stroke="#94a3b8" strokeDasharray="5 5" />}
+          {SOURCES.map(s => <Line key={s.key} type="monotone" dataKey={s.key} name={s.short} stroke={s.color} strokeWidth={2.2} dot={false} connectNulls={false} />)}
+        </LineChart>
+      </ResponsiveContainer>
+      <p className="chart-note">予測がない日より前は線を表示せず、予測開始後にデータがない日は直前の累積値を維持します。</p>
+    </section>
     <div className="performance-grid">
       <section className="glass-card performance-chart performance-chart-wide">
-        <div className="section-heading"><div><span>PERFORMANCE</span><h3>ROIの推移</h3></div><small>累積回収率</small></div>
-        <ResponsiveContainer width="100%" height={280}><AreaChart data={trend} margin={{ top: 8, right: 6, left: -12, bottom: 0 }}><defs><linearGradient id="roiGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={source.color} stopOpacity={0.34} /><stop offset="100%" stopColor={source.color} stopOpacity={0.02} /></linearGradient></defs><CartesianGrid strokeDasharray="3 5" stroke="#e2e8f0" vertical={false} /><XAxis dataKey="date" {...chartAxis} /><YAxis unit="%" {...chartAxis} /><Tooltip contentStyle={tooltipStyle} formatter={(v) => [`${v}%`, 'ROI']} /><Area type="monotone" dataKey="roi" stroke={source.color} strokeWidth={2.5} fill="url(#roiGradient)" /></AreaChart></ResponsiveContainer>
+        <div className="section-heading"><div><span>SELECTED MODEL</span><h3>{source.short}：{trendMetric.title}</h3></div><small>{PERIOD_LABEL[period]}の累積</small></div>
+        <ResponsiveContainer width="100%" height={280}>
+          <AreaChart data={trend} margin={{ top: 8, right: 8, left: 2, bottom: 0 }}>
+            <defs><linearGradient id="trendGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={source.color} stopOpacity={0.34} /><stop offset="100%" stopColor={source.color} stopOpacity={0.02} /></linearGradient></defs>
+            <CartesianGrid strokeDasharray="3 5" stroke="#e2e8f0" vertical={false} />
+            <XAxis dataKey="date" {...chartAxis} />
+            <YAxis {...chartAxis} tickFormatter={value => formatAxisValue(value, trendMetric)} width={58} />
+            <Tooltip contentStyle={tooltipStyle} formatter={value => [formatMetricValue(value, trendMetric), trendMetric.title]} />
+            {trendMetric.reference != null && <ReferenceLine y={trendMetric.reference} stroke="#94a3b8" strokeDasharray="5 5" />}
+            <Area type="monotone" dataKey={trendMetric.key} stroke={source.color} strokeWidth={2.5} fill="url(#trendGradient)" />
+          </AreaChart>
+        </ResponsiveContainer>
       </section>
       <section className="glass-card performance-chart">
         <div className="section-heading"><div><span>VENUE</span><h3>会場別的中率</h3></div><small>上位から表示</small></div>

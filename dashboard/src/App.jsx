@@ -157,7 +157,7 @@ const App = () => {
         {page === 'dashboard' && (
           <div className="dashboard-status">
             <span><i className="status-dot" /> DATA LIVE</span>
-            <span>通常予測: {data?.prediction_model || 'gemma4:e2b + Det (LightGBM)'}</span>
+            <span>比較対象: 7モデル（Det除外）</span>
             <span>集計最終日: {data?.latest_result_date || '-'}</span>
             <span>更新: {data?.generated_at ? new Date(data.generated_at).toLocaleString('ja-JP') : '-'}</span>
           </div>

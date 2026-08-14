@@ -503,6 +503,41 @@ button:focus-visible, select:focus-visible, summary:focus-visible {
 .metric-card.negative strong, .metric-card.negative .metric-card-head svg { color: #dc4c64; }
 .metric-card.accent .metric-card-head svg { color: var(--accent-blue); }
 
+.trend-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .85rem 1rem;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  box-shadow: 0 8px 22px rgba(33,51,82,.05);
+}
+.trend-controls > div:first-child { display: grid; gap: .12rem; min-width: 160px; }
+.trend-controls strong { color: #334155; font-size: .78rem; }
+.trend-controls small { color: #94a3b8; font-size: .65rem; }
+.trend-metric-tabs { display: flex; gap: .35rem; overflow-x: auto; scrollbar-width: thin; }
+.trend-metric-tabs button {
+  flex: 0 0 auto;
+  padding: .48rem .72rem;
+  color: #64748b;
+  background: #f1f5f9;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: .7rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+.trend-metric-tabs button:hover { color: #334155; background: #e8eef6; }
+.trend-metric-tabs button.active { color: #fff; background: #334155; box-shadow: 0 5px 12px rgba(51,65,85,.2); }
+
+.comparison-chart { padding: 1.2rem 1.2rem .8rem; }
+.comparison-legend { display: flex; flex-wrap: wrap; gap: .4rem .8rem; margin: .35rem 0 .15rem; color: #64748b; font-size: .66rem; }
+.comparison-legend span { display: inline-flex; align-items: center; gap: .32rem; }
+.comparison-legend i { display: inline-block; width: 16px; height: 3px; border-radius: 999px; }
+.chart-note { margin: .2rem .2rem 0; color: #94a3b8; font-size: .64rem; line-height: 1.45; }
+
 .performance-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(330px, .9fr); gap: 1rem; }
 .performance-chart { min-width: 0; height: auto; padding: 1.15rem 1.15rem .75rem; }
 .section-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; margin-bottom: .55rem; }
@@ -548,6 +583,9 @@ button:focus-visible, select:focus-visible, summary:focus-visible {
   .metric-card { padding: .85rem; }
   .metric-card strong { font-size: 1.25rem; }
   .metric-card small { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .trend-controls { align-items: stretch; flex-direction: column; gap: .6rem; }
+  .trend-metric-tabs { margin: 0 -.25rem; padding: 0 .25rem .2rem; }
+  .comparison-chart { padding: .95rem .7rem .6rem; }
   .performance-chart { padding: .95rem .7rem .55rem; }
   .section-heading small { display: none; }
   .recent-race { grid-template-columns: 1fr auto; gap: .35rem .75rem; }
