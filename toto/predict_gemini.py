@@ -25,6 +25,7 @@ import json
 import glob
 import time
 import datetime
+import unicodedata
 import pandas as pd
 
 # Windows cmd の cp932 stdout 対策（reconfigure は冪等で、import先の同種処理と衝突しない）
@@ -40,6 +41,21 @@ MATCHES_CSV = os.path.join(DATA_DIR, "jleague_matches.csv")
 MODEL_NAME = os.environ.get("GEMINI_MODEL", "gemini-3.6-flash")
 SLEEP_BETWEEN_CALLS = 1.5
 KUJI_ORDER = ["toto", "mini_a", "mini_b", "goal3"]
+
+# toto公式とJリーグ履歴CSVで異なる代表的なチーム表記。
+# 部分一致では吸収できない略称だけを明示し、誤ったチームへの対応づけを防ぐ。
+TEAM_ALIASES = {
+    "水戸ホーリーホック": "水戸",
+    "清水エスパルス": "清水",
+    "横浜F・マリノス": "横浜FM",
+    "ヴィッセル神戸": "神戸",
+    "FC東京": "FC東京",
+    "アビスパ福岡": "福岡",
+    "セレッソ大阪": "C大阪",
+    "川崎フロンターレ": "川崎F",
+    "京都サンガF.C.": "京都",
+    "ガンバ大阪": "G大阪",
+}
 
 # fetch_toto_round の予測対象（mini/goal3 は toto の部分集合とは限らないため和集合を取る）
 
@@ -93,12 +109,26 @@ def load_stats_model():
 
 def normalize_team(toto_name, jleague_teams):
     """toto表記のチーム名を Jリーグ履歴の表記に対応づける。無ければ None。
-    完全一致 → 双方向の部分一致（短い略称ゆれを吸収）。"""
+    Unicode幅の統一 → 明示エイリアス → 完全一致 → 双方向の部分一致。"""
     if not toto_name or not jleague_teams:
         return None
-    if toto_name in jleague_teams:
-        return toto_name
-    cands = [t for t in jleague_teams if toto_name in t or t in toto_name]
+
+    normalized_name = unicodedata.normalize("NFKC", str(toto_name)).strip()
+    normalized_teams = {
+        unicodedata.normalize("NFKC", str(team)).strip(): team
+        for team in jleague_teams
+    }
+
+    alias = TEAM_ALIASES.get(normalized_name)
+    if alias and alias in normalized_teams:
+        return normalized_teams[alias]
+    if normalized_name in normalized_teams:
+        return normalized_teams[normalized_name]
+    cands = [
+        original
+        for normalized, original in normalized_teams.items()
+        if normalized_name in normalized or normalized in normalized_name
+    ]
     if len(cands) == 1:
         return cands[0]
     return None
@@ -188,12 +218,25 @@ def collect_unique_matches(round_data):
     return sorted(seen.values(), key=lambda x: (x["date"] or "", x["kickoff"] or ""))
 
 
-def predict_round(round_data, stats, model_obj, dry_run=False):
+def predict_round(round_data, stats, model_obj, dry_run=False, existing_preds=None):
     matches = collect_unique_matches(round_data)
     print(f"  対象 {len(matches)} 試合（toto/mini/goal3 和集合）")
+    existing = {
+        (p.get("date"), p.get("home"), p.get("away")): p
+        for p in (existing_preds or [])
+        if p.get("pick") in {"H", "D", "A"}
+    }
     preds = []
     for i, m in enumerate(matches, 1):
         ctx, stat_out = build_context(m, stats)
+        key = (m.get("date"), m.get("home"), m.get("away"))
+        if not dry_run and key in existing:
+            # 前回の部分成功を再利用し、日次API枠を未予測試合へ集中させる。
+            prior = {**existing[key], **m, "stats": stat_out}
+            preds.append(prior)
+            print(f"  [{i}/{len(matches)}] {m['home']} vs {m['away']}: "
+                  f"{prior['pick']} (前回の部分結果を再利用)")
+            continue
         prompt = PROMPT_TEMPLATE.format(
             home=m["home"], away=m["away"],
             date=m["date"], kickoff=m["kickoff"], context=ctx)
@@ -221,8 +264,9 @@ def predict_round(round_data, stats, model_obj, dry_run=False):
     return preds
 
 
-def save(round_no, preds, today):
-    path = os.path.join(DATA_DIR, f"gemini_round_{round_no}.json")
+def save(round_no, preds, today, partial=False):
+    suffix = ".partial" if partial else ""
+    path = os.path.join(DATA_DIR, f"gemini_round_{round_no}{suffix}.json")
     data = {"round": round_no, "model": MODEL_NAME,
             "generated_date": today.isoformat(), "predictions": preds}
     with open(path, "w", encoding="utf-8") as f:
@@ -247,7 +291,7 @@ def main():
     files = [f for f in files if os.path.exists(f)]
     if not files:
         print("対象の round_*.json がありません。先に fetch_toto_round.py を実行してください。")
-        return
+        return 1
 
     # Gemini クライアント（dry-run 時は不要）
     model_obj = None
@@ -258,7 +302,7 @@ def main():
             print("       credentials.env に GEMINI_API_KEY=AIza... を設定し、")
             print("       バッチ経由（環境変数を展開した状態）で実行してください。")
             print("       プロンプト確認だけなら --dry-run を付けてAPI無しで実行できます。")
-            return
+            return 1
         import google.generativeai as genai
         genai.configure(api_key=api_key)
         model_obj = genai.GenerativeModel(MODEL_NAME)
@@ -266,18 +310,38 @@ def main():
     stats = load_stats_model()
     print(f"=== Gemini toto予測 ({MODEL_NAME}{' / DRY-RUN' if dry_run else ''}) ===")
 
+    failed = False
     for f in files:
         with open(f, "r", encoding="utf-8") as fp:
             round_data = json.load(fp)
         rno = round_data["round"]
         print(f"\n第{rno}回 ({os.path.basename(f)})")
-        preds = predict_round(round_data, stats, model_obj, dry_run=dry_run)
+        partial_path = os.path.join(DATA_DIR, f"gemini_round_{rno}.partial.json")
+        existing_preds = []
+        if not dry_run and os.path.exists(partial_path):
+            try:
+                with open(partial_path, "r", encoding="utf-8") as fp:
+                    existing_preds = json.load(fp).get("predictions", [])
+            except (OSError, json.JSONDecodeError) as e:
+                print(f"  [WARN] 部分結果を読み込めません（新規予測で続行）: {e}")
+        preds = predict_round(
+            round_data, stats, model_obj, dry_run=dry_run,
+            existing_preds=existing_preds,
+        )
         if dry_run:
             continue
-        path = save(rno, preds, today)
         done = sum(1 for p in preds if p["pick"])
+        if done != len(preds):
+            # 不完全な予測を本番ファイルにしない。次回バッチで再試行できる状態を保つ。
+            path = save(rno, preds, today, partial=True)
+            print(f"  [ERROR] 予想確定 {done}/{len(preds)}。部分結果: {path}")
+            failed = True
+            continue
+        path = save(rno, preds, today)
         print(f"  → 保存: {path}  予想確定 {done}/{len(preds)}")
+
+    return 1 if failed else 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

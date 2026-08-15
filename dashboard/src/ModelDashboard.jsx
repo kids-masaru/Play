@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { Activity, CircleDollarSign, Database, Sparkles, Target, TrendingUp } from 'lucide-react';
 
 const SOURCES = [
@@ -16,8 +16,8 @@ const TREND_METRICS = [
   { key: 'roi', label: 'ROI', title: '累積ROI', unit: '%', reference: 100 },
   { key: 'profit', label: '収支', title: '累積収支', unit: '円', reference: 0 },
   { key: 'hitRate', label: '的中率', title: '累積的中率', unit: '%', reference: null },
-  { key: 'hits', label: '的中件数', title: '累積的中件数', unit: '件', reference: null },
-  { key: 'returnAmount', label: '的中金額', title: '累積払戻金額', unit: '円', reference: null },
+  { key: 'dailyHits', label: '日別的中件数', title: '日別的中件数', unit: '件', reference: null, daily: true },
+  { key: 'dailyReturnAmount', label: '日別的中金額', title: '日別払戻金額', unit: '円', reference: null, daily: true },
 ];
 
 const parseStakes = (value) => {
@@ -84,8 +84,8 @@ const buildTrend = (races) => {
         roi: totalInvest ? Math.round(totalReturn / totalInvest * 1000) / 10 : 0,
         profit: Math.round(totalReturn - totalInvest),
         hitRate: totalRaces ? Math.round(totalHits / totalRaces * 1000) / 10 : 0,
-        hits: totalHits,
-        returnAmount: Math.round(totalReturn),
+        dailyHits: day.hits,
+        dailyReturnAmount: Math.round(day.ret),
         totalInvest,
         totalReturn,
         totalRaces,
@@ -142,7 +142,7 @@ const ModelDashboard = ({ period = 'total' }) => {
     return { n: races.length, hits: races.filter(r => r.hit).length, invest, ret, roi: invest ? ret / invest * 100 : 0 };
   }, [races]);
   const trendsBySource = useMemo(() => Object.fromEntries(SOURCES.map(s => [s.key, buildTrend(racesBySource[s.key] || [])])), [racesBySource]);
-  const trend = trendsBySource[sourceKey] || [];
+  const trendMetric = TREND_METRICS.find(metric => metric.key === trendMetricKey) || TREND_METRICS[0];
   const comparisonTrend = useMemo(() => {
     const dates = [...new Set(Object.values(trendsBySource).flatMap(rows => rows.map(row => row.dateKey)))].sort();
     const latestBySource = {};
@@ -153,24 +153,19 @@ const ModelDashboard = ({ period = 'total' }) => {
     return dates.map(dateKey => {
       const row = { dateKey, date: dateKey.slice(5) };
       SOURCES.forEach(s => {
-        latestBySource[s.key] = rowBySourceAndDate[s.key][dateKey] || latestBySource[s.key];
-        row[s.key] = latestBySource[s.key]?.[trendMetricKey] ?? null;
+        const dayRow = rowBySourceAndDate[s.key][dateKey];
+        if (trendMetric.daily) {
+          row[s.key] = dayRow?.[trendMetricKey] ?? null;
+        } else {
+          latestBySource[s.key] = dayRow || latestBySource[s.key];
+          row[s.key] = latestBySource[s.key]?.[trendMetricKey] ?? null;
+        }
       });
       return row;
     });
-  }, [trendsBySource, trendMetricKey]);
-  const venue = useMemo(() => Object.values(races.reduce((map, race) => ({
-    ...map,
-    [race.venue]: {
-      venue: race.venue,
-      n: (map[race.venue]?.n || 0) + 1,
-      hits: (map[race.venue]?.hits || 0) + (race.hit ? 1 : 0),
-    },
-  }), {})).map(v => ({ ...v, hitRate: Math.round(v.hits / v.n * 1000) / 10 })).sort((a, b) => b.hitRate - a.hitRate), [races]);
-
+  }, [trendsBySource, trendMetric, trendMetricKey]);
   const hitRate = stats.n ? stats.hits / stats.n * 100 : 0;
   const profit = stats.ret - stats.invest;
-  const trendMetric = TREND_METRICS.find(metric => metric.key === trendMetricKey) || TREND_METRICS[0];
   const metricCards = [
     { label: 'ROI', value: `${stats.roi.toFixed(1)}%`, note: stats.roi >= 100 ? '投資額を上回っています' : '回収率100%が目安', icon: TrendingUp, tone: stats.roi >= 100 ? 'positive' : 'neutral' },
     { label: '的中率', value: stats.n ? `${hitRate.toFixed(1)}%` : '—', note: `${stats.hits.toLocaleString()} / ${stats.n.toLocaleString()} レース`, icon: Target, tone: 'accent' },
@@ -225,7 +220,7 @@ const ModelDashboard = ({ period = 'total' }) => {
     <section className="trend-controls" aria-label="推移グラフの指標を選択">
       <div>
         <strong>推移指標</strong>
-        <small>表示期間内の初日から累積して比較します</small>
+        <small>{trendMetric.daily ? '各日の実績を棒グラフで比較します' : '表示期間内の初日から累積して比較します'}</small>
       </div>
       <div className="trend-metric-tabs">
         {TREND_METRICS.map(metric => (
@@ -248,40 +243,35 @@ const ModelDashboard = ({ period = 'total' }) => {
         {SOURCES.map(s => <span key={s.key}><i style={{ backgroundColor: s.color }} />{s.short}</span>)}
       </div>
       <ResponsiveContainer width="100%" height={340}>
-        <LineChart data={comparisonTrend} margin={{ top: 12, right: 14, left: 4, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 5" stroke="#e2e8f0" vertical={false} />
-          <XAxis dataKey="date" {...chartAxis} />
-          <YAxis {...chartAxis} tickFormatter={value => formatAxisValue(value, trendMetric)} width={58} />
-          <Tooltip
-            contentStyle={tooltipStyle}
-            formatter={(value, key) => [formatMetricValue(value, trendMetric), SOURCES.find(s => s.key === key)?.short || key]}
-          />
-          {trendMetric.reference != null && <ReferenceLine y={trendMetric.reference} stroke="#94a3b8" strokeDasharray="5 5" />}
-          {SOURCES.map(s => <Line key={s.key} type="monotone" dataKey={s.key} name={s.short} stroke={s.color} strokeWidth={2.2} dot={false} connectNulls={false} />)}
-        </LineChart>
-      </ResponsiveContainer>
-      <p className="chart-note">予測がない日より前は線を表示せず、予測開始後にデータがない日は直前の累積値を維持します。</p>
-    </section>
-    <div className="performance-grid">
-      <section className="glass-card performance-chart performance-chart-wide">
-        <div className="section-heading"><div><span>SELECTED MODEL</span><h3>{source.short}：{trendMetric.title}</h3></div><small>{PERIOD_LABEL[period]}の累積</small></div>
-        <ResponsiveContainer width="100%" height={280}>
-          <AreaChart data={trend} margin={{ top: 8, right: 8, left: 2, bottom: 0 }}>
-            <defs><linearGradient id="trendGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={source.color} stopOpacity={0.34} /><stop offset="100%" stopColor={source.color} stopOpacity={0.02} /></linearGradient></defs>
+        {trendMetric.daily ? (
+          <BarChart data={comparisonTrend} margin={{ top: 12, right: 14, left: 4, bottom: 0 }} barGap={1}>
+            <CartesianGrid strokeDasharray="3 5" stroke="#e2e8f0" vertical={false} />
+            <XAxis dataKey="date" {...chartAxis} />
+            <YAxis {...chartAxis} tickFormatter={value => formatAxisValue(value, trendMetric)} width={58} allowDecimals={false} />
+            <Tooltip
+              contentStyle={tooltipStyle}
+              formatter={(value, key) => [formatMetricValue(value, trendMetric), SOURCES.find(s => s.key === key)?.short || key]}
+            />
+            {SOURCES.map(s => <Bar key={s.key} dataKey={s.key} name={s.short} fill={s.color} radius={[3, 3, 0, 0]} maxBarSize={16} />)}
+          </BarChart>
+        ) : (
+          <LineChart data={comparisonTrend} margin={{ top: 12, right: 14, left: 4, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 5" stroke="#e2e8f0" vertical={false} />
             <XAxis dataKey="date" {...chartAxis} />
             <YAxis {...chartAxis} tickFormatter={value => formatAxisValue(value, trendMetric)} width={58} />
-            <Tooltip contentStyle={tooltipStyle} formatter={value => [formatMetricValue(value, trendMetric), trendMetric.title]} />
+            <Tooltip
+              contentStyle={tooltipStyle}
+              formatter={(value, key) => [formatMetricValue(value, trendMetric), SOURCES.find(s => s.key === key)?.short || key]}
+            />
             {trendMetric.reference != null && <ReferenceLine y={trendMetric.reference} stroke="#94a3b8" strokeDasharray="5 5" />}
-            <Area type="monotone" dataKey={trendMetric.key} stroke={source.color} strokeWidth={2.5} fill="url(#trendGradient)" />
-          </AreaChart>
-        </ResponsiveContainer>
-      </section>
-      <section className="glass-card performance-chart">
-        <div className="section-heading"><div><span>VENUE</span><h3>会場別的中率</h3></div><small>上位から表示</small></div>
-        <ResponsiveContainer width="100%" height={280}><BarChart data={venue.slice(0, 12)} margin={{ top: 8, right: 0, left: -18, bottom: 0 }}><CartesianGrid strokeDasharray="3 5" stroke="#e2e8f0" vertical={false} /><XAxis dataKey="venue" {...chartAxis} /><YAxis unit="%" {...chartAxis} /><Tooltip contentStyle={tooltipStyle} formatter={(v) => [`${v}%`, '的中率']} /><Bar dataKey="hitRate" fill={source.color} radius={[5, 5, 0, 0]} /></BarChart></ResponsiveContainer>
-      </section>
-    </div>
+            {SOURCES.map(s => <Line key={s.key} type="monotone" dataKey={s.key} name={s.short} stroke={s.color} strokeWidth={2.2} dot={false} connectNulls={false} />)}
+          </LineChart>
+        )}
+      </ResponsiveContainer>
+      <p className="chart-note">{trendMetric.daily
+        ? '棒の高さが、その日に的中した件数・金額です。予測自体がない日は棒を表示しません。'
+        : '予測がない日より前は線を表示せず、予測開始後にデータがない日は直前の累積値を維持します。'}</p>
+    </section>
     <section className="recent-section">
       <button className="recent-toggle" onClick={() => setRecentOpen(open => !open)} aria-expanded={recentOpen}>
         <span><Activity size={16} /> 直近の確定レース</span><strong>{recentOpen ? '閉じる −' : '表示する ＋'}</strong>

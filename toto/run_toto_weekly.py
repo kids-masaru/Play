@@ -10,8 +10,8 @@
   6. generate_toto_data.py     表示データ → dashboard/public/daily_data/toto_info.json
   7. git add/commit/push       GitHub Pages へ公開
 
-壊れにくさ: スクレイピングや API が失敗しても全体は止めず、できたところまで公開する
-（既存ボートの update_battle_dashboard.py と同方針）。
+壊れにくさ: スクレイピングや API が失敗しても表示データ生成までは続ける。
+ただし予測失敗は終了コード1で呼び出し元へ通知し、タスク上で発見できるようにする。
 
 オプション:
   --no-push         git push しない（生成のみ。テスト用）
@@ -129,6 +129,7 @@ def main():
     force_predict = "--force-predict" in sys.argv
 
     t0 = datetime.now()
+    prediction_failed = False
     log("===== toto 週次更新 開始 =====")
 
     # 1. Jリーグ結果更新（失敗しても続行）
@@ -147,7 +148,8 @@ def main():
         for n in round_numbers(on_sale_only=True):
             gem = os.path.join(DATA_DIR, f"gemini_round_{n}.json")
             if force_predict or not os.path.exists(gem):
-                run_py("toto/predict_gemini.py", str(n), allow_fail=True)
+                if not run_py("toto/predict_gemini.py", str(n), allow_fail=True):
+                    prediction_failed = True
             else:
                 log(f"第{n}回はGemini予測済み（スキップ）")
 
@@ -158,7 +160,8 @@ def main():
         for n in round_numbers(on_sale_only=True):
             codex = os.path.join(DATA_DIR, f"codex_round_{n}.json")
             if force_predict or not os.path.exists(codex):
-                run_py("toto/predict_codex.py", str(n), allow_fail=True)
+                if not run_py("toto/predict_codex.py", str(n), allow_fail=True):
+                    prediction_failed = True
             else:
                 log(f"第{n}回はCodex予測済み（スキップ）")
 
@@ -169,7 +172,11 @@ def main():
     publish(no_push=no_push)
 
     log(f"===== 完了（所要 {datetime.now() - t0}） =====")
+    if prediction_failed:
+        log("[ERROR] 予測処理に失敗あり。次回バッチで未生成分を再試行します。")
+        return 1
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

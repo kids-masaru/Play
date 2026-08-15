@@ -16,4 +16,12 @@ if exist credentials.env (
 set "PYTHON_EXE=python"
 if exist ".venv\Scripts\python.exe" set "PYTHON_EXE=.venv\Scripts\python.exe"
 
-"%PYTHON_EXE%" toto\run_toto_weekly.py %*
+if not exist "logs" mkdir "logs"
+set "LOG_FILE=logs\toto_weekly.log"
+
+echo [%date% %time%] ===== toto weekly start =====>> "%LOG_FILE%"
+"%PYTHON_EXE%" toto\run_toto_weekly.py %* >> "%LOG_FILE%" 2>&1
+set "EXIT_CODE=%ERRORLEVEL%"
+echo [%date% %time%] ===== toto weekly end (exit=%EXIT_CODE%) =====>> "%LOG_FILE%"
+
+exit /b %EXIT_CODE%

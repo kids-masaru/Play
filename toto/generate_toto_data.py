@@ -8,7 +8,7 @@
   dashboard/public/daily_data/toto_info.json
 
 表示は toto（13試合）を主軸（無ければ mini-A組）。各試合に
-  - 統計モデルの P(H/D/A)（Geminiデータ内 stats を流用。国際試合等は null）
+  - 統計モデルの P(H/D/A)（AI予測とは独立して都度計算。国際試合等は null）
   - Gemini の 予想(H/D/A)・自信度・推論
   - Codex の 予想(H/D/A)・自信度・推論
 を結合する。複数回が販売中なら「締切が最も近い回」を既定で出す（予想が急ぎな回）。
@@ -23,6 +23,8 @@ import io
 import json
 import glob
 import datetime
+
+from predict_gemini import build_context, load_stats_model
 
 try:
     sys.stdout.reconfigure(encoding="utf-8")
@@ -92,7 +94,7 @@ def load_game_actual(round_no):
     return out
 
 
-def build(round_no, kuji_key=None):
+def build(round_no, kuji_key=None, stats_model=None):
     """指定くじ(無ければ表示既定=toto優先)の1ビューを組み立てる。
     match_id は試合ベース（toto内の試合番号）に統一＝ユーザー予測がくじ間で引き継がれる。"""
     rpath = os.path.join(DATA_DIR, f"round_{round_no}.json")
@@ -131,8 +133,10 @@ def build(round_no, kuji_key=None):
         actual = game_actual.get(key, "")
         gp = g.get("pick", "")
         cp = c.get("pick", "")
-        # 統計確率はどちらかのAI予測に付属していれば表示できる。
+        # 統計確率はAI予測の成否と切り離す。古い予測ファイルに無い場合も最新履歴から補う。
         stats = g.get("stats") or c.get("stats")
+        if not stats and stats_model:
+            _, stats = build_context(m, stats_model)
         sp = (stats or {}).get("pick", "")
         if actual:
             if gp:
@@ -225,7 +229,8 @@ def main():
         print("対象の round_*.json がありません。fetch_toto_round.py を先に実行してください。")
         return
 
-    data = build(round_no, "toto") or build(round_no)
+    stats_model = load_stats_model()
+    data = build(round_no, "toto", stats_model) or build(round_no, stats_model=stats_model)
     if data is None:
         return
 
@@ -251,7 +256,7 @@ def main():
         except Exception:
             continue
         for kuji_key in DISPLAY_KUJI_ORDER:
-            d = build(rno, kuji_key)
+            d = build(rno, kuji_key, stats_model)
             if d:
                 all_views.append(d)
     all_views.sort(key=lambda x: (-x["round"], order.get(x["kuji"], 9)))  # 新しい回→toto/miniA/miniB順

@@ -53,7 +53,12 @@
       "kickoff": "18:30",
       "home": "清水エスパルス",
       "away": "横浜Ｆ・マリノス",
-      "stats": null,
+      "stats": {
+        "p_H": 0.3466,
+        "p_D": 0.2558,
+        "p_A": 0.3975,
+        "pick": "A"
+      },
       "gemini_pick": "",
       "gemini_confidence": "",
       "gemini_reasoning": "",
@@ -69,7 +74,12 @@
       "kickoff": "19:00",
       "home": "ヴィッセル神戸",
       "away": "ＦＣ東京",
-      "stats": null,
+      "stats": {
+        "p_H": 0.5853,
+        "p_D": 0.2443,
+        "p_A": 0.1704,
+        "pick": "H"
+      },
       "gemini_pick": "",
       "gemini_confidence": "",
       "gemini_reasoning": "",
@@ -106,7 +116,12 @@
       "kickoff": "19:00",
       "home": "アビスパ福岡",
       "away": "セレッソ大阪",
-      "stats": null,
+      "stats": {
+        "p_H": 0.3116,
+        "p_D": 0.2829,
+        "p_A": 0.4054,
+        "pick": "A"
+      },
       "gemini_pick": "",
       "gemini_confidence": "",
       "gemini_reasoning": "",
@@ -122,7 +137,12 @@
       "kickoff": "18:00",
       "home": "水戸ホーリーホック",
       "away": "ガンバ大阪",
-      "stats": null,
+      "stats": {
+        "p_H": 0.5701,
+        "p_D": 0.2334,
+        "p_A": 0.1965,
+        "pick": "H"
+      },
       "gemini_pick": "",
       "gemini_confidence": "",
       "gemini_reasoning": "",
@@ -180,7 +200,12 @@
       "kickoff": "19:00",
       "home": "川崎フロンターレ",
       "away": "京都サンガF.C.",
-      "stats": null,
+      "stats": {
+        "p_H": 0.2949,
+        "p_D": 0.2102,
+        "p_A": 0.4949,
+        "pick": "A"
+      },
       "gemini_pick": "",
       "gemini_confidence": "",
       "gemini_reasoning": "",

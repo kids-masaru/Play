@@ -86,6 +86,17 @@
   プルダウンの上に常設し、回切替なしで横断比較できるように。esbuild構文チェックOK・push→Actions success。
 
 ## 作業ログ
+### 2026-08-15（第1645回の統計・Gemini欠損調査）
+- 統計モデル自体と履歴5,554試合は正常。dry-runで第1645回13試合中8試合に統計確率を生成できることを確認。
+- 残り5試合はtoto側の正式名と履歴側の略称（例: ガンバ大阪/Ｇ大阪、横浜Ｆ・マリノス/横浜FM）が単純部分一致せず、同一チーム判定に失敗。
+- `gemini_round_1645.json` は未生成。毎日10:30の `Toto_Weekly` は成功扱いだが、Gemini失敗を許容してCodex・公開処理を続ける設計。
+- 原因は `run_toto_weekly.bat` が優先する `.venv` に `google.generativeai` が未導入であること。起動前の `ModuleNotFoundError` でGeminiだけ実行不能。
+- [x] チーム名エイリアスとUnicode幅正規化を追加し、第1645回の統計予測を13試合へ拡大した。
+- [x] 統計表示をAI予測データから独立させ、Gemini未生成でも表示生成時に直接補完するよう変更した。
+- [x] `.venv` に `google-generativeai 0.8.5` を導入し、不完全予測の本番採用防止・部分成功の再利用を実装した。
+- [x] Gemini/Codex予測失敗をexit 1で通知し、`logs/toto_weekly.log`へ終了コードを残すようにした。
+- [ ] 第1645回Gemini実予測は無料枠20件/日へ到達したため未完了。次回枠で未予測分のみ再試行する。
+
 ### 2026-06-13 (夕: 自動化 T11/T12 + T8答え合わせ + push)
 - T11 `settle_results.py`: jleague_matches.csv から実結果(H/D/A)を引き統計/Geminiの的中判定→settled_*.json。
   検証: 国際1635=0件(正常)、合成過去J1=4/4確定・統計3/4/Gemini判定OK
