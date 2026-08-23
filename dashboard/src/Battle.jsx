@@ -3,7 +3,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   LineChart, Line, Legend
 } from 'recharts';
-import { Trophy, Target, Brain, ChevronLeft, Save, Trash2, Cloud, CloudOff, KeyRound, LogOut, TrendingUp, ListOrdered } from 'lucide-react';
+import { Target, Brain, ChevronLeft, Save, Trash2, Cloud, CloudOff, KeyRound, LogOut, TrendingUp, ListOrdered } from 'lucide-react';
 import {
   cloudEnabled, hashPassphrase,
   getStoredPass, setStoredPass, clearStoredPass,
@@ -49,7 +49,6 @@ const comboHit = (combo, result) => {
   if (!combo || !result) return false;
   return String(combo).replace(/\D/g, '') === String(result).replace(/\D/g, '');
 };
-const isHit = comboHit;
 
 /** 主要セクション: レース一覧 */
 const RaceList = ({ races, userPreds, onSelect }) => {
@@ -57,7 +56,6 @@ const RaceList = ({ races, userPreds, onSelect }) => {
   return (
     <div style={{ display: 'grid', gap: '0.75rem', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}>
       {races.map(race => {
-        const detPicks = parseAiPicks(race.ai_picks_det);
         const gemPicks = parseAiPicks(race.ai_picks_gemini);
         const grokPicks = parseAiPicks(race.ai_picks_grok);
         const ftPicks = parseAiPicks(race.ai_picks_gemmaft);
@@ -94,7 +92,6 @@ const RaceList = ({ races, userPreds, onSelect }) => {
               )}
             </div>
             <div style={{ fontSize: '0.8rem' }}>
-              {aiRow('Det', '#60a5fa', detPicks)}
               {aiRow('Gemini', '#10b981', gemPicks)}
               {aiRow('Grok', '#a78bfa', grokPicks)}
               {aiRow('学Gem', '#ec4899', ftPicks)}
@@ -111,7 +108,6 @@ const RaceList = ({ races, userPreds, onSelect }) => {
 
 /** 主要セクション: レース詳細 */
 const RaceDetail = ({ race, userPred, onSave, onBack }) => {
-  const aiDet = parseAiPicks(race.ai_picks_det);
   const aiGem = parseAiPicks(race.ai_picks_gemini);
   const aiGrok = parseAiPicks(race.ai_picks_grok);
   const aiFt = parseAiPicks(race.ai_picks_gemmaft);
@@ -164,7 +160,7 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
       <div className="glass-card" style={{ padding: '1.25rem', marginBottom: '1rem' }}>
         <h2 style={{ margin: '0 0 0.25rem 0' }}>{race.venue} {race.r}R</h2>
         <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary, #9ca3af)' }}>
-          {race.date}　天候: {race.weather || '-'}　風: {race.wind_dir || '-'} {race.wind_speed || ''}　波: {race.wave || '-'}　水温: {race.water_temp || '-'}
+          {race.date} / 天候: {race.weather || '-'} / 風: {race.wind_dir || '-'} {race.wind_speed || ''} / 波: {race.wave || '-'} / 水温: {race.water_temp || '-'}
         </div>
       </div>
 
@@ -209,14 +205,6 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
           <Brain size={18} /> AI予測
         </h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem' }}>
-          <div style={{ padding: '0.5rem', background: 'rgba(96,165,250,0.07)', borderRadius: '6px' }}>
-            <div style={{ fontSize: '0.8rem', color: '#60a5fa', marginBottom: '0.25rem', fontWeight: 600 }}>Det (LightGBM)</div>
-            <div style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>
-              {aiDet.length > 0
-                ? aiDet.map((p, i) => <div key={i}>{p.combo}{p.stake ? `  ¥${p.stake}` : ''}</div>)
-                : '(なし)'}
-            </div>
-          </div>
           <div style={{ padding: '0.5rem', background: 'rgba(16,185,129,0.07)', borderRadius: '6px' }}>
             <div style={{ fontSize: '0.8rem', color: '#10b981', marginBottom: '0.25rem', fontWeight: 600 }}>Gemini</div>
             <div style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>
@@ -260,26 +248,6 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
             </div>
           </div>
         </div>
-        {false && race.ai_prediction && (
-          <details open style={{ marginTop: '0.75rem', borderTop: '1px solid var(--border, #374151)', paddingTop: '0.75rem' }}>
-            <summary style={{ cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600, color: 'var(--accent-purple, #a78bfa)' }}>
-              💬 AI(LLM/Gemma)の最終見解
-            </summary>
-            <div style={{ marginTop: '0.5rem', whiteSpace: 'pre-wrap', fontSize: '0.85rem', lineHeight: 1.7, color: 'var(--text-primary, #f3f4f6)' }}>
-              {race.ai_prediction}
-            </div>
-          </details>
-        )}
-        {false && race.ai_log && (
-          <details style={{ marginTop: '0.75rem' }}>
-            <summary style={{ cursor: 'pointer', fontSize: '0.85rem', color: 'var(--text-secondary, #9ca3af)' }}>
-              🔍 AI(LLM)の思考プロセス (長文)
-            </summary>
-            <div style={{ marginTop: '0.5rem', whiteSpace: 'pre-wrap', fontSize: '0.8rem', lineHeight: 1.6, color: 'var(--text-secondary, #9ca3af)' }}>
-              {race.ai_log}
-            </div>
-          </details>
-        )}
         {race.ai_prediction_gemini && (
           <details open style={{ marginTop: '0.75rem', borderTop: '1px solid var(--border, #374151)', paddingTop: '0.75rem' }}>
             <summary style={{ cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600, color: '#10b981' }}>
@@ -472,131 +440,16 @@ const buildSettled = (history, aiPredsByRid, userPreds) => {
   }).filter(Boolean);
 };
 
-/** 円の符号付き表記 */
-const yen = (v) => `${v >= 0 ? '+' : '-'}¥${Math.abs(Math.round(v)).toLocaleString()}`;
-
-/** 履歴サマリパネル: 4者(Det/LLM/Gemini/あなた)比較 */
-const HistorySummary = ({ settled }) => {
-  const total = settled.length;
-  const stat = (predicate) => {
-    const evaluable = settled.filter(predicate.has);
-    const n = evaluable.length;
-    const h = evaluable.filter(predicate.hit).length;
-    return {
-      n,
-      hits: h,
-      rate: n > 0 ? (h / n * 100).toFixed(1) : '-',
-    };
-  };
-
-  const userStat = stat({ has: s => s.hasUser, hit: s => s.userHit });
-  const detStat = stat({ has: s => s.detPicks.length > 0, hit: s => s.detHit });
-  const gemStat = stat({ has: s => s.gemPicks.length > 0, hit: s => s.gemHit });
-  const grokStat = stat({ has: s => s.grokPicks.length > 0, hit: s => s.grokHit });
-  const ftStat = stat({ has: s => s.ftPicks.length > 0, hit: s => s.ftHit });
-  const fcStat = stat({ has: s => s.fcPicks.length > 0, hit: s => s.fcHit });
-  const gxStat = stat({ has: s => s.gxPicks.length > 0, hit: s => s.gxHit });
-  const codexStat = stat({ has: s => s.codexPicks.length > 0, hit: s => s.codexHit });
-
-  // 金額集計（投資・払戻・収支・ROI）
-  const money = (key) => {
-    let inv = 0, ret = 0;
-    settled.forEach(s => { inv += s[key].inv; ret += s[key].ret; });
-    return { inv, ret, profit: ret - inv, roi: inv > 0 ? (ret / inv * 100).toFixed(1) : null };
-  };
-  const detM = money('detMoney');
-  const gemM = money('gemMoney');
-  const grokM = money('grokMoney');
-  const ftM = money('ftMoney');
-  const fcM = money('fcMoney');
-  const gxM = money('gxMoney');
-  const codexM = money('codexMoney');
-  const userM = money('userMoney');
-
-  return (
-    <div className="glass-card" style={{ padding: '1.25rem', marginBottom: '1.5rem' }}>
-      <h3 style={{ margin: '0 0 0.75rem 0', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-        <Trophy size={18} /> 7者対戦戦績 (AI比較は結果が出た{total}レース／あなたは予想した{userStat.n}レース)
-      </h3>
-      {/* AI5者は2列でコンパクトに、あなたは下に横長で */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
-        <CompetitorCard name="Det (計算)" color="#60a5fa" rate={detStat.rate} hits={detStat.hits} n={detStat.n} money={detM} />
-        <CompetitorCard name="Gemini" color="#10b981" rate={gemStat.rate} hits={gemStat.hits} n={gemStat.n} money={gemM} />
-        <CompetitorCard name="Grok" color="#a78bfa" rate={grokStat.rate} hits={grokStat.hits} n={grokStat.n} money={grokM} />
-        <CompetitorCard name="学習Gemma(Gemini先生)" color="#ec4899" rate={ftStat.rate} hits={ftStat.hits} n={ftStat.n} money={ftM} />
-        <CompetitorCard name="学習Gemma(Claude先生)" color="#06b6d4" rate={fcStat.rate} hits={fcStat.hits} n={fcStat.n} money={fcM} />
-        <CompetitorCard name="学習Gemma(Grok+X先生)" color="#f97316" rate={gxStat.rate} hits={gxStat.hits} n={gxStat.n} money={gxM} />
-        <CompetitorCard name="Codex" color="#14b8a6" rate={codexStat.rate} hits={codexStat.hits} n={codexStat.n} money={codexM} />
-      </div>
-      <div style={{ marginTop: '0.6rem' }}>
-        <CompetitorCard name="あなた" color="#8b5cf6" rate={userStat.rate} hits={userStat.hits} n={userStat.n} money={userM} highlight wide />
-      </div>
-      {total === 0 ? (
-        <div style={{ marginTop: '0.75rem', fontSize: '0.85rem', color: 'var(--text-secondary, #9ca3af)' }}>
-          まだ結果データがありません。
-        </div>
-      ) : userStat.n === 0 && (
-        <div style={{ marginTop: '0.75rem', fontSize: '0.85rem', color: 'var(--text-secondary, #9ca3af)' }}>
-          AI/計算の戦績は常に集計中です。あなたが予想を入れたレースだけ「あなた」の的中にも反映されます。
-        </div>
-      )}
-    </div>
-  );
+/** 過去成績もモデル比較画面と同じく、確定結果の最終日を基準に期間を切る。 */
+const filterSettledByPeriod = (settled, period) => {
+  if (period === 'total' || !settled.length) return settled;
+  const latestDate = settled.map(row => row.date).filter(Boolean).sort().at(-1);
+  if (!latestDate) return settled;
+  const days = period === 'weekly' ? 7 : 30;
+  const cutoff = new Date(`${latestDate}T00:00:00`);
+  cutoff.setDate(cutoff.getDate() - (days - 1));
+  return settled.filter(row => row.date && new Date(`${row.date}T00:00:00`) >= cutoff);
 };
-
-const CompetitorCard = ({ name, color, rate, hits, n, money, highlight, wide }) => {
-  const profit = money ? money.profit : null;
-  // 横長・低め（あなた用）: 名前 | 的中率 | 的中数 | 収支 を1行に
-  if (wide) {
-    return (
-      <div style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem',
-        padding: '0.5rem 0.9rem',
-        background: highlight ? `${color}15` : 'rgba(255,255,255,0.03)',
-        border: `1px solid ${color}40`, borderRadius: '8px',
-      }}>
-        <span style={{ fontSize: '0.85rem', color, fontWeight: 700 }}>{name}</span>
-        <span style={{ display: 'flex', alignItems: 'baseline', gap: '0.6rem', flexWrap: 'wrap' }}>
-          <span style={{ fontSize: '1.3rem', fontWeight: 700 }}>{rate}%</span>
-          <span style={{ fontSize: '0.72rem', color: 'var(--text-secondary, #9ca3af)' }}>{hits}/{n} 的中</span>
-          {money && money.inv > 0 && (
-            <span style={{ fontSize: '0.8rem', fontWeight: 700, color: profit >= 0 ? '#10b981' : '#ef4444' }}>
-              {yen(profit)}<span style={{ fontSize: '0.7rem', color: 'var(--text-secondary, #9ca3af)', fontWeight: 400 }}> ROI {money.roi ?? '-'}%</span>
-            </span>
-          )}
-        </span>
-      </div>
-    );
-  }
-  return (
-    <div style={{
-      padding: '0.7rem 0.6rem',
-      background: highlight ? `${color}15` : 'rgba(255,255,255,0.03)',
-      border: `1px solid ${color}40`,
-      borderRadius: '8px',
-      textAlign: 'center',
-    }}>
-      <div style={{ fontSize: '0.78rem', color, marginBottom: '0.3rem', fontWeight: 600 }}>{name}</div>
-      <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'inherit' }}>{rate}%</div>
-      <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary, #9ca3af)' }}>{hits}/{n} 的中</div>
-      {money && money.inv > 0 && (
-        <div style={{ marginTop: '0.4rem', paddingTop: '0.35rem', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-          <div style={{ fontSize: '0.9rem', fontWeight: 700, color: profit >= 0 ? '#10b981' : '#ef4444' }}>{yen(profit)}</div>
-          <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary, #9ca3af)' }}>
-            ROI {money.roi ?? '-'}%・投資¥{Math.round(money.inv).toLocaleString()}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-const Stat = ({ label, value, accent }) => (
-  <div style={{ textAlign: 'center' }}>
-    <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #9ca3af)', marginBottom: '0.25rem' }}>{label}</div>
-    <div style={{ fontSize: '1.5rem', fontWeight: 700, color: accent ? 'var(--accent-blue, #60a5fa)' : 'inherit' }}>{value}</div>
-  </div>
-);
 
 const TREND_AXIS = { stroke: 'var(--text-secondary, #9ca3af)', fontSize: 11, tickLine: false, axisLine: false };
 const TREND_TIP = { backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', fontSize: '0.8rem' };
@@ -607,8 +460,7 @@ const HitRateTrend = ({ settled }) => {
   settled.forEach(s => {
     const m = (s.date || '').slice(0, 7); // YYYY-MM
     if (!m) return;
-    const b = byMonth[m] || (byMonth[m] = { month: m, dN: 0, dH: 0, gN: 0, gH: 0, grN: 0, grH: 0, fN: 0, fH: 0, cN: 0, cH: 0, xN: 0, xH: 0, codexN: 0, codexH: 0, uN: 0, uH: 0 });
-    if (s.detPicks.length) { b.dN++; if (s.detHit) b.dH++; }
+    const b = byMonth[m] || (byMonth[m] = { month: m, gN: 0, gH: 0, grN: 0, grH: 0, fN: 0, fH: 0, cN: 0, cH: 0, xN: 0, xH: 0, codexN: 0, codexH: 0, uN: 0, uH: 0 });
     if (s.gemPicks.length) { b.gN++; if (s.gemHit) b.gH++; }
     if (s.grokPicks.length) { b.grN++; if (s.grokHit) b.grH++; }
     if (s.ftPicks.length) { b.fN++; if (s.ftHit) b.fH++; }
@@ -621,7 +473,6 @@ const HitRateTrend = ({ settled }) => {
     .sort((a, b) => a.month.localeCompare(b.month))
     .map(b => ({
       month: b.month.slice(2), // 'YY-MM'
-      Det: b.dN ? Math.round(b.dH / b.dN * 100) : null,
       Gemini: b.gN ? Math.round(b.gH / b.gN * 100) : null,
       Grok: b.grN ? Math.round(b.grH / b.grN * 100) : null,
       'Grok+X': b.xN ? Math.round(b.xH / b.xN * 100) : null,
@@ -643,7 +494,6 @@ const HitRateTrend = ({ settled }) => {
           <YAxis unit="%" {...TREND_AXIS} />
           <Tooltip contentStyle={TREND_TIP} formatter={(v) => v == null ? ['-', ''] : [`${v}%`, '']} />
           <Legend wrapperStyle={{ fontSize: '0.78rem' }} />
-          <Line dataKey="Det" stroke="#60a5fa" connectNulls dot={false} strokeWidth={2} />
           <Line dataKey="Gemini" stroke="#10b981" connectNulls dot={false} strokeWidth={2} />
           <Line dataKey="Grok" stroke="#a78bfa" connectNulls dot={false} strokeWidth={2} />
           <Line dataKey="Grok+X" stroke="#f97316" connectNulls dot={false} strokeWidth={2} />
@@ -663,8 +513,7 @@ const BalanceTrend = ({ settled }) => {
   settled.forEach(s => {
     const d = s.date;
     if (!d) return;
-    const b = byDate[d] || (byDate[d] = { date: d, det: 0, gem: 0, grok: 0, ft: 0, fc: 0, gx: 0, codex: 0, user: 0 });
-    b.det += s.detMoney.ret - s.detMoney.inv;
+    const b = byDate[d] || (byDate[d] = { date: d, gem: 0, grok: 0, ft: 0, fc: 0, gx: 0, codex: 0, user: 0 });
     b.gem += s.gemMoney.ret - s.gemMoney.inv;
     b.grok += s.grokMoney.ret - s.grokMoney.inv;
     b.ft += s.ftMoney.ret - s.ftMoney.inv;
@@ -675,13 +524,37 @@ const BalanceTrend = ({ settled }) => {
   });
   const days = Object.values(byDate).sort((a, b) => a.date.localeCompare(b.date));
   if (days.length === 0) return null;
-  let cd = 0, cl = 0, cg = 0, cgr = 0, cf = 0, cc = 0, cx = 0, codex = 0, cu = 0;
-  let userHasData = false;
-  const data = days.map(b => {
-    cd += b.det; cg += b.gem; cgr += b.grok; cf += b.ft; cc += b.fc; cx += b.gx; codex += b.codex; cu += b.user;
-    if (b.user !== 0) userHasData = true;
-    return { date: b.date.slice(5), Det: Math.round(cd), Gemini: Math.round(cg), Grok: Math.round(cgr), 'Grok+X': Math.round(cx), Codex: Math.round(codex), 学習Gem: Math.round(cf), 学習Cla: Math.round(cc), あなた: Math.round(cu) };
+  const trend = days.reduce((state, day) => {
+    const totals = {
+      gem: state.totals.gem + day.gem,
+      grok: state.totals.grok + day.grok,
+      ft: state.totals.ft + day.ft,
+      fc: state.totals.fc + day.fc,
+      gx: state.totals.gx + day.gx,
+      codex: state.totals.codex + day.codex,
+      user: state.totals.user + day.user,
+    };
+    const point = {
+      date: day.date.slice(5),
+      Gemini: Math.round(totals.gem),
+      Grok: Math.round(totals.grok),
+      'Grok+X': Math.round(totals.gx),
+      Codex: Math.round(totals.codex),
+      学習Gem: Math.round(totals.ft),
+      学習Cla: Math.round(totals.fc),
+      あなた: Math.round(totals.user),
+    };
+    return {
+      totals,
+      data: [...state.data, point],
+      userHasData: state.userHasData || day.user !== 0,
+    };
+  }, {
+    totals: { gem: 0, grok: 0, ft: 0, fc: 0, gx: 0, codex: 0, user: 0 },
+    data: [],
+    userHasData: false,
   });
+  const { data, userHasData } = trend;
   return (
     <div className="glass-card" style={{ padding: '1rem 1.1rem', marginBottom: '1.25rem' }}>
       <h3 style={{ margin: '0 0 0.25rem 0', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
@@ -697,7 +570,6 @@ const BalanceTrend = ({ settled }) => {
           <YAxis {...TREND_AXIS} tickFormatter={(v) => `${Math.round(v / 1000)}k`} />
           <Tooltip contentStyle={TREND_TIP} formatter={(v) => [`¥${Number(v).toLocaleString()}`, '']} />
           <Legend wrapperStyle={{ fontSize: '0.78rem' }} />
-          <Line dataKey="Det" stroke="#60a5fa" dot={false} strokeWidth={2} />
           <Line dataKey="Gemini" stroke="#10b981" dot={false} strokeWidth={2} />
           <Line dataKey="Grok" stroke="#a78bfa" dot={false} strokeWidth={2} />
           <Line dataKey="Grok+X" stroke="#f97316" dot={false} strokeWidth={2} />
@@ -736,7 +608,7 @@ const PastRaces = ({ settled }) => {
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem', minWidth: '560px' }}>
           <thead>
             <tr style={{ borderBottom: '1px solid var(--border, #374151)' }}>
-              {['日付', 'レース', '結果', 'Det', 'Gemini', 'Grok', '学Gem', '学Cla', '学Grok', 'Codex', 'あなた'].map(h => <th key={h} style={th}>{h}</th>)}
+              {['日付', 'レース', '結果', 'Gemini', 'Grok', '学Gem', '学Cla', '学Grok', 'Codex', 'あなた'].map(h => <th key={h} style={th}>{h}</th>)}
             </tr>
           </thead>
           <tbody>
@@ -745,7 +617,6 @@ const PastRaces = ({ settled }) => {
                 <td style={{ ...td, color: 'var(--text-secondary, #9ca3af)' }}>{s.date}</td>
                 <td style={td}>{s.venue}{s.r}R</td>
                 <td style={{ ...td, fontWeight: 700, color: 'var(--accent-blue, #60a5fa)' }}>{s.result}</td>
-                <td style={td}><Pick picks={s.detPicks} hit={s.detHit} /></td>
                 <td style={td}><Pick picks={s.gemPicks} hit={s.gemHit} /></td>
                 <td style={td}><Pick picks={s.grokPicks} hit={s.grokHit} /></td>
                 <td style={td}><Pick picks={s.ftPicks} hit={s.ftHit} /></td>
@@ -838,11 +709,16 @@ const Battle = () => {
   const [passReady, setPassReady] = useState(false);
   const [statusMsg, setStatusMsg] = useState('');
   const [view, setView] = useState('today'); // 'today' = 今日のレース / 'past' = 過去成績
+  const [historyPeriod, setHistoryPeriod] = useState('weekly');
 
   // AI予測×結果の決着済みレース（戦績カード・グラフ・一覧で共用）。重い結合なのでメモ化。
   const settled = useMemo(
     () => buildSettled(history, aiPreds, userPreds),
     [history, aiPreds, userPreds]
+  );
+  const settledForPeriod = useMemo(
+    () => filterSettledByPeriod(settled, historyPeriod),
+    [settled, historyPeriod]
   );
 
   // ユーザー予測のロード（uid があればクラウド、無ければローカル）
@@ -869,9 +745,10 @@ const Battle = () => {
         reloadUserPreds(h);
       });
     } else {
+      // 初期表示時にローカル保存分を同期する必要がある。
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       reloadUserPreds(null);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -958,7 +835,7 @@ const Battle = () => {
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
         <div>
-          <h2 style={{ margin: 0 }}>予測対戦</h2>
+          <h2 style={{ margin: 0 }}>今日の予測</h2>
           <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary, #9ca3af)' }}>
             対象日: {info.date} ({info.races.length} レース)
           </div>
@@ -978,8 +855,6 @@ const Battle = () => {
         onSetPass={handleSetPass}
         onLogout={handleLogout}
       />
-
-      <HistorySummary settled={settled} />
 
       {selected ? (
         <RaceDetail
@@ -1004,9 +879,16 @@ const Battle = () => {
             <RaceList races={info.races} userPreds={userPreds} onSelect={setSelectedRid} />
           ) : (
             <>
-              <BalanceTrend settled={settled} />
-              <HitRateTrend settled={settled} />
-              <PastRaces settled={settled} />
+              <div className="period-switcher battle-period-switcher" style={{ marginBottom: '1rem' }}>
+                {['weekly', 'monthly', 'total'].map(periodKey => <button
+                  key={periodKey}
+                  className={`tab-button ${historyPeriod === periodKey ? 'active' : ''}`}
+                  onClick={() => setHistoryPeriod(periodKey)}
+                >{periodKey === 'weekly' ? '7日' : periodKey === 'monthly' ? '30日' : '全期間'}</button>)}
+              </div>
+              <BalanceTrend settled={settledForPeriod} />
+              <HitRateTrend settled={settledForPeriod} />
+              <PastRaces settled={settledForPeriod} />
             </>
           )}
         </>

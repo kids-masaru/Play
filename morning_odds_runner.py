@@ -572,10 +572,9 @@ def main():
         # Job C: EV強化予測
         new_preds = run_ev_predictions(target_date, ev_results)
 
-        # Job D: LINE通知
-        print("\n--- [Job D] LINE通知送信 ---")
-        msg = build_morning_notification(target_date, ev_results, new_preds)
-        send_line_message(msg)
+        # 個別買い目のLINE配信は停止。モデル比較は夜の日次バッチからまとめて送る。
+        print("\n--- [Job D] LINE通知 ---")
+        print("[INFO] 個別買い目のLINE配信は停止中です。モデル比較は日次バッチで送信します。")
 
     except Exception as e:
         error_msg = traceback.format_exc()

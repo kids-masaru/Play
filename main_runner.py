@@ -5,6 +5,8 @@ import subprocess
 from datetime import datetime, timedelta, timezone
 import pandas as pd
 
+from model_performance import format_line_report
+
 # 個別のローカル完結スクリプトをインポート
 try:
     import local_collect_race_data
@@ -53,6 +55,7 @@ def push_to_github():
         # 予測対戦（結果込み）の公開ファイル。深夜に旧ダッシュボードと同時更新するため追加。
         "dashboard/public/daily_data/daily_race_info.json",
         "dashboard/public/daily_data/ai_predictions_summary.json",
+        "dashboard/public/daily_data/model_performance.json",
         "dashboard/public/daily_data/daily_history_results.csv",
         "dashboard/public/daily_data/daily_gemini_predictions.csv",
         "dashboard/public/daily_data/daily_gemma_predictions.csv",
@@ -361,12 +364,18 @@ def main():
         # GitHubへプッシュ
         push_success = push_to_github()
 
-        report_blocks.append("\n📈 【回収率ダッシュボード】更新完了")
-        dashboard_url = "https://kids-masaru.github.io/Play/"
-        report_blocks.append(f"詳細はこちら: {dashboard_url}")
-
-        summary_text += f"\n※詳細はダッシュボードをご確認ください。\n{dashboard_url}"
-        report_blocks.append(summary_text)
+        # LINEは個別の買い目・答え合わせではなく、画面と共通のモデル比較だけを送る。
+        # それまでに作ったsummary_textは、ことちゃんRAG用の集計には利用し続ける。
+        try:
+            report_blocks = [format_line_report(period_key="weekly")]
+            if not push_success:
+                report_blocks.append("⚠️ ダッシュボードのGitHub同期に失敗しました。")
+        except Exception as report_err:
+            print(f"  [WARN] モデル比較LINEの作成に失敗: {report_err}")
+            report_blocks = [
+                "⚠️ ボートレースの日次処理は完了しましたが、モデル比較の集計に失敗しました。",
+                "https://kids-masaru.github.io/Play/",
+            ]
         
     except Exception as e:
         error_msg = traceback.format_exc()

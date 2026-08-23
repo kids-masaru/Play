@@ -8,7 +8,8 @@
   3. generate_gemini_predictions.py  (race_info.json を読んで Gemini 予測)
   4. predict_gemma_ft.py  (race_info.json を読んで 学習版Gemma 予測 / Ollama)
   5. generate_battle_data.py  (2回目: Gemini と 学習版Gemma を取り込んだ最終版)
-  6. 成果物 JSON を git add -> commit -> push (GitHub Pages へ公開)
+  6. model_performance.py  (モデル比較の7日/30日/全期間集計)
+  7. 成果物 JSON を git add -> commit -> push (GitHub Pages へ公開)
 
 なぜこの順番か:
   generate_gemini は daily_race_info.json を入力に取り、
@@ -50,6 +51,7 @@ SOURCE_CSVS = [
 PUBLISH_FILES = [
     "dashboard/public/daily_data/daily_race_info.json",
     "dashboard/public/daily_data/ai_predictions_summary.json",
+    "dashboard/public/daily_data/model_performance.json",
     "dashboard/public/daily_data/daily_codex_predictions.csv",
     "dashboard/public/daily_data/codex_learning_summary.json",
     # 予測対戦の「4者戦績」は結果CSVが要る。これが無いと本番で的中率が全部0になる。
@@ -222,6 +224,9 @@ def main():
     # 2回目: Gemini と 学習版Gemma を取り込んだ最終版
     # （--skip-gemini かつ --skip-gemma でも、再生成は無害なので常に回す）
     run_py("generate_battle_data.py")
+
+    # 画面とLINEが同じ数字を使うように、モデル比較は共通集計から生成する。
+    run_py("model_performance.py")
 
     # 傾向(攻略図)タブのデータを再生成（会場別/レース番号別のイン率ヒートマップ）。
     # 最新の結果・予想CSVが揃った後に集計する。失敗しても他の公開は止めない。

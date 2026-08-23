@@ -1,282 +1,150 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Bar, BarChart, CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { Activity, CircleDollarSign, Database, Sparkles, Target, TrendingUp } from 'lucide-react';
-
-const SOURCES = [
-  { key: 'stakes', label: '通常予測', short: '通常', color: '#6366f1', description: 'gemma4:e2b による通常運用' },
-  { key: 'stakes_gemini', label: 'Gemini', short: 'Gemini', color: '#059669', description: 'Gemini が出走表と直前情報から判断' },
-  { key: 'stakes_grok', label: 'Grok', short: 'Grok', color: '#7c3aed', description: 'Grok がレース情報を読んで予測' },
-  { key: 'stakes_gemmaft', label: '学習Gemma（Gemini先生）', short: '学Gemini', color: '#db2777', description: 'Gemini教師データで学習した Gemma' },
-  { key: 'stakes_gemmaclaude', label: '学習Gemma（Claude先生）', short: '学Claude', color: '#0891b2', description: 'Claude教師データで学習した Gemma' },
-  { key: 'stakes_gemmagrokx', label: '学習Gemma（Grok+X先生）', short: '学Grok+X', color: '#ea580c', description: 'GrokとX情報を教師に学習した Gemma' },
-  { key: 'stakes_codex', label: 'Codex', short: 'Codex', color: '#0d9488', description: '過去の結果から自動フィードバックする Codex' },
-];
-
-const TREND_METRICS = [
-  { key: 'roi', label: 'ROI', title: '累積ROI', unit: '%', reference: 100 },
-  { key: 'profit', label: '収支', title: '累積収支', unit: '円', reference: 0 },
-  { key: 'hitRate', label: '的中率', title: '累積的中率', unit: '%', reference: null },
-  { key: 'dailyHits', label: '日別的中件数', title: '日別的中件数', unit: '件', reference: null, daily: true },
-  { key: 'dailyReturnAmount', label: '日別的中金額', title: '日別払戻金額', unit: '円', reference: null, daily: true },
-];
-
-const parseStakes = (value) => {
-  if (!value) return [];
-  const text = String(value);
-  try {
-    const obj = JSON.parse(text);
-    return Object.entries(obj).map(([combo, stake]) => ({ combo: combo.replace(/(\d)(\d)(\d)/, '$1-$2-$3'), stake: Number(stake) || 0 }));
-  } catch {
-    return [...text.matchAll(/(\d-\d-\d)\s*:\s*(\d+)/g)].map(m => ({ combo: m[1], stake: Number(m[2]) }));
-  }
-};
-
-const parseCsv = (text) => {
-  const [header, ...lines] = text.trim().split(/\r?\n/);
-  const keys = header.split(',');
-  return lines.map(line => Object.fromEntries(keys.map((key, i) => [key, line.split(',')[i] || ''])));
-};
+import { CartesianGrid, Legend, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 const PERIOD_LABEL = { weekly: '直近7日', monthly: '直近30日', total: '全期間' };
 
-const buildRaces = (results, summary, sourceKey) => results.map(r => {
-  const rid = String(r.ID || r.RaceID || '');
-  const picks = parseStakes(summary[rid]?.[sourceKey]);
-  const result = String(r.Result || '').replace(/\s/g, '');
-  const payout = Number(r.Payout) || 0;
-  const hitPick = picks.find(p => p.combo === result);
-  const invest = picks.reduce((n, p) => n + p.stake, 0);
-  const ret = hitPick ? hitPick.stake * payout / 100 : 0;
-  return { id: rid, date: r.Date || '', venue: r.Venue || '', r: r.R || '', result, picks, invest, ret, hit: !!hitPick };
-}).filter(r => r.picks.length > 0);
-
-const filterRacesByPeriod = (races, period, latestDate) => {
-  if (period === 'total' || !latestDate) return races;
-  const days = period === 'weekly' ? 7 : 30;
-  const cutoff = new Date(`${latestDate}T00:00:00`);
-  cutoff.setDate(cutoff.getDate() - (days - 1));
-  return races.filter(r => r.date && new Date(`${r.date}T00:00:00`) >= cutoff);
+const formatYen = (value, signed = true) => {
+  const amount = Math.round(Number(value) || 0);
+  const sign = signed ? (amount >= 0 ? '+' : '-') : '';
+  return `${sign}¥${Math.abs(amount).toLocaleString()}`;
 };
 
-const buildTrend = (races) => {
-  const byDate = races.reduce((map, race) => ({
-    ...map,
-    [race.date]: {
-      dateKey: race.date,
-      invest: (map[race.date]?.invest || 0) + race.invest,
-      ret: (map[race.date]?.ret || 0) + race.ret,
-      races: (map[race.date]?.races || 0) + 1,
-      hits: (map[race.date]?.hits || 0) + (race.hit ? 1 : 0),
-    },
-  }), {});
+const formatPercent = value => value == null ? '—' : `${Number(value).toFixed(1)}%`;
 
-  return Object.values(byDate)
-    .sort((a, b) => a.dateKey.localeCompare(b.dateKey))
-    .reduce((rows, day) => {
-      const previous = rows[rows.length - 1];
-      const totalInvest = (previous?.totalInvest || 0) + day.invest;
-      const totalReturn = (previous?.totalReturn || 0) + day.ret;
-      const totalRaces = (previous?.totalRaces || 0) + day.races;
-      const totalHits = (previous?.hits || 0) + day.hits;
-      return [...rows, {
-        dateKey: day.dateKey,
-        date: day.dateKey.slice(5),
-        roi: totalInvest ? Math.round(totalReturn / totalInvest * 1000) / 10 : 0,
-        profit: Math.round(totalReturn - totalInvest),
-        hitRate: totalRaces ? Math.round(totalHits / totalRaces * 1000) / 10 : 0,
-        dailyHits: day.hits,
-        dailyReturnAmount: Math.round(day.ret),
-        totalInvest,
-        totalReturn,
-        totalRaces,
-      }];
-    }, []);
+const Direction = ({ model }) => {
+  if (model.roi_change == null) return <span className="change neutral">比較なし</span>;
+  if (model.direction === 'up') return <span className="change up">↑ {model.roi_change.toFixed(1)}pt</span>;
+  if (model.direction === 'down') return <span className="change down">↓ {Math.abs(model.roi_change).toFixed(1)}pt</span>;
+  return <span className="change neutral">→ {model.roi_change >= 0 ? '+' : ''}{model.roi_change.toFixed(1)}pt</span>;
 };
 
-const formatMetricValue = (value, metric) => {
-  if (value == null) return '—';
-  if (metric.unit === '円') return `${Number(value) >= 0 ? '' : '-'}¥${Math.abs(Math.round(Number(value))).toLocaleString()}`;
-  if (metric.unit === '%') return `${Number(value).toFixed(1)}%`;
-  return `${Math.round(Number(value)).toLocaleString()}件`;
-};
-
-const formatAxisValue = (value, metric) => {
-  const number = Number(value) || 0;
-  if (metric.unit === '円') {
-    if (Math.abs(number) >= 10000) return `${Math.round(number / 1000)}千`;
-    return Math.round(number).toLocaleString();
-  }
-  return metric.unit === '%' ? `${number}%` : Math.round(number).toLocaleString();
-};
-
-const ModelDashboard = ({ period = 'total' }) => {
-  const [sourceKey, setSourceKey] = useState('stakes');
-  const [summary, setSummary] = useState({});
-  const [results, setResults] = useState([]);
-  const [codexLearning, setCodexLearning] = useState(null);
+const ModelDashboard = ({ period = 'weekly' }) => {
+  const [data, setData] = useState(null);
   const [error, setError] = useState('');
-  const [recentOpen, setRecentOpen] = useState(false);
-  const [trendMetricKey, setTrendMetricKey] = useState('roi');
+  const [chartMode, setChartMode] = useState('profit');
 
   useEffect(() => {
     const cb = `?t=${Date.now()}`;
-    Promise.all([
-      fetch(`./daily_data/ai_predictions_summary.json${cb}`).then(r => r.ok ? r.json() : {}),
-      fetch(`./daily_data/daily_history_results.csv${cb}`).then(r => r.ok ? r.text() : ''),
-      fetch(`./daily_data/codex_learning_summary.json${cb}`).then(r => r.ok ? r.json() : null),
-    ]).then(([s, csv, learning]) => { setSummary(s); setResults(csv ? parseCsv(csv) : []); setCodexLearning(learning); })
-      .catch(() => setError('成績データを読み込めませんでした。'));
+    fetch(`./daily_data/model_performance.json${cb}`)
+      .then(response => response.ok ? response.json() : Promise.reject(new Error(`HTTP ${response.status}`)))
+      .then(setData)
+      .catch(() => setError('モデル比較データを読み込めませんでした。次回の自動更新後にもう一度お試しください。'));
   }, []);
 
-  const source = SOURCES.find(s => s.key === sourceKey) || SOURCES[0];
-  const latestDate = useMemo(() => results.map(r => r.Date || '').filter(Boolean).sort().at(-1) || '', [results]);
-  const racesBySource = useMemo(() => Object.fromEntries(SOURCES.map(s => [
-    s.key,
-    filterRacesByPeriod(buildRaces(results, summary, s.key), period, latestDate),
-  ])), [results, summary, period, latestDate]);
-  const races = useMemo(() => racesBySource[sourceKey] || [], [racesBySource, sourceKey]);
+  const current = data?.periods?.[period];
+  const chartModels = useMemo(() => current ? [
+    { key: 'combined', short: '全モデル合計', color: '#111827' },
+    ...current.models.map(model => ({ key: model.key, short: model.short, color: model.color })),
+  ] : [], [current]);
 
-  const stats = useMemo(() => {
-    const invest = races.reduce((n, r) => n + r.invest, 0);
-    const ret = races.reduce((n, r) => n + r.ret, 0);
-    return { n: races.length, hits: races.filter(r => r.hit).length, invest, ret, roi: invest ? ret / invest * 100 : 0 };
-  }, [races]);
-  const trendsBySource = useMemo(() => Object.fromEntries(SOURCES.map(s => [s.key, buildTrend(racesBySource[s.key] || [])])), [racesBySource]);
-  const trendMetric = TREND_METRICS.find(metric => metric.key === trendMetricKey) || TREND_METRICS[0];
-  const comparisonTrend = useMemo(() => {
-    const dates = [...new Set(Object.values(trendsBySource).flatMap(rows => rows.map(row => row.dateKey)))].sort();
-    const latestBySource = {};
-    const rowBySourceAndDate = Object.fromEntries(SOURCES.map(s => [
-      s.key,
-      Object.fromEntries((trendsBySource[s.key] || []).map(row => [row.dateKey, row])),
-    ]));
-    return dates.map(dateKey => {
-      const row = { dateKey, date: dateKey.slice(5) };
-      SOURCES.forEach(s => {
-        const dayRow = rowBySourceAndDate[s.key][dateKey];
-        if (trendMetric.daily) {
-          row[s.key] = dayRow?.[trendMetricKey] ?? null;
-        } else {
-          latestBySource[s.key] = dayRow || latestBySource[s.key];
-          row[s.key] = latestBySource[s.key]?.[trendMetricKey] ?? null;
-        }
-      });
-      return row;
-    });
-  }, [trendsBySource, trendMetric, trendMetricKey]);
-  const hitRate = stats.n ? stats.hits / stats.n * 100 : 0;
-  const profit = stats.ret - stats.invest;
-  const metricCards = [
-    { label: 'ROI', value: `${stats.roi.toFixed(1)}%`, note: stats.roi >= 100 ? '投資額を上回っています' : '回収率100%が目安', icon: TrendingUp, tone: stats.roi >= 100 ? 'positive' : 'neutral' },
-    { label: '的中率', value: stats.n ? `${hitRate.toFixed(1)}%` : '—', note: `${stats.hits.toLocaleString()} / ${stats.n.toLocaleString()} レース`, icon: Target, tone: 'accent' },
-    { label: '収支', value: `${profit >= 0 ? '+' : '-'}¥${Math.abs(Math.round(profit)).toLocaleString()}`, note: `投資 ¥${Math.round(stats.invest).toLocaleString()}`, icon: CircleDollarSign, tone: profit >= 0 ? 'positive' : 'negative' },
-    { label: '払戻', value: `¥${Math.round(stats.ret).toLocaleString()}`, note: `${PERIOD_LABEL[period]} の合計`, icon: Activity, tone: 'accent' },
-  ];
+  if (error) return <div className="comparison-empty">{error}</div>;
+  if (!current) return <div className="comparison-empty">モデル成績を読み込み中です…</div>;
 
-  const chartAxis = { stroke: '#94a3b8', fontSize: 11, tickLine: false, axisLine: false };
-  const tooltipStyle = { backgroundColor: '#0f172a', border: 'none', borderRadius: '12px', color: '#f8fafc', boxShadow: '0 14px 32px rgba(15,23,42,.22)' };
+  const combined = current.combined;
+  const positiveModels = current.models.filter(model => model.profit > 0).length;
+  const improvingModels = current.models.filter(model => model.direction === 'up').length;
+  const leader = current.models[0];
+  const chartPrefix = chartMode === 'profit' ? 'profit_' : 'roi_';
+  const chartTitle = chartMode === 'profit' ? '期間内の累積収支' : '7日移動ROI';
+  const chartReference = chartMode === 'profit' ? 0 : 100;
 
-  return <main className="model-dashboard">
-    <section className="model-switcher" aria-label="予測モデルを選択">
-      <div className="model-switcher-label"><Sparkles size={15} /> モデル別パフォーマンス</div>
-      <div className="model-switcher-scroll">
-        {SOURCES.map(s => <button key={s.key} className={`model-chip ${s.key === sourceKey ? 'active' : ''}`} style={{ '--model-color': s.color }} onClick={() => setSourceKey(s.key)}>{s.short}</button>)}
-      </div>
-    </section>
-
-    <section className="model-hero" style={{ '--model-color': source.color }}>
+  return <main className="model-dashboard model-dashboard-simple">
+    <section className="comparison-intro">
       <div>
-        <div className="model-eyebrow"><span className="live-dot" /> {PERIOD_LABEL[period]} / 結果確定済み</div>
-        <h2>{source.label}</h2>
-        <p>{source.description}</p>
+        <span className="comparison-kicker">MODEL PERFORMANCE</span>
+        <h2>モデル比較</h2>
+        <p>利益・投資効率・損失の大きさを、同じ期間と計算方法で比較します。</p>
       </div>
-      <div className="model-sample"><Database size={17} /><strong>{stats.n.toLocaleString()}</strong><span>レース</span></div>
+      <div className="comparison-date">
+        <strong>{PERIOD_LABEL[period]}</strong>
+        <span>{current.start_date || '開始'} 〜 {current.end_date || '—'}</span>
+      </div>
     </section>
-    {sourceKey === 'stakes_codex' && codexLearning && (
-      <div className="glass-card learning-card">
-        <div style={{ color: '#14b8a6', fontWeight: 700, marginBottom: '0.4rem' }}>Codex 自動フィードバック学習</div>
-        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', fontSize: '0.82rem' }}>
-          <span>過去結果 <strong>{Number(codexLearning.historical_results_used || 0).toLocaleString()}</strong> レース</span>
-          <span>Codex結果確定 <strong>{Number(codexLearning.codex_feedback?.settled_count || 0).toLocaleString()}</strong> レース</span>
-          <span>学習対象日 <strong>{codexLearning.target_date || '-'}</strong></span>
-          <span>方式 <strong>{codexLearning.strategy_version || 'feedback_v1'}</strong></span>
+
+    <section className="combined-panel">
+      <div className="combined-heading">
+        <div><span>全モデル合計</span><small>重複買い目もモデルごとに別口で計算</small></div>
+        <strong className={combined.profit >= 0 ? 'value-positive' : 'value-negative'}>{formatYen(combined.profit)}</strong>
+      </div>
+      <div className="combined-metrics">
+        <div><span>ROI</span><strong className={combined.roi >= 100 ? 'value-positive' : ''}>{formatPercent(combined.roi)}</strong><small>100%以上で投資額超え</small></div>
+        <div><span>的中率</span><strong>{formatPercent(combined.hit_rate)}</strong><small>{combined.hits} / {combined.n}予測</small></div>
+        <div><span>最大ドローダウン</span><strong className="value-negative">{formatYen(combined.max_drawdown, false)}</strong><small>期間中の最大下落幅</small></div>
+        <div><span>総投資</span><strong>{formatYen(combined.invest, false)}</strong><small>延べ{combined.n}予測</small></div>
+      </div>
+    </section>
+
+    <section className="comparison-summary-line" aria-label="期間の要約">
+      <span>収支1位 <strong>{leader?.short || '—'}（{leader ? formatYen(leader.profit) : '—'}）</strong></span>
+      <span>黒字モデル <strong>{positiveModels} / {current.models.length}</strong></span>
+      <span>前期間よりROI改善 <strong>{improvingModels}モデル</strong></span>
+    </section>
+
+    <section className="comparison-table-card">
+      <div className="simple-section-heading">
+        <div><h3>モデル別ランキング</h3><p>収支が高い順。的中率だけでなく、ROIと最大損失も合わせて判断します。</p></div>
+      </div>
+      <div className="comparison-table-wrap">
+        <table className="comparison-table">
+          <thead><tr>
+            <th>順位</th><th>モデル</th><th>収支</th><th>ROI</th><th>的中率</th><th>対象数</th><th>最大損失幅</th><th>前期間比</th><th>信頼度</th>
+          </tr></thead>
+          <tbody>
+            {current.models.map(model => <tr key={model.key}>
+              <td className="rank-cell">{model.rank}</td>
+              <td><span className="model-name"><i style={{ background: model.color }} />{model.label}</span></td>
+              <td className={model.profit >= 0 ? 'value-positive' : 'value-negative'}><strong>{formatYen(model.profit)}</strong></td>
+              <td className={model.roi >= 100 ? 'value-positive' : ''}><strong>{formatPercent(model.roi)}</strong></td>
+              <td>{formatPercent(model.hit_rate)}<small>{model.hits}/{model.n}</small></td>
+              <td>{model.n.toLocaleString()}R</td>
+              <td className="value-negative">{formatYen(model.max_drawdown, false)}</td>
+              <td><Direction model={model} /></td>
+              <td><span className={`sample-status ${model.sample_status === '十分' ? 'enough' : ''}`}>{model.sample_status}</span></td>
+            </tr>)}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section className="comparison-chart-card">
+      <div className="simple-section-heading chart-heading">
+        <div><h3>{chartTitle}</h3><p>{chartMode === 'profit' ? '上向きなら、実際の資金が増えています。' : '固定7日間で、最近の投資効率が改善しているかを見ます。'}</p></div>
+        <div className="simple-segmented">
+          <button className={chartMode === 'profit' ? 'active' : ''} onClick={() => setChartMode('profit')}>累積収支</button>
+          <button className={chartMode === 'rollingRoi' ? 'active' : ''} onClick={() => setChartMode('rollingRoi')}>7日移動ROI</button>
         </div>
-        <div style={{ marginTop: '0.45rem', fontSize: '0.76rem', color: 'var(--text-secondary, #9ca3af)', lineHeight: 1.5 }}>
-          類似レースの実結果とCodex自身の失敗傾向を、翌日の予測材料へ自動反映しています。
-          {codexLearning.codex_feedback?.status === 'preliminary' && ' Codex固有の成績は200レースまで参考値として扱います。'}
-        </div>
       </div>
-    )}
-    {error && <div className="glass-card" style={{ padding: '1rem' }}>{error}</div>}
-    <div className="metric-grid">
-      {metricCards.map(({ label, value, note, icon, tone }) => (
-        <article className={`metric-card ${tone}`} key={label}>
-          <div className="metric-card-head"><span>{label}</span>{React.createElement(icon, { size: 18 })}</div>
-          <strong>{value}</strong>
-          <small>{note}</small>
-        </article>
-      ))}
-    </div>
-    <section className="trend-controls" aria-label="推移グラフの指標を選択">
-      <div>
-        <strong>推移指標</strong>
-        <small>{trendMetric.daily ? '各日の実績を棒グラフで比較します' : '表示期間内の初日から累積して比較します'}</small>
-      </div>
-      <div className="trend-metric-tabs">
-        {TREND_METRICS.map(metric => (
-          <button
-            key={metric.key}
-            className={metric.key === trendMetricKey ? 'active' : ''}
-            onClick={() => setTrendMetricKey(metric.key)}
-          >
-            {metric.label}
-          </button>
-        ))}
-      </div>
+      {current.trend.length ? <ResponsiveContainer width="100%" height={360}>
+        <LineChart data={current.trend} margin={{ top: 12, right: 18, left: 12, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 5" stroke="#e5e7eb" vertical={false} />
+          <XAxis dataKey="label" stroke="#6b7280" fontSize={11} tickLine={false} axisLine={false} minTickGap={26} />
+          <YAxis stroke="#6b7280" fontSize={11} tickLine={false} axisLine={false} width={62} tickFormatter={value => chartMode === 'profit' ? `${Math.round(value / 1000)}千` : `${value}%`} />
+          <Tooltip contentStyle={{ background: '#fff', border: '1px solid #d1d5db', borderRadius: 8, color: '#111827' }} formatter={(value, name) => [chartMode === 'profit' ? formatYen(value) : formatPercent(value), name]} />
+          <Legend wrapperStyle={{ fontSize: 12, paddingTop: 10 }} />
+          <ReferenceLine y={chartReference} stroke="#9ca3af" strokeDasharray="5 5" />
+          {chartModels.map(model => <Line
+            key={model.key}
+            type="monotone"
+            dataKey={`${chartPrefix}${model.key}`}
+            name={model.short}
+            stroke={model.color}
+            strokeWidth={model.key === 'combined' ? 3.5 : 1.8}
+            strokeOpacity={model.key === 'combined' ? 1 : 0.78}
+            dot={false}
+            connectNulls={false}
+          />)}
+        </LineChart>
+      </ResponsiveContainer> : <div className="comparison-empty">この期間の確定結果はまだありません。</div>}
     </section>
-    <section className="glass-card performance-chart comparison-chart">
-      <div className="section-heading">
-        <div><span>ALL MODELS</span><h3>全モデル比較：{trendMetric.title}</h3></div>
-        <small>同じ期間・同じ計算基準</small>
+
+    <section className="how-to-read">
+      <h3>この画面の見方</h3>
+      <p><strong>収支</strong>が最終結果、<strong>ROI</strong>が投資効率です。最大ドローダウンは、途中でどれほど資金が減る可能性があったかを示します。前期間比と7日移動ROIが継続して上向くモデルほど、学習改善の候補として追いやすくなります。</p>
+      <p>短期間の大当たりだけで順位が上がることもあるため、「対象数が十分か」「最大損失が大きすぎないか」も一緒に確認してください。</p>
+      <div className="learning-status-note">
+        <strong>自動学習の現状</strong>
+        <span>毎週月曜、新しい結果がある場合に基本予測内のLightGBMを再学習し、旧モデル以上の精度なら更新します。Gemini・Grok・Codexと3種類の学習Gemmaは、現在は成績比較の対象であり、日々の結果から自動で再学習する仕組みにはつながっていません。</span>
       </div>
-      <div className="comparison-legend" aria-label="比較モデル一覧">
-        {SOURCES.map(s => <span key={s.key}><i style={{ backgroundColor: s.color }} />{s.short}</span>)}
-      </div>
-      <ResponsiveContainer width="100%" height={340}>
-        {trendMetric.daily ? (
-          <BarChart data={comparisonTrend} margin={{ top: 12, right: 14, left: 4, bottom: 0 }} barGap={1}>
-            <CartesianGrid strokeDasharray="3 5" stroke="#e2e8f0" vertical={false} />
-            <XAxis dataKey="date" {...chartAxis} />
-            <YAxis {...chartAxis} tickFormatter={value => formatAxisValue(value, trendMetric)} width={58} allowDecimals={false} />
-            <Tooltip
-              contentStyle={tooltipStyle}
-              formatter={(value, key) => [formatMetricValue(value, trendMetric), SOURCES.find(s => s.key === key)?.short || key]}
-            />
-            {SOURCES.map(s => <Bar key={s.key} dataKey={s.key} name={s.short} fill={s.color} radius={[3, 3, 0, 0]} maxBarSize={16} />)}
-          </BarChart>
-        ) : (
-          <LineChart data={comparisonTrend} margin={{ top: 12, right: 14, left: 4, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 5" stroke="#e2e8f0" vertical={false} />
-            <XAxis dataKey="date" {...chartAxis} />
-            <YAxis {...chartAxis} tickFormatter={value => formatAxisValue(value, trendMetric)} width={58} />
-            <Tooltip
-              contentStyle={tooltipStyle}
-              formatter={(value, key) => [formatMetricValue(value, trendMetric), SOURCES.find(s => s.key === key)?.short || key]}
-            />
-            {trendMetric.reference != null && <ReferenceLine y={trendMetric.reference} stroke="#94a3b8" strokeDasharray="5 5" />}
-            {SOURCES.map(s => <Line key={s.key} type="monotone" dataKey={s.key} name={s.short} stroke={s.color} strokeWidth={2.2} dot={false} connectNulls={false} />)}
-          </LineChart>
-        )}
-      </ResponsiveContainer>
-      <p className="chart-note">{trendMetric.daily
-        ? '棒の高さが、その日に的中した件数・金額です。予測自体がない日は棒を表示しません。'
-        : '予測がない日より前は線を表示せず、予測開始後にデータがない日は直前の累積値を維持します。'}</p>
-    </section>
-    <section className="recent-section">
-      <button className="recent-toggle" onClick={() => setRecentOpen(open => !open)} aria-expanded={recentOpen}>
-        <span><Activity size={16} /> 直近の確定レース</span><strong>{recentOpen ? '閉じる −' : '表示する ＋'}</strong>
-      </button>
-      {recentOpen && <div className="recent-list">{[...races].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 20).map(r => <div key={r.id} className={r.hit ? 'recent-race hit' : 'recent-race miss'}><div><strong>{r.venue} {r.r}R</strong><small>{r.date}</small></div><span className="result-badge">{r.hit ? 'HIT' : 'MISS'}</span><span className="race-picks">{r.picks.map(p => p.combo).join(' / ')}</span><strong className={r.ret - r.invest >= 0 ? 'profit' : 'loss'}>{r.ret - r.invest >= 0 ? '+' : '-'}¥{Math.abs(Math.round(r.ret - r.invest)).toLocaleString()}</strong></div>)}</div>}
     </section>
   </main>;
 };

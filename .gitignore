@@ -73,6 +73,7 @@ credentials.env
 !dashboard/public/daily_data/dashboard_data.json
 !dashboard/public/daily_data/daily_race_info.json
 !dashboard/public/daily_data/ai_predictions_summary.json
+!dashboard/public/daily_data/model_performance.json
 !dashboard/public/daily_data/codex_learning_summary.json
 !dashboard/public/daily_data/toto_info.json
 !dashboard/public/daily_data/toto_rounds.json
