@@ -1,17 +1,17 @@
 {
-  "default_round": 1647,
-  "default_key": "1647-toto",
+  "default_round": 1648,
+  "default_key": "1648-toto",
   "rounds": [
     {
-      "round": 1647,
+      "round": 1648,
       "kuji": "toto",
       "kuji_label": "toto (13試合)",
       "payout": null,
       "payout_detail": null,
-      "deadline": "2026-08-22 14:50",
-      "result_date": "2026-08-22",
-      "generated_date": "2026-08-21",
-      "has_gemini": true,
+      "deadline": "2026-08-29 17:50",
+      "result_date": "2026-08-29",
+      "generated_date": "2026-08-23",
+      "has_gemini": false,
       "has_codex": true,
       "settled": false,
       "summary": {
@@ -26,6 +26,566 @@
         "codex": {
           "n": 0,
           "hits": 0
+        }
+      },
+      "matches": [
+        {
+          "match_id": "1648-1",
+          "no": "1",
+          "date": "2026-08-29",
+          "kickoff": "18:00",
+          "home": "水戸ホーリーホック",
+          "away": "ＦＣ町田ゼルビア",
+          "stats": {
+            "p_H": 0.4048,
+            "p_D": 0.2915,
+            "p_A": 0.3037,
+            "pick": "H"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "H",
+          "codex_confidence": "40%",
+          "codex_reasoning": "モデルは水戸勝ち40.5%で首位だが、引分け29.2%、町田勝ち30.4%と拮抗。ホームを僅差で選ぶ。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-2",
+          "no": "2",
+          "date": "2026-08-29",
+          "kickoff": "18:30",
+          "home": "清水エスパルス",
+          "away": "柏レイソル",
+          "stats": {
+            "p_H": 0.171,
+            "p_D": 0.2161,
+            "p_A": 0.6129,
+            "pick": "A"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "A",
+          "codex_confidence": "64%",
+          "codex_reasoning": "柏勝ち61.3%は全カードでも強い優位。清水勝ち17.1%にとどまり、波乱リスクを考慮しても柏本命。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-3",
+          "no": "3",
+          "date": "2026-08-29",
+          "kickoff": "19:00",
+          "home": "京都サンガF.C.",
+          "away": "アビスパ福岡",
+          "stats": {
+            "p_H": 0.5796,
+            "p_D": 0.2523,
+            "p_A": 0.1681,
+            "pick": "H"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "H",
+          "codex_confidence": "58%",
+          "codex_reasoning": "京都勝ち58.0%が明確に優勢で、福岡勝ちは16.8%。引分け25.2%には注意しつつホーム勝ちを選択。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-4",
+          "no": "4",
+          "date": "2026-08-29",
+          "kickoff": "19:00",
+          "home": "東京ヴェルディ",
+          "away": "鹿島アントラーズ",
+          "stats": null,
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "A",
+          "codex_confidence": "36%",
+          "codex_reasoning": "このカードだけモデル値がなく不確実性が最大。与えられた情報内で数値比較できないため、低信頼で鹿島勝ちを選ぶ。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-5",
+          "no": "5",
+          "date": "2026-08-29",
+          "kickoff": "19:00",
+          "home": "ヴィッセル神戸",
+          "away": "セレッソ大阪",
+          "stats": {
+            "p_H": 0.5545,
+            "p_D": 0.2315,
+            "p_A": 0.214,
+            "pick": "H"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "H",
+          "codex_confidence": "54%",
+          "codex_reasoning": "神戸勝ち55.5%でセレッソ勝ち21.4%を上回る。神戸の過去予測では引分け外れもあり、信頼度は抑える。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-6",
+          "no": "6",
+          "date": "2026-08-29",
+          "kickoff": "18:00",
+          "home": "ガンバ大阪",
+          "away": "サンフレッチェ広島",
+          "stats": {
+            "p_H": 0.2386,
+            "p_D": 0.2581,
+            "p_A": 0.5034,
+            "pick": "A"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "A",
+          "codex_confidence": "53%",
+          "codex_reasoning": "広島勝ちが50.3%で、ガンバ勝ち23.9%を大きく上回る。引分け余地はあるが素直にアウェイ勝ち。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-7",
+          "no": "7",
+          "date": "2026-08-29",
+          "kickoff": "19:00",
+          "home": "浦和レッズ",
+          "away": "横浜Ｆ・マリノス",
+          "stats": {
+            "p_H": 0.4375,
+            "p_D": 0.2479,
+            "p_A": 0.3146,
+            "pick": "H"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "D",
+          "codex_confidence": "31%",
+          "codex_reasoning": "浦和43.8%が首位だが横浜31.5%も残り、決着方向が割れている。接戦化を見込み引分けを狙う。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-8",
+          "no": "8",
+          "date": "2026-08-29",
+          "kickoff": "19:00",
+          "home": "川崎フロンターレ",
+          "away": "ジェフユナイテッド千葉",
+          "stats": {
+            "p_H": 0.4769,
+            "p_D": 0.241,
+            "p_A": 0.2821,
+            "pick": "H"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "H",
+          "codex_confidence": "45%",
+          "codex_reasoning": "川崎勝ち47.7%が千葉勝ち28.2%を上回る。川崎は直近例で引分けたため過信せず、ホームを小幅支持。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-9",
+          "no": "9",
+          "date": "2026-08-29",
+          "kickoff": "19:00",
+          "home": "名古屋グランパス",
+          "away": "ファジアーノ岡山",
+          "stats": {
+            "p_H": 0.4727,
+            "p_D": 0.2818,
+            "p_A": 0.2455,
+            "pick": "H"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "D",
+          "codex_confidence": "30%",
+          "codex_reasoning": "名古屋47.3%が優勢だが、引分け28.2%も無視できない。岡山絡みの直近波乱も踏まえ、均衡決着を選ぶ。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-10",
+          "no": "10",
+          "date": "2026-08-29",
+          "kickoff": "18:30",
+          "home": "Ｖ・ファーレン長崎",
+          "away": "ＦＣ東京",
+          "stats": {
+            "p_H": 0.609,
+            "p_D": 0.2169,
+            "p_A": 0.1741,
+            "pick": "H"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "H",
+          "codex_confidence": "62%",
+          "codex_reasoning": "長崎勝ち60.9%に対し東京勝ちは17.4%。過去例で長崎絡みの逆転はあるが、数値差を重視してホーム。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-11",
+          "no": "11",
+          "date": "2026-08-29",
+          "kickoff": "19:00",
+          "home": "徳島ヴォルティス",
+          "away": "大分トリニータ",
+          "stats": {
+            "p_H": 0.6495,
+            "p_D": 0.2676,
+            "p_A": 0.0829,
+            "pick": "H"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "H",
+          "codex_confidence": "66%",
+          "codex_reasoning": "徳島勝ち65.0%、大分勝ち8.3%で最も明瞭な差の一つ。引分け26.8%は残るが徳島本命が妥当。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-12",
+          "no": "12",
+          "date": "2026-08-29",
+          "kickoff": "18:30",
+          "home": "ヴァンラーレ八戸",
+          "away": "ブラウブリッツ秋田",
+          "stats": {
+            "p_H": 0.6466,
+            "p_D": 0.2392,
+            "p_A": 0.1143,
+            "pick": "H"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "H",
+          "codex_confidence": "64%",
+          "codex_reasoning": "八戸勝ち64.7%、秋田勝ち11.4%と大差。秋田は直近例で予測を覆したものの、小標本なので八戸を支持。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-13",
+          "no": "13",
+          "date": "2026-08-29",
+          "kickoff": "19:00",
+          "home": "ベガルタ仙台",
+          "away": "テゲバジャーロ宮崎",
+          "stats": {
+            "p_H": 0.3875,
+            "p_D": 0.2648,
+            "p_A": 0.3477,
+            "pick": "H"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "D",
+          "codex_confidence": "29%",
+          "codex_reasoning": "仙台38.8%と宮崎34.8%がほぼ互角で、引分けも26.5%。両方向に決め手を欠くため引分けを選択。",
+          "result": ""
+        }
+      ]
+    },
+    {
+      "round": 1648,
+      "kuji": "mini_a",
+      "kuji_label": "mini toto-A (5試合)",
+      "payout": null,
+      "payout_detail": null,
+      "deadline": "2026-08-29 17:50",
+      "result_date": "2026-08-29",
+      "generated_date": "2026-08-23",
+      "has_gemini": false,
+      "has_codex": true,
+      "settled": false,
+      "summary": {
+        "stat": {
+          "n": 0,
+          "hits": 0
+        },
+        "gemini": {
+          "n": 0,
+          "hits": 0
+        },
+        "codex": {
+          "n": 0,
+          "hits": 0
+        }
+      },
+      "matches": [
+        {
+          "match_id": "1648-1",
+          "no": "1",
+          "date": "2026-08-29",
+          "kickoff": "18:00",
+          "home": "水戸ホーリーホック",
+          "away": "ＦＣ町田ゼルビア",
+          "stats": {
+            "p_H": 0.4048,
+            "p_D": 0.2915,
+            "p_A": 0.3037,
+            "pick": "H"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "H",
+          "codex_confidence": "40%",
+          "codex_reasoning": "モデルは水戸勝ち40.5%で首位だが、引分け29.2%、町田勝ち30.4%と拮抗。ホームを僅差で選ぶ。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-2",
+          "no": "2",
+          "date": "2026-08-29",
+          "kickoff": "18:30",
+          "home": "清水エスパルス",
+          "away": "柏レイソル",
+          "stats": {
+            "p_H": 0.171,
+            "p_D": 0.2161,
+            "p_A": 0.6129,
+            "pick": "A"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "A",
+          "codex_confidence": "64%",
+          "codex_reasoning": "柏勝ち61.3%は全カードでも強い優位。清水勝ち17.1%にとどまり、波乱リスクを考慮しても柏本命。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-3",
+          "no": "3",
+          "date": "2026-08-29",
+          "kickoff": "19:00",
+          "home": "京都サンガF.C.",
+          "away": "アビスパ福岡",
+          "stats": {
+            "p_H": 0.5796,
+            "p_D": 0.2523,
+            "p_A": 0.1681,
+            "pick": "H"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "H",
+          "codex_confidence": "58%",
+          "codex_reasoning": "京都勝ち58.0%が明確に優勢で、福岡勝ちは16.8%。引分け25.2%には注意しつつホーム勝ちを選択。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-4",
+          "no": "4",
+          "date": "2026-08-29",
+          "kickoff": "19:00",
+          "home": "東京ヴェルディ",
+          "away": "鹿島アントラーズ",
+          "stats": null,
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "A",
+          "codex_confidence": "36%",
+          "codex_reasoning": "このカードだけモデル値がなく不確実性が最大。与えられた情報内で数値比較できないため、低信頼で鹿島勝ちを選ぶ。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-5",
+          "no": "5",
+          "date": "2026-08-29",
+          "kickoff": "19:00",
+          "home": "ヴィッセル神戸",
+          "away": "セレッソ大阪",
+          "stats": {
+            "p_H": 0.5545,
+            "p_D": 0.2315,
+            "p_A": 0.214,
+            "pick": "H"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "H",
+          "codex_confidence": "54%",
+          "codex_reasoning": "神戸勝ち55.5%でセレッソ勝ち21.4%を上回る。神戸の過去予測では引分け外れもあり、信頼度は抑える。",
+          "result": ""
+        }
+      ]
+    },
+    {
+      "round": 1648,
+      "kuji": "mini_b",
+      "kuji_label": "mini toto-B (5試合)",
+      "payout": null,
+      "payout_detail": null,
+      "deadline": "2026-08-29 17:50",
+      "result_date": "2026-08-29",
+      "generated_date": "2026-08-23",
+      "has_gemini": false,
+      "has_codex": true,
+      "settled": false,
+      "summary": {
+        "stat": {
+          "n": 0,
+          "hits": 0
+        },
+        "gemini": {
+          "n": 0,
+          "hits": 0
+        },
+        "codex": {
+          "n": 0,
+          "hits": 0
+        }
+      },
+      "matches": [
+        {
+          "match_id": "1648-6",
+          "no": "1",
+          "date": "2026-08-29",
+          "kickoff": "18:00",
+          "home": "ガンバ大阪",
+          "away": "サンフレッチェ広島",
+          "stats": {
+            "p_H": 0.2386,
+            "p_D": 0.2581,
+            "p_A": 0.5034,
+            "pick": "A"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "A",
+          "codex_confidence": "53%",
+          "codex_reasoning": "広島勝ちが50.3%で、ガンバ勝ち23.9%を大きく上回る。引分け余地はあるが素直にアウェイ勝ち。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-7",
+          "no": "2",
+          "date": "2026-08-29",
+          "kickoff": "19:00",
+          "home": "浦和レッズ",
+          "away": "横浜Ｆ・マリノス",
+          "stats": {
+            "p_H": 0.4375,
+            "p_D": 0.2479,
+            "p_A": 0.3146,
+            "pick": "H"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "D",
+          "codex_confidence": "31%",
+          "codex_reasoning": "浦和43.8%が首位だが横浜31.5%も残り、決着方向が割れている。接戦化を見込み引分けを狙う。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-8",
+          "no": "3",
+          "date": "2026-08-29",
+          "kickoff": "19:00",
+          "home": "川崎フロンターレ",
+          "away": "ジェフユナイテッド千葉",
+          "stats": {
+            "p_H": 0.4769,
+            "p_D": 0.241,
+            "p_A": 0.2821,
+            "pick": "H"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "H",
+          "codex_confidence": "45%",
+          "codex_reasoning": "川崎勝ち47.7%が千葉勝ち28.2%を上回る。川崎は直近例で引分けたため過信せず、ホームを小幅支持。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-9",
+          "no": "4",
+          "date": "2026-08-29",
+          "kickoff": "19:00",
+          "home": "名古屋グランパス",
+          "away": "ファジアーノ岡山",
+          "stats": {
+            "p_H": 0.4727,
+            "p_D": 0.2818,
+            "p_A": 0.2455,
+            "pick": "H"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "D",
+          "codex_confidence": "30%",
+          "codex_reasoning": "名古屋47.3%が優勢だが、引分け28.2%も無視できない。岡山絡みの直近波乱も踏まえ、均衡決着を選ぶ。",
+          "result": ""
+        },
+        {
+          "match_id": "1648-10",
+          "no": "5",
+          "date": "2026-08-29",
+          "kickoff": "18:30",
+          "home": "Ｖ・ファーレン長崎",
+          "away": "ＦＣ東京",
+          "stats": {
+            "p_H": 0.609,
+            "p_D": 0.2169,
+            "p_A": 0.1741,
+            "pick": "H"
+          },
+          "gemini_pick": "",
+          "gemini_confidence": "",
+          "gemini_reasoning": "",
+          "codex_pick": "H",
+          "codex_confidence": "62%",
+          "codex_reasoning": "長崎勝ち60.9%に対し東京勝ちは17.4%。過去例で長崎絡みの逆転はあるが、数値差を重視してホーム。",
+          "result": ""
+        }
+      ]
+    },
+    {
+      "round": 1647,
+      "kuji": "toto",
+      "kuji_label": "toto (13試合)",
+      "payout": null,
+      "payout_detail": null,
+      "deadline": "2026-08-22 14:50",
+      "result_date": "2026-08-22",
+      "generated_date": "2026-08-23",
+      "has_gemini": true,
+      "has_codex": true,
+      "settled": true,
+      "summary": {
+        "stat": {
+          "n": 12,
+          "hits": 5
+        },
+        "gemini": {
+          "n": 12,
+          "hits": 5
+        },
+        "codex": {
+          "n": 12,
+          "hits": 4
         }
       },
       "matches": [
@@ -48,7 +608,7 @@
           "codex_pick": "H",
           "codex_confidence": "62%",
           "codex_reasoning": "鹿島勝ち60.3%と今回のモデル有りカードで最も明確。引き分け26.8%には注意しつつホーム勝ちを支持。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1647-2",
@@ -85,7 +645,7 @@
           "codex_pick": "D",
           "codex_confidence": "31%",
           "codex_reasoning": "モデル欠損で明確な優勢材料がなく、ホーム・アウェーいずれにも寄せにくい。均衡を想定して引き分け。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1647-4",
@@ -106,7 +666,7 @@
           "codex_pick": "H",
           "codex_confidence": "36%",
           "codex_reasoning": "京都勝ち39.2%が最多だが、水戸勝ち32.6%、引き分け28.3%と差は小さい。ホーム側を僅差で選ぶ。",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1647-5",
@@ -127,7 +687,7 @@
           "codex_pick": "H",
           "codex_confidence": "36%",
           "codex_reasoning": "モデル欠損のため不確実だが、ホーム開催の利を限定的に評価して広島勝ち。拮抗して引き分けとなる可能性もある。",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1647-6",
@@ -148,7 +708,7 @@
           "codex_pick": "H",
           "codex_confidence": "34%",
           "codex_reasoning": "モデル情報がないため強い断定はできないが、ホームアドバンテージを小さく評価してセレッソ勝ちを選択。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1647-7",
@@ -169,7 +729,7 @@
           "codex_pick": "A",
           "codex_confidence": "34%",
           "codex_reasoning": "モデル情報がなく判断材料は限定的。互角寄りの想定ながら、アウェー側が僅差で上回る展開を選択する。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1647-8",
@@ -190,7 +750,7 @@
           "codex_pick": "A",
           "codex_confidence": "46%",
           "codex_reasoning": "モデルは大宮勝ち46.3%で、札幌勝ちを約16ポイント上回る。ただし引き分けも23.4%あり確信は中程度。",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1647-9",
@@ -211,7 +771,7 @@
           "codex_pick": "A",
           "codex_confidence": "33%",
           "codex_reasoning": "モデル欠損で定量的根拠は乏しいが、結果分布の偏りを避けつつアウェー側の僅差勝利を予想する。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1647-10",
@@ -232,7 +792,7 @@
           "codex_pick": "A",
           "codex_confidence": "41%",
           "codex_reasoning": "徳島勝ち43.3%が磐田勝ち29.1%を明確に上回る。引き分け27.6%も無視できず、信頼度は控えめ。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1647-11",
@@ -253,7 +813,7 @@
           "codex_pick": "H",
           "codex_confidence": "53%",
           "codex_reasoning": "モデルは八戸勝ち54.5%で最有力。引き分けが31.5%と高めで、仙台勝ちは低いものの波乱余地は残る。",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1647-12",
@@ -274,7 +834,7 @@
           "codex_pick": "A",
           "codex_confidence": "43%",
           "codex_reasoning": "藤枝勝ち45.1%が最有力で、新潟勝ち26.8%との差も大きい。一方で引き分け28.1%が主な不確実要因。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1647-13",
@@ -295,7 +855,7 @@
           "codex_pick": "H",
           "codex_confidence": "38%",
           "codex_reasoning": "秋田勝ち41.8%が首位だが、引き分け28.8%、甲府勝ち29.5%で接戦。小幅なホーム優勢を採用する。",
-          "result": ""
+          "result": "H"
         }
       ]
     },
@@ -307,22 +867,22 @@
       "payout_detail": null,
       "deadline": "2026-08-22 17:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-08-21",
+      "generated_date": "2026-08-23",
       "has_gemini": true,
       "has_codex": true,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
-          "hits": 0
+          "n": 4,
+          "hits": 1
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 4,
+          "hits": 1
         },
         "codex": {
-          "n": 0,
-          "hits": 0
+          "n": 4,
+          "hits": 1
         }
       },
       "matches": [
@@ -345,7 +905,7 @@
           "codex_pick": "H",
           "codex_confidence": "62%",
           "codex_reasoning": "鹿島勝ち60.3%と今回のモデル有りカードで最も明確。引き分け26.8%には注意しつつホーム勝ちを支持。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1647-2",
@@ -382,7 +942,7 @@
           "codex_pick": "D",
           "codex_confidence": "31%",
           "codex_reasoning": "モデル欠損で明確な優勢材料がなく、ホーム・アウェーいずれにも寄せにくい。均衡を想定して引き分け。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1647-4",
@@ -403,7 +963,7 @@
           "codex_pick": "H",
           "codex_confidence": "36%",
           "codex_reasoning": "京都勝ち39.2%が最多だが、水戸勝ち32.6%、引き分け28.3%と差は小さい。ホーム側を僅差で選ぶ。",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1647-5",
@@ -424,7 +984,7 @@
           "codex_pick": "H",
           "codex_confidence": "36%",
           "codex_reasoning": "モデル欠損のため不確実だが、ホーム開催の利を限定的に評価して広島勝ち。拮抗して引き分けとなる可能性もある。",
-          "result": ""
+          "result": "D"
         }
       ]
     },
@@ -436,22 +996,22 @@
       "payout_detail": null,
       "deadline": "2026-08-22 14:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-08-21",
+      "generated_date": "2026-08-23",
       "has_gemini": true,
       "has_codex": true,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 3
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 3
         },
         "codex": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         }
       },
       "matches": [
@@ -474,7 +1034,7 @@
           "codex_pick": "H",
           "codex_confidence": "34%",
           "codex_reasoning": "モデル情報がないため強い断定はできないが、ホームアドバンテージを小さく評価してセレッソ勝ちを選択。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1647-7",
@@ -495,7 +1055,7 @@
           "codex_pick": "A",
           "codex_confidence": "34%",
           "codex_reasoning": "モデル情報がなく判断材料は限定的。互角寄りの想定ながら、アウェー側が僅差で上回る展開を選択する。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1647-8",
@@ -516,7 +1076,7 @@
           "codex_pick": "A",
           "codex_confidence": "46%",
           "codex_reasoning": "モデルは大宮勝ち46.3%で、札幌勝ちを約16ポイント上回る。ただし引き分けも23.4%あり確信は中程度。",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1647-9",
@@ -537,7 +1097,7 @@
           "codex_pick": "A",
           "codex_confidence": "33%",
           "codex_reasoning": "モデル欠損で定量的根拠は乏しいが、結果分布の偏りを避けつつアウェー側の僅差勝利を予想する。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1647-10",
@@ -558,7 +1118,7 @@
           "codex_pick": "A",
           "codex_confidence": "41%",
           "codex_reasoning": "徳島勝ち43.3%が磐田勝ち29.1%を明確に上回る。引き分け27.6%も無視できず、信頼度は控えめ。",
-          "result": ""
+          "result": "H"
         }
       ]
     },
@@ -570,7 +1130,7 @@
       "payout_detail": null,
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-08-21",
+      "generated_date": "2026-08-23",
       "has_gemini": false,
       "has_codex": true,
       "settled": true,
@@ -619,8 +1179,8 @@
           "away": "横浜Ｆ・マリノス",
           "stats": {
             "p_H": 0.3465,
-            "p_D": 0.2561,
-            "p_A": 0.3974,
+            "p_D": 0.2562,
+            "p_A": 0.3973,
             "pick": "A"
           },
           "gemini_pick": "",
@@ -639,8 +1199,8 @@
           "home": "ヴィッセル神戸",
           "away": "ＦＣ東京",
           "stats": {
-            "p_H": 0.585,
-            "p_D": 0.2445,
+            "p_H": 0.5848,
+            "p_D": 0.2447,
             "p_A": 0.1705,
             "pick": "H"
           },
@@ -681,9 +1241,9 @@
           "home": "アビスパ福岡",
           "away": "セレッソ大阪",
           "stats": {
-            "p_H": 0.3116,
-            "p_D": 0.2832,
-            "p_A": 0.4053,
+            "p_H": 0.3115,
+            "p_D": 0.2833,
+            "p_A": 0.4052,
             "pick": "A"
           },
           "gemini_pick": "",
@@ -702,8 +1262,8 @@
           "home": "水戸ホーリーホック",
           "away": "ガンバ大阪",
           "stats": {
-            "p_H": 0.5699,
-            "p_D": 0.2336,
+            "p_H": 0.5697,
+            "p_D": 0.2337,
             "p_A": 0.1965,
             "pick": "H"
           },
@@ -766,8 +1326,8 @@
           "away": "京都サンガF.C.",
           "stats": {
             "p_H": 0.2949,
-            "p_D": 0.2104,
-            "p_A": 0.4947,
+            "p_D": 0.2105,
+            "p_A": 0.4946,
             "pick": "A"
           },
           "gemini_pick": "",
@@ -872,7 +1432,7 @@
       "payout_detail": null,
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-08-21",
+      "generated_date": "2026-08-23",
       "has_gemini": false,
       "has_codex": true,
       "settled": true,
@@ -921,8 +1481,8 @@
           "away": "横浜Ｆ・マリノス",
           "stats": {
             "p_H": 0.3465,
-            "p_D": 0.2561,
-            "p_A": 0.3974,
+            "p_D": 0.2562,
+            "p_A": 0.3973,
             "pick": "A"
           },
           "gemini_pick": "",
@@ -941,8 +1501,8 @@
           "home": "ヴィッセル神戸",
           "away": "ＦＣ東京",
           "stats": {
-            "p_H": 0.585,
-            "p_D": 0.2445,
+            "p_H": 0.5848,
+            "p_D": 0.2447,
             "p_A": 0.1705,
             "pick": "H"
           },
@@ -983,9 +1543,9 @@
           "home": "アビスパ福岡",
           "away": "セレッソ大阪",
           "stats": {
-            "p_H": 0.3116,
-            "p_D": 0.2832,
-            "p_A": 0.4053,
+            "p_H": 0.3115,
+            "p_D": 0.2833,
+            "p_A": 0.4052,
             "pick": "A"
           },
           "gemini_pick": "",
@@ -1006,7 +1566,7 @@
       "payout_detail": null,
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-08-21",
+      "generated_date": "2026-08-23",
       "has_gemini": false,
       "has_codex": true,
       "settled": true,
@@ -1033,8 +1593,8 @@
           "home": "水戸ホーリーホック",
           "away": "ガンバ大阪",
           "stats": {
-            "p_H": 0.5699,
-            "p_D": 0.2336,
+            "p_H": 0.5697,
+            "p_D": 0.2337,
             "p_A": 0.1965,
             "pick": "H"
           },
@@ -1097,8 +1657,8 @@
           "away": "京都サンガF.C.",
           "stats": {
             "p_H": 0.2949,
-            "p_D": 0.2104,
-            "p_A": 0.4947,
+            "p_D": 0.2105,
+            "p_A": 0.4946,
             "pick": "A"
           },
           "gemini_pick": "",
@@ -1156,7 +1716,7 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-08-21",
+      "generated_date": "2026-08-23",
       "has_gemini": true,
       "has_codex": false,
       "settled": true,
@@ -1393,7 +1953,7 @@
       "payout_detail": null,
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-08-21",
+      "generated_date": "2026-08-23",
       "has_gemini": true,
       "has_codex": false,
       "settled": true,
@@ -1502,7 +2062,7 @@
       "payout_detail": null,
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-08-21",
+      "generated_date": "2026-08-23",
       "has_gemini": true,
       "has_codex": false,
       "settled": true,
@@ -1611,7 +2171,7 @@
       "payout_detail": null,
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-08-21",
+      "generated_date": "2026-08-23",
       "has_gemini": true,
       "has_codex": false,
       "settled": false,
@@ -1848,7 +2408,7 @@
       "payout_detail": null,
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-08-21",
+      "generated_date": "2026-08-23",
       "has_gemini": true,
       "has_codex": false,
       "settled": false,
@@ -1957,7 +2517,7 @@
       "payout_detail": null,
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-08-21",
+      "generated_date": "2026-08-23",
       "has_gemini": true,
       "has_codex": false,
       "settled": false,
@@ -2066,7 +2626,7 @@
       "payout_detail": null,
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-08-21",
+      "generated_date": "2026-08-23",
       "has_gemini": true,
       "has_codex": false,
       "settled": true,
@@ -2303,7 +2863,7 @@
       "payout_detail": null,
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-08-21",
+      "generated_date": "2026-08-23",
       "has_gemini": true,
       "has_codex": false,
       "settled": true,
@@ -2412,7 +2972,7 @@
       "payout_detail": null,
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-08-21",
+      "generated_date": "2026-08-23",
       "has_gemini": true,
       "has_codex": false,
       "settled": true,
@@ -2521,7 +3081,7 @@
       "payout_detail": null,
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-08-21",
+      "generated_date": "2026-08-23",
       "has_gemini": true,
       "has_codex": false,
       "settled": true,
@@ -2758,7 +3318,7 @@
       "payout_detail": null,
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-08-21",
+      "generated_date": "2026-08-23",
       "has_gemini": true,
       "has_codex": false,
       "settled": true,
@@ -2867,7 +3427,7 @@
       "payout_detail": null,
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-08-21",
+      "generated_date": "2026-08-23",
       "has_gemini": true,
       "has_codex": false,
       "settled": true,
