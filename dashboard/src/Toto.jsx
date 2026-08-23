@@ -37,7 +37,7 @@ const deadlineText = (deadline) => {
 
 /** AI予想バッジ（統計 / Gemini / Codex） */
 const AiPickBadge = ({ label, color, pick, sub }) => (
-  <div style={{ padding: '0.4rem 0.6rem', background: `${color}12`, border: `1px solid ${color}33`, borderRadius: '6px', minWidth: '92px' }}>
+  <div className="toto-ai-badge" style={{ background: `${color}12`, borderColor: `${color}33` }}>
     <div style={{ fontSize: '0.72rem', color, fontWeight: 600, marginBottom: '0.15rem' }}>{label}</div>
     {pick ? (
       <div style={{ fontSize: '0.9rem', fontWeight: 700 }}>
@@ -74,10 +74,10 @@ const MatchCard = ({ match, userPred, onPick }) => {
   const result = match.result || '';  // 確定結果 H/D/A（未確定は空）
 
   return (
-    <div className="glass-card" style={{ padding: '1rem', marginBottom: '0.85rem', borderLeft: userPick ? '3px solid var(--accent-purple, #8b5cf6)' : '3px solid transparent' }}>
+    <div className="glass-card toto-match-card" style={{ borderLeft: userPick ? '3px solid var(--accent-purple, #8b5cf6)' : '3px solid transparent' }}>
       {/* 対戦カード */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '0.4rem' }}>
-        <div style={{ fontSize: '1.05rem', fontWeight: 700 }}>
+      <div className="toto-match-heading">
+        <div className="toto-teams">
           <span style={{ color: '#60a5fa' }}>{match.home}</span>
           <span style={{ margin: '0 0.5rem', color: 'var(--text-secondary, #9ca3af)', fontSize: '0.85rem' }}>vs</span>
           <span style={{ color: '#10b981' }}>{match.away}</span>
@@ -95,16 +95,16 @@ const MatchCard = ({ match, userPred, onPick }) => {
       )}
 
       {/* AI予想 */}
-      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.65rem', alignItems: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div className="toto-ai-grid">
+        <div className="toto-ai-result">
           <AiPickBadge label="統計モデル" color="#60a5fa" pick={stats?.pick} sub={statSub} />
           <HitMark pick={stats?.pick} result={result} />
         </div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div className="toto-ai-result">
           <AiPickBadge label="Gemini" color="#a78bfa" pick={match.gemini_pick} sub={match.gemini_confidence ? `自信${match.gemini_confidence}` : null} />
           <HitMark pick={match.gemini_pick} result={result} />
         </div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div className="toto-ai-result">
           <AiPickBadge label="Codex" color="#f97316" pick={match.codex_pick} sub={match.codex_confidence ? `自信${match.codex_confidence}` : null} />
           <HitMark pick={match.codex_pick} result={result} />
         </div>
@@ -144,7 +144,7 @@ const MatchCard = ({ match, userPred, onPick }) => {
             </span>
           )}
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem' }}>
+        <div className="toto-pick-grid">
           {PICKS.map((p) => {
             const active = userPick === p;
             const isAnswer = result && p === result;  // 正解
@@ -314,7 +314,7 @@ const TotoCharts = ({ matches, userByMid }) => {
   ];
 
   const axis = { stroke: 'var(--text-secondary, #9ca3af)', fontSize: 12, tickLine: false, axisLine: false };
-  const tip = { backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', fontSize: '0.8rem' };
+  const tip = { backgroundColor: '#ffffff', border: '1px solid #d1d5db', borderRadius: '8px', color: '#111827', fontSize: '0.8rem' };
 
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', marginBottom: '1.25rem' }}>
@@ -371,8 +371,8 @@ const yen = (v) => `${v >= 0 ? '+' : '-'}¥${Math.abs(Math.round(v)).toLocaleStr
 /** 等級別当せん金テーブル（toto公式の確定結果：1等〜の当せん金・口数） */
 const PayoutTable = ({ detail, kujiLabel }) => {
   if (!Array.isArray(detail) || detail.length === 0) return null;
-  const th = { padding: '0.5rem 0.7rem', textAlign: 'right', fontSize: '0.74rem', color: 'var(--text-secondary, #9ca3af)', fontWeight: 600, whiteSpace: 'nowrap', borderBottom: '1px solid rgba(255,255,255,0.12)' };
-  const td = { padding: '0.55rem 0.7rem', textAlign: 'right', fontSize: '0.92rem', whiteSpace: 'nowrap', borderBottom: '1px solid rgba(255,255,255,0.06)' };
+  const th = { padding: '0.5rem 0.7rem', textAlign: 'right', fontSize: '0.74rem', color: 'var(--text-secondary, #9ca3af)', fontWeight: 600, whiteSpace: 'nowrap', borderBottom: '1px solid #dfe3e8' };
+  const td = { padding: '0.55rem 0.7rem', textAlign: 'right', fontSize: '0.92rem', whiteSpace: 'nowrap', borderBottom: '1px solid #eceef1' };
   return (
     <div className="glass-card" style={{ padding: '1rem 1.25rem', marginBottom: '1.25rem' }}>
       <h3 style={{ margin: '0 0 0.25rem 0', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
@@ -458,7 +458,7 @@ const KujiVerdict = ({ kujiLabel, matches, userByMid, payout }) => {
       {rows.map((r) => {
         const v = verdictOf(r.e);
         return (
-          <div key={r.name} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.45rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+          <div key={r.name} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.45rem 0', borderBottom: '1px solid #eceef1' }}>
             <span style={{ color: r.color, fontWeight: 600 }}>{r.name}</span>
             <span style={{ color: v.color, fontWeight: 700, fontSize: '0.9rem' }}>{v.txt}</span>
           </div>
@@ -556,7 +556,7 @@ const BalanceTrendToto = ({ rounds, kuji, kujiLabel, userByMid }) => {
   });
 
   const axis = { stroke: 'var(--text-secondary, #9ca3af)', fontSize: 12, tickLine: false, axisLine: false };
-  const tip = { backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', fontSize: '0.8rem' };
+  const tip = { backgroundColor: '#ffffff', border: '1px solid #d1d5db', borderRadius: '8px', color: '#111827', fontSize: '0.8rem' };
   const colorOf = { あなた: SERIES.user, Gemini: SERIES.gemini, Codex: SERIES.codex, 統計: SERIES.stat };
   return (
     <div className="glass-card" style={{ padding: '1rem 1.1rem', marginBottom: '1.25rem' }}>
@@ -609,7 +609,7 @@ const RoundTrend = ({ rounds, userByMid, kuji, kujiLabel }) => {
   if (data.length === 0) return null;
 
   const axis = { stroke: 'var(--text-secondary, #9ca3af)', fontSize: 12, tickLine: false, axisLine: false };
-  const tip = { backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', fontSize: '0.8rem' };
+  const tip = { backgroundColor: '#ffffff', border: '1px solid #d1d5db', borderRadius: '8px', color: '#111827', fontSize: '0.8rem' };
   return (
     <div className="glass-card" style={{ padding: '1rem 1.1rem', marginBottom: '1.25rem' }}>
       <h3 style={{ margin: '0 0 0.25rem 0', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
@@ -668,8 +668,8 @@ const RoundsTable = ({ rounds, userByMid }) => {
   // その予測者が当せんしたか（全試合確定 & 全問予想 & 全問的中）
   const isWin = (total, settledN, e) => settledN === total && e.picked === total && e.hits === total;
 
-  const th = { padding: '0.5rem 0.6rem', textAlign: 'center', fontSize: '0.74rem', color: 'var(--text-secondary, #9ca3af)', fontWeight: 600, whiteSpace: 'nowrap', borderBottom: '1px solid rgba(255,255,255,0.12)' };
-  const td = { padding: '0.5rem 0.6rem', textAlign: 'center', fontSize: '0.82rem', whiteSpace: 'nowrap', borderBottom: '1px solid rgba(255,255,255,0.06)' };
+  const th = { padding: '0.5rem 0.6rem', textAlign: 'center', fontSize: '0.74rem', color: 'var(--text-secondary, #9ca3af)', fontWeight: 600, whiteSpace: 'nowrap', borderBottom: '1px solid #dfe3e8' };
+  const td = { padding: '0.5rem 0.6rem', textAlign: 'center', fontSize: '0.82rem', whiteSpace: 'nowrap', borderBottom: '1px solid #eceef1' };
 
   // 配当表示
   const payoutText = (p) => {
@@ -850,8 +850,8 @@ const Toto = () => {
   const userByMid = Object.fromEntries(userPreds.map((p) => [p.match_id, p]));
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+    <div className="toto-page">
+      <div className="page-heading">
         <div>
           <h2 style={{ margin: 0 }}>toto 予測対戦 / 第{info.round}回 <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary, #9ca3af)' }}>{info.kuji_label || ''}</span></h2>
           <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary, #9ca3af)', display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.2rem' }}>
@@ -865,12 +865,12 @@ const Toto = () => {
 
       {/* 回・くじ種別の切替（過去の答え合わせ / mini toto も見られる） */}
       {roundsData.rounds.length > 1 && (
-        <div style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+        <div className="toto-round-selector">
           <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary, #9ca3af)' }}>回・種別を選ぶ:</span>
           <select
             value={selectedKey || ''}
             onChange={(e) => setSelectedKey(e.target.value)}
-            style={{ padding: '0.4rem 0.6rem', background: 'rgba(0,0,0,0.3)', color: 'inherit', border: '1px solid var(--border, #374151)', borderRadius: '6px', fontSize: '0.85rem' }}
+            className="responsive-select"
           >
             {roundsData.rounds.map((r) => {
               const sm = r.summary;
@@ -917,9 +917,11 @@ const Toto = () => {
 
       <TotoCharts matches={info.matches} userByMid={userByMid} />
 
-      {info.matches.map((m) => (
-        <MatchCard key={m.match_id} match={m} userPred={userByMid[m.match_id]} onPick={handlePick} />
-      ))}
+      <div className="toto-match-grid">
+        {info.matches.map((m) => (
+          <MatchCard key={m.match_id} match={m} userPred={userByMid[m.match_id]} onPick={handlePick} />
+        ))}
+      </div>
 
       <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary, #9ca3af)', marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
         <Trophy size={13} /> 結果が出た回は上の「回を選ぶ」で切替えて答え合わせ（あなた・Gemini・Codex・統計）を確認できます。

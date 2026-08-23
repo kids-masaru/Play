@@ -8,6 +8,7 @@
   --success: #4fd1c5; /* Soft teal */
   --error: #f687b3; /* Soft pink-red */
   --border-color: #e2e8f0;
+  --border: #d1d5db;
   --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
@@ -725,4 +726,158 @@ body {
   .chart-heading { align-items: stretch; flex-direction: column; }
   .simple-segmented { width: fit-content; }
   .comparison-table-card, .comparison-chart-card, .how-to-read { padding: .9rem .75rem; }
+}
+
+/* 2026-08 レスポンシブ調整：PCは横幅を活用し、スマホは情報を縦に再構成する。 */
+.dashboard-container { width: min(100%, 1320px); }
+
+.page-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.page-heading h2 { color: #111827; font-size: clamp(1.35rem, 2.5vw, 1.8rem); letter-spacing: -.025em; }
+
+.battle-race-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: .85rem;
+}
+.battle-race-card { min-width: 0; }
+.battle-ai-row { display: flex; gap: .45rem; margin-top: .25rem; min-width: 0; }
+.battle-ai-row > span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.subpage-tabs { width: fit-content; }
+
+.toto-round-selector {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-bottom: 1rem;
+}
+.responsive-select,
+.battle-page input,
+.battle-page select,
+.battle-page textarea,
+.toto-page input,
+.toto-page select,
+.toto-page textarea {
+  min-height: 38px;
+  padding: .45rem .65rem !important;
+  color: #111827 !important;
+  background: #fff !important;
+  border: 1px solid #cfd5dd !important;
+  border-radius: 7px !important;
+}
+.responsive-select { max-width: min(100%, 640px); font-size: .85rem; }
+.toto-match-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: .9rem;
+}
+.toto-match-card { min-width: 0; height: 100%; margin: 0 !important; padding: 1rem !important; }
+.toto-match-heading { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: .4rem; }
+.toto-teams { font-size: 1.05rem; font-weight: 700; }
+.toto-ai-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; margin-top: .65rem; }
+.toto-ai-result { display: flex; align-items: center; min-width: 0; }
+.toto-ai-badge { width: 100%; min-width: 0; padding: .45rem .55rem; border: 1px solid; border-radius: 6px; }
+.toto-pick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+
+.mobile-chart-filter { display: none; }
+
+@media (min-width: 1180px) {
+  .battle-race-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .comparison-table th, .comparison-table td { padding-left: .8rem; padding-right: .8rem; }
+}
+
+@media (max-width: 900px) {
+  .toto-match-grid { grid-template-columns: 1fr; }
+  .toto-match-card { height: auto; }
+}
+
+@media (max-width: 760px) {
+  body { padding: .45rem; }
+  .dashboard-container { width: 100%; }
+
+  .header.app-header { margin-bottom: .85rem; padding: .7rem 0 .8rem; }
+  .app-header-top { align-items: stretch; flex-direction: column; gap: .65rem; }
+  .brand-lockup { padding: 0 .2rem; }
+  .brand-mark { width: 36px; height: 36px; flex-basis: 36px; }
+  .header.app-header h1 { font-size: 1.05rem; }
+  .tab-container.primary-nav { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; overflow: visible; }
+  .primary-nav .tab-button { width: 100%; padding: .55rem .25rem; font-size: .72rem; white-space: nowrap; }
+  .dashboard-status { display: grid; grid-template-columns: 1fr 1fr; gap: .35rem .6rem; margin-top: .65rem; padding: .65rem .2rem 0; }
+  .dashboard-status > span:last-child { grid-column: 1 / -1; }
+  .period-switcher { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; margin-top: .65rem; }
+  .period-switcher .tab-button { width: 100%; padding: .48rem .25rem; }
+
+  .comparison-intro { padding: .2rem .15rem 0; }
+  .comparison-intro p { max-width: 34rem; line-height: 1.55; }
+  .combined-heading { padding: .85rem .9rem; }
+  .combined-metrics > div { padding: .8rem .85rem; }
+  .combined-metrics strong { font-size: 1.15rem; }
+  .combined-metrics small { line-height: 1.35; }
+  .comparison-summary-line { display: grid; gap: .4rem; padding: .7rem .8rem; }
+
+  .comparison-table-wrap { overflow: visible; }
+  .comparison-table { display: block; min-width: 0; }
+  .comparison-table thead { display: none; }
+  .comparison-table tbody { display: grid; gap: .65rem; }
+  .comparison-table tr { position: relative; display: block; padding: .65rem .7rem; background: #fafbfc; border: 1px solid #e2e5e9; border-radius: 8px; }
+  .comparison-table td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    padding: .34rem 0;
+    border: 0;
+    text-align: right !important;
+    white-space: normal;
+  }
+  .comparison-table td::before { content: attr(data-label); flex: 0 0 auto; color: #7b8491; font-size: .66rem; font-weight: 700; }
+  .comparison-table td.rank-cell { position: absolute; top: .72rem; left: .7rem; display: grid; place-items: center; width: 26px; height: 26px; padding: 0; color: #fff !important; background: #111827; border-radius: 50%; font-size: .7rem; }
+  .comparison-table td.rank-cell::before { display: none; }
+  .comparison-table td:nth-child(2) { min-height: 30px; margin-bottom: .35rem; padding: 0 0 .55rem 2.15rem; border-bottom: 1px solid #e2e5e9; text-align: left !important; }
+  .comparison-table td:nth-child(2)::before { display: none; }
+  .comparison-table td small { display: inline; margin: 0 0 0 .35rem; }
+  .model-name { align-items: flex-start; line-height: 1.4; white-space: normal; }
+
+  .mobile-chart-filter { display: grid; gap: .3rem; margin: -.15rem 0 .6rem; color: #6b7280; font-size: .68rem; font-weight: 700; }
+  .mobile-chart-filter select { width: 100%; padding: .48rem .55rem; color: #111827; background: #fff; border: 1px solid #cfd5dd; border-radius: 6px; }
+  .comparison-chart-card .recharts-legend-wrapper { font-size: 10px !important; }
+
+  .page-heading { align-items: flex-start; margin-bottom: .85rem; }
+  .page-heading > button { flex: 0 0 auto; }
+  .subpage-tabs { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+  .subpage-tabs .tab-button { width: 100%; padding: .55rem .3rem; }
+  .battle-race-grid { grid-template-columns: minmax(0, 1fr); gap: .65rem; }
+  .battle-race-card { padding: .85rem !important; }
+  .battle-ai-row > span:first-child { min-width: 50px !important; font-size: .72rem; }
+  .battle-ai-row > span:last-child { font-size: .76rem; }
+  .battle-period-switcher { display: grid; }
+
+  .toto-round-selector { align-items: stretch; flex-direction: column; }
+  .responsive-select { width: 100%; max-width: none; }
+  .toto-match-grid { gap: .7rem; }
+  .toto-match-card { padding: .85rem !important; }
+  .toto-match-heading { align-items: flex-start; flex-direction: column; }
+  .toto-teams { font-size: .95rem; line-height: 1.5; }
+  .toto-ai-grid { grid-template-columns: 1fr; gap: .4rem; }
+  .toto-ai-result { width: 100%; }
+  .toto-ai-badge { display: grid; grid-template-columns: 80px 1fr; align-items: center; gap: .4rem; padding: .42rem .55rem; }
+  .toto-ai-badge > div:first-child { margin: 0 !important; }
+  .toto-pick-grid { gap: .35rem; }
+  .toto-page .glass-card, .battle-page .glass-card { border-radius: 10px; }
+}
+
+@media (max-width: 390px) {
+  body { padding: .3rem; }
+  .combined-metrics { grid-template-columns: 1fr; }
+  .combined-metrics > div { border-right: 0; border-bottom: 1px solid #e5e7eb; }
+  .combined-metrics > div:last-child { border-bottom: 0; }
+  .comparison-table-card, .comparison-chart-card, .how-to-read { padding-left: .6rem; padding-right: .6rem; }
+  .page-heading h2 { font-size: 1.2rem; }
 }

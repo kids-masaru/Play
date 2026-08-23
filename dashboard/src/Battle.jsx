@@ -54,7 +54,7 @@ const comboHit = (combo, result) => {
 const RaceList = ({ races, userPreds, onSelect }) => {
   const userByRid = Object.fromEntries(userPreds.map(p => [p.race_id, p]));
   return (
-    <div style={{ display: 'grid', gap: '0.75rem', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}>
+    <div className="battle-race-grid">
       {races.map(race => {
         const gemPicks = parseAiPicks(race.ai_picks_gemini);
         const grokPicks = parseAiPicks(race.ai_picks_grok);
@@ -64,7 +64,7 @@ const RaceList = ({ races, userPreds, onSelect }) => {
         const codexPicks = parseAiPicks(race.ai_picks_codex);
         const hasUser = !!userByRid[race.race_id];
         const aiRow = (label, color, picks) => (
-          <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.2rem' }}>
+          <div className="battle-ai-row">
             <span style={{ color, fontWeight: 600, minWidth: '54px' }}>{label}</span>
             <span style={{ fontFamily: 'monospace', color: picks.length ? 'var(--text-primary, #f3f4f6)' : 'var(--text-secondary, #6b7280)' }}>
               {picks.length ? picks.slice(0, 2).map(p => p.combo).join(', ') + (picks.length > 2 ? ' …' : '') : 'なし'}
@@ -75,7 +75,7 @@ const RaceList = ({ races, userPreds, onSelect }) => {
           <div
             key={race.race_id}
             onClick={() => onSelect(race.race_id)}
-            className="glass-card"
+            className="glass-card battle-race-card"
             style={{
               padding: '1rem',
               cursor: 'pointer',
@@ -183,7 +183,7 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
             </thead>
             <tbody>
               {race.boats.map(b => (
-                <tr key={b.lane} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                <tr key={b.lane} style={{ borderBottom: '1px solid #eceef1' }}>
                   <td style={{ padding: '0.4rem', fontWeight: 600 }}>{b.lane}</td>
                   <td style={{ padding: '0.4rem' }}>{b.name}</td>
                   <td style={{ padding: '0.4rem' }}>{b.rank}</td>
@@ -452,7 +452,7 @@ const filterSettledByPeriod = (settled, period) => {
 };
 
 const TREND_AXIS = { stroke: 'var(--text-secondary, #9ca3af)', fontSize: 11, tickLine: false, axisLine: false };
-const TREND_TIP = { backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', fontSize: '0.8rem' };
+const TREND_TIP = { backgroundColor: '#ffffff', border: '1px solid #d1d5db', borderRadius: '8px', color: '#111827', fontSize: '0.8rem' };
 
 /** 月別 的中率の推移（折れ線） */
 const HitRateTrend = ({ settled }) => {
@@ -613,7 +613,7 @@ const PastRaces = ({ settled }) => {
           </thead>
           <tbody>
             {shown.map(s => (
-              <tr key={s.rid} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+              <tr key={s.rid} style={{ borderBottom: '1px solid #eceef1' }}>
                 <td style={{ ...td, color: 'var(--text-secondary, #9ca3af)' }}>{s.date}</td>
                 <td style={td}>{s.venue}{s.r}R</td>
                 <td style={{ ...td, fontWeight: 700, color: 'var(--accent-blue, #60a5fa)' }}>{s.result}</td>
@@ -832,8 +832,8 @@ const Battle = () => {
   const selectedUserPred = selectedRid ? userPreds.find(p => p.race_id === selectedRid) : null;
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+    <div className="battle-page">
+      <div className="page-heading">
         <div>
           <h2 style={{ margin: 0 }}>今日の予測</h2>
           <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary, #9ca3af)' }}>
@@ -866,7 +866,7 @@ const Battle = () => {
       ) : (
         <>
           {/* 今日のレース / 過去成績 の切替 */}
-          <div className="tab-container" style={{ marginBottom: '1rem' }}>
+          <div className="tab-container subpage-tabs" style={{ marginBottom: '1rem' }}>
             <button className={`tab-button ${view === 'today' ? 'active' : ''}`} onClick={() => setView('today')}>
               今日のレース（{info.races.length}）
             </button>
