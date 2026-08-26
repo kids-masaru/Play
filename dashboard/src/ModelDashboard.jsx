@@ -40,7 +40,10 @@ const ModelDashboard = ({ period = 'weekly' }) => {
     return () => media.removeEventListener('change', handleChange);
   }, []);
 
-  const current = data?.periods?.[period];
+  const periodData = data?.periods?.[period];
+  const current = useMemo(() => periodData?.dashboard
+    ? { ...periodData, ...periodData.dashboard }
+    : periodData, [periodData]);
   const chartModels = useMemo(() => current ? [
     { key: 'combined', short: '全モデル合計', color: '#111827' },
     ...current.models.map(model => ({ key: model.key, short: model.short, color: model.color })),

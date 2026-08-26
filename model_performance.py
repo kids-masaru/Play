@@ -37,6 +37,7 @@ MODELS = [
     {"key": "stakes_gemmagrokx", "label": "学習Gemma（Grok+X先生）", "short": "学Grok+X", "color": "#ea580c"},
     {"key": "stakes_codex", "label": "Codex", "short": "Codex", "color": "#0d9488"},
 ]
+DASHBOARD_MODELS = [model for model in MODELS if model["key"] != "stakes"]
 MODEL_BY_KEY = {model["key"]: model for model in MODELS}
 PERIODS = {
     "weekly": {"label": "直近7日", "days": 7},
@@ -182,6 +183,7 @@ def _combined(records_by_model: dict[str, list[dict[str, Any]]]) -> list[dict[st
 
 
 def _trend(
+    models: list[dict[str, str]],
     current_by_model: dict[str, list[dict[str, Any]]],
     all_by_model: dict[str, list[dict[str, Any]]],
     start: str | None,
@@ -195,7 +197,7 @@ def _trend(
         combined_daily_profit = 0.0
         rolling_combined: list[dict[str, Any]] = []
         rolling_start = (dt.date.fromisoformat(date_text) - dt.timedelta(days=6)).isoformat()
-        for model in MODELS:
+        for model in models:
             key = model["key"]
             daily_profit = sum(item["profit"] for item in current_by_model[key] if item["date"] == date_text)
             cumulative[key] += daily_profit
@@ -244,6 +246,18 @@ def build_performance_payload() -> dict[str, Any]:
 
         combined_records = _combined(current_by_model)
         combined_metrics = _metrics(combined_records)
+        dashboard_model_rows = []
+        for index, model_row in enumerate(
+            (row for row in model_rows if row["key"] != "stakes"),
+            1,
+        ):
+            dashboard_model_rows.append({**model_row, "rank": index})
+        dashboard_by_model = {
+            model["key"]: current_by_model[model["key"]]
+            for model in DASHBOARD_MODELS
+        }
+        dashboard_combined_metrics = _metrics(_combined(dashboard_by_model))
+
         periods[period_key] = {
             "label": period_config["label"],
             "start_date": start,
@@ -256,7 +270,25 @@ def build_performance_payload() -> dict[str, Any]:
                 "color": "#111827",
                 **combined_metrics,
             },
-            "trend": _trend(current_by_model, records_by_model, start, end),
+            "trend": _trend(MODELS, current_by_model, records_by_model, start, end),
+            # 基本GemmaはLINEの後方互換用には残すが、ダッシュボード比較からは完全に除外する。
+            "dashboard": {
+                "models": dashboard_model_rows,
+                "combined": {
+                    "key": "combined",
+                    "label": "全モデル合計",
+                    "short": "全モデル合計",
+                    "color": "#111827",
+                    **dashboard_combined_metrics,
+                },
+                "trend": _trend(
+                    DASHBOARD_MODELS,
+                    dashboard_by_model,
+                    records_by_model,
+                    start,
+                    end,
+                ),
+            },
         }
 
     return {

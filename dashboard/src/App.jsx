@@ -133,7 +133,7 @@ const App = () => {
         {page === 'dashboard' && (
           <div className="dashboard-status">
             <span><i className="status-dot" /> 集計済み</span>
-            <span>比較対象: 7モデル（Det除外）</span>
+            <span>比較対象: 6モデル（基本Gemma・Det除外）</span>
             <span>結果最終日: {data?.latest_result_date || '-'}</span>
           </div>
         )}
