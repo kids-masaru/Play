@@ -1,3 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Gemini teacher model">
-  <rect width="48" height="48" rx="12" fill="#fdf2f8"/><path d="M24 7c1.7 8.8 7.2 14.3 16 16-8.8 1.7-14.3 7.2-16 16-1.7-8.8-7.2-14.3-16-16 8.8-1.7 14.3-7.2 16-16Z" fill="#db2777"/><circle cx="37" cy="37" r="7" fill="#fff" stroke="#db2777" stroke-width="2"/><path d="m34 37 2 2 4-5" fill="none" stroke="#db2777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Google Gemini teacher model">
+  <defs><linearGradient id="spark" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4285f4"/><stop offset=".5" stop-color="#9b72cb"/><stop offset="1" stop-color="#d96570"/></linearGradient></defs>
+  <rect width="48" height="48" rx="12" fill="#fff"/>
+  <text x="7" y="34" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#4285f4">G</text>
+  <path d="M34 8c.8 4.3 3.3 6.8 7.6 7.6-4.3.8-6.8 3.3-7.6 7.6-.8-4.3-3.3-6.8-7.6-7.6 4.3-.8 6.8-3.3 7.6-7.6Z" fill="url(#spark)"/>
+  <circle cx="37" cy="37" r="7" fill="#fff" stroke="#db2777" stroke-width="2"/><path d="m34 37 2 2 4-5" fill="none" stroke="#db2777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
