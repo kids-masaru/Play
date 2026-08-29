@@ -1,3 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Claude teacher model">
-  <rect width="48" height="48" rx="12" fill="#ecfeff"/><circle cx="24" cy="24" r="15" fill="#0891b2"/><path d="M29.5 17.5a9 9 0 1 0 0 13" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="37" cy="37" r="7" fill="#fff" stroke="#0891b2" stroke-width="2"/><path d="m34 37 2 2 4-5" fill="none" stroke="#0891b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect width="48" height="48" rx="12" fill="#fff8f2"/>
+  <g stroke="#d97757" stroke-width="3.2" stroke-linecap="round">
+    <path d="M24 9v10M24 29v10M9 24h10M29 24h10"/>
+    <path d="m13.4 13.4 7.1 7.1M27.5 27.5l7.1 7.1M34.6 13.4l-7.1 7.1M20.5 27.5l-7.1 7.1"/>
+    <path d="m18.3 10.5 3.8 9.2M25.9 28.3l3.8 9.2M10.5 29.7l9.2-3.8M28.3 22.1l9.2-3.8"/>
+  </g>
+  <circle cx="24" cy="24" r="4.2" fill="#d97757"/>
+  <circle cx="37" cy="37" r="7" fill="#fff" stroke="#0891b2" stroke-width="2"/><path d="m34 37 2 2 4-5" fill="none" stroke="#0891b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
