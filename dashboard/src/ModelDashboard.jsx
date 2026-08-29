@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { CartesianGrid, Legend, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Bar, CartesianGrid, ComposedChart, Legend, Line, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 const PERIOD_LABEL = { weekly: '直近7日', monthly: '直近30日', total: '全期間' };
 
@@ -11,17 +11,54 @@ const formatYen = (value, signed = true) => {
 
 const formatPercent = value => value == null ? '—' : `${Number(value).toFixed(1)}%`;
 
-const Direction = ({ model }) => {
+const MODEL_ICONS = {
+  stakes_gemini: './model-icons/gemini.svg',
+  stakes_grok: './model-icons/grok.svg',
+  stakes_gemmaft: './model-icons/learned-gemini.svg',
+  stakes_gemmaclaude: './model-icons/learned-claude.svg',
+  stakes_gemmagrokx: './model-icons/learned-grokx.svg',
+  stakes_codex: './model-icons/codex.svg',
+};
+
+const Direction = ({ model, period }) => {
   if (model.roi_change == null) return <span className="change neutral">比較なし</span>;
-  if (model.direction === 'up') return <span className="change up">↑ {model.roi_change.toFixed(1)}pt</span>;
-  if (model.direction === 'down') return <span className="change down">↓ {Math.abs(model.roi_change).toFixed(1)}pt</span>;
-  return <span className="change neutral">→ {model.roi_change >= 0 ? '+' : ''}{model.roi_change.toFixed(1)}pt</span>;
+  const label = period === 'weekly' ? '前7日比' : period === 'monthly' ? '前30日比' : '前期間比';
+  if (model.direction === 'up') return <span className="change up">{label} ↑{model.roi_change.toFixed(1)}pt</span>;
+  if (model.direction === 'down') return <span className="change down">{label} ↓{Math.abs(model.roi_change).toFixed(1)}pt</span>;
+  return <span className="change neutral">{label} →{model.roi_change >= 0 ? '+' : ''}{model.roi_change.toFixed(1)}pt</span>;
+};
+
+const CHARTS = {
+  profit: {
+    title: '期間内の累積収支',
+    description: '最終的に資金が増えているかを確認します。',
+    prefix: 'profit_',
+    reference: 0,
+  },
+  rollingRoi: {
+    title: '7日移動ROI',
+    description: '直近7日だけを切り出し、最近の投資効率が改善しているかを確認します。',
+    prefix: 'roi_',
+    reference: 100,
+  },
+  dailyProfit: {
+    title: '日別収支',
+    description: '利益が継続しているか、一度の大当たりに偏っているかを確認します。',
+    prefix: 'daily_profit_',
+    reference: 0,
+  },
+  drawdown: {
+    title: '損失幅（ドローダウン）',
+    description: '直近の最高収支から、どこまで資金が減ったかを確認します。',
+    prefix: 'drawdown_',
+    reference: 0,
+  },
 };
 
 const ModelDashboard = ({ period = 'weekly' }) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
-  const [chartMode, setChartMode] = useState('profit');
+  const [chartMode, setChartMode] = useState('rollingRoi');
   const [mobileModel, setMobileModel] = useState('combined');
   const [isCompact, setIsCompact] = useState(() => window.matchMedia('(max-width: 760px)').matches);
 
@@ -48,9 +85,11 @@ const ModelDashboard = ({ period = 'weekly' }) => {
     { key: 'combined', short: '全モデル合計', color: '#111827' },
     ...current.models.map(model => ({ key: model.key, short: model.short, color: model.color })),
   ] : [], [current]);
-  const visibleChartModels = isCompact
-    ? chartModels.filter(model => model.key === 'combined' || model.key === mobileModel)
-    : chartModels;
+  const visibleChartModels = chartMode === 'dailyProfit'
+    ? chartModels.filter(model => model.key === mobileModel)
+    : isCompact
+      ? chartModels.filter(model => model.key === 'combined' || model.key === mobileModel)
+      : chartModels;
 
   if (error) return <div className="comparison-empty">{error}</div>;
   if (!current) return <div className="comparison-empty">モデル成績を読み込み中です…</div>;
@@ -59,9 +98,12 @@ const ModelDashboard = ({ period = 'weekly' }) => {
   const positiveModels = current.models.filter(model => model.profit > 0).length;
   const improvingModels = current.models.filter(model => model.direction === 'up').length;
   const leader = current.models[0];
-  const chartPrefix = chartMode === 'profit' ? 'profit_' : 'roi_';
-  const chartTitle = chartMode === 'profit' ? '期間内の累積収支' : '7日移動ROI';
-  const chartReference = chartMode === 'profit' ? 0 : 100;
+  const growthCandidate = [...current.models]
+    .filter(model => model.roi_change != null && model.roi_change > 0 && model.n >= 30)
+    .sort((a, b) => b.roi_change - a.roi_change)[0];
+  const comparisonLabel = period === 'weekly' ? '前7日比' : period === 'monthly' ? '前30日比' : '前期間比';
+  const chart = CHARTS[chartMode];
+  const chartIsPercent = chartMode === 'rollingRoi';
 
   return <main className="model-dashboard model-dashboard-simple">
     <section className="comparison-intro">
@@ -84,88 +126,77 @@ const ModelDashboard = ({ period = 'weekly' }) => {
       <div className="combined-metrics">
         <div><span>ROI</span><strong className={combined.roi >= 100 ? 'value-positive' : ''}>{formatPercent(combined.roi)}</strong><small>100%以上で投資額超え</small></div>
         <div><span>的中率</span><strong>{formatPercent(combined.hit_rate)}</strong><small>{combined.hits} / {combined.n}予測</small></div>
-        <div><span>最大ドローダウン</span><strong className="value-negative">{formatYen(combined.max_drawdown, false)}</strong><small>期間中の最大下落幅</small></div>
-        <div><span>総投資</span><strong>{formatYen(combined.invest, false)}</strong><small>延べ{combined.n}予測</small></div>
+        <div><span>最大損失幅</span><strong className="value-negative">{formatYen(combined.max_drawdown, false)}</strong><small>期間中の最大下落幅</small></div>
+        <div className="combined-invest"><span>総投資</span><strong>{formatYen(combined.invest, false)}</strong><small>延べ{combined.n}予測</small></div>
       </div>
     </section>
 
     <section className="comparison-summary-line" aria-label="期間の要約">
-      <span>収支1位 <strong>{leader?.short || '—'}（{leader ? formatYen(leader.profit) : '—'}）</strong></span>
-      <span>黒字モデル <strong>{positiveModels} / {current.models.length}</strong></span>
-      <span>前期間よりROI改善 <strong>{improvingModels}モデル</strong></span>
+      <span className="summary-signal leader"><small>今いちばん良い</small><strong>{leader?.short || '—'} · {leader ? formatYen(leader.profit) : '—'}</strong></span>
+      <span className="summary-signal growth"><small>上向き候補</small><strong>{growthCandidate?.short || '該当なし'}{growthCandidate ? ` · ${comparisonLabel} +${growthCandidate.roi_change.toFixed(1)}pt` : ''}</strong></span>
+      <span className="summary-signal context"><small>全体の様子</small><strong>黒字 {positiveModels}/{current.models.length}・改善 {improvingModels}モデル</strong></span>
     </section>
 
     <section className="comparison-table-card">
       <div className="simple-section-heading">
         <div><h3>モデル別ランキング</h3><p>収支が高い順。的中率だけでなく、ROIと最大損失も合わせて判断します。</p></div>
       </div>
-      <div className="comparison-table-wrap">
-        <table className="comparison-table">
-          <thead><tr>
-            <th>順位</th><th>モデル</th><th>収支</th><th>ROI</th><th>的中率</th><th>対象数</th><th>最大損失幅</th><th>前期間比</th><th>信頼度</th>
-          </tr></thead>
-          <tbody>
-            {current.models.map(model => <tr key={model.key}>
-              <td data-label="順位" className="rank-cell">{model.rank}</td>
-              <td data-label="モデル"><span className="model-name"><i style={{ background: model.color }} />{model.label}</span></td>
-              <td data-label="収支" className={model.profit >= 0 ? 'value-positive' : 'value-negative'}><strong>{formatYen(model.profit)}</strong></td>
-              <td data-label="ROI" className={model.roi >= 100 ? 'value-positive' : ''}><strong>{formatPercent(model.roi)}</strong></td>
-              <td data-label="的中率">{formatPercent(model.hit_rate)}<small>{model.hits}/{model.n}</small></td>
-              <td data-label="対象数">{model.n.toLocaleString()}R</td>
-              <td data-label="最大損失幅" className="value-negative">{formatYen(model.max_drawdown, false)}</td>
-              <td data-label="前期間比"><Direction model={model} /></td>
-              <td data-label="信頼度"><span className={`sample-status ${model.sample_status === '十分' ? 'enough' : ''}`}>{model.sample_status}</span></td>
-            </tr>)}
-          </tbody>
-        </table>
+      <div className="model-ranking-list">
+        {current.models.map(model => <article className="model-ranking-card" key={model.key}>
+          <div className="model-card-top">
+            <img className="model-icon" src={MODEL_ICONS[model.key]} alt="" />
+            <strong className="model-card-name">{model.label}</strong>
+            <strong className={`model-card-profit ${model.profit >= 0 ? 'value-positive' : 'value-negative'}`}>{formatYen(model.profit)}</strong>
+            <Direction model={model} period={period} />
+          </div>
+          <div className="model-card-metrics">
+            <div><span>ROI</span><strong className={model.roi >= 100 ? 'value-positive' : ''}>{formatPercent(model.roi)}</strong></div>
+            <div><span>的中率</span><strong>{formatPercent(model.hit_rate)}</strong><small>{model.hits}/{model.n}</small></div>
+            <div><span>最大損失幅</span><strong className="value-negative">{formatYen(model.max_drawdown, false)}</strong></div>
+          </div>
+        </article>)}
       </div>
     </section>
 
     <section className="comparison-chart-card">
       <div className="simple-section-heading chart-heading">
-        <div><h3>{chartTitle}</h3><p>{chartMode === 'profit' ? '上向きなら、実際の資金が増えています。' : '固定7日間で、最近の投資効率が改善しているかを見ます。'}</p></div>
+        <div><h3>{chart.title}</h3><p>{chart.description}</p></div>
         <div className="simple-segmented">
           <button className={chartMode === 'profit' ? 'active' : ''} onClick={() => setChartMode('profit')}>累積収支</button>
           <button className={chartMode === 'rollingRoi' ? 'active' : ''} onClick={() => setChartMode('rollingRoi')}>7日移動ROI</button>
+          <button className={chartMode === 'dailyProfit' ? 'active' : ''} onClick={() => setChartMode('dailyProfit')}>日別収支</button>
+          <button className={chartMode === 'drawdown' ? 'active' : ''} onClick={() => setChartMode('drawdown')}>損失幅</button>
         </div>
       </div>
-      <label className="mobile-chart-filter">
+      <label className={`chart-model-filter ${isCompact || chartMode === 'dailyProfit' ? 'visible' : ''}`}>
         <span>グラフに表示するモデル</span>
         <select value={mobileModel} onChange={event => setMobileModel(event.target.value)}>
           {chartModels.map(model => <option key={model.key} value={model.key}>{model.short}</option>)}
         </select>
       </label>
       {current.trend.length ? <ResponsiveContainer width="100%" height={isCompact ? 280 : 360}>
-        <LineChart data={current.trend} margin={{ top: 12, right: isCompact ? 2 : 18, left: isCompact ? -16 : 12, bottom: 0 }}>
+        <ComposedChart data={current.trend} margin={{ top: 12, right: isCompact ? 2 : 18, left: isCompact ? -16 : 12, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 5" stroke="#e5e7eb" vertical={false} />
           <XAxis dataKey="label" stroke="#6b7280" fontSize={11} tickLine={false} axisLine={false} minTickGap={26} />
-          <YAxis stroke="#6b7280" fontSize={11} tickLine={false} axisLine={false} width={62} tickFormatter={value => chartMode === 'profit' ? `${Math.round(value / 1000)}千` : `${value}%`} />
-          <Tooltip contentStyle={{ background: '#fff', border: '1px solid #d1d5db', borderRadius: 8, color: '#111827' }} formatter={(value, name) => [chartMode === 'profit' ? formatYen(value) : formatPercent(value), name]} />
+          <YAxis stroke="#6b7280" fontSize={11} tickLine={false} axisLine={false} width={62} tickFormatter={value => chartIsPercent ? `${value}%` : `${Math.round(value / 1000)}千`} />
+          <Tooltip contentStyle={{ background: '#fff', border: '1px solid #d1d5db', borderRadius: 8, color: '#111827' }} formatter={(value, name) => [chartIsPercent ? formatPercent(value) : formatYen(value), name]} />
           <Legend wrapperStyle={{ fontSize: 12, paddingTop: 10 }} />
-          <ReferenceLine y={chartReference} stroke="#9ca3af" strokeDasharray="5 5" />
-          {visibleChartModels.map(model => <Line
-            key={model.key}
-            type="monotone"
-            dataKey={`${chartPrefix}${model.key}`}
-            name={model.short}
-            stroke={model.color}
-            strokeWidth={model.key === 'combined' ? 3.5 : 1.8}
-            strokeOpacity={model.key === 'combined' ? 1 : 0.78}
-            dot={false}
-            connectNulls={false}
-          />)}
-        </LineChart>
+          <ReferenceLine y={chart.reference} stroke="#9ca3af" strokeDasharray="5 5" />
+          {visibleChartModels.map(model => chartMode === 'dailyProfit'
+            ? <Bar key={model.key} dataKey={`${chart.prefix}${model.key}`} name={model.short} fill={model.color} radius={[3, 3, 0, 0]} maxBarSize={34} />
+            : <Line
+              key={model.key}
+              type="monotone"
+              dataKey={`${chart.prefix}${model.key}`}
+              name={model.short}
+              stroke={model.color}
+              strokeWidth={model.key === 'combined' ? 3.5 : 1.8}
+              strokeOpacity={model.key === 'combined' ? 1 : 0.78}
+              dot={false}
+              connectNulls={false}
+            />)}
+        </ComposedChart>
       </ResponsiveContainer> : <div className="comparison-empty">この期間の確定結果はまだありません。</div>}
-    </section>
-
-    <section className="how-to-read">
-      <h3>この画面の見方</h3>
-      <p><strong>収支</strong>が最終結果、<strong>ROI</strong>が投資効率です。最大ドローダウンは、途中でどれほど資金が減る可能性があったかを示します。前期間比と7日移動ROIが継続して上向くモデルほど、学習改善の候補として追いやすくなります。</p>
-      <p>短期間の大当たりだけで順位が上がることもあるため、「対象数が十分か」「最大損失が大きすぎないか」も一緒に確認してください。</p>
-      <div className="learning-status-note">
-        <strong>自動学習の現状</strong>
-        <span>毎週月曜、新しい結果がある場合に基本予測内のLightGBMを再学習し、旧モデル以上の精度なら更新します。Gemini・Grok・Codexと3種類の学習Gemmaは、現在は成績比較の対象であり、日々の結果から自動で再学習する仕組みにはつながっていません。</span>
-      </div>
     </section>
   </main>;
 };

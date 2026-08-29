@@ -4,11 +4,12 @@
   1. collect_jleague.py        当年のJリーグ結果を更新（答え合わせ用）
   2. fetch_toto_round.py       販売中の回・対象試合・締切を取得 → round_*.json
   3. settle_results.py         終了済み試合の答え合わせ → settled_*.json
-  4. predict_gemini.py <回号>  まだ予測していない回だけ Gemini 予測（quota節約・冪等）
+  4. fetch_toto_results.py     toto公式から確定結果・当せん金を取得
+  5. predict_gemini.py <回号>  まだ予測していない回だけ Gemini 予測（quota節約・冪等）
                                ※統計モデルの確率も予測内に同梱される
-  5. predict_codex.py <回号>   ChatGPT認証の Codex で未予測回を一括予測
-  6. generate_toto_data.py     表示データ → dashboard/public/daily_data/toto_info.json
-  7. git add/commit/push       GitHub Pages へ公開
+  6. predict_codex.py <回号>   ChatGPT認証の Codex で未予測回を一括予測
+  7. generate_toto_data.py     表示データ → dashboard/public/daily_data/toto_info.json
+  8. git add/commit/push       GitHub Pages へ公開
 
 壊れにくさ: スクレイピングや API が失敗しても表示データ生成までは続ける。
 ただし予測失敗は終了コード1で呼び出し元へ通知し、タスク上で発見できるようにする。
@@ -141,7 +142,10 @@ def main():
     # 3. 先に答え合わせし、最新の結果を Codex の次回予測材料にする。
     run_py("toto/settle_results.py", allow_fail=True)
 
-    # 4. 未予測の回だけ Gemini 予測
+    # 4. toto公式の確定結果と等級別当せん金を取得（未発表の回はそのまま続行）。
+    run_py("toto/fetch_toto_results.py", allow_fail=True)
+
+    # 5. 未予測の回だけ Gemini 予測
     if skip_gemini:
         log("--skip-gemini 指定のため Gemini 予測をスキップ")
     else:
@@ -153,7 +157,7 @@ def main():
             else:
                 log(f"第{n}回はGemini予測済み（スキップ）")
 
-    # 5. 未予測の回だけ Codex で一括予測（ChatGPT契約側の利用枠）
+    # 6. 未予測の回だけ Codex で一括予測（ChatGPT契約側の利用枠）
     if skip_codex:
         log("--skip-codex 指定のため Codex 予測をスキップ")
     else:
@@ -165,10 +169,10 @@ def main():
             else:
                 log(f"第{n}回はCodex予測済み（スキップ）")
 
-    # 6. 表示データ生成
+    # 7. 表示データ生成
     run_py("toto/generate_toto_data.py", allow_fail=True)
 
-    # 7. 公開
+    # 8. 公開
     publish(no_push=no_push)
 
     log(f"===== 完了（所要 {datetime.now() - t0}） =====")

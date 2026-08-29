@@ -191,6 +191,7 @@ def _trend(
 ) -> list[dict[str, Any]]:
     dates = sorted({row["date"] for rows in current_by_model.values() for row in rows})
     cumulative = defaultdict(float)
+    peak = defaultdict(float)
     output = []
     for date_text in dates:
         row: dict[str, Any] = {"date": date_text, "label": date_text[5:]}
@@ -201,14 +202,21 @@ def _trend(
             key = model["key"]
             daily_profit = sum(item["profit"] for item in current_by_model[key] if item["date"] == date_text)
             cumulative[key] += daily_profit
+            peak[key] = max(peak[key], cumulative[key])
+            row[f"daily_profit_{key}"] = round(daily_profit)
             row[f"profit_{key}"] = round(cumulative[key])
+            # 直近の最高収支から現在まで、いくら落ちているかを負の値で表す。
+            row[f"drawdown_{key}"] = round(cumulative[key] - peak[key])
             combined_daily_profit += daily_profit
             rolling_records = _filter_dates(all_by_model[key], rolling_start, date_text)
             rolling_metrics = _metrics(rolling_records)
             row[f"roi_{key}"] = rolling_metrics["roi"]
             rolling_combined.extend({**item, "source": key, "id": f"{item['id']}::{key}"} for item in rolling_records)
         cumulative["combined"] += combined_daily_profit
+        peak["combined"] = max(peak["combined"], cumulative["combined"])
+        row["daily_profit_combined"] = round(combined_daily_profit)
         row["profit_combined"] = round(cumulative["combined"])
+        row["drawdown_combined"] = round(cumulative["combined"] - peak["combined"])
         row["roi_combined"] = _metrics(rolling_combined)["roi"]
         output.append(row)
     return output
@@ -320,7 +328,7 @@ def format_line_report(payload: dict[str, Any] | None = None, period_key: str = 
     combined = period["combined"]
     lines = [
         f"📊 ボートレース モデル比較｜{period['label']}",
-        f"集計: {period['start_date'] or '開始日'}〜{period['end_date'] or '-'}",
+        f"対象: {period['start_date'] or '開始日'}〜{period['end_date'] or '-'}の確定結果",
         "",
         "【全モデル合計】",
         f"収支 {_yen(combined['profit'])}｜ROI {combined['roi'] if combined['roi'] is not None else '-'}%",
@@ -330,14 +338,14 @@ def format_line_report(payload: dict[str, Any] | None = None, period_key: str = 
         "【モデル別ランキング（収支順）】",
     ]
     for model in period["models"]:
-        change = ""
+        change = "比較なし"
         if model["roi_change"] is not None:
-            change = f"｜前期比 {model['roi_change']:+.1f}pt"
-        lines.append(
-            f"{model['rank']}. {model['short']} {_yen(model['profit'])}｜"
-            f"ROI {model['roi'] if model['roi'] is not None else '-'}%｜"
-            f"的中 {model['hit_rate'] if model['hit_rate'] is not None else '-'}%｜{model['n']}R{change}"
-        )
+            label = "前7日比" if period_key == "weekly" else "前30日比"
+            change = f"{label} {model['roi_change']:+.1f}pt"
+        lines.extend([
+            f"{model['rank']}位 {model['short']}　{_yen(model['profit'])}",
+            f"   的中 {model['hit_rate'] if model['hit_rate'] is not None else '-'}%｜{change}",
+        ])
     lines.extend([
         "",
         "※重複買い目もモデルごとに別口で計算",

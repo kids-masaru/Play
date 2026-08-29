@@ -70,14 +70,39 @@ def pick_display_kuji(round_data):
 
 
 def load_payouts():
-    """各回の1等当せん金(1口=100円あたり,円) {round(str): {toto:.., mini_a:.., mini_b:..}}。"""
-    ppath = os.path.join(DATA_DIR, "manual_payouts.json")
-    if not os.path.exists(ppath):
-        return {}
+    """公式自動取得を基本にし、手入力がある項目だけを上書きして返す。"""
+    official_path = os.path.join(DATA_DIR, "official_results.json")
+    manual_path = os.path.join(DATA_DIR, "manual_payouts.json")
     try:
-        return load_json(ppath)
+        merged = load_json(official_path) if os.path.exists(official_path) else {}
     except Exception:
-        return {}
+        merged = {}
+    try:
+        manual = load_json(manual_path) if os.path.exists(manual_path) else {}
+    except Exception:
+        manual = {}
+    for round_no, values in manual.items():
+        if not isinstance(values, dict):
+            continue
+        target = merged.setdefault(str(round_no), {})
+        for key, value in (values or {}).items():
+            if key == "detail":
+                target.setdefault("detail", {}).update(value or {})
+            else:
+                target[key] = value
+    return merged
+
+
+def load_official_actual(round_no, kuji_key):
+    """公式結果の並びをH/D/Aで返す。未取得なら空配列。"""
+    path = os.path.join(DATA_DIR, "official_results.json")
+    if not os.path.exists(path):
+        return []
+    try:
+        round_result = load_json(path).get(str(round_no), {})
+        return (round_result.get("results", {}) or {}).get(kuji_key, []) or []
+    except Exception:
+        return []
 
 
 def load_game_actual(round_no):
@@ -125,12 +150,14 @@ def build(round_no, kuji_key=None, stats_model=None):
                        for m in toto_sec.get("matches", [])}
 
     matches = []
+    official_actual = load_official_actual(round_no, kuji_key)
     stat_n = stat_h = gem_n = gem_h = codex_n = codex_h = 0
-    for m in sec["matches"]:
+    for match_index, m in enumerate(sec["matches"]):
         key = (m.get("date"), m.get("home"), m.get("away"))
         g = gidx.get(key) or {}
         c = cidx.get(key) or {}
-        actual = game_actual.get(key, "")
+        # toto公式のくじ結果を最優先にし、未取得時だけJリーグ収集結果へ戻す。
+        actual = official_actual[match_index] if match_index < len(official_actual) else game_actual.get(key, "")
         gp = g.get("pick", "")
         cp = c.get("pick", "")
         # 統計確率はAI予測の成否と切り離す。古い予測ファイルに無い場合も最新履歴から補う。

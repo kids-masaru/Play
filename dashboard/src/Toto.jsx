@@ -736,7 +736,7 @@ const RoundsTable = ({ rounds, userByMid }) => {
       </div>
       <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary, #6b7280)', marginTop: '0.5rem', lineHeight: 1.6 }}>
         ※「確定 3/5」＝5試合中3つだけ結果が出ている状態。全試合が確定して全問的中して初めて当せん（🎉）。<br />
-        ※ 1等配当：CO＝該当者なしでキャリーオーバー、未取得＝結果がまだ公式反映前。
+        ※ 1等配当：CO＝該当者なしでキャリーオーバー。未取得は公式未発表または一時的な取得失敗で、次回更新時に自動再取得します。
       </div>
     </div>
   );
