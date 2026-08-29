@@ -1126,8 +1126,24 @@
       "round": 1647,
       "kuji": "toto",
       "kuji_label": "toto (13試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 0,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 0,
+          "count": 0
+        },
+        {
+          "rank": "2等",
+          "amount": 778980,
+          "count": 10
+        },
+        {
+          "rank": "3等",
+          "amount": 39540,
+          "count": 197
+        }
+      ],
       "deadline": "2026-08-22 14:50",
       "result_date": "2026-08-22",
       "generated_date": "2026-08-29",
@@ -1140,12 +1156,12 @@
           "hits": 5
         },
         "gemini": {
-          "n": 12,
-          "hits": 5
+          "n": 13,
+          "hits": 6
         },
         "codex": {
-          "n": 12,
-          "hits": 4
+          "n": 13,
+          "hits": 5
         }
       },
       "matches": [
@@ -1184,7 +1200,7 @@
           "codex_pick": "D",
           "codex_confidence": "30%",
           "codex_reasoning": "モデル情報がなく数値的な優劣を置けないため、拮抗カードとして引き分けを選択。根拠が限定的で不確実性は高い。",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1647-3",
@@ -1423,8 +1439,14 @@
       "round": 1647,
       "kuji": "mini_a",
       "kuji_label": "mini toto-A (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 19420,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 19420,
+          "count": 380
+        }
+      ],
       "deadline": "2026-08-22 17:50",
       "result_date": "2026-08-22",
       "generated_date": "2026-08-29",
@@ -1437,12 +1459,12 @@
           "hits": 1
         },
         "gemini": {
-          "n": 4,
-          "hits": 1
+          "n": 5,
+          "hits": 2
         },
         "codex": {
-          "n": 4,
-          "hits": 1
+          "n": 5,
+          "hits": 2
         }
       },
       "matches": [
@@ -1481,7 +1503,7 @@
           "codex_pick": "D",
           "codex_confidence": "30%",
           "codex_reasoning": "モデル情報がなく数値的な優劣を置けないため、拮抗カードとして引き分けを選択。根拠が限定的で不確実性は高い。",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1647-3",
@@ -1552,8 +1574,14 @@
       "round": 1647,
       "kuji": "mini_b",
       "kuji_label": "mini toto-B (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 9210,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 9210,
+          "count": 550
+        }
+      ],
       "deadline": "2026-08-22 14:50",
       "result_date": "2026-08-22",
       "generated_date": "2026-08-29",
@@ -1686,8 +1714,24 @@
       "round": 1645,
       "kuji": "toto",
       "kuji_label": "toto (13試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 40406130,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 40406130,
+          "count": 1
+        },
+        {
+          "rank": "2等",
+          "amount": 666030,
+          "count": 13
+        },
+        {
+          "rank": "3等",
+          "amount": 46800,
+          "count": 185
+        }
+      ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
       "generated_date": "2026-08-29",
@@ -1988,8 +2032,14 @@
       "round": 1645,
       "kuji": "mini_a",
       "kuji_label": "mini toto-A (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 5150,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 5150,
+          "count": 1295
+        }
+      ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
       "generated_date": "2026-08-29",
@@ -2122,8 +2172,14 @@
       "round": 1645,
       "kuji": "mini_b",
       "kuji_label": "mini toto-B (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 22630,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 22630,
+          "count": 256
+        }
+      ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
       "generated_date": "2026-08-29",
@@ -2510,7 +2566,13 @@
       "kuji": "mini_a",
       "kuji_label": "mini toto-A (5試合)",
       "payout": 32930,
-      "payout_detail": null,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 32930,
+          "count": 311
+        }
+      ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
       "generated_date": "2026-08-29",
@@ -2619,7 +2681,13 @@
       "kuji": "mini_b",
       "kuji_label": "mini toto-B (5試合)",
       "payout": 740,
-      "payout_detail": null,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 740,
+          "count": 10097
+        }
+      ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
       "generated_date": "2026-08-29",
@@ -2727,22 +2795,38 @@
       "round": 1636,
       "kuji": "toto",
       "kuji_label": "toto (13試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 956590,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 956590,
+          "count": 100
+        },
+        {
+          "rank": "2等",
+          "amount": 6750,
+          "count": 3034
+        },
+        {
+          "rank": "3等",
+          "amount": 650,
+          "count": 31414
+        }
+      ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
       "generated_date": "2026-08-29",
       "has_gemini": true,
       "has_codex": false,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
           "n": 0,
           "hits": 0
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 13,
+          "hits": 9
         },
         "codex": {
           "n": 0,
@@ -2764,7 +2848,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1636-2",
@@ -2780,7 +2864,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1636-3",
@@ -2796,7 +2880,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1636-4",
@@ -2812,7 +2896,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1636-5",
@@ -2828,7 +2912,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1636-6",
@@ -2844,7 +2928,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1636-7",
@@ -2860,7 +2944,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1636-8",
@@ -2876,7 +2960,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1636-9",
@@ -2892,7 +2976,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1636-10",
@@ -2908,7 +2992,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1636-11",
@@ -2924,7 +3008,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1636-12",
@@ -2940,7 +3024,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1636-13",
@@ -2956,7 +3040,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "D"
         }
       ]
     },
@@ -2964,22 +3048,28 @@
       "round": 1636,
       "kuji": "mini_a",
       "kuji_label": "mini toto-A (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 220,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 220,
+          "count": 45543
+        }
+      ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
       "generated_date": "2026-08-29",
       "has_gemini": true,
       "has_codex": false,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
           "n": 0,
           "hits": 0
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 5
         },
         "codex": {
           "n": 0,
@@ -3001,7 +3091,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1636-2",
@@ -3017,7 +3107,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1636-3",
@@ -3033,7 +3123,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1636-4",
@@ -3049,7 +3139,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1636-5",
@@ -3065,7 +3155,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "H"
         }
       ]
     },
@@ -3073,22 +3163,28 @@
       "round": 1636,
       "kuji": "mini_b",
       "kuji_label": "mini toto-B (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 2870,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 2870,
+          "count": 3133
+        }
+      ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
       "generated_date": "2026-08-29",
       "has_gemini": true,
       "has_codex": false,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
           "n": 0,
           "hits": 0
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 3
         },
         "codex": {
           "n": 0,
@@ -3110,7 +3206,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1636-7",
@@ -3126,7 +3222,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1636-8",
@@ -3142,7 +3238,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1636-9",
@@ -3158,7 +3254,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1636-10",
@@ -3174,7 +3270,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "A"
         }
       ]
     },
@@ -3182,8 +3278,24 @@
       "round": 1635,
       "kuji": "toto",
       "kuji_label": "toto (13試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 1202060,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 1202060,
+          "count": 180
+        },
+        {
+          "rank": "2等",
+          "amount": 1740,
+          "count": 10876
+        },
+        {
+          "rank": "3等",
+          "amount": 220,
+          "count": 83654
+        }
+      ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
       "generated_date": "2026-08-29",
@@ -3196,8 +3308,8 @@
           "hits": 0
         },
         "gemini": {
-          "n": 9,
-          "hits": 7
+          "n": 13,
+          "hits": 11
         },
         "codex": {
           "n": 0,
@@ -3267,7 +3379,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1635-5",
@@ -3283,7 +3395,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1635-6",
@@ -3347,7 +3459,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1635-10",
@@ -3363,7 +3475,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1635-11",
@@ -3419,8 +3531,14 @@
       "round": 1635,
       "kuji": "mini_a",
       "kuji_label": "mini toto-A (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 450,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 450,
+          "count": 18823
+        }
+      ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
       "generated_date": "2026-08-29",
@@ -3433,8 +3551,8 @@
           "hits": 0
         },
         "gemini": {
-          "n": 3,
-          "hits": 3
+          "n": 5,
+          "hits": 5
         },
         "codex": {
           "n": 0,
@@ -3504,7 +3622,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1635-5",
@@ -3520,7 +3638,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "A"
         }
       ]
     },
@@ -3528,8 +3646,14 @@
       "round": 1635,
       "kuji": "mini_b",
       "kuji_label": "mini toto-B (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 810,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 810,
+          "count": 7254
+        }
+      ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
       "generated_date": "2026-08-29",
@@ -3542,8 +3666,8 @@
           "hits": 0
         },
         "gemini": {
-          "n": 3,
-          "hits": 2
+          "n": 5,
+          "hits": 4
         },
         "codex": {
           "n": 0,
@@ -3613,7 +3737,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1635-10",
@@ -3629,7 +3753,7 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
-          "result": ""
+          "result": "H"
         }
       ]
     },
@@ -3638,7 +3762,23 @@
       "kuji": "toto",
       "kuji_label": "toto (13試合)",
       "payout": 0,
-      "payout_detail": null,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 0,
+          "count": 0
+        },
+        {
+          "rank": "2等",
+          "amount": 7229170,
+          "count": 3
+        },
+        {
+          "rank": "3等",
+          "amount": 219060,
+          "count": 99
+        }
+      ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
       "generated_date": "2026-08-29",
@@ -3875,7 +4015,13 @@
       "kuji": "mini_a",
       "kuji_label": "mini toto-A (5試合)",
       "payout": 10140,
-      "payout_detail": null,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 10140,
+          "count": 795
+        }
+      ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
       "generated_date": "2026-08-29",
@@ -3984,7 +4130,13 @@
       "kuji": "mini_b",
       "kuji_label": "mini toto-B (5試合)",
       "payout": 67340,
-      "payout_detail": null,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 67340,
+          "count": 88
+        }
+      ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
       "generated_date": "2026-08-29",
