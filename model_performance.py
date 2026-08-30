@@ -279,7 +279,7 @@ def build_performance_payload() -> dict[str, Any]:
                 **combined_metrics,
             },
             "trend": _trend(MODELS, current_by_model, records_by_model, start, end),
-            # 基本GemmaはLINEの後方互換用には残すが、ダッシュボード比較からは完全に除外する。
+            # 基本Gemmaの予測記録は保持するが、表示用の比較・合計からは除外する。
             "dashboard": {
                 "models": dashboard_model_rows,
                 "combined": {
@@ -325,7 +325,9 @@ def format_line_report(payload: dict[str, Any] | None = None, period_key: str = 
     """個別買い目・答え合わせを含めない、モデル比較専用LINE文面。"""
     data = payload or build_performance_payload()
     period = data["periods"][period_key]
-    combined = period["combined"]
+    # LINEもダッシュボードと同じ6モデルを使い、基本Gemmaは合計・順位の両方から除外する。
+    report = period.get("dashboard", period)
+    combined = report["combined"]
     lines = [
         f"📊 ボートレース モデル比較｜{period['label']}",
         f"対象: {period['start_date'] or '開始日'}〜{period['end_date'] or '-'}の確定結果",
@@ -337,7 +339,7 @@ def format_line_report(payload: dict[str, Any] | None = None, period_key: str = 
         "",
         "【モデル別ランキング（収支順）】",
     ]
-    for model in period["models"]:
+    for model in report["models"]:
         change = "比較なし"
         if model["roi_change"] is not None:
             label = "前7日比" if period_key == "weekly" else "前30日比"
