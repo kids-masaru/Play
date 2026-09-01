@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import argparse
-import glob
 import json
 import os
 import shutil
@@ -15,12 +14,12 @@ from pathlib import Path
 from typing import Any
 
 from predict_gemini import build_context, collect_unique_matches, load_stats_model
+from model_feedback import STRATEGY_VERSION, load_model_feedback
 
 
 ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
 SCHEMA_PATH = ROOT / "codex_toto_schema.json"
-STRATEGY_VERSION = "feedback_v1"
 
 
 def configure_console() -> None:
@@ -63,61 +62,8 @@ def match_key(match: dict[str, Any]) -> str:
 
 
 def load_feedback(target_round: int) -> dict[str, Any]:
-    """対象回より前に確定した Codex 予測だけを集計する。"""
-    evaluated: list[dict[str, str]] = []
-    for raw_path in glob.glob(str(DATA_DIR / "codex_round_*.json")):
-        try:
-            codex_data = load_json(Path(raw_path))
-            round_no = int(codex_data.get("round", 0))
-        except (OSError, ValueError, TypeError, json.JSONDecodeError):
-            continue
-        if round_no >= target_round:
-            continue
-
-        settled_path = DATA_DIR / f"settled_{round_no}.json"
-        if not settled_path.is_file():
-            continue
-        try:
-            settled = load_json(settled_path)
-        except (OSError, json.JSONDecodeError):
-            continue
-        actual_by_key = {
-            match_key(item): str(item.get("actual", ""))
-            for item in settled.get("results", [])
-            if item.get("actual") in {"H", "D", "A"}
-        }
-        for prediction in codex_data.get("predictions", []):
-            predicted = str(prediction.get("pick", ""))
-            actual = actual_by_key.get(match_key(prediction), "")
-            if predicted in {"H", "D", "A"} and actual:
-                evaluated.append(
-                    {
-                        "home": str(prediction.get("home", "")),
-                        "away": str(prediction.get("away", "")),
-                        "predicted": predicted,
-                        "actual": actual,
-                    }
-                )
-
-    hits = sum(row["predicted"] == row["actual"] for row in evaluated)
-    by_pick: dict[str, dict[str, int]] = {}
-    for pick in ("H", "D", "A"):
-        rows = [row for row in evaluated if row["predicted"] == pick]
-        by_pick[pick] = {
-            "n": len(rows),
-            "hits": sum(row["actual"] == pick for row in rows),
-        }
-    recent_misses = [
-        row for row in evaluated if row["predicted"] != row["actual"]
-    ][-24:]
-    return {
-        "strategy_version": STRATEGY_VERSION,
-        "settled_predictions": len(evaluated),
-        "hits": hits,
-        "hit_rate": round(hits / len(evaluated), 4) if evaluated else None,
-        "by_predicted_pick": by_pick,
-        "recent_misses": recent_misses,
-    }
+    """共通実装を使い、Codex自身の確定済み予測だけを返す。"""
+    return load_model_feedback(DATA_DIR, target_round, "codex")
 
 
 def compact_match(match: dict[str, Any], stats: Any) -> dict[str, Any]:

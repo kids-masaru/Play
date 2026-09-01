@@ -35,7 +35,7 @@ const deadlineText = (deadline) => {
   return `あと約${h}時間`;
 };
 
-/** AI予想バッジ（統計 / Gemini / Codex） */
+/** AI予想バッジ（統計 / Gemini / Codex / Claude） */
 const AiPickBadge = ({ label, color, pick, sub }) => (
   <div className="toto-ai-badge" style={{ background: `${color}12`, borderColor: `${color}33` }}>
     <div style={{ fontSize: '0.72rem', color, fontWeight: 600, marginBottom: '0.15rem' }}>{label}</div>
@@ -65,6 +65,7 @@ const HitMark = ({ pick, result }) => {
 const MatchCard = ({ match, userPred, onPick }) => {
   const [geminiOpen, setGeminiOpen] = useState(false);
   const [codexOpen, setCodexOpen] = useState(false);
+  const [claudeOpen, setClaudeOpen] = useState(false);
   const stats = match.stats;
   // 統計モデルの確率（あれば）
   const statSub = stats
@@ -108,6 +109,10 @@ const MatchCard = ({ match, userPred, onPick }) => {
           <AiPickBadge label="Codex" color="#f97316" pick={match.codex_pick} sub={match.codex_confidence ? `自信${match.codex_confidence}` : null} />
           <HitMark pick={match.codex_pick} result={result} />
         </div>
+        <div className="toto-ai-result">
+          <AiPickBadge label="Claude" color="#d97706" pick={match.claude_pick} sub={match.claude_confidence ? `自信${match.claude_confidence}` : null} />
+          <HitMark pick={match.claude_pick} result={result} />
+        </div>
       </div>
 
       {/* Gemini推論（開閉） */}
@@ -130,6 +135,18 @@ const MatchCard = ({ match, userPred, onPick }) => {
           </summary>
           <div style={{ marginTop: '0.4rem', whiteSpace: 'pre-wrap', fontSize: '0.83rem', lineHeight: 1.7, color: 'var(--text-primary, #f3f4f6)' }}>
             {match.codex_reasoning}
+          </div>
+        </details>
+      )}
+
+      {/* Claude推論（開閉） */}
+      {match.claude_reasoning && (
+        <details open={claudeOpen} onToggle={(e) => setClaudeOpen(e.currentTarget.open)} style={{ marginTop: '0.55rem' }}>
+          <summary style={{ cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600, color: '#d97706', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+            <Brain size={14} /> Claudeの推論を{claudeOpen ? '閉じる' : '読む'}
+          </summary>
+          <div style={{ marginTop: '0.4rem', whiteSpace: 'pre-wrap', fontSize: '0.83rem', lineHeight: 1.7, color: 'var(--text-primary, #f3f4f6)' }}>
+            {match.claude_reasoning}
           </div>
         </details>
       )}
@@ -234,24 +251,27 @@ const ProgressSummary = ({ matches, userByMid }) => {
   const done = matches.filter((m) => userByMid[m.match_id]?.pick).length;
 
   // あなた vs AI の一致（両方予想あり）
-  let both = 0, agree = 0, codexBoth = 0, codexAgree = 0;
+  let both = 0, agree = 0, codexBoth = 0, codexAgree = 0, claudeBoth = 0, claudeAgree = 0;
   // 結果が出た試合での的中数
   let settledN = 0;
-  let uN = 0, uH = 0, gN = 0, gH = 0, cN = 0, cH = 0, sN = 0, sH = 0;
+  let uN = 0, uH = 0, gN = 0, gH = 0, cN = 0, cH = 0, clN = 0, clH = 0, sN = 0, sH = 0;
   matches.forEach((m) => {
     const up = userByMid[m.match_id]?.pick;
     if (up && m.gemini_pick) { both += 1; if (up === m.gemini_pick) agree += 1; }
     if (up && m.codex_pick) { codexBoth += 1; if (up === m.codex_pick) codexAgree += 1; }
+    if (up && m.claude_pick) { claudeBoth += 1; if (up === m.claude_pick) claudeAgree += 1; }
     if (m.result) {
       settledN += 1;
       if (up) { uN += 1; if (up === m.result) uH += 1; }
       if (m.gemini_pick) { gN += 1; if (m.gemini_pick === m.result) gH += 1; }
       if (m.codex_pick) { cN += 1; if (m.codex_pick === m.result) cH += 1; }
+      if (m.claude_pick) { clN += 1; if (m.claude_pick === m.result) clH += 1; }
       if (m.stats?.pick) { sN += 1; if (m.stats.pick === m.result) sH += 1; }
     }
   });
   const agreeRate = both > 0 ? `${Math.round((agree / both) * 100)}%` : '—';
   const codexAgreeRate = codexBoth > 0 ? `${Math.round((codexAgree / codexBoth) * 100)}%` : '—';
+  const claudeAgreeRate = claudeBoth > 0 ? `${Math.round((claudeAgree / claudeBoth) * 100)}%` : '—';
 
   return (
     <div className="glass-card" style={{ padding: '1rem 1.25rem', marginBottom: '1.25rem' }}>
@@ -259,23 +279,25 @@ const ProgressSummary = ({ matches, userByMid }) => {
         <Metric label="予想入力" value={`${done}/${total}`} color="var(--accent-purple, #a78bfa)" />
         <Metric label="Geminiと一致" value={agreeRate} color="#10b981" />
         <Metric label="Codexと一致" value={codexAgreeRate} color="#f97316" />
+        <Metric label="Claudeと一致" value={claudeAgreeRate} color="#d97706" />
         {settledN > 0 && <>
           <Metric label={`あなた的中(${uH}/${uN})`} value={rate(uH, uN)} color="#8b5cf6" />
           <Metric label={`Gemini的中(${gH}/${gN})`} value={rate(gH, gN)} color="#a78bfa" />
           <Metric label={`Codex的中(${cH}/${cN})`} value={rate(cH, cN)} color="#f97316" />
+          <Metric label={`Claude的中(${clH}/${clN})`} value={rate(clH, clN)} color="#d97706" />
           <Metric label={`統計的中(${sH}/${sN})`} value={rate(sH, sN)} color="#60a5fa" />
         </>}
       </div>
       {settledN > 0 && (
         <div style={{ marginTop: '0.6rem', fontSize: '0.78rem', color: 'var(--text-secondary, #9ca3af)' }}>
-          ※ {settledN}試合の結果が確定。あなた・Gemini・Codex・統計モデルの的中率を比較中。
+          ※ {settledN}試合の結果が確定。あなた・Gemini・Codex・Claude・統計モデルの的中率を比較中。
         </div>
       )}
     </div>
   );
 };
 
-const SERIES = { stat: '#60a5fa', gemini: '#a78bfa', codex: '#f97316', user: '#ec4899' };
+const SERIES = { stat: '#60a5fa', gemini: '#a78bfa', codex: '#f97316', claude: '#d97706', user: '#ec4899' };
 
 /** グラフ群: 予想の傾向 + 的中率比較 */
 const TotoCharts = ({ matches, userByMid }) => {
@@ -285,31 +307,34 @@ const TotoCharts = ({ matches, userByMid }) => {
     { name: '引分(D)', key: 'D' },
     { name: 'アウェイ勝(A)', key: 'A' },
   ].map((row) => {
-    let stat = 0, gemini = 0, codex = 0, user = 0;
+    let stat = 0, gemini = 0, codex = 0, claude = 0, user = 0;
     matches.forEach((m) => {
       if (m.stats?.pick === row.key) stat += 1;
       if (m.gemini_pick === row.key) gemini += 1;
       if (m.codex_pick === row.key) codex += 1;
+      if (m.claude_pick === row.key) claude += 1;
       if (userByMid[m.match_id]?.pick === row.key) user += 1;
     });
-    return { name: row.name, 統計: stat, Gemini: gemini, Codex: codex, あなた: user };
+    return { name: row.name, 統計: stat, Gemini: gemini, Codex: codex, Claude: claude, あなた: user };
   });
 
   // 的中率: 結果が出た試合のみ
-  let uN = 0, uH = 0, gN = 0, gH = 0, cN = 0, cH = 0, sN = 0, sH = 0;
+  let uN = 0, uH = 0, gN = 0, gH = 0, cN = 0, cH = 0, clN = 0, clH = 0, sN = 0, sH = 0;
   matches.forEach((m) => {
     if (!m.result) return;
     const up = userByMid[m.match_id]?.pick;
     if (up) { uN += 1; if (up === m.result) uH += 1; }
     if (m.gemini_pick) { gN += 1; if (m.gemini_pick === m.result) gH += 1; }
     if (m.codex_pick) { cN += 1; if (m.codex_pick === m.result) cH += 1; }
+    if (m.claude_pick) { clN += 1; if (m.claude_pick === m.result) clH += 1; }
     if (m.stats?.pick) { sN += 1; if (m.stats.pick === m.result) sH += 1; }
   });
-  const hasResult = (uN + gN + cN + sN) > 0;
+  const hasResult = (uN + gN + cN + clN + sN) > 0;
   const acc = [
     { name: '統計', 的中率: sN ? Math.round((sH / sN) * 100) : 0, color: SERIES.stat },
     { name: 'Gemini', 的中率: gN ? Math.round((gH / gN) * 100) : 0, color: SERIES.gemini },
     { name: 'Codex', 的中率: cN ? Math.round((cH / cN) * 100) : 0, color: SERIES.codex },
+    { name: 'Claude', 的中率: clN ? Math.round((clH / clN) * 100) : 0, color: SERIES.claude },
     { name: 'あなた', 的中率: uN ? Math.round((uH / uN) * 100) : 0, color: SERIES.user },
   ];
 
@@ -333,6 +358,7 @@ const TotoCharts = ({ matches, userByMid }) => {
             <Bar dataKey="統計" fill={SERIES.stat} radius={[3, 3, 0, 0]} />
             <Bar dataKey="Gemini" fill={SERIES.gemini} radius={[3, 3, 0, 0]} />
             <Bar dataKey="Codex" fill={SERIES.codex} radius={[3, 3, 0, 0]} />
+            <Bar dataKey="Claude" fill={SERIES.claude} radius={[3, 3, 0, 0]} />
             <Bar dataKey="あなた" fill={SERIES.user} radius={[3, 3, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
@@ -357,7 +383,7 @@ const TotoCharts = ({ matches, userByMid }) => {
           </ResponsiveContainer>
         ) : (
           <div style={{ height: 220, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: 'var(--text-secondary, #9ca3af)', fontSize: '0.85rem', lineHeight: 1.7 }}>
-            試合結果が出ると、<br />統計・Gemini・Codex・あなたの的中率を<br />ここで比較します。
+            試合結果が出ると、<br />統計・Gemini・Codex・Claude・あなたの的中率を<br />ここで比較します。
           </div>
         )}
       </div>
@@ -431,6 +457,7 @@ const KujiVerdict = ({ kujiLabel, matches, userByMid, payout }) => {
     { name: 'あなた', color: SERIES.user, e: evalP((m) => userByMid[m.match_id]?.pick) },
     { name: 'Gemini', color: SERIES.gemini, e: evalP((m) => m.gemini_pick) },
     { name: 'Codex', color: SERIES.codex, e: evalP((m) => m.codex_pick) },
+    { name: 'Claude', color: SERIES.claude, e: evalP((m) => m.claude_pick) },
     { name: '統計', color: SERIES.stat, e: evalP((m) => m.stats?.pick) },
   ];
 
@@ -489,6 +516,7 @@ const MoneySummary = ({ rounds, kuji, kujiLabel, userByMid }) => {
     { name: 'あなた', color: SERIES.user, m: calc((mm) => userByMid[mm.match_id]?.pick) },
     { name: 'Gemini', color: SERIES.gemini, m: calc((mm) => mm.gemini_pick) },
     { name: 'Codex', color: SERIES.codex, m: calc((mm) => mm.codex_pick) },
+    { name: 'Claude', color: SERIES.claude, m: calc((mm) => mm.claude_pick) },
     { name: '統計', color: SERIES.stat, m: calc((mm) => mm.stats?.pick) },
   ];
 
@@ -538,13 +566,14 @@ const BalanceTrendToto = ({ rounds, kuji, kujiLabel, userByMid }) => {
     あなた: (m) => userByMid[m.match_id]?.pick,
     Gemini: (m) => m.gemini_pick,
     Codex: (m) => m.codex_pick,
+    Claude: (m) => m.claude_pick,
     統計: (m) => (m.stats ? m.stats.pick : ''),
   };
   // 1回でも券を買った系列だけ描画（統計は国際試合で買えず=非表示にする）
   const active = Object.keys(getters).filter((k) => done.some((r) => r.matches.every((m) => !!getters[k](m))));
   if (active.length === 0) return null;
 
-  const cum = { あなた: 0, Gemini: 0, Codex: 0, 統計: 0 };
+  const cum = { あなた: 0, Gemini: 0, Codex: 0, Claude: 0, 統計: 0 };
   const data = done.map((r) => {
     const row = { name: `第${r.round}回` };
     active.forEach((k) => {
@@ -557,7 +586,7 @@ const BalanceTrendToto = ({ rounds, kuji, kujiLabel, userByMid }) => {
 
   const axis = { stroke: 'var(--text-secondary, #9ca3af)', fontSize: 12, tickLine: false, axisLine: false };
   const tip = { backgroundColor: '#ffffff', border: '1px solid #d1d5db', borderRadius: '8px', color: '#111827', fontSize: '0.8rem' };
-  const colorOf = { あなた: SERIES.user, Gemini: SERIES.gemini, Codex: SERIES.codex, 統計: SERIES.stat };
+  const colorOf = { あなた: SERIES.user, Gemini: SERIES.gemini, Codex: SERIES.codex, Claude: SERIES.claude, 統計: SERIES.stat };
   return (
     <div className="glass-card" style={{ padding: '1rem 1.1rem', marginBottom: '1.25rem' }}>
       <h3 style={{ margin: '0 0 0.25rem 0', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
@@ -591,6 +620,7 @@ const RoundTrend = ({ rounds, userByMid, kuji, kujiLabel }) => {
       const sm = r.summary || {};
       const g = sm.gemini || { n: 0, hits: 0 };
       const c = sm.codex || { n: 0, hits: 0 };
+      const cl = sm.claude || { n: 0, hits: 0 };
       const s = sm.stat || { n: 0, hits: 0 };
       let uN = 0, uH = 0;
       r.matches.forEach((m) => {
@@ -603,6 +633,7 @@ const RoundTrend = ({ rounds, userByMid, kuji, kujiLabel }) => {
         統計: s.n ? Math.round((s.hits / s.n) * 100) : null,
         Gemini: g.n ? Math.round((g.hits / g.n) * 100) : null,
         Codex: c.n ? Math.round((c.hits / c.n) * 100) : null,
+        Claude: cl.n ? Math.round((cl.hits / cl.n) * 100) : null,
         あなた: uN ? Math.round((uH / uN) * 100) : null,
       };
     });
@@ -616,7 +647,7 @@ const RoundTrend = ({ rounds, userByMid, kuji, kujiLabel }) => {
         <BarChart3 size={17} /> 回ごとの的中率の経緯（{kujiLabel} / 答え合わせ済み {data.length} 回）
       </h3>
       <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #9ca3af)', marginBottom: '0.6rem' }}>
-        各回の的中率(%)を統計・Gemini・Codex・あなたで比較。※統計モデルはJリーグ対戦のみ（国際試合は空）。
+        各回の的中率(%)を統計・Gemini・Codex・Claude・あなたで比較。※統計モデルはJリーグ対戦のみ（国際試合は空）。
       </div>
       <ResponsiveContainer width="100%" height={240}>
         <LineChart data={data} margin={{ top: 5, right: 10, bottom: 0, left: -10 }}>
@@ -628,6 +659,7 @@ const RoundTrend = ({ rounds, userByMid, kuji, kujiLabel }) => {
           <Line dataKey="統計" stroke={SERIES.stat} connectNulls dot={{ r: 3 }} strokeWidth={2} />
           <Line dataKey="Gemini" stroke={SERIES.gemini} connectNulls dot={{ r: 3 }} strokeWidth={2} />
           <Line dataKey="Codex" stroke={SERIES.codex} connectNulls dot={{ r: 3 }} strokeWidth={2} />
+          <Line dataKey="Claude" stroke={SERIES.claude} connectNulls dot={{ r: 3 }} strokeWidth={2} />
           <Line dataKey="あなた" stroke={SERIES.user} connectNulls dot={{ r: 3 }} strokeWidth={2} />
         </LineChart>
       </ResponsiveContainer>
@@ -706,6 +738,7 @@ const RoundsTable = ({ rounds, userByMid }) => {
               <th style={{ ...th, color: SERIES.stat }}>統計</th>
               <th style={{ ...th, color: SERIES.gemini }}>Gemini</th>
               <th style={{ ...th, color: SERIES.codex }}>Codex</th>
+              <th style={{ ...th, color: SERIES.claude }}>Claude</th>
               <th style={{ ...th, color: SERIES.user }}>あなた</th>
               <th style={th}>1等配当</th>
             </tr>
@@ -717,6 +750,7 @@ const RoundsTable = ({ rounds, userByMid }) => {
               const eS = evalP(r.matches, (m) => m.stats?.pick);
               const eG = evalP(r.matches, (m) => m.gemini_pick);
               const eC = evalP(r.matches, (m) => m.codex_pick);
+              const eCl = evalP(r.matches, (m) => m.claude_pick);
               const eU = evalP(r.matches, (m) => userByMid[m.match_id]?.pick);
               return (
                 <tr key={`${r.round}-${r.kuji}`}>
@@ -726,6 +760,7 @@ const RoundsTable = ({ rounds, userByMid }) => {
                   <HitCell total={total} settledN={settledN} e={eS} color={SERIES.stat} />
                   <HitCell total={total} settledN={settledN} e={eG} color={SERIES.gemini} />
                   <HitCell total={total} settledN={settledN} e={eC} color={SERIES.codex} />
+                  <HitCell total={total} settledN={settledN} e={eCl} color={SERIES.claude} />
                   <HitCell total={total} settledN={settledN} e={eU} color={SERIES.user} />
                   <td style={td}>{payoutText(r.payout)}</td>
                 </tr>
@@ -875,7 +910,7 @@ const Toto = () => {
             {roundsData.rounds.map((r) => {
               const sm = r.summary;
               const tag = r.settled
-                ? `結果あり${sm && sm.gemini && sm.gemini.n ? ` (Gemini ${sm.gemini.hits}/${sm.gemini.n})` : ''}${sm && sm.codex && sm.codex.n ? ` (Codex ${sm.codex.hits}/${sm.codex.n})` : ''}`
+                ? `結果あり${sm && sm.gemini && sm.gemini.n ? ` (Gemini ${sm.gemini.hits}/${sm.gemini.n})` : ''}${sm && sm.codex && sm.codex.n ? ` (Codex ${sm.codex.hits}/${sm.codex.n})` : ''}${sm && sm.claude && sm.claude.n ? ` (Claude ${sm.claude.hits}/${sm.claude.n})` : ''}`
                 : (deadlineText(r.deadline) || '');
               const key = `${r.round}-${r.kuji}`;
               return <option key={key} value={key}>第{r.round}回 {r.kuji_label || r.kuji}{tag ? ` / ${tag}` : ''}</option>;
@@ -895,6 +930,11 @@ const Toto = () => {
       {!info.has_codex && (
         <div className="glass-card" style={{ padding: '0.6rem 0.9rem', marginBottom: '1rem', fontSize: '0.8rem', color: 'var(--text-secondary, #9ca3af)' }}>
           ※ この回はまだ AI(Codex) 予想が未生成です。次回の週次更新から自動で作成されます。
+        </div>
+      )}
+      {!info.has_claude && (
+        <div className="glass-card" style={{ padding: '0.6rem 0.9rem', marginBottom: '1rem', fontSize: '0.8rem', color: 'var(--text-secondary, #9ca3af)' }}>
+          ※ この回はまだ AI(Claude) 予想が未生成です。販売中の次回更新から自動で作成されます。
         </div>
       )}
 
@@ -924,7 +964,7 @@ const Toto = () => {
       </div>
 
       <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary, #9ca3af)', marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-        <Trophy size={13} /> 結果が出た回は上の「回を選ぶ」で切替えて答え合わせ（あなた・Gemini・Codex・統計）を確認できます。
+        <Trophy size={13} /> 結果が出た回は上の「回を選ぶ」で切替えて答え合わせ（あなた・Gemini・Codex・Claude・統計）を確認できます。
       </div>
     </div>
   );

@@ -62,6 +62,7 @@ const RaceList = ({ races, userPreds, onSelect }) => {
         const fcPicks = parseAiPicks(race.ai_picks_gemmaclaude);
         const gxPicks = parseAiPicks(race.ai_picks_gemmagrokx);
         const codexPicks = parseAiPicks(race.ai_picks_codex);
+        const claudePicks = parseAiPicks(race.ai_picks_claude);
         const hasUser = !!userByRid[race.race_id];
         const aiRow = (label, color, picks) => (
           <div className="battle-ai-row">
@@ -98,6 +99,7 @@ const RaceList = ({ races, userPreds, onSelect }) => {
               {aiRow('学Cla', '#06b6d4', fcPicks)}
               {aiRow('学Grok', '#f97316', gxPicks)}
               {aiRow('Codex', '#14b8a6', codexPicks)}
+              {aiRow('Claude', '#d97706', claudePicks)}
             </div>
           </div>
         );
@@ -114,6 +116,7 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
   const aiFc = parseAiPicks(race.ai_picks_gemmaclaude);
   const aiGx = parseAiPicks(race.ai_picks_gemmagrokx);
   const aiCodex = parseAiPicks(race.ai_picks_codex);
+  const aiClaude = parseAiPicks(race.ai_picks_claude);
 
   const [picks, setPicks] = useState(userPred?.picks?.join(', ') || '');
   const [stake, setStake] = useState(userPred?.stake || '');
@@ -247,6 +250,12 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
               {aiCodex.length > 0 ? aiCodex.map((p, i) => <div key={i}>{p.combo}{p.stake ? `  ¥${p.stake}` : ''}</div>) : '(なし)'}
             </div>
           </div>
+          <div style={{ padding: '0.5rem', background: 'rgba(217,119,6,0.07)', borderRadius: '6px' }}>
+            <div style={{ fontSize: '0.8rem', color: '#d97706', marginBottom: '0.25rem', fontWeight: 600 }}>Claude</div>
+            <div style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>
+              {aiClaude.length > 0 ? aiClaude.map((p, i) => <div key={i}>{p.combo}{p.stake ? `  ¥${p.stake}` : ''}</div>) : '(なし)'}
+            </div>
+          </div>
         </div>
         {race.ai_prediction_gemini && (
           <details open style={{ marginTop: '0.75rem', borderTop: '1px solid var(--border, #374151)', paddingTop: '0.75rem' }}>
@@ -304,6 +313,12 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
           <details open style={{ marginTop: '0.75rem', borderTop: '1px solid var(--border, #374151)', paddingTop: '0.75rem' }}>
             <summary style={{ cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600, color: '#14b8a6' }}>Codex の予測理由</summary>
             <div style={{ marginTop: '0.5rem', whiteSpace: 'pre-wrap', fontSize: '0.85rem', lineHeight: 1.7 }}>{race.ai_log_codex || race.ai_prediction_codex}</div>
+          </details>
+        )}
+        {race.ai_prediction_claude && (
+          <details open style={{ marginTop: '0.75rem', borderTop: '1px solid var(--border, #374151)', paddingTop: '0.75rem' }}>
+            <summary style={{ cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600, color: '#d97706' }}>Claude の予測理由</summary>
+            <div style={{ marginTop: '0.5rem', whiteSpace: 'pre-wrap', fontSize: '0.85rem', lineHeight: 1.7 }}>{race.ai_log_claude || race.ai_prediction_claude}</div>
           </details>
         )}
       </div>
@@ -413,6 +428,7 @@ const buildSettled = (history, aiPredsByRid, userPreds) => {
     const fc = aiSide('stakes_gemmaclaude');
     const gx = aiSide('stakes_gemmagrokx');
     const codex = aiSide('stakes_codex');
+    const claude = aiSide('stakes_claude');
     // ユーザー: 1点あたり stake(既定100円)で全買い目に賭けたとみなす
     const u = userByRid[rid];
     const uStake = u ? (Number(u.stake) || 100) : 0;
@@ -423,8 +439,8 @@ const buildSettled = (history, aiPredsByRid, userPreds) => {
       rid,
       date: h.Date || '', venue: h.Venue || '', r: h.R || '',
       result, payout,
-      detPicks: det.picks, gemPicks: gem.picks, grokPicks: grok.picks, ftPicks: ft.picks, fcPicks: fc.picks, gxPicks: gx.picks, codexPicks: codex.picks,
-      detHit: det.hit, gemHit: gem.hit, grokHit: grok.hit, ftHit: ft.hit, fcHit: fc.hit, gxHit: gx.hit, codexHit: codex.hit,
+      detPicks: det.picks, gemPicks: gem.picks, grokPicks: grok.picks, ftPicks: ft.picks, fcPicks: fc.picks, gxPicks: gx.picks, codexPicks: codex.picks, claudePicks: claude.picks,
+      detHit: det.hit, gemHit: gem.hit, grokHit: grok.hit, ftHit: ft.hit, fcHit: fc.hit, gxHit: gx.hit, codexHit: codex.hit, claudeHit: claude.hit,
       detMoney: { inv: det.inv, ret: det.ret },
       gemMoney: { inv: gem.inv, ret: gem.ret },
       grokMoney: { inv: grok.inv, ret: grok.ret },
@@ -432,6 +448,7 @@ const buildSettled = (history, aiPredsByRid, userPreds) => {
       fcMoney: { inv: fc.inv, ret: fc.ret },
       gxMoney: { inv: gx.inv, ret: gx.ret },
       codexMoney: { inv: codex.inv, ret: codex.ret },
+      claudeMoney: { inv: claude.inv, ret: claude.ret },
       hasUser: !!u,
       userPicks: u ? u.picks : [],
       userHit: uHit,
@@ -460,13 +477,14 @@ const HitRateTrend = ({ settled }) => {
   settled.forEach(s => {
     const m = (s.date || '').slice(0, 7); // YYYY-MM
     if (!m) return;
-    const b = byMonth[m] || (byMonth[m] = { month: m, gN: 0, gH: 0, grN: 0, grH: 0, fN: 0, fH: 0, cN: 0, cH: 0, xN: 0, xH: 0, codexN: 0, codexH: 0, uN: 0, uH: 0 });
+    const b = byMonth[m] || (byMonth[m] = { month: m, gN: 0, gH: 0, grN: 0, grH: 0, fN: 0, fH: 0, cN: 0, cH: 0, xN: 0, xH: 0, codexN: 0, codexH: 0, claudeN: 0, claudeH: 0, uN: 0, uH: 0 });
     if (s.gemPicks.length) { b.gN++; if (s.gemHit) b.gH++; }
     if (s.grokPicks.length) { b.grN++; if (s.grokHit) b.grH++; }
     if (s.ftPicks.length) { b.fN++; if (s.ftHit) b.fH++; }
     if (s.fcPicks.length) { b.cN++; if (s.fcHit) b.cH++; }
     if (s.gxPicks.length) { b.xN++; if (s.gxHit) b.xH++; }
     if (s.codexPicks.length) { b.codexN++; if (s.codexHit) b.codexH++; }
+    if (s.claudePicks.length) { b.claudeN++; if (s.claudeHit) b.claudeH++; }
     if (s.hasUser) { b.uN++; if (s.userHit) b.uH++; }
   });
   const data = Object.values(byMonth)
@@ -477,6 +495,7 @@ const HitRateTrend = ({ settled }) => {
       Grok: b.grN ? Math.round(b.grH / b.grN * 100) : null,
       'Grok+X': b.xN ? Math.round(b.xH / b.xN * 100) : null,
       Codex: b.codexN ? Math.round(b.codexH / b.codexN * 100) : null,
+      Claude: b.claudeN ? Math.round(b.claudeH / b.claudeN * 100) : null,
       学習Gem: b.fN ? Math.round(b.fH / b.fN * 100) : null,
       学習Cla: b.cN ? Math.round(b.cH / b.cN * 100) : null,
       あなた: b.uN ? Math.round(b.uH / b.uN * 100) : null,
@@ -498,6 +517,7 @@ const HitRateTrend = ({ settled }) => {
           <Line dataKey="Grok" stroke="#a78bfa" connectNulls dot={false} strokeWidth={2} />
           <Line dataKey="Grok+X" stroke="#f97316" connectNulls dot={false} strokeWidth={2} />
           <Line dataKey="Codex" stroke="#14b8a6" connectNulls dot={false} strokeWidth={2} />
+          <Line dataKey="Claude" stroke="#d97706" connectNulls dot={false} strokeWidth={2} />
           <Line dataKey="学習Gem" stroke="#ec4899" connectNulls dot={false} strokeWidth={2} />
           <Line dataKey="学習Cla" stroke="#06b6d4" connectNulls dot={false} strokeWidth={2} />
           <Line dataKey="あなた" stroke="#8b5cf6" connectNulls dot={{ r: 3 }} strokeWidth={2.5} />
@@ -513,13 +533,14 @@ const BalanceTrend = ({ settled }) => {
   settled.forEach(s => {
     const d = s.date;
     if (!d) return;
-    const b = byDate[d] || (byDate[d] = { date: d, gem: 0, grok: 0, ft: 0, fc: 0, gx: 0, codex: 0, user: 0 });
+    const b = byDate[d] || (byDate[d] = { date: d, gem: 0, grok: 0, ft: 0, fc: 0, gx: 0, codex: 0, claude: 0, user: 0 });
     b.gem += s.gemMoney.ret - s.gemMoney.inv;
     b.grok += s.grokMoney.ret - s.grokMoney.inv;
     b.ft += s.ftMoney.ret - s.ftMoney.inv;
     b.fc += s.fcMoney.ret - s.fcMoney.inv;
     b.gx += s.gxMoney.ret - s.gxMoney.inv;
     b.codex += s.codexMoney.ret - s.codexMoney.inv;
+    b.claude += s.claudeMoney.ret - s.claudeMoney.inv;
     b.user += s.userMoney.ret - s.userMoney.inv;
   });
   const days = Object.values(byDate).sort((a, b) => a.date.localeCompare(b.date));
@@ -532,6 +553,7 @@ const BalanceTrend = ({ settled }) => {
       fc: state.totals.fc + day.fc,
       gx: state.totals.gx + day.gx,
       codex: state.totals.codex + day.codex,
+      claude: state.totals.claude + day.claude,
       user: state.totals.user + day.user,
     };
     const point = {
@@ -540,6 +562,7 @@ const BalanceTrend = ({ settled }) => {
       Grok: Math.round(totals.grok),
       'Grok+X': Math.round(totals.gx),
       Codex: Math.round(totals.codex),
+      Claude: Math.round(totals.claude),
       学習Gem: Math.round(totals.ft),
       学習Cla: Math.round(totals.fc),
       あなた: Math.round(totals.user),
@@ -550,7 +573,7 @@ const BalanceTrend = ({ settled }) => {
       userHasData: state.userHasData || day.user !== 0,
     };
   }, {
-    totals: { gem: 0, grok: 0, ft: 0, fc: 0, gx: 0, codex: 0, user: 0 },
+    totals: { gem: 0, grok: 0, ft: 0, fc: 0, gx: 0, codex: 0, claude: 0, user: 0 },
     data: [],
     userHasData: false,
   });
@@ -574,6 +597,7 @@ const BalanceTrend = ({ settled }) => {
           <Line dataKey="Grok" stroke="#a78bfa" dot={false} strokeWidth={2} />
           <Line dataKey="Grok+X" stroke="#f97316" dot={false} strokeWidth={2} />
           <Line dataKey="Codex" stroke="#14b8a6" dot={false} strokeWidth={2} />
+          <Line dataKey="Claude" stroke="#d97706" dot={false} strokeWidth={2} />
           <Line dataKey="学習Gem" stroke="#ec4899" dot={false} strokeWidth={2} />
           <Line dataKey="学習Cla" stroke="#06b6d4" dot={false} strokeWidth={2} />
           {userHasData && <Line dataKey="あなた" stroke="#8b5cf6" dot={false} strokeWidth={2.5} />}
@@ -608,7 +632,7 @@ const PastRaces = ({ settled }) => {
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem', minWidth: '560px' }}>
           <thead>
             <tr style={{ borderBottom: '1px solid var(--border, #374151)' }}>
-              {['日付', 'レース', '結果', 'Gemini', 'Grok', '学Gem', '学Cla', '学Grok', 'Codex', 'あなた'].map(h => <th key={h} style={th}>{h}</th>)}
+              {['日付', 'レース', '結果', 'Gemini', 'Grok', '学Gem', '学Cla', '学Grok', 'Codex', 'Claude', 'あなた'].map(h => <th key={h} style={th}>{h}</th>)}
             </tr>
           </thead>
           <tbody>
@@ -623,6 +647,7 @@ const PastRaces = ({ settled }) => {
                 <td style={td}><Pick picks={s.fcPicks} hit={s.fcHit} /></td>
                 <td style={td}><Pick picks={s.gxPicks} hit={s.gxHit} /></td>
                 <td style={td}><Pick picks={s.codexPicks} hit={s.codexHit} /></td>
+                <td style={td}><Pick picks={s.claudePicks} hit={s.claudeHit} /></td>
                 <td style={td}>{s.hasUser ? <Pick picks={s.userPicks} hit={s.userHit} /> : <span style={{ color: 'var(--text-secondary, #6b7280)' }}>-</span>}</td>
               </tr>
             ))}

@@ -36,6 +36,7 @@ MODELS = [
     {"key": "stakes_gemmaclaude", "label": "学習Gemma（Claude先生）", "short": "学Claude", "color": "#0891b2"},
     {"key": "stakes_gemmagrokx", "label": "学習Gemma（Grok+X先生）", "short": "学Grok+X", "color": "#ea580c"},
     {"key": "stakes_codex", "label": "Codex", "short": "Codex", "color": "#0d9488"},
+    {"key": "stakes_claude", "label": "Claude", "short": "Claude", "color": "#d97706"},
 ]
 DASHBOARD_MODELS = [model for model in MODELS if model["key"] != "stakes"]
 MODEL_BY_KEY = {model["key"]: model for model in MODELS}
@@ -248,7 +249,11 @@ def build_performance_payload() -> dict[str, Any]:
                 "roi_change": roi_change,
                 "direction": "up" if roi_change is not None and roi_change >= 5 else "down" if roi_change is not None and roi_change <= -5 else "flat",
             })
-        model_rows.sort(key=lambda item: (item["profit"], item["roi"] or -1), reverse=True)
+        # 参加直後で確定結果0件のモデルを「収支0円の首位」にしない。
+        model_rows.sort(
+            key=lambda item: (item["n"] > 0, item["profit"], item["roi"] or -1),
+            reverse=True,
+        )
         for index, model_row in enumerate(model_rows, 1):
             model_row["rank"] = index
 
@@ -325,7 +330,7 @@ def format_line_report(payload: dict[str, Any] | None = None, period_key: str = 
     """個別買い目・答え合わせを含めない、モデル比較専用LINE文面。"""
     data = payload or build_performance_payload()
     period = data["periods"][period_key]
-    # LINEもダッシュボードと同じ6モデルを使い、基本Gemmaは合計・順位の両方から除外する。
+    # LINEもダッシュボードと同じ表示対象モデルを使い、基本Gemmaは合計・順位から除外する。
     report = period.get("dashboard", period)
     combined = report["combined"]
     lines = [
@@ -340,6 +345,12 @@ def format_line_report(payload: dict[str, Any] | None = None, period_key: str = 
         "【モデル別ランキング（収支順）】",
     ]
     for model in report["models"]:
+        if model["n"] == 0:
+            lines.extend([
+                f"{model['rank']}位 {model['short']}　計測前",
+                "   的中 -｜次回の確定結果から集計",
+            ])
+            continue
         change = "比較なし"
         if model["roi_change"] is not None:
             label = "前7日比" if period_key == "weekly" else "前30日比"

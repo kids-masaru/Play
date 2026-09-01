@@ -4,6 +4,7 @@
   toto/data/round_<回号>.json          (fetch_toto_round.py)
   toto/data/gemini_round_<回号>.json    (predict_gemini.py) ※あれば
   toto/data/codex_round_<回号>.json     (predict_codex.py) ※あれば
+  toto/data/claude_round_<回号>.json    (predict_claude.py) ※あれば
 出力:
   dashboard/public/daily_data/toto_info.json
 
@@ -134,6 +135,9 @@ def build(round_no, kuji_key=None, stats_model=None):
     cpath = os.path.join(DATA_DIR, f"codex_round_{round_no}.json")
     codex = load_json(cpath) if os.path.exists(cpath) else None
     cidx = prediction_index(codex)
+    clpath = os.path.join(DATA_DIR, f"claude_round_{round_no}.json")
+    claude = load_json(clpath) if os.path.exists(clpath) else None
+    clidx = prediction_index(claude)
     game_actual = load_game_actual(round_no)
     payouts = load_payouts()
 
@@ -151,17 +155,19 @@ def build(round_no, kuji_key=None, stats_model=None):
 
     matches = []
     official_actual = load_official_actual(round_no, kuji_key)
-    stat_n = stat_h = gem_n = gem_h = codex_n = codex_h = 0
+    stat_n = stat_h = gem_n = gem_h = codex_n = codex_h = claude_n = claude_h = 0
     for match_index, m in enumerate(sec["matches"]):
         key = (m.get("date"), m.get("home"), m.get("away"))
         g = gidx.get(key) or {}
         c = cidx.get(key) or {}
+        cl = clidx.get(key) or {}
         # toto公式のくじ結果を最優先にし、未取得時だけJリーグ収集結果へ戻す。
         actual = official_actual[match_index] if match_index < len(official_actual) else game_actual.get(key, "")
         gp = g.get("pick", "")
         cp = c.get("pick", "")
+        clp = cl.get("pick", "")
         # 統計確率はAI予測の成否と切り離す。古い予測ファイルに無い場合も最新履歴から補う。
-        stats = g.get("stats") or c.get("stats")
+        stats = g.get("stats") or c.get("stats") or cl.get("stats")
         if not stats and stats_model:
             _, stats = build_context(m, stats_model)
         sp = (stats or {}).get("pick", "")
@@ -174,6 +180,10 @@ def build(round_no, kuji_key=None, stats_model=None):
                 codex_n += 1
                 if cp == actual:
                     codex_h += 1
+            if clp:
+                claude_n += 1
+                if clp == actual:
+                    claude_h += 1
             if sp:
                 stat_n += 1
                 if sp == actual:
@@ -194,6 +204,9 @@ def build(round_no, kuji_key=None, stats_model=None):
             "codex_pick": cp,
             "codex_confidence": c.get("confidence", ""),
             "codex_reasoning": c.get("reasoning", ""),
+            "claude_pick": clp,
+            "claude_confidence": cl.get("confidence", ""),
+            "claude_reasoning": cl.get("reasoning", ""),
             "result": actual,  # 確定結果 H/D/A（未確定は空）
         })
 
@@ -213,10 +226,12 @@ def build(round_no, kuji_key=None, stats_model=None):
         "generated_date": datetime.date.today().isoformat(),
         "has_gemini": gem is not None,
         "has_codex": codex is not None,
+        "has_claude": claude is not None,
         "settled": bool(n_settled),
         "summary": {"stat": {"n": stat_n, "hits": stat_h},
                     "gemini": {"n": gem_n, "hits": gem_h},
-                    "codex": {"n": codex_n, "hits": codex_h}},
+                    "codex": {"n": codex_n, "hits": codex_h},
+                    "claude": {"n": claude_n, "hits": claude_h}},
         "matches": matches,
     }
 
@@ -267,11 +282,15 @@ def main():
 
     n_gem = sum(1 for m in data["matches"] if m["gemini_pick"])
     n_codex = sum(1 for m in data["matches"] if m["codex_pick"])
+    n_claude = sum(1 for m in data["matches"] if m["claude_pick"])
     n_stat = sum(1 for m in data["matches"] if m["stats"])
     print(f"=== toto表示データ生成 ===")
     print(f"第{data['round']}回 ({data['kuji']}) 試合{len(data['matches'])} "
           f"/ 締切 {data['deadline']}")
-    print(f"Gemini予想あり {n_gem} / Codex予想あり {n_codex} / 統計予想あり {n_stat}")
+    print(
+        f"Gemini予想あり {n_gem} / Codex予想あり {n_codex} / "
+        f"Claude予想あり {n_claude} / 統計予想あり {n_stat}"
+    )
     print(f"→ {os.path.abspath(OUT_JSON)}")
 
     # --- 全回 × 全くじ種別(toto/mini-A/mini-B) を出力（回切替＋くじ切替で閲覧）---

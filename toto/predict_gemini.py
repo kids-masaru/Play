@@ -25,6 +25,9 @@ import json
 import glob
 import time
 import datetime
+from pathlib import Path
+
+from model_feedback import STRATEGY_VERSION, load_model_feedback
 import unicodedata
 import pandas as pd
 
@@ -218,7 +221,7 @@ def collect_unique_matches(round_data):
     return sorted(seen.values(), key=lambda x: (x["date"] or "", x["kickoff"] or ""))
 
 
-def predict_round(round_data, stats, model_obj, dry_run=False, existing_preds=None):
+def predict_round(round_data, stats, model_obj, dry_run=False, existing_preds=None, feedback=None):
     matches = collect_unique_matches(round_data)
     print(f"  対象 {len(matches)} 試合（toto/mini/goal3 和集合）")
     existing = {
@@ -240,6 +243,13 @@ def predict_round(round_data, stats, model_obj, dry_run=False, existing_preds=No
         prompt = PROMPT_TEMPLATE.format(
             home=m["home"], away=m["away"],
             date=m["date"], kickoff=m["kickoff"], context=ctx)
+        if feedback:
+            prompt += """
+
+【Gemini自身の確定済み予測フィードバック】
+対象回より前に確定したGemini自身の予測だけを集計したJSONです。他モデルの予測は
+含まれません。サンプル数を確認し、直近の外れへ過剰反応せず今回の統計を優先してください。
+""" + json.dumps(feedback, ensure_ascii=False, separators=(",", ":"))
         if dry_run:
             print(f"\n--- [{i}/{len(matches)}] {m['home']} vs {m['away']} "
                   f"({m['date']} {m['kickoff']}) stats={'有' if stat_out else '無'}")
@@ -264,11 +274,14 @@ def predict_round(round_data, stats, model_obj, dry_run=False, existing_preds=No
     return preds
 
 
-def save(round_no, preds, today, partial=False):
+def save(round_no, preds, today, partial=False, feedback_count=0):
     suffix = ".partial" if partial else ""
     path = os.path.join(DATA_DIR, f"gemini_round_{round_no}{suffix}.json")
     data = {"round": round_no, "model": MODEL_NAME,
-            "generated_date": today.isoformat(), "predictions": preds}
+            "strategy_version": STRATEGY_VERSION,
+            "generated_date": today.isoformat(),
+            "feedback_settled_count": feedback_count,
+            "predictions": preds}
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     return path
@@ -316,6 +329,8 @@ def main():
             round_data = json.load(fp)
         rno = round_data["round"]
         print(f"\n第{rno}回 ({os.path.basename(f)})")
+        feedback = load_model_feedback(Path(DATA_DIR), int(rno), "gemini")
+        print(f"  Gemini自己フィードバック: {feedback['settled_predictions']}試合")
         partial_path = os.path.join(DATA_DIR, f"gemini_round_{rno}.partial.json")
         existing_preds = []
         if not dry_run and os.path.exists(partial_path):
@@ -327,17 +342,24 @@ def main():
         preds = predict_round(
             round_data, stats, model_obj, dry_run=dry_run,
             existing_preds=existing_preds,
+            feedback=feedback,
         )
         if dry_run:
             continue
         done = sum(1 for p in preds if p["pick"])
         if done != len(preds):
             # 不完全な予測を本番ファイルにしない。次回バッチで再試行できる状態を保つ。
-            path = save(rno, preds, today, partial=True)
+            path = save(
+                rno, preds, today, partial=True,
+                feedback_count=feedback["settled_predictions"],
+            )
             print(f"  [ERROR] 予想確定 {done}/{len(preds)}。部分結果: {path}")
             failed = True
             continue
-        path = save(rno, preds, today)
+        path = save(
+            rno, preds, today,
+            feedback_count=feedback["settled_predictions"],
+        )
         print(f"  → 保存: {path}  予想確定 {done}/{len(preds)}")
 
     return 1 if failed else 0

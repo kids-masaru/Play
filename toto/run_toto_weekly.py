@@ -8,8 +8,9 @@
   5. predict_gemini.py <回号>  まだ予測していない回だけ Gemini 予測（quota節約・冪等）
                                ※統計モデルの確率も予測内に同梱される
   6. predict_codex.py <回号>   ChatGPT認証の Codex で未予測回を一括予測
-  7. generate_toto_data.py     表示データ → dashboard/public/daily_data/toto_info.json
-  8. git add/commit/push       GitHub Pages へ公開
+  7. predict_claude.py <回号>  Claude Max認証の Claude で未予測回を一括予測
+  8. generate_toto_data.py     表示データ → dashboard/public/daily_data/toto_info.json
+  9. git add/commit/push       GitHub Pages へ公開
 
 壊れにくさ: スクレイピングや API が失敗しても表示データ生成までは続ける。
 ただし予測失敗は終了コード1で呼び出し元へ通知し、タスク上で発見できるようにする。
@@ -18,6 +19,7 @@
   --no-push         git push しない（生成のみ。テスト用）
   --skip-gemini     Gemini 予測をスキップ（API を呼ばない）
   --skip-codex      Codex 予測をスキップ
+  --skip-claude     Claude 予測をスキップ
   --force-predict   既に予測済みの回も予測し直す
 
 前提: GEMINI_API_KEY を環境に展開した状態で実行（run_toto_weekly.bat 経由 / credentials.env）。
@@ -127,6 +129,7 @@ def main():
     no_push = "--no-push" in sys.argv
     skip_gemini = "--skip-gemini" in sys.argv
     skip_codex = "--skip-codex" in sys.argv
+    skip_claude = "--skip-claude" in sys.argv
     force_predict = "--force-predict" in sys.argv
 
     t0 = datetime.now()
@@ -169,10 +172,23 @@ def main():
             else:
                 log(f"第{n}回はCodex予測済み（スキップ）")
 
-    # 7. 表示データ生成
+    # 7. 未予測の回だけClaudeで一括予測（Claude Max契約側の利用枠）
+    if skip_claude:
+        log("--skip-claude 指定のため Claude 予測をスキップ")
+    else:
+        for n in round_numbers(on_sale_only=True):
+            claude = os.path.join(DATA_DIR, f"claude_round_{n}.json")
+            if force_predict or not os.path.exists(claude):
+                extra = ("--force",) if force_predict else ()
+                if not run_py("toto/predict_claude.py", str(n), *extra, allow_fail=True):
+                    prediction_failed = True
+            else:
+                log(f"第{n}回はClaude予測済み（スキップ）")
+
+    # 8. 表示データ生成
     run_py("toto/generate_toto_data.py", allow_fail=True)
 
-    # 8. 公開
+    # 9. 公開
     publish(no_push=no_push)
 
     log(f"===== 完了（所要 {datetime.now() - t0}） =====")

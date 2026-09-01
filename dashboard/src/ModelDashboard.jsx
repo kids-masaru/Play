@@ -18,9 +18,11 @@ const MODEL_ICONS = {
   stakes_gemmaclaude: './model-icons/learned-claude.svg',
   stakes_gemmagrokx: './model-icons/learned-grokx.svg',
   stakes_codex: './model-icons/codex.svg',
+  stakes_claude: './model-icons/claude.svg',
 };
 
 const Direction = ({ model, period }) => {
+  if (!model.n) return <span className="change neutral">計測前</span>;
   if (model.roi_change == null) return <span className="change neutral">比較なし</span>;
   const label = period === 'weekly' ? '前7日比' : period === 'monthly' ? '前30日比' : '前期間比';
   if (model.direction === 'up') return <span className="change up">{label} ↑{model.roi_change.toFixed(1)}pt</span>;
@@ -83,7 +85,9 @@ const ModelDashboard = ({ period = 'weekly' }) => {
     : periodData, [periodData]);
   const chartModels = useMemo(() => current ? [
     { key: 'combined', short: '全モデル合計', color: '#111827' },
-    ...current.models.map(model => ({ key: model.key, short: model.short, color: model.color })),
+    ...current.models
+      .filter(model => model.n > 0)
+      .map(model => ({ key: model.key, short: model.short, color: model.color })),
   ] : [], [current]);
   const visibleChartModels = chartMode === 'dailyProfit'
     ? chartModels.filter(model => model.key === mobileModel)
@@ -95,9 +99,10 @@ const ModelDashboard = ({ period = 'weekly' }) => {
   if (!current) return <div className="comparison-empty">モデル成績を読み込み中です…</div>;
 
   const combined = current.combined;
-  const positiveModels = current.models.filter(model => model.profit > 0).length;
-  const improvingModels = current.models.filter(model => model.direction === 'up').length;
-  const leader = current.models[0];
+  const measuredModels = current.models.filter(model => model.n > 0);
+  const positiveModels = measuredModels.filter(model => model.profit > 0).length;
+  const improvingModels = measuredModels.filter(model => model.direction === 'up').length;
+  const leader = measuredModels[0];
   const growthCandidate = [...current.models]
     .filter(model => model.roi_change != null && model.roi_change > 0 && model.n >= 30)
     .sort((a, b) => b.roi_change - a.roi_change)[0];
@@ -134,7 +139,7 @@ const ModelDashboard = ({ period = 'weekly' }) => {
     <section className="comparison-summary-line" aria-label="期間の要約">
       <span className="summary-signal leader"><small>今いちばん良い</small><strong>{leader?.short || '—'} · {leader ? formatYen(leader.profit) : '—'}</strong></span>
       <span className="summary-signal growth"><small>上向き候補</small><strong>{growthCandidate?.short || '該当なし'}{growthCandidate ? ` · ${comparisonLabel} +${growthCandidate.roi_change.toFixed(1)}pt` : ''}</strong></span>
-      <span className="summary-signal context"><small>全体の様子</small><strong>黒字 {positiveModels}/{current.models.length}・改善 {improvingModels}モデル</strong></span>
+      <span className="summary-signal context"><small>全体の様子</small><strong>黒字 {positiveModels}/{measuredModels.length}・改善 {improvingModels}モデル</strong></span>
     </section>
 
     <section className="comparison-table-card">
@@ -146,13 +151,13 @@ const ModelDashboard = ({ period = 'weekly' }) => {
           <div className="model-card-top">
             <img className="model-icon" src={MODEL_ICONS[model.key]} alt="" />
             <strong className="model-card-name">{model.label}</strong>
-            <strong className={`model-card-profit ${model.profit >= 0 ? 'value-positive' : 'value-negative'}`}>{formatYen(model.profit)}</strong>
+            <strong className={`model-card-profit ${model.n ? (model.profit >= 0 ? 'value-positive' : 'value-negative') : ''}`}>{model.n ? formatYen(model.profit) : '計測前'}</strong>
             <Direction model={model} period={period} />
           </div>
           <div className="model-card-metrics">
             <div><span>ROI</span><strong className={model.roi >= 100 ? 'value-positive' : ''}>{formatPercent(model.roi)}</strong></div>
             <div><span>的中率</span><strong>{formatPercent(model.hit_rate)}</strong><small>{model.hits}/{model.n}</small></div>
-            <div><span>最大損失幅</span><strong className="value-negative">{formatYen(model.max_drawdown, false)}</strong></div>
+            <div><span>最大損失幅</span><strong className={model.n ? 'value-negative' : ''}>{model.n ? formatYen(model.max_drawdown, false) : '—'}</strong></div>
           </div>
         </article>)}
       </div>

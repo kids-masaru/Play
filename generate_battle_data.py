@@ -29,6 +29,7 @@ GEMMA_FT_CSV = os.path.join(DATA_DIR, "daily_gemma_predictions.csv")  # 任意(�
 GEMMA_CLAUDE_CSV = os.path.join(DATA_DIR, "daily_gemma_claude_predictions.csv")  # 任意(学習版Gemma/Claude先生)
 GEMMA_GROK_X_CSV = os.path.join(DATA_DIR, "daily_gemma_grok_x_predictions.csv")
 CODEX_CSV = os.path.join(DATA_DIR, "daily_codex_predictions.csv")
+CLAUDE_CSV = os.path.join(DATA_DIR, "daily_claude_predictions.csv")
 
 OUTPUT_JSON = os.path.join(DATA_DIR, "daily_race_info.json")
 OUTPUT_AI_SUMMARY = os.path.join(DATA_DIR, "ai_predictions_summary.json")
@@ -201,6 +202,20 @@ def main():
                 }
         print(f"  Codex predictions: {len(codex_by_race)} races")
 
+    claude_by_race = {}
+    if os.path.exists(CLAUDE_CSV):
+        claude = pd.read_csv(CLAUDE_CSV)
+        claude = claude[claude["Date"] == target_date].copy() if "Date" in claude.columns else claude
+        for _, cld in claude.iterrows():
+            rid = safe_str(cld.get("RaceID"))
+            if rid:
+                claude_by_race[rid] = {
+                    "stakes": safe_str(cld.get("Stakes_Claude")),
+                    "prediction": safe_str(cld.get("Prediction_Claude"))[:1500],
+                    "log": safe_str(cld.get("Log_Claude"))[:2500],
+                }
+        print(f"  Claude predictions: {len(claude_by_race)} races")
+
     races_out = []
     for _, p in preds.iterrows():
         rid = str(p["RaceID"])
@@ -247,6 +262,9 @@ def main():
             "ai_picks_codex": codex_by_race.get(rid, {}).get("stakes", ""),
             "ai_prediction_codex": codex_by_race.get(rid, {}).get("prediction", ""),
             "ai_log_codex": codex_by_race.get(rid, {}).get("log", ""),
+            "ai_picks_claude": claude_by_race.get(rid, {}).get("stakes", ""),
+            "ai_prediction_claude": claude_by_race.get(rid, {}).get("prediction", ""),
+            "ai_log_claude": claude_by_race.get(rid, {}).get("log", ""),
         })
 
     out = {
@@ -330,6 +348,15 @@ def main():
             if rid not in ai_summary:
                 ai_summary[rid] = {"stakes": "", "stakes_det": ""}
             ai_summary[rid]["stakes_codex"] = safe_str(cdx.get("Stakes_Codex"))
+    if os.path.exists(CLAUDE_CSV):
+        claude_all = pd.read_csv(CLAUDE_CSV)
+        for _, cld in claude_all.iterrows():
+            rid = safe_str(cld.get("RaceID"))
+            if not rid:
+                continue
+            if rid not in ai_summary:
+                ai_summary[rid] = {"stakes": "", "stakes_det": ""}
+            ai_summary[rid]["stakes_claude"] = safe_str(cld.get("Stakes_Claude"))
     with open(OUTPUT_AI_SUMMARY, "w", encoding="utf-8") as f:
         json.dump(ai_summary, f, ensure_ascii=False)
     size_kb2 = os.path.getsize(OUTPUT_AI_SUMMARY) / 1024

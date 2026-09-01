@@ -20,6 +20,7 @@
   --no-push     : git push を行わない (生成のみ。テスト用)
   --skip-gemini : Gemini 予測をスキップ (API を呼ばない。テスト用)
   --skip-codex  : Codex 予測をスキップ (ChatGPT利用枠を使わない)
+  --skip-claude : Claude 予測をスキップ (Claude Max利用枠を使わない)
 """
 import os
 import sys
@@ -54,6 +55,8 @@ PUBLISH_FILES = [
     "dashboard/public/daily_data/model_performance.json",
     "dashboard/public/daily_data/daily_codex_predictions.csv",
     "dashboard/public/daily_data/codex_learning_summary.json",
+    "dashboard/public/daily_data/daily_claude_predictions.csv",
+    "dashboard/public/daily_data/claude_learning_summary.json",
     # 予測対戦の「4者戦績」は結果CSVが要る。これが無いと本番で的中率が全部0になる。
     "dashboard/public/daily_data/daily_history_results.csv",
     # 傾向(攻略図)タブの会場別/レース番号別イン率ヒートマップ用
@@ -177,6 +180,7 @@ def main():
     skip_gemini = "--skip-gemini" in sys.argv
     skip_grok = "--skip-grok" in sys.argv
     skip_codex = "--skip-codex" in sys.argv
+    skip_claude = "--skip-claude" in sys.argv
     skip_gemma = "--skip-gemma" in sys.argv  # 学習版Gemma(Ollama)をスキップ
 
     t0 = datetime.now()
@@ -205,6 +209,12 @@ def main():
         log("--skip-codex specified; Codex prediction skipped")
     else:
         run_py("generate_codex_predictions.py", allow_fail=True)
+
+    if skip_claude:
+        log("--skip-claude specified; Claude prediction skipped")
+    else:
+        # Claude Maxの利用上限・認証切れでも、他モデルと公開処理は継続する。
+        run_py("generate_claude_predictions.py", allow_fail=True)
 
     # 学習版Gemma 予測（Ollama 未起動/未登録でも、他を止めず続行）
     # 2モデル: Gemini先生版(gemma-boat:1b) と Claude先生版(gemma-boat-claude:1b)

@@ -1,4 +1,4 @@
-"""Codex予測へ渡す過去実績・類似レース学習コンテキストを生成する。"""
+"""モデル別予測へ渡す過去実績・類似レース学習コンテキストを生成する。"""
 
 from __future__ import annotations
 
@@ -14,7 +14,36 @@ from typing import Any, Iterable
 
 COMBO_PATTERN = re.compile(r"^[1-6]-[1-6]-[1-6]$")
 NUMBER_PATTERN = re.compile(r"-?\d+(?:\.\d+)?")
-LEARNING_STRATEGY_VERSION = "feedback_v1"
+LEARNING_STRATEGY_VERSION = "feedback_v2_model_isolated"
+
+# 自己評価はモデルごとの予測だけを参照する。共通の過去レース結果は
+# 全モデルで共有するが、他モデルの買い目はフィードバックへ混ぜない。
+MODEL_PREDICTION_CONFIGS = {
+    "codex": {
+        "file": "daily_codex_predictions.csv",
+        "stakes": "Stakes_Codex",
+        "strategy": "Strategy_Codex",
+        "label": "Codex",
+    },
+    "claude": {
+        "file": "daily_claude_predictions.csv",
+        "stakes": "Stakes_Claude",
+        "strategy": "Strategy_Claude",
+        "label": "Claude",
+    },
+    "gemini": {
+        "file": "daily_gemini_predictions.csv",
+        "stakes": "Stakes_Gemini",
+        "strategy": "Strategy_Gemini",
+        "label": "Gemini",
+    },
+    "grok": {
+        "file": "daily_grok_predictions.csv",
+        "stakes": "Stakes_Grok",
+        "strategy": "Strategy_Grok",
+        "label": "Grok",
+    },
+}
 
 
 def safe_float(value: Any, default: float | None = None) -> float | None:
@@ -252,10 +281,24 @@ def parse_stakes(value: Any) -> list[tuple[str, float]]:
     return picks
 
 
-def codex_feedback(data_dir: Path, target_date: str, records: list[dict[str, Any]]) -> dict[str, Any]:
-    prediction_path = data_dir / "daily_codex_predictions.csv"
+def model_feedback(
+    data_dir: Path,
+    target_date: str,
+    records: list[dict[str, Any]],
+    model_key: str,
+) -> dict[str, Any]:
+    """対象モデル自身の、予測日より前に確定した成績だけを集計する。"""
+    config = MODEL_PREDICTION_CONFIGS.get(model_key)
+    if not config:
+        raise ValueError(f"未対応のフィードバックモデルです: {model_key}")
+    prediction_path = data_dir / config["file"]
     if not prediction_path.is_file():
-        return {"settled_count": 0, "status": "no_codex_results_yet"}
+        return {
+            "model_key": model_key,
+            "model_label": config["label"],
+            "settled_count": 0,
+            "status": f"no_{model_key}_results_yet",
+        }
     record_by_id = {row["race_id"]: row for row in records}
     settled: list[dict[str, Any]] = []
     with prediction_path.open("r", encoding="utf-8-sig", newline="") as handle:
@@ -263,7 +306,7 @@ def codex_feedback(data_dir: Path, target_date: str, records: list[dict[str, Any
             if str(row.get("Date", "")) >= target_date:
                 continue
             record = record_by_id.get(str(row.get("RaceID", "")))
-            picks = parse_stakes(row.get("Stakes_Codex"))
+            picks = parse_stakes(row.get(config["stakes"]))
             if not record or not picks:
                 continue
             actual = record["result"]
@@ -280,7 +323,7 @@ def codex_feedback(data_dir: Path, target_date: str, records: list[dict[str, Any
                 "investment": investment,
                 "return": hit_stake * record["payout"] / 100,
                 "actual_winner_covered": actual.split("-")[0] in predicted_winners,
-                "strategy": str(row.get("Strategy_Codex", "")).strip() or "legacy",
+                "strategy": str(row.get(config["strategy"], "")).strip() or "legacy",
             })
 
     settled.sort(key=lambda row: (row["date"], row["race_id"]))
@@ -313,6 +356,8 @@ def codex_feedback(data_dir: Path, target_date: str, records: list[dict[str, Any
     for row in settled:
         by_strategy[row["strategy"]].append(row)
     return {
+        "model_key": model_key,
+        "model_label": config["label"],
         "settled_count": count,
         "status": "preliminary" if count < 200 else "established",
         "all_time": period_summary(settled),
@@ -323,8 +368,13 @@ def codex_feedback(data_dir: Path, target_date: str, records: list[dict[str, Any
         },
         "actual_winner_not_covered_by_lane": dict(sorted(missed_winner_lanes.items())),
         "recent_misses": recent_misses,
-        "caution": "Codex固有データが200件未満の間は、失敗傾向を参考値として扱い過学習しない。" if count < 200 else "直近50件と全期間の両方を確認し、短期変動へ過剰反応しない。",
+        "caution": f"{config['label']}固有データが200件未満の間は、失敗傾向を参考値として扱い過学習しない。" if count < 200 else "直近50件と全期間の両方を確認し、短期変動へ過剰反応しない。",
     }
+
+
+def codex_feedback(data_dir: Path, target_date: str, records: list[dict[str, Any]]) -> dict[str, Any]:
+    """既存呼び出しとの互換用。"""
+    return model_feedback(data_dir, target_date, records, "codex")
 
 
 def build_codex_learning_context(
@@ -332,6 +382,21 @@ def build_codex_learning_context(
     target_date: str,
     races: list[dict[str, Any]],
 ) -> dict[str, Any]:
+    context = build_model_learning_context(data_dir, target_date, races, "codex")
+    # 既存CSV列と診断JSONが参照しているキーを残す。
+    context["codex_feedback"] = context["model_feedback"]
+    return context
+
+
+def build_model_learning_context(
+    data_dir: Path,
+    target_date: str,
+    races: list[dict[str, Any]],
+    model_key: str,
+) -> dict[str, Any]:
+    """共通履歴と、指定モデル自身の成績を組み合わせる。"""
+    if model_key not in MODEL_PREDICTION_CONFIGS:
+        raise ValueError(f"未対応のフィードバックモデルです: {model_key}")
     records = load_history_records(data_dir, target_date)
     global_summary = summarize_records(records)
     per_race = {
@@ -346,7 +411,8 @@ def build_codex_learning_context(
         "leakage_guard": f"Only races dated before {target_date} were used.",
         "historical_results_used": len(records),
         "global_baseline": global_summary,
-        "codex_feedback": codex_feedback(data_dir, target_date, records),
+        "model_key": model_key,
+        "model_feedback": model_feedback(data_dir, target_date, records, model_key),
         "races": per_race,
     }
 
@@ -355,10 +421,12 @@ def learning_context_for_prompt(context: dict[str, Any], race_ids: set[str]) -> 
     """入力トークンを抑えるため、予測対象レースの学習情報だけに絞る。"""
     return {
         "target_date": context.get("target_date"),
+        "strategy_version": context.get("strategy_version", LEARNING_STRATEGY_VERSION),
         "leakage_guard": context.get("leakage_guard"),
         "historical_results_used": context.get("historical_results_used", 0),
         "global_baseline": context.get("global_baseline", {}),
-        "codex_feedback": context.get("codex_feedback", {}),
+        "model_key": context.get("model_key", "codex"),
+        "model_feedback": context.get("model_feedback", context.get("codex_feedback", {})),
         "races": {
             race_id: context.get("races", {}).get(race_id, {})
             for race_id in race_ids

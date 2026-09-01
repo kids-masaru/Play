@@ -12,6 +12,14 @@ import json
 import time
 import re
 import pandas as pd
+from pathlib import Path
+
+from codex_learning import (
+    LEARNING_STRATEGY_VERSION,
+    build_model_learning_context,
+    learning_context_for_prompt,
+    save_learning_context,
+)
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
@@ -30,6 +38,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(ROOT, "dashboard", "public", "daily_data")
 RACE_INFO_JSON = os.path.join(DATA_DIR, "daily_race_info.json")
 OUTPUT_CSV = os.path.join(DATA_DIR, "daily_gemini_predictions.csv")
+LEARNING_JSON = Path(DATA_DIR) / "gemini_learning_summary.json"
 
 SLEEP_BETWEEN_CALLS = 1.5  # rate limit余裕
 
@@ -59,7 +68,7 @@ PROMPT_TEMPLATE = """あなたはボートレース予想のプロです。
 """
 
 
-def format_race(race):
+def format_race(race, learning_context=None):
     boats_text = ""
     for b in race["boats"]:
         win_rate = b.get('win_rate')
@@ -71,7 +80,7 @@ def format_race(race):
     odds_text = ""
     for o in race["odds_top"][:10]:
         odds_text += f"  {o['combo']}: {o['odds']:.1f}倍\n"
-    return PROMPT_TEMPLATE.format(
+    prompt = PROMPT_TEMPLATE.format(
         venue=race["venue"], r=race["r"],
         weather=race.get("weather") or "-",
         wind_dir=race.get("wind_dir") or "-",
@@ -81,6 +90,15 @@ def format_race(race):
         boats_text=boats_text,
         odds_text=odds_text,
     )
+    if learning_context:
+        prompt += """
+
+【確定済み履歴からの学習材料】
+以下は予測日より前の結果だけで作成されています。model_feedbackはGemini自身の
+過去予測だけです。サンプル数を確認し、短期の外れへ過剰反応せず、今回のレース
+情報を優先してください。他モデルの予測は含まれていません。
+""" + json.dumps(learning_context, ensure_ascii=False, separators=(",", ":"))
+    return prompt
 
 
 def parse_response(text):
@@ -138,13 +156,31 @@ def main():
     print(f"レース数: {len(races)}")
 
     model = genai.GenerativeModel(MODEL_NAME)
+    try:
+        learning_context = build_model_learning_context(
+            Path(DATA_DIR), str(info.get("date", "")), races, "gemini"
+        )
+        save_learning_context(LEARNING_JSON, learning_context)
+    except Exception as e:
+        # 学習材料の一時的不備でGemini予測そのものを止めない。
+        print(f"[WARN] Gemini学習情報を生成できません: {type(e).__name__}: {e}")
+        learning_context = {
+            "target_date": str(info.get("date", "")),
+            "model_key": "gemini",
+            "historical_results_used": 0,
+            "model_feedback": {"settled_count": 0, "status": "unavailable"},
+            "races": {},
+        }
+    feedback_count = learning_context.get("model_feedback", {}).get("settled_count", 0)
+    print(f"学習情報: Gemini結果確定 {feedback_count} レース")
     results = []
     t_overall = time.time()
 
     for i, race in enumerate(races, 1):
         rid = race["race_id"]
         print(f"\n[{i}/{len(races)}] {race['venue']} {race['r']}R", flush=True)
-        prompt = format_race(race)
+        prompt_learning = learning_context_for_prompt(learning_context, {str(rid)})
+        prompt = format_race(race, prompt_learning)
         try:
             t0 = time.time()
             response = model.generate_content(prompt)
@@ -166,6 +202,9 @@ def main():
             "Prediction_Gemini": parsed["verdict"].strip()[:1500],
             "Log_Gemini": parsed["thought"].strip()[:2500],
             "Stakes_Gemini": stakes_str,
+            "Strategy_Gemini": LEARNING_STRATEGY_VERSION,
+            "LearningHistoryCount": learning_context.get("historical_results_used", 0),
+            "LearningGeminiSettledCount": feedback_count,
         })
         time.sleep(SLEEP_BETWEEN_CALLS)
 

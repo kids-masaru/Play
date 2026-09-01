@@ -131,7 +131,8 @@ class and win rate, motor/exhibition information when present, weather, wind, wa
 and the supplied market odds. Do not copy another AI's prediction because none is supplied.
 
 HISTORICAL_LEARNING_JSON contains only races completed before the prediction date.
-Use its similar-race rates, actual outcomes, and Codex feedback as supporting evidence.
+Use its similar-race rates, actual outcomes, and model_feedback (Codex's own settled
+predictions only) as supporting evidence.
 Do not mechanically copy a frequent combination. Give current race data priority, respect
 sample sizes, and do not overfit preliminary Codex feedback. Aim to improve both five-pick
 hit rate and simulated ROI over many races, not a single day's result.
@@ -297,6 +298,8 @@ def main() -> int:
             "target_date": target_date,
             "strategy_version": LEARNING_STRATEGY_VERSION,
             "historical_results_used": 0,
+            "model_key": "codex",
+            "model_feedback": {"settled_count": 0, "status": "unavailable"},
             "codex_feedback": {"settled_count": 0, "status": "unavailable"},
             "races": {},
         }
