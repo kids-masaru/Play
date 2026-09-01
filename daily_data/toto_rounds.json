@@ -1,6 +1,6 @@
 {
-  "default_round": 1648,
-  "default_key": "1648-toto",
+  "default_round": 1649,
+  "default_key": "1649-toto",
   "rounds": [
     {
       "round": 1649,
@@ -10,9 +10,10 @@
       "payout_detail": null,
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-08-29",
-      "has_gemini": false,
+      "generated_date": "2026-09-01",
+      "has_gemini": true,
       "has_codex": true,
+      "has_claude": true,
       "settled": false,
       "summary": {
         "stat": {
@@ -26,6 +27,10 @@
         "codex": {
           "n": 0,
           "hits": 0
+        },
+        "claude": {
+          "n": 0,
+          "hits": 0
         }
       },
       "matches": [
@@ -37,12 +42,15 @@
           "home": "東京ヴェルディ",
           "away": "ヴィッセル神戸",
           "stats": null,
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "ヴィッセル神戸はJ1屈指の資金力と前線の強烈なタレント陣（大迫勇也や武藤嘉紀など）を擁し、高い強度と決定力を備えたリーグトップクラスの強豪です。\n対する東京ヴェルディは組織的な守備とタフなハードワークを武器に粘り強く戦いますが、個の打開力や選手層の厚さにおいては神戸に分があります。\n東京ヴェルディのホームアドバンテージを考慮しても、神戸のフィジカルの強さと勝負強さが上回り、アウェイチームが勝ち点3を持ち帰る可能性が高いと分析します。",
           "codex_pick": "A",
           "codex_confidence": "48%",
           "codex_reasoning": "モデル値がなく不確実性は最大。戦力差を示す定量情報もないが、相対的には神戸の勝利を慎重に選ぶ。",
+          "claude_pick": "A",
+          "claude_confidence": "62%",
+          "claude_reasoning": "モデルデータなし。神戸は昨今の強豪クラブであり、遠征でも地力を発揮できると判断してアウェイ勝利を予測。",
           "result": ""
         },
         {
@@ -53,17 +61,20 @@
           "home": "セレッソ大阪",
           "away": "柏レイソル",
           "stats": {
-            "p_H": 0.2534,
-            "p_D": 0.2123,
-            "p_A": 0.5343,
+            "p_H": 0.2437,
+            "p_D": 0.2122,
+            "p_A": 0.5441,
             "pick": "A"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "直近5連勝中と怒涛の勢いを見せる柏レイソルは、攻守の噛み合わせが抜群でチーム状態が最高潮にあります。対するセレッソ大阪は直近2連敗を含む直近5試合で3敗と調子を落としており、試合内容の波が激しい状態です。統計モデルの推定でもアウェイの柏が勝利確率53%と圧倒しており、現在の勢いとチームの完成度の差から柏レイソルが押し切る可能性が高いと分析します。",
           "codex_pick": "A",
           "codex_confidence": "66%",
           "codex_reasoning": "柏勝利53.4%がホーム勝利25.3%を大きく上回る。過去のA的中率は低めだが、この差なら素直に支持。",
+          "claude_pick": "A",
+          "claude_confidence": "65%",
+          "claude_reasoning": "モデルが54.4%のアウェイ優位を示す。柏の攻撃力がセレッソの守備を上回ると判断。",
           "result": ""
         },
         {
@@ -74,17 +85,20 @@
           "home": "サンフレッチェ広島",
           "away": "名古屋グランパス",
           "stats": {
-            "p_H": 0.6468,
-            "p_D": 0.2296,
-            "p_A": 0.1236,
+            "p_H": 0.6454,
+            "p_D": 0.23,
+            "p_A": 0.1246,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "サンフレッチェ広島は直近5試合で4勝1分と極めて好調を維持しており、本拠地での力強いパフォーマンスが期待できます。\n一方の名古屋グランパスは直近5試合で3敗と波に乗れておらず、敵地での一戦ということもあり苦戦が予想されます。\n統計データでも広島の勝率が65%と大きく上回っており、現在のチーム勢いとホームアドバンテージを考慮すると広島が勝利を収める可能性が高いと考えられます。",
           "codex_pick": "H",
           "codex_confidence": "75%",
           "codex_reasoning": "広島勝利64.7%に対して名古屋勝利は12.4%。引き分け余地はあるものの、今回屈指の明確なホーム優勢。",
+          "claude_pick": "H",
+          "claude_confidence": "70%",
+          "claude_reasoning": "ホーム確率64.5%と明確に広島優位。堅固な守備組織と強固なホームサポーターが後押しする。",
           "result": ""
         },
         {
@@ -95,17 +109,20 @@
           "home": "ジェフユナイテッド千葉",
           "away": "ファジアーノ岡山",
           "stats": {
-            "p_H": 0.4545,
-            "p_D": 0.3183,
-            "p_A": 0.2272,
+            "p_H": 0.4649,
+            "p_D": 0.2993,
+            "p_A": 0.2358,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "ジェフユナイテッド千葉は直近で2連勝と復調の兆しを見せており、攻守の噛み合いを取り戻しつつあります。\n一方のファジアーノ岡山は直近5試合で勝ち負けを交互に繰り返すなど勝点の積み上げに波があり、やや安定感に欠ける状態です。\n統計モデルのデータでも千葉の勝利確率が45%と優勢を示しており、ホームの利を生かして試合の主導権を握ることが予想されます。\n勢いに乗る千葉が岡山の堅守を崩し、ホームで勝ち点3を獲得する可能性が高いと分析します。",
           "codex_pick": "D",
           "codex_confidence": "39%",
           "codex_reasoning": "千葉勝利45.5%が首位だが、引き分けも31.8%と高い。過去のD不振を考慮しても接戦性を重視する。",
+          "claude_pick": "H",
+          "claude_confidence": "60%",
+          "claude_reasoning": "ホーム確率46.5%で最有力。千葉のホームアドバンテージと地力が岡山を上回ると判断。",
           "result": ""
         },
         {
@@ -116,17 +133,20 @@
           "home": "アビスパ福岡",
           "away": "浦和レッズ",
           "stats": {
-            "p_H": 0.3675,
-            "p_D": 0.3059,
-            "p_A": 0.3265,
+            "p_H": 0.3684,
+            "p_D": 0.301,
+            "p_A": 0.3305,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "低",
+          "gemini_reasoning": "直近のフォームでは浦和レッズが2連勝と復調の兆しを見せているものの、アビスパ福岡はホームでの堅守を武器に粘り強い戦いが期待できます。\n統計モデルの試算でもホーム勝利の確率（37%）が最も高く、ホームアドバンテージが大きく作用する見込みです。\n互いに譲らない接戦が予想されますが、ホームの利を活かした福岡が僅差で競り勝つ可能性が高いと分析します。",
           "codex_pick": "D",
           "codex_confidence": "36%",
           "codex_reasoning": "三択が36.8%、30.6%、32.7%とほぼ拮抗。最高値のホームを覆す確信は弱いが、均衡から引き分けを狙う。",
+          "claude_pick": "D",
+          "claude_confidence": "50%",
+          "claude_reasoning": "H/D/Aが37/30/33%と極めて拮抗。浦和の遠征能力を考慮してドロー予測。モデルのH優位は僅差で信頼度低い。",
           "result": ""
         },
         {
@@ -137,17 +157,20 @@
           "home": "水戸ホーリーホック",
           "away": "鹿島アントラーズ",
           "stats": {
-            "p_H": 0.3821,
-            "p_D": 0.2936,
-            "p_A": 0.3243,
+            "p_H": 0.3758,
+            "p_D": 0.2873,
+            "p_A": 0.3369,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルではホームの水戸ホーリーホックがやや優勢と算出されていますが、鹿島アントラーズの直近5連勝という圧倒的な勢いと総合力は無視できません。水戸はホームアドバンテージやダービーマッチ特有のモチベーションが期待できるものの、直近の成績は波があり守備面での不安が残ります。絶好調の攻撃陣を擁し、勝負強さを見せる鹿島がアウェイながら地力の差を示して勝利すると予想します。",
           "codex_pick": "H",
           "codex_confidence": "39%",
           "codex_reasoning": "水戸38.2%が鹿島32.4%をわずかに上回る程度で混戦。モデルのホーム優位を採るが、信頼度は抑える。",
+          "claude_pick": "A",
+          "claude_confidence": "57%",
+          "claude_reasoning": "モデルはH僅差だが鹿島の格上クラブとしての実績を重視。アウェイでも質の差が結果に出ると判断。",
           "result": ""
         },
         {
@@ -158,17 +181,20 @@
           "home": "ＦＣ町田ゼルビア",
           "away": "川崎フロンターレ",
           "stats": {
-            "p_H": 0.6594,
-            "p_D": 0.1754,
-            "p_A": 0.1652,
+            "p_H": 0.6655,
+            "p_D": 0.1684,
+            "p_A": 0.166,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "直近5試合で4勝を挙げているＦＣ町田ゼルビアは非常に好調を維持しており、統計モデルでも66%という高い勝利確率が示されています。一方の川崎フロンターレは直近5試合で勝利がなく（3分2敗）、失点や得点力不足を含めチーム状態の重さが懸念されます。町田の強度が高いフットボールとホームアドバンテージが不調の川崎を押し込む可能性が高く、ホームチームが手堅く勝利を収めると予想します。",
           "codex_pick": "H",
           "codex_confidence": "76%",
           "codex_reasoning": "町田勝利65.9%で、引き分け17.5%、川崎勝利16.5%を大幅に上回る。モデル差が大きく本命視。",
+          "claude_pick": "H",
+          "claude_confidence": "72%",
+          "claude_reasoning": "ホーム確率66.5%と高い。町田の堅守速攻スタイルが川崎の攻撃を封じると判断。",
           "result": ""
         },
         {
@@ -179,17 +205,20 @@
           "home": "横浜Ｆ・マリノス",
           "away": "京都サンガF.C.",
           "stats": {
-            "p_H": 0.3442,
-            "p_D": 0.2448,
-            "p_A": 0.411,
+            "p_H": 0.3524,
+            "p_D": 0.2437,
+            "p_A": 0.4039,
             "pick": "A"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルの推定データでは、アウェイの京都サンガF.C.の勝利確率が41%と最も高く評価されています。\n京都は直近の試合で2連勝と復調傾向にあり、攻守の噛み合わせが良くなっている点が好材料です。\n一方の横浜Ｆ・マリノスはホームの利があるものの、直近5試合で2敗を喫するなどやや好不調の波が見られます。\n勢いに乗る京都がアウェイながら主導権を握り、僅差で勝ち点3を奪うと予想します。",
           "codex_pick": "A",
           "codex_confidence": "43%",
           "codex_reasoning": "京都41.1%が横浜34.4%を上回るが差は小さい。引き分けも24.5%あり、アウェー支持ながら波乱含み。",
+          "claude_pick": "A",
+          "claude_confidence": "57%",
+          "claude_reasoning": "モデルがアウェイ優位40%と示す。横浜FMのホームながらも京都の好調を反映した珍しい数値を信頼。",
           "result": ""
         },
         {
@@ -200,17 +229,20 @@
           "home": "清水エスパルス",
           "away": "ＦＣ東京",
           "stats": {
-            "p_H": 0.3355,
-            "p_D": 0.2762,
-            "p_A": 0.3882,
+            "p_H": 0.3012,
+            "p_D": 0.2832,
+            "p_A": 0.4156,
             "pick": "A"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "ホームの清水エスパルスは直近5試合で4敗と調子を落としており、守備陣の安定感に不安が残る状況です。\n一方のＦＣ東京は勝ちきれない試合が多いものの、直近5試合でわずか1敗と手堅く勝ち点を拾う粘り強さを見せています。\n統計モデルでもアウェイ勝利（39%）がやや優勢と出ており、チーム状態の差を考慮するとＦＣ東京が主導権を握って押し切る可能性が高いと判断します。",
           "codex_pick": "A",
           "codex_confidence": "41%",
           "codex_reasoning": "FC東京38.8%が清水33.6%を小幅に上回る。引き分け27.6%も無視できず、僅差のアウェー予想。",
+          "claude_pick": "A",
+          "claude_confidence": "60%",
+          "claude_reasoning": "モデルアウェイ41.6%でFC東京優位。守備安定を武器にアウェイで勝ち点3を奪取すると予測。",
           "result": ""
         },
         {
@@ -221,17 +253,20 @@
           "home": "Ｖ・ファーレン長崎",
           "away": "ガンバ大阪",
           "stats": {
-            "p_H": 0.596,
-            "p_D": 0.206,
-            "p_A": 0.198,
+            "p_H": 0.5397,
+            "p_D": 0.2248,
+            "p_A": 0.2355,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルの試算ではホームのＶ・ファーレン長崎の勝利確率が60%と大きく優勢を示しています。長崎は直近3試合で2勝1分と復調傾向にあり、ホームの歓声を背に好調な攻撃陣が機能しやすい状況です。一方のガンバ大阪は直近で敗戦を喫するなどやや状態に波があり、アウェイでの戦いという点も含めて後手に回る懸念があります。近況の勢いとホームアドバンテージを活かせる長崎が優位に試合を進めると予想します。",
           "codex_pick": "H",
           "codex_confidence": "67%",
           "codex_reasoning": "長崎勝利59.6%に対し、引き分け20.6%、ガンバ勝利19.8%。過去の長崎絡みの外れには注意するが優勢。",
+          "claude_pick": "H",
+          "claude_confidence": "63%",
+          "claude_reasoning": "長崎のホーム確率54%で優位。ガンバの遠征での苦戦傾向を考慮してホーム勝利を予測。",
           "result": ""
         },
         {
@@ -242,17 +277,20 @@
           "home": "テゲバジャーロ宮崎",
           "away": "カターレ富山",
           "stats": {
-            "p_H": 0.5894,
-            "p_D": 0.2225,
-            "p_A": 0.1881,
+            "p_H": 0.5876,
+            "p_D": 0.21,
+            "p_A": 0.2024,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "低",
+          "gemini_reasoning": "統計モデルの推定値では宮崎の勝率が59%と大きく上回っており、ホームアドバンテージやチーム本来のポテンシャルでは優位に立っていると見られます。一方で、直近のフォームは宮崎が5戦未勝利（2分3敗）と不振に喘ぐのに対し、富山は直近5試合で3勝を挙げており調子の差は歴然です。宮崎にとってはホームで不振を脱却するための重要な一戦であり、モデルが示す地力を発揮できれば勝ち点3を掴む可能性が最も高いと判断します。",
           "codex_pick": "H",
           "codex_confidence": "65%",
           "codex_reasoning": "宮崎勝利58.9%が富山勝利18.8%を大きく上回る。両クラブの過去結果には振れもあり、確信は中程度。",
+          "claude_pick": "H",
+          "claude_confidence": "65%",
+          "claude_reasoning": "ホーム確率58.8%で宮崎優位。ホームの地の利と地力差がそのまま結果に出ると判断。",
           "result": ""
         },
         {
@@ -263,17 +301,20 @@
           "home": "愛媛ＦＣ",
           "away": "ブラウブリッツ秋田",
           "stats": {
-            "p_H": 0.3507,
-            "p_D": 0.2476,
-            "p_A": 0.4018,
+            "p_H": 0.3534,
+            "p_D": 0.2574,
+            "p_A": 0.3892,
             "pick": "A"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルの推定数値ではアウェイの秋田がわずかに優勢と算出されていますが、直近のチーム状態には明確な差が見られます。\n愛媛FCは直近5試合で3勝を挙げるなど好調を維持しており、ホームゲームの利も活かせる好条件が揃っています。\n一方の秋田は直近5試合で3敗と苦戦が続いており、アウェイで試合を優位に進めるには不安が残ります。\nモデル上の数値差が僅差であることも踏まえ、現在の勢いとホームアドバンテージを持つ愛媛の勝利を予想します。",
           "codex_pick": "A",
           "codex_confidence": "42%",
           "codex_reasoning": "秋田40.2%が愛媛35.1%を上回るものの僅差。過去には秋田の予想外の敗戦もあり、低めの信頼度で選択。",
+          "claude_pick": "A",
+          "claude_confidence": "55%",
+          "claude_reasoning": "モデルアウェイ38.9%で秋田優位。組織的守備とカウンターでアウェイ勝利を狙えると判断。",
           "result": ""
         },
         {
@@ -284,17 +325,20 @@
           "home": "ガイナーレ鳥取",
           "away": "ＲＢ大宮アルディージャ",
           "stats": {
-            "p_H": 0.291,
-            "p_D": 0.2334,
-            "p_A": 0.4756,
+            "p_H": 0.3004,
+            "p_D": 0.2336,
+            "p_A": 0.4661,
             "pick": "A"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルによる推定結果においてアウェイのＲＢ大宮アルディージャの勝利確率が48%と最も高く、チームの地力面で優勢と見られます。大宮は直近5試合で3勝を挙げるなど好調を維持しているのに対し、ガイナーレ鳥取は直近5戦で1勝とやや不安定な戦いが続いています。鳥取のホームアドバンテージを考慮しても、地力と直近の勢いで上回る大宮が勝ち点3を持ち帰る可能性が高いと分析します。",
           "codex_pick": "A",
           "codex_confidence": "53%",
           "codex_reasoning": "大宮勝利47.6%が鳥取29.1%を明確に上回る。引き分け23.3%のリスクを残すが、アウェー優位を支持。",
+          "claude_pick": "A",
+          "claude_confidence": "63%",
+          "claude_reasoning": "モデルアウェイ46.6%で大宮が最有力。クラブの資金力と選手層の差が大きいと判断。",
           "result": ""
         }
       ]
@@ -307,9 +351,10 @@
       "payout_detail": null,
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-08-29",
-      "has_gemini": false,
+      "generated_date": "2026-09-01",
+      "has_gemini": true,
       "has_codex": true,
+      "has_claude": true,
       "settled": false,
       "summary": {
         "stat": {
@@ -321,6 +366,10 @@
           "hits": 0
         },
         "codex": {
+          "n": 0,
+          "hits": 0
+        },
+        "claude": {
           "n": 0,
           "hits": 0
         }
@@ -334,12 +383,15 @@
           "home": "東京ヴェルディ",
           "away": "ヴィッセル神戸",
           "stats": null,
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "ヴィッセル神戸はJ1屈指の資金力と前線の強烈なタレント陣（大迫勇也や武藤嘉紀など）を擁し、高い強度と決定力を備えたリーグトップクラスの強豪です。\n対する東京ヴェルディは組織的な守備とタフなハードワークを武器に粘り強く戦いますが、個の打開力や選手層の厚さにおいては神戸に分があります。\n東京ヴェルディのホームアドバンテージを考慮しても、神戸のフィジカルの強さと勝負強さが上回り、アウェイチームが勝ち点3を持ち帰る可能性が高いと分析します。",
           "codex_pick": "A",
           "codex_confidence": "48%",
           "codex_reasoning": "モデル値がなく不確実性は最大。戦力差を示す定量情報もないが、相対的には神戸の勝利を慎重に選ぶ。",
+          "claude_pick": "A",
+          "claude_confidence": "62%",
+          "claude_reasoning": "モデルデータなし。神戸は昨今の強豪クラブであり、遠征でも地力を発揮できると判断してアウェイ勝利を予測。",
           "result": ""
         },
         {
@@ -350,17 +402,20 @@
           "home": "セレッソ大阪",
           "away": "柏レイソル",
           "stats": {
-            "p_H": 0.2534,
-            "p_D": 0.2123,
-            "p_A": 0.5343,
+            "p_H": 0.2437,
+            "p_D": 0.2122,
+            "p_A": 0.5441,
             "pick": "A"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "直近5連勝中と怒涛の勢いを見せる柏レイソルは、攻守の噛み合わせが抜群でチーム状態が最高潮にあります。対するセレッソ大阪は直近2連敗を含む直近5試合で3敗と調子を落としており、試合内容の波が激しい状態です。統計モデルの推定でもアウェイの柏が勝利確率53%と圧倒しており、現在の勢いとチームの完成度の差から柏レイソルが押し切る可能性が高いと分析します。",
           "codex_pick": "A",
           "codex_confidence": "66%",
           "codex_reasoning": "柏勝利53.4%がホーム勝利25.3%を大きく上回る。過去のA的中率は低めだが、この差なら素直に支持。",
+          "claude_pick": "A",
+          "claude_confidence": "65%",
+          "claude_reasoning": "モデルが54.4%のアウェイ優位を示す。柏の攻撃力がセレッソの守備を上回ると判断。",
           "result": ""
         },
         {
@@ -371,17 +426,20 @@
           "home": "サンフレッチェ広島",
           "away": "名古屋グランパス",
           "stats": {
-            "p_H": 0.6468,
-            "p_D": 0.2296,
-            "p_A": 0.1236,
+            "p_H": 0.6454,
+            "p_D": 0.23,
+            "p_A": 0.1246,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "サンフレッチェ広島は直近5試合で4勝1分と極めて好調を維持しており、本拠地での力強いパフォーマンスが期待できます。\n一方の名古屋グランパスは直近5試合で3敗と波に乗れておらず、敵地での一戦ということもあり苦戦が予想されます。\n統計データでも広島の勝率が65%と大きく上回っており、現在のチーム勢いとホームアドバンテージを考慮すると広島が勝利を収める可能性が高いと考えられます。",
           "codex_pick": "H",
           "codex_confidence": "75%",
           "codex_reasoning": "広島勝利64.7%に対して名古屋勝利は12.4%。引き分け余地はあるものの、今回屈指の明確なホーム優勢。",
+          "claude_pick": "H",
+          "claude_confidence": "70%",
+          "claude_reasoning": "ホーム確率64.5%と明確に広島優位。堅固な守備組織と強固なホームサポーターが後押しする。",
           "result": ""
         },
         {
@@ -392,17 +450,20 @@
           "home": "ジェフユナイテッド千葉",
           "away": "ファジアーノ岡山",
           "stats": {
-            "p_H": 0.4545,
-            "p_D": 0.3183,
-            "p_A": 0.2272,
+            "p_H": 0.4649,
+            "p_D": 0.2993,
+            "p_A": 0.2358,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "ジェフユナイテッド千葉は直近で2連勝と復調の兆しを見せており、攻守の噛み合いを取り戻しつつあります。\n一方のファジアーノ岡山は直近5試合で勝ち負けを交互に繰り返すなど勝点の積み上げに波があり、やや安定感に欠ける状態です。\n統計モデルのデータでも千葉の勝利確率が45%と優勢を示しており、ホームの利を生かして試合の主導権を握ることが予想されます。\n勢いに乗る千葉が岡山の堅守を崩し、ホームで勝ち点3を獲得する可能性が高いと分析します。",
           "codex_pick": "D",
           "codex_confidence": "39%",
           "codex_reasoning": "千葉勝利45.5%が首位だが、引き分けも31.8%と高い。過去のD不振を考慮しても接戦性を重視する。",
+          "claude_pick": "H",
+          "claude_confidence": "60%",
+          "claude_reasoning": "ホーム確率46.5%で最有力。千葉のホームアドバンテージと地力が岡山を上回ると判断。",
           "result": ""
         },
         {
@@ -413,17 +474,20 @@
           "home": "アビスパ福岡",
           "away": "浦和レッズ",
           "stats": {
-            "p_H": 0.3675,
-            "p_D": 0.3059,
-            "p_A": 0.3265,
+            "p_H": 0.3684,
+            "p_D": 0.301,
+            "p_A": 0.3305,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "低",
+          "gemini_reasoning": "直近のフォームでは浦和レッズが2連勝と復調の兆しを見せているものの、アビスパ福岡はホームでの堅守を武器に粘り強い戦いが期待できます。\n統計モデルの試算でもホーム勝利の確率（37%）が最も高く、ホームアドバンテージが大きく作用する見込みです。\n互いに譲らない接戦が予想されますが、ホームの利を活かした福岡が僅差で競り勝つ可能性が高いと分析します。",
           "codex_pick": "D",
           "codex_confidence": "36%",
           "codex_reasoning": "三択が36.8%、30.6%、32.7%とほぼ拮抗。最高値のホームを覆す確信は弱いが、均衡から引き分けを狙う。",
+          "claude_pick": "D",
+          "claude_confidence": "50%",
+          "claude_reasoning": "H/D/Aが37/30/33%と極めて拮抗。浦和の遠征能力を考慮してドロー予測。モデルのH優位は僅差で信頼度低い。",
           "result": ""
         }
       ]
@@ -436,9 +500,10 @@
       "payout_detail": null,
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-08-29",
-      "has_gemini": false,
+      "generated_date": "2026-09-01",
+      "has_gemini": true,
       "has_codex": true,
+      "has_claude": true,
       "settled": false,
       "summary": {
         "stat": {
@@ -450,6 +515,10 @@
           "hits": 0
         },
         "codex": {
+          "n": 0,
+          "hits": 0
+        },
+        "claude": {
           "n": 0,
           "hits": 0
         }
@@ -463,17 +532,20 @@
           "home": "水戸ホーリーホック",
           "away": "鹿島アントラーズ",
           "stats": {
-            "p_H": 0.3821,
-            "p_D": 0.2936,
-            "p_A": 0.3243,
+            "p_H": 0.3758,
+            "p_D": 0.2873,
+            "p_A": 0.3369,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルではホームの水戸ホーリーホックがやや優勢と算出されていますが、鹿島アントラーズの直近5連勝という圧倒的な勢いと総合力は無視できません。水戸はホームアドバンテージやダービーマッチ特有のモチベーションが期待できるものの、直近の成績は波があり守備面での不安が残ります。絶好調の攻撃陣を擁し、勝負強さを見せる鹿島がアウェイながら地力の差を示して勝利すると予想します。",
           "codex_pick": "H",
           "codex_confidence": "39%",
           "codex_reasoning": "水戸38.2%が鹿島32.4%をわずかに上回る程度で混戦。モデルのホーム優位を採るが、信頼度は抑える。",
+          "claude_pick": "A",
+          "claude_confidence": "57%",
+          "claude_reasoning": "モデルはH僅差だが鹿島の格上クラブとしての実績を重視。アウェイでも質の差が結果に出ると判断。",
           "result": ""
         },
         {
@@ -484,17 +556,20 @@
           "home": "ＦＣ町田ゼルビア",
           "away": "川崎フロンターレ",
           "stats": {
-            "p_H": 0.6594,
-            "p_D": 0.1754,
-            "p_A": 0.1652,
+            "p_H": 0.6655,
+            "p_D": 0.1684,
+            "p_A": 0.166,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "直近5試合で4勝を挙げているＦＣ町田ゼルビアは非常に好調を維持しており、統計モデルでも66%という高い勝利確率が示されています。一方の川崎フロンターレは直近5試合で勝利がなく（3分2敗）、失点や得点力不足を含めチーム状態の重さが懸念されます。町田の強度が高いフットボールとホームアドバンテージが不調の川崎を押し込む可能性が高く、ホームチームが手堅く勝利を収めると予想します。",
           "codex_pick": "H",
           "codex_confidence": "76%",
           "codex_reasoning": "町田勝利65.9%で、引き分け17.5%、川崎勝利16.5%を大幅に上回る。モデル差が大きく本命視。",
+          "claude_pick": "H",
+          "claude_confidence": "72%",
+          "claude_reasoning": "ホーム確率66.5%と高い。町田の堅守速攻スタイルが川崎の攻撃を封じると判断。",
           "result": ""
         },
         {
@@ -505,17 +580,20 @@
           "home": "横浜Ｆ・マリノス",
           "away": "京都サンガF.C.",
           "stats": {
-            "p_H": 0.3442,
-            "p_D": 0.2448,
-            "p_A": 0.411,
+            "p_H": 0.3524,
+            "p_D": 0.2437,
+            "p_A": 0.4039,
             "pick": "A"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルの推定データでは、アウェイの京都サンガF.C.の勝利確率が41%と最も高く評価されています。\n京都は直近の試合で2連勝と復調傾向にあり、攻守の噛み合わせが良くなっている点が好材料です。\n一方の横浜Ｆ・マリノスはホームの利があるものの、直近5試合で2敗を喫するなどやや好不調の波が見られます。\n勢いに乗る京都がアウェイながら主導権を握り、僅差で勝ち点3を奪うと予想します。",
           "codex_pick": "A",
           "codex_confidence": "43%",
           "codex_reasoning": "京都41.1%が横浜34.4%を上回るが差は小さい。引き分けも24.5%あり、アウェー支持ながら波乱含み。",
+          "claude_pick": "A",
+          "claude_confidence": "57%",
+          "claude_reasoning": "モデルがアウェイ優位40%と示す。横浜FMのホームながらも京都の好調を反映した珍しい数値を信頼。",
           "result": ""
         },
         {
@@ -526,17 +604,20 @@
           "home": "清水エスパルス",
           "away": "ＦＣ東京",
           "stats": {
-            "p_H": 0.3355,
-            "p_D": 0.2762,
-            "p_A": 0.3882,
+            "p_H": 0.3012,
+            "p_D": 0.2832,
+            "p_A": 0.4156,
             "pick": "A"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "ホームの清水エスパルスは直近5試合で4敗と調子を落としており、守備陣の安定感に不安が残る状況です。\n一方のＦＣ東京は勝ちきれない試合が多いものの、直近5試合でわずか1敗と手堅く勝ち点を拾う粘り強さを見せています。\n統計モデルでもアウェイ勝利（39%）がやや優勢と出ており、チーム状態の差を考慮するとＦＣ東京が主導権を握って押し切る可能性が高いと判断します。",
           "codex_pick": "A",
           "codex_confidence": "41%",
           "codex_reasoning": "FC東京38.8%が清水33.6%を小幅に上回る。引き分け27.6%も無視できず、僅差のアウェー予想。",
+          "claude_pick": "A",
+          "claude_confidence": "60%",
+          "claude_reasoning": "モデルアウェイ41.6%でFC東京優位。守備安定を武器にアウェイで勝ち点3を奪取すると予測。",
           "result": ""
         },
         {
@@ -547,17 +628,20 @@
           "home": "Ｖ・ファーレン長崎",
           "away": "ガンバ大阪",
           "stats": {
-            "p_H": 0.596,
-            "p_D": 0.206,
-            "p_A": 0.198,
+            "p_H": 0.5397,
+            "p_D": 0.2248,
+            "p_A": 0.2355,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルの試算ではホームのＶ・ファーレン長崎の勝利確率が60%と大きく優勢を示しています。長崎は直近3試合で2勝1分と復調傾向にあり、ホームの歓声を背に好調な攻撃陣が機能しやすい状況です。一方のガンバ大阪は直近で敗戦を喫するなどやや状態に波があり、アウェイでの戦いという点も含めて後手に回る懸念があります。近況の勢いとホームアドバンテージを活かせる長崎が優位に試合を進めると予想します。",
           "codex_pick": "H",
           "codex_confidence": "67%",
           "codex_reasoning": "長崎勝利59.6%に対し、引き分け20.6%、ガンバ勝利19.8%。過去の長崎絡みの外れには注意するが優勢。",
+          "claude_pick": "H",
+          "claude_confidence": "63%",
+          "claude_reasoning": "長崎のホーム確率54%で優位。ガンバの遠征での苦戦傾向を考慮してホーム勝利を予測。",
           "result": ""
         }
       ]
@@ -566,24 +650,45 @@
       "round": 1648,
       "kuji": "toto",
       "kuji_label": "toto (13試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 10593130,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 10593130,
+          "count": 9
+        },
+        {
+          "rank": "2等",
+          "amount": 38300,
+          "count": 330
+        },
+        {
+          "rank": "3等",
+          "amount": 3360,
+          "count": 3761
+        }
+      ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": true,
       "has_codex": true,
-      "settled": false,
+      "has_claude": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
-          "hits": 0
+          "n": 12,
+          "hits": 9
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 13,
+          "hits": 10
         },
         "codex": {
+          "n": 13,
+          "hits": 7
+        },
+        "claude": {
           "n": 0,
           "hits": 0
         }
@@ -608,7 +713,10 @@
           "codex_pick": "H",
           "codex_confidence": "40%",
           "codex_reasoning": "モデルは水戸勝ち40.5%で首位だが、引分け29.2%、町田勝ち30.4%と拮抗。ホームを僅差で選ぶ。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "D"
         },
         {
           "match_id": "1648-2",
@@ -629,7 +737,10 @@
           "codex_pick": "A",
           "codex_confidence": "64%",
           "codex_reasoning": "柏勝ち61.3%は全カードでも強い優位。清水勝ち17.1%にとどまり、波乱リスクを考慮しても柏本命。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "A"
         },
         {
           "match_id": "1648-3",
@@ -650,7 +761,10 @@
           "codex_pick": "H",
           "codex_confidence": "58%",
           "codex_reasoning": "京都勝ち58.0%が明確に優勢で、福岡勝ちは16.8%。引分け25.2%には注意しつつホーム勝ちを選択。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "H"
         },
         {
           "match_id": "1648-4",
@@ -666,7 +780,10 @@
           "codex_pick": "A",
           "codex_confidence": "36%",
           "codex_reasoning": "このカードだけモデル値がなく不確実性が最大。与えられた情報内で数値比較できないため、低信頼で鹿島勝ちを選ぶ。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "A"
         },
         {
           "match_id": "1648-5",
@@ -687,7 +804,10 @@
           "codex_pick": "H",
           "codex_confidence": "54%",
           "codex_reasoning": "神戸勝ち55.5%でセレッソ勝ち21.4%を上回る。神戸の過去予測では引分け外れもあり、信頼度は抑える。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "H"
         },
         {
           "match_id": "1648-6",
@@ -708,7 +828,10 @@
           "codex_pick": "A",
           "codex_confidence": "53%",
           "codex_reasoning": "広島勝ちが50.3%で、ガンバ勝ち23.9%を大きく上回る。引分け余地はあるが素直にアウェイ勝ち。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "D"
         },
         {
           "match_id": "1648-7",
@@ -729,7 +852,10 @@
           "codex_pick": "D",
           "codex_confidence": "31%",
           "codex_reasoning": "浦和43.8%が首位だが横浜31.5%も残り、決着方向が割れている。接戦化を見込み引分けを狙う。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "H"
         },
         {
           "match_id": "1648-8",
@@ -750,7 +876,10 @@
           "codex_pick": "H",
           "codex_confidence": "45%",
           "codex_reasoning": "川崎勝ち47.7%が千葉勝ち28.2%を上回る。川崎は直近例で引分けたため過信せず、ホームを小幅支持。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "H"
         },
         {
           "match_id": "1648-9",
@@ -771,7 +900,10 @@
           "codex_pick": "D",
           "codex_confidence": "30%",
           "codex_reasoning": "名古屋47.3%が優勢だが、引分け28.2%も無視できない。岡山絡みの直近波乱も踏まえ、均衡決着を選ぶ。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "H"
         },
         {
           "match_id": "1648-10",
@@ -792,7 +924,10 @@
           "codex_pick": "H",
           "codex_confidence": "62%",
           "codex_reasoning": "長崎勝ち60.9%に対し東京勝ちは17.4%。過去例で長崎絡みの逆転はあるが、数値差を重視してホーム。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "A"
         },
         {
           "match_id": "1648-11",
@@ -813,7 +948,10 @@
           "codex_pick": "H",
           "codex_confidence": "66%",
           "codex_reasoning": "徳島勝ち65.0%、大分勝ち8.3%で最も明瞭な差の一つ。引分け26.8%は残るが徳島本命が妥当。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "H"
         },
         {
           "match_id": "1648-12",
@@ -834,7 +972,10 @@
           "codex_pick": "H",
           "codex_confidence": "64%",
           "codex_reasoning": "八戸勝ち64.7%、秋田勝ち11.4%と大差。秋田は直近例で予測を覆したものの、小標本なので八戸を支持。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "H"
         },
         {
           "match_id": "1648-13",
@@ -855,7 +996,10 @@
           "codex_pick": "D",
           "codex_confidence": "29%",
           "codex_reasoning": "仙台38.8%と宮崎34.8%がほぼ互角で、引分けも26.5%。両方向に決め手を欠くため引分けを選択。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "H"
         }
       ]
     },
@@ -863,24 +1007,35 @@
       "round": 1648,
       "kuji": "mini_a",
       "kuji_label": "mini toto-A (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 6300,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 6300,
+          "count": 1093
+        }
+      ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": true,
       "has_codex": true,
-      "settled": false,
+      "has_claude": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
-          "hits": 0
+          "n": 4,
+          "hits": 3
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 4
         },
         "codex": {
+          "n": 5,
+          "hits": 4
+        },
+        "claude": {
           "n": 0,
           "hits": 0
         }
@@ -905,7 +1060,10 @@
           "codex_pick": "H",
           "codex_confidence": "40%",
           "codex_reasoning": "モデルは水戸勝ち40.5%で首位だが、引分け29.2%、町田勝ち30.4%と拮抗。ホームを僅差で選ぶ。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "D"
         },
         {
           "match_id": "1648-2",
@@ -926,7 +1084,10 @@
           "codex_pick": "A",
           "codex_confidence": "64%",
           "codex_reasoning": "柏勝ち61.3%は全カードでも強い優位。清水勝ち17.1%にとどまり、波乱リスクを考慮しても柏本命。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "A"
         },
         {
           "match_id": "1648-3",
@@ -947,7 +1108,10 @@
           "codex_pick": "H",
           "codex_confidence": "58%",
           "codex_reasoning": "京都勝ち58.0%が明確に優勢で、福岡勝ちは16.8%。引分け25.2%には注意しつつホーム勝ちを選択。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "H"
         },
         {
           "match_id": "1648-4",
@@ -963,7 +1127,10 @@
           "codex_pick": "A",
           "codex_confidence": "36%",
           "codex_reasoning": "このカードだけモデル値がなく不確実性が最大。与えられた情報内で数値比較できないため、低信頼で鹿島勝ちを選ぶ。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "A"
         },
         {
           "match_id": "1648-5",
@@ -984,7 +1151,10 @@
           "codex_pick": "H",
           "codex_confidence": "54%",
           "codex_reasoning": "神戸勝ち55.5%でセレッソ勝ち21.4%を上回る。神戸の過去予測では引分け外れもあり、信頼度は抑える。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "H"
         }
       ]
     },
@@ -992,24 +1162,35 @@
       "round": 1648,
       "kuji": "mini_b",
       "kuji_label": "mini toto-B (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 4710,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 4710,
+          "count": 1266
+        }
+      ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": true,
       "has_codex": true,
-      "settled": false,
+      "has_claude": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 3
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 3
         },
         "codex": {
+          "n": 5,
+          "hits": 1
+        },
+        "claude": {
           "n": 0,
           "hits": 0
         }
@@ -1034,7 +1215,10 @@
           "codex_pick": "A",
           "codex_confidence": "53%",
           "codex_reasoning": "広島勝ちが50.3%で、ガンバ勝ち23.9%を大きく上回る。引分け余地はあるが素直にアウェイ勝ち。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "D"
         },
         {
           "match_id": "1648-7",
@@ -1055,7 +1239,10 @@
           "codex_pick": "D",
           "codex_confidence": "31%",
           "codex_reasoning": "浦和43.8%が首位だが横浜31.5%も残り、決着方向が割れている。接戦化を見込み引分けを狙う。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "H"
         },
         {
           "match_id": "1648-8",
@@ -1076,7 +1263,10 @@
           "codex_pick": "H",
           "codex_confidence": "45%",
           "codex_reasoning": "川崎勝ち47.7%が千葉勝ち28.2%を上回る。川崎は直近例で引分けたため過信せず、ホームを小幅支持。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "H"
         },
         {
           "match_id": "1648-9",
@@ -1097,7 +1287,10 @@
           "codex_pick": "D",
           "codex_confidence": "30%",
           "codex_reasoning": "名古屋47.3%が優勢だが、引分け28.2%も無視できない。岡山絡みの直近波乱も踏まえ、均衡決着を選ぶ。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "H"
         },
         {
           "match_id": "1648-10",
@@ -1118,7 +1311,10 @@
           "codex_pick": "H",
           "codex_confidence": "62%",
           "codex_reasoning": "長崎勝ち60.9%に対し東京勝ちは17.4%。過去例で長崎絡みの逆転はあるが、数値差を重視してホーム。",
-          "result": ""
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
+          "result": "A"
         }
       ]
     },
@@ -1146,9 +1342,10 @@
       ],
       "deadline": "2026-08-22 14:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": true,
       "has_codex": true,
+      "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
@@ -1162,6 +1359,10 @@
         "codex": {
           "n": 13,
           "hits": 5
+        },
+        "claude": {
+          "n": 0,
+          "hits": 0
         }
       },
       "matches": [
@@ -1184,6 +1385,9 @@
           "codex_pick": "H",
           "codex_confidence": "62%",
           "codex_reasoning": "鹿島勝ち60.3%と今回のモデル有りカードで最も明確。引き分け26.8%には注意しつつホーム勝ちを支持。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -1200,6 +1404,9 @@
           "codex_pick": "D",
           "codex_confidence": "30%",
           "codex_reasoning": "モデル情報がなく数値的な優劣を置けないため、拮抗カードとして引き分けを選択。根拠が限定的で不確実性は高い。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -1221,6 +1428,9 @@
           "codex_pick": "D",
           "codex_confidence": "31%",
           "codex_reasoning": "モデル欠損で明確な優勢材料がなく、ホーム・アウェーいずれにも寄せにくい。均衡を想定して引き分け。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -1242,6 +1452,9 @@
           "codex_pick": "H",
           "codex_confidence": "36%",
           "codex_reasoning": "京都勝ち39.2%が最多だが、水戸勝ち32.6%、引き分け28.3%と差は小さい。ホーム側を僅差で選ぶ。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -1263,6 +1476,9 @@
           "codex_pick": "H",
           "codex_confidence": "36%",
           "codex_reasoning": "モデル欠損のため不確実だが、ホーム開催の利を限定的に評価して広島勝ち。拮抗して引き分けとなる可能性もある。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -1284,6 +1500,9 @@
           "codex_pick": "H",
           "codex_confidence": "34%",
           "codex_reasoning": "モデル情報がないため強い断定はできないが、ホームアドバンテージを小さく評価してセレッソ勝ちを選択。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -1305,6 +1524,9 @@
           "codex_pick": "A",
           "codex_confidence": "34%",
           "codex_reasoning": "モデル情報がなく判断材料は限定的。互角寄りの想定ながら、アウェー側が僅差で上回る展開を選択する。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -1326,6 +1548,9 @@
           "codex_pick": "A",
           "codex_confidence": "46%",
           "codex_reasoning": "モデルは大宮勝ち46.3%で、札幌勝ちを約16ポイント上回る。ただし引き分けも23.4%あり確信は中程度。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -1347,6 +1572,9 @@
           "codex_pick": "A",
           "codex_confidence": "33%",
           "codex_reasoning": "モデル欠損で定量的根拠は乏しいが、結果分布の偏りを避けつつアウェー側の僅差勝利を予想する。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -1368,6 +1596,9 @@
           "codex_pick": "A",
           "codex_confidence": "41%",
           "codex_reasoning": "徳島勝ち43.3%が磐田勝ち29.1%を明確に上回る。引き分け27.6%も無視できず、信頼度は控えめ。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -1389,6 +1620,9 @@
           "codex_pick": "H",
           "codex_confidence": "53%",
           "codex_reasoning": "モデルは八戸勝ち54.5%で最有力。引き分けが31.5%と高めで、仙台勝ちは低いものの波乱余地は残る。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -1410,6 +1644,9 @@
           "codex_pick": "A",
           "codex_confidence": "43%",
           "codex_reasoning": "藤枝勝ち45.1%が最有力で、新潟勝ち26.8%との差も大きい。一方で引き分け28.1%が主な不確実要因。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -1431,6 +1668,9 @@
           "codex_pick": "H",
           "codex_confidence": "38%",
           "codex_reasoning": "秋田勝ち41.8%が首位だが、引き分け28.8%、甲府勝ち29.5%で接戦。小幅なホーム優勢を採用する。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         }
       ]
@@ -1449,9 +1689,10 @@
       ],
       "deadline": "2026-08-22 17:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": true,
       "has_codex": true,
+      "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
@@ -1465,6 +1706,10 @@
         "codex": {
           "n": 5,
           "hits": 2
+        },
+        "claude": {
+          "n": 0,
+          "hits": 0
         }
       },
       "matches": [
@@ -1487,6 +1732,9 @@
           "codex_pick": "H",
           "codex_confidence": "62%",
           "codex_reasoning": "鹿島勝ち60.3%と今回のモデル有りカードで最も明確。引き分け26.8%には注意しつつホーム勝ちを支持。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -1503,6 +1751,9 @@
           "codex_pick": "D",
           "codex_confidence": "30%",
           "codex_reasoning": "モデル情報がなく数値的な優劣を置けないため、拮抗カードとして引き分けを選択。根拠が限定的で不確実性は高い。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -1524,6 +1775,9 @@
           "codex_pick": "D",
           "codex_confidence": "31%",
           "codex_reasoning": "モデル欠損で明確な優勢材料がなく、ホーム・アウェーいずれにも寄せにくい。均衡を想定して引き分け。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -1545,6 +1799,9 @@
           "codex_pick": "H",
           "codex_confidence": "36%",
           "codex_reasoning": "京都勝ち39.2%が最多だが、水戸勝ち32.6%、引き分け28.3%と差は小さい。ホーム側を僅差で選ぶ。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -1566,6 +1823,9 @@
           "codex_pick": "H",
           "codex_confidence": "36%",
           "codex_reasoning": "モデル欠損のため不確実だが、ホーム開催の利を限定的に評価して広島勝ち。拮抗して引き分けとなる可能性もある。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         }
       ]
@@ -1584,9 +1844,10 @@
       ],
       "deadline": "2026-08-22 14:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": true,
       "has_codex": true,
+      "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
@@ -1600,6 +1861,10 @@
         "codex": {
           "n": 5,
           "hits": 2
+        },
+        "claude": {
+          "n": 0,
+          "hits": 0
         }
       },
       "matches": [
@@ -1622,6 +1887,9 @@
           "codex_pick": "H",
           "codex_confidence": "34%",
           "codex_reasoning": "モデル情報がないため強い断定はできないが、ホームアドバンテージを小さく評価してセレッソ勝ちを選択。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -1643,6 +1911,9 @@
           "codex_pick": "A",
           "codex_confidence": "34%",
           "codex_reasoning": "モデル情報がなく判断材料は限定的。互角寄りの想定ながら、アウェー側が僅差で上回る展開を選択する。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -1664,6 +1935,9 @@
           "codex_pick": "A",
           "codex_confidence": "46%",
           "codex_reasoning": "モデルは大宮勝ち46.3%で、札幌勝ちを約16ポイント上回る。ただし引き分けも23.4%あり確信は中程度。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -1685,6 +1959,9 @@
           "codex_pick": "A",
           "codex_confidence": "33%",
           "codex_reasoning": "モデル欠損で定量的根拠は乏しいが、結果分布の偏りを避けつつアウェー側の僅差勝利を予想する。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -1706,6 +1983,9 @@
           "codex_pick": "A",
           "codex_confidence": "41%",
           "codex_reasoning": "徳島勝ち43.3%が磐田勝ち29.1%を明確に上回る。引き分け27.6%も無視できず、信頼度は控えめ。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         }
       ]
@@ -1734,9 +2014,10 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": false,
       "has_codex": true,
+      "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
@@ -1750,6 +2031,10 @@
         "codex": {
           "n": 13,
           "hits": 3
+        },
+        "claude": {
+          "n": 0,
+          "hits": 0
         }
       },
       "matches": [
@@ -1772,6 +2057,9 @@
           "codex_pick": "H",
           "codex_confidence": "72%",
           "codex_reasoning": "モデルは鹿島勝利64.5%で、引き分け以下を大きく上回る。番狂わせの余地はあるが、素直にホーム勝利を支持。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -1782,9 +2070,9 @@
           "home": "清水エスパルス",
           "away": "横浜Ｆ・マリノス",
           "stats": {
-            "p_H": 0.3465,
-            "p_D": 0.2562,
-            "p_A": 0.3973,
+            "p_H": 0.3464,
+            "p_D": 0.2564,
+            "p_A": 0.3972,
             "pick": "A"
           },
           "gemini_pick": "",
@@ -1793,6 +2081,9 @@
           "codex_pick": "D",
           "codex_confidence": "37%",
           "codex_reasoning": "確率データがなく優劣を強く判定できない。ホーム利とアウェイ側の対抗力が拮抗するとみて、低信頼度で引き分け。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -1803,8 +2094,8 @@
           "home": "ヴィッセル神戸",
           "away": "ＦＣ東京",
           "stats": {
-            "p_H": 0.5848,
-            "p_D": 0.2447,
+            "p_H": 0.5846,
+            "p_D": 0.2449,
             "p_A": 0.1705,
             "pick": "H"
           },
@@ -1814,6 +2105,9 @@
           "codex_pick": "H",
           "codex_confidence": "57%",
           "codex_reasoning": "確率データがないため確信は抑えるが、対戦カード上は神戸のホーム優位を評価。ＦＣ東京の反撃余地も残る。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -1835,6 +2129,9 @@
           "codex_pick": "D",
           "codex_confidence": "40%",
           "codex_reasoning": "モデルはホーム35.1%、引き分け30.4%、アウェイ34.5%と完全な三つ巴。勝敗を決めにくく引き分けを選択。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -1845,9 +2142,9 @@
           "home": "アビスパ福岡",
           "away": "セレッソ大阪",
           "stats": {
-            "p_H": 0.3115,
-            "p_D": 0.2833,
-            "p_A": 0.4052,
+            "p_H": 0.3114,
+            "p_D": 0.2835,
+            "p_A": 0.405,
             "pick": "A"
           },
           "gemini_pick": "",
@@ -1856,6 +2153,9 @@
           "codex_pick": "D",
           "codex_confidence": "36%",
           "codex_reasoning": "確率データがなく、埋め込み情報だけでは明確な優位を見いだせない。均衡した展開を想定し、慎重に引き分け。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -1866,8 +2166,8 @@
           "home": "水戸ホーリーホック",
           "away": "ガンバ大阪",
           "stats": {
-            "p_H": 0.5697,
-            "p_D": 0.2338,
+            "p_H": 0.5695,
+            "p_D": 0.2339,
             "p_A": 0.1965,
             "pick": "H"
           },
@@ -1877,6 +2177,9 @@
           "codex_pick": "A",
           "codex_confidence": "46%",
           "codex_reasoning": "確率データがなく不確実性は高い。対戦カード上の戦力差を限定的な手掛かりとし、僅差でガンバ大阪勝利を選ぶ。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -1898,6 +2201,9 @@
           "codex_pick": "A",
           "codex_confidence": "59%",
           "codex_reasoning": "モデルは長崎勝利53.8%で唯一過半数に達し、岡山勝利20.2%との差も大きい。ホーム側の抵抗を考慮して中程度の確信。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -1919,6 +2225,9 @@
           "codex_pick": "A",
           "codex_confidence": "45%",
           "codex_reasoning": "モデルでは広島勝利40.3%が最上位だが、引き分け30.8%と浦和勝利28.9%も残る。僅差でアウェイ勝利。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -1930,8 +2239,8 @@
           "away": "京都サンガF.C.",
           "stats": {
             "p_H": 0.2949,
-            "p_D": 0.2105,
-            "p_A": 0.4946,
+            "p_D": 0.2106,
+            "p_A": 0.4945,
             "pick": "A"
           },
           "gemini_pick": "",
@@ -1940,6 +2249,9 @@
           "codex_pick": "H",
           "codex_confidence": "48%",
           "codex_reasoning": "確率データがないため低めの確信度。ホーム開催を主要な手掛かりとして川崎勝利を選ぶが、京都の勝点獲得も十分あり得る。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -1961,6 +2273,9 @@
           "codex_pick": "H",
           "codex_confidence": "52%",
           "codex_reasoning": "モデルの秋田勝利48.5%が最上位で、引き分けと富山勝利を明確に上回る。ただし過半数未満で波乱には注意。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -1982,6 +2297,9 @@
           "codex_pick": "A",
           "codex_confidence": "51%",
           "codex_reasoning": "モデルは大宮勝利47.5%で、今治勝利26.4%と引き分け26.1%を約21ポイント上回る。過半数未満なので確信は控えめ。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -2003,6 +2321,9 @@
           "codex_pick": "H",
           "codex_confidence": "66%",
           "codex_reasoning": "モデルの仙台勝利59.6%が有力で、大分勝利は12.6%にとどまる。引き分け27.8%への警戒を残しつつホーム支持。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -2024,6 +2345,9 @@
           "codex_pick": "A",
           "codex_confidence": "49%",
           "codex_reasoning": "モデルは宮崎勝利46.2%を最多とし、甲府勝利27.7%と引き分け26.1%を上回る。波乱含みだがアウェイを選ぶ。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         }
       ]
@@ -2042,9 +2366,10 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": false,
       "has_codex": true,
+      "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
@@ -2058,6 +2383,10 @@
         "codex": {
           "n": 5,
           "hits": 1
+        },
+        "claude": {
+          "n": 0,
+          "hits": 0
         }
       },
       "matches": [
@@ -2080,6 +2409,9 @@
           "codex_pick": "H",
           "codex_confidence": "72%",
           "codex_reasoning": "モデルは鹿島勝利64.5%で、引き分け以下を大きく上回る。番狂わせの余地はあるが、素直にホーム勝利を支持。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -2090,9 +2422,9 @@
           "home": "清水エスパルス",
           "away": "横浜Ｆ・マリノス",
           "stats": {
-            "p_H": 0.3465,
-            "p_D": 0.2562,
-            "p_A": 0.3973,
+            "p_H": 0.3464,
+            "p_D": 0.2564,
+            "p_A": 0.3972,
             "pick": "A"
           },
           "gemini_pick": "",
@@ -2101,6 +2433,9 @@
           "codex_pick": "D",
           "codex_confidence": "37%",
           "codex_reasoning": "確率データがなく優劣を強く判定できない。ホーム利とアウェイ側の対抗力が拮抗するとみて、低信頼度で引き分け。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -2111,8 +2446,8 @@
           "home": "ヴィッセル神戸",
           "away": "ＦＣ東京",
           "stats": {
-            "p_H": 0.5848,
-            "p_D": 0.2447,
+            "p_H": 0.5846,
+            "p_D": 0.2449,
             "p_A": 0.1705,
             "pick": "H"
           },
@@ -2122,6 +2457,9 @@
           "codex_pick": "H",
           "codex_confidence": "57%",
           "codex_reasoning": "確率データがないため確信は抑えるが、対戦カード上は神戸のホーム優位を評価。ＦＣ東京の反撃余地も残る。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -2143,6 +2481,9 @@
           "codex_pick": "D",
           "codex_confidence": "40%",
           "codex_reasoning": "モデルはホーム35.1%、引き分け30.4%、アウェイ34.5%と完全な三つ巴。勝敗を決めにくく引き分けを選択。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -2153,9 +2494,9 @@
           "home": "アビスパ福岡",
           "away": "セレッソ大阪",
           "stats": {
-            "p_H": 0.3115,
-            "p_D": 0.2833,
-            "p_A": 0.4052,
+            "p_H": 0.3114,
+            "p_D": 0.2835,
+            "p_A": 0.405,
             "pick": "A"
           },
           "gemini_pick": "",
@@ -2164,6 +2505,9 @@
           "codex_pick": "D",
           "codex_confidence": "36%",
           "codex_reasoning": "確率データがなく、埋め込み情報だけでは明確な優位を見いだせない。均衡した展開を想定し、慎重に引き分け。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         }
       ]
@@ -2182,9 +2526,10 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": false,
       "has_codex": true,
+      "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
@@ -2198,6 +2543,10 @@
         "codex": {
           "n": 5,
           "hits": 1
+        },
+        "claude": {
+          "n": 0,
+          "hits": 0
         }
       },
       "matches": [
@@ -2209,8 +2558,8 @@
           "home": "水戸ホーリーホック",
           "away": "ガンバ大阪",
           "stats": {
-            "p_H": 0.5697,
-            "p_D": 0.2338,
+            "p_H": 0.5695,
+            "p_D": 0.2339,
             "p_A": 0.1965,
             "pick": "H"
           },
@@ -2220,6 +2569,9 @@
           "codex_pick": "A",
           "codex_confidence": "46%",
           "codex_reasoning": "確率データがなく不確実性は高い。対戦カード上の戦力差を限定的な手掛かりとし、僅差でガンバ大阪勝利を選ぶ。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -2241,6 +2593,9 @@
           "codex_pick": "A",
           "codex_confidence": "59%",
           "codex_reasoning": "モデルは長崎勝利53.8%で唯一過半数に達し、岡山勝利20.2%との差も大きい。ホーム側の抵抗を考慮して中程度の確信。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -2262,6 +2617,9 @@
           "codex_pick": "A",
           "codex_confidence": "45%",
           "codex_reasoning": "モデルでは広島勝利40.3%が最上位だが、引き分け30.8%と浦和勝利28.9%も残る。僅差でアウェイ勝利。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -2273,8 +2631,8 @@
           "away": "京都サンガF.C.",
           "stats": {
             "p_H": 0.2949,
-            "p_D": 0.2105,
-            "p_A": 0.4946,
+            "p_D": 0.2106,
+            "p_A": 0.4945,
             "pick": "A"
           },
           "gemini_pick": "",
@@ -2283,6 +2641,9 @@
           "codex_pick": "H",
           "codex_confidence": "48%",
           "codex_reasoning": "確率データがないため低めの確信度。ホーム開催を主要な手掛かりとして川崎勝利を選ぶが、京都の勝点獲得も十分あり得る。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -2304,6 +2665,9 @@
           "codex_pick": "H",
           "codex_confidence": "52%",
           "codex_reasoning": "モデルの秋田勝利48.5%が最上位で、引き分けと富山勝利を明確に上回る。ただし過半数未満で波乱には注意。",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         }
       ]
@@ -2332,9 +2696,10 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": true,
       "has_codex": false,
+      "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
@@ -2346,6 +2711,10 @@
           "hits": 8
         },
         "codex": {
+          "n": 0,
+          "hits": 0
+        },
+        "claude": {
           "n": 0,
           "hits": 0
         }
@@ -2365,6 +2734,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -2381,6 +2753,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -2397,6 +2772,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -2413,6 +2791,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -2429,6 +2810,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -2445,6 +2829,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -2461,6 +2848,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -2477,6 +2867,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -2493,6 +2886,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -2509,6 +2905,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -2525,6 +2924,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -2541,6 +2943,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -2557,6 +2962,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         }
       ]
@@ -2575,9 +2983,10 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": true,
       "has_codex": false,
+      "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
@@ -2589,6 +2998,10 @@
           "hits": 1
         },
         "codex": {
+          "n": 0,
+          "hits": 0
+        },
+        "claude": {
           "n": 0,
           "hits": 0
         }
@@ -2608,6 +3021,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -2624,6 +3040,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -2640,6 +3059,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -2656,6 +3078,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -2672,6 +3097,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         }
       ]
@@ -2690,9 +3118,10 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": true,
       "has_codex": false,
+      "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
@@ -2704,6 +3133,10 @@
           "hits": 4
         },
         "codex": {
+          "n": 0,
+          "hits": 0
+        },
+        "claude": {
           "n": 0,
           "hits": 0
         }
@@ -2723,6 +3156,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -2739,6 +3175,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -2755,6 +3194,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -2771,6 +3213,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -2787,6 +3232,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         }
       ]
@@ -2815,9 +3263,10 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": true,
       "has_codex": false,
+      "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
@@ -2829,6 +3278,10 @@
           "hits": 9
         },
         "codex": {
+          "n": 0,
+          "hits": 0
+        },
+        "claude": {
           "n": 0,
           "hits": 0
         }
@@ -2848,6 +3301,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -2864,6 +3320,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -2880,6 +3339,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -2896,6 +3358,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -2912,6 +3377,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -2928,6 +3396,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -2944,6 +3415,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -2960,6 +3434,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -2976,6 +3453,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -2992,6 +3472,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -3008,6 +3491,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3024,6 +3510,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -3040,6 +3529,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         }
       ]
@@ -3058,9 +3550,10 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": true,
       "has_codex": false,
+      "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
@@ -3072,6 +3565,10 @@
           "hits": 5
         },
         "codex": {
+          "n": 0,
+          "hits": 0
+        },
+        "claude": {
           "n": 0,
           "hits": 0
         }
@@ -3091,6 +3588,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3107,6 +3607,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -3123,6 +3626,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3139,6 +3645,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -3155,6 +3664,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         }
       ]
@@ -3173,9 +3685,10 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": true,
       "has_codex": false,
+      "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
@@ -3187,6 +3700,10 @@
           "hits": 3
         },
         "codex": {
+          "n": 0,
+          "hits": 0
+        },
+        "claude": {
           "n": 0,
           "hits": 0
         }
@@ -3206,6 +3723,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3222,6 +3742,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -3238,6 +3761,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3254,6 +3780,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3270,6 +3799,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         }
       ]
@@ -3298,9 +3830,10 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": true,
       "has_codex": false,
+      "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
@@ -3312,6 +3845,10 @@
           "hits": 11
         },
         "codex": {
+          "n": 0,
+          "hits": 0
+        },
+        "claude": {
           "n": 0,
           "hits": 0
         }
@@ -3331,6 +3868,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3347,6 +3887,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3363,6 +3906,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3379,6 +3925,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3395,6 +3944,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -3411,6 +3963,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3427,6 +3982,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -3443,6 +4001,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -3459,6 +4020,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3475,6 +4039,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3491,6 +4058,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -3507,6 +4077,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3523,6 +4096,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         }
       ]
@@ -3541,9 +4117,10 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": true,
       "has_codex": false,
+      "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
@@ -3555,6 +4132,10 @@
           "hits": 5
         },
         "codex": {
+          "n": 0,
+          "hits": 0
+        },
+        "claude": {
           "n": 0,
           "hits": 0
         }
@@ -3574,6 +4155,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3590,6 +4174,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3606,6 +4193,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3622,6 +4212,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3638,6 +4231,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         }
       ]
@@ -3656,9 +4252,10 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": true,
       "has_codex": false,
+      "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
@@ -3670,6 +4267,10 @@
           "hits": 4
         },
         "codex": {
+          "n": 0,
+          "hits": 0
+        },
+        "claude": {
           "n": 0,
           "hits": 0
         }
@@ -3689,6 +4290,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3705,6 +4309,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -3721,6 +4328,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -3737,6 +4347,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3753,6 +4366,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         }
       ]
@@ -3781,9 +4397,10 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": true,
       "has_codex": false,
+      "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
@@ -3795,6 +4412,10 @@
           "hits": 5
         },
         "codex": {
+          "n": 0,
+          "hits": 0
+        },
+        "claude": {
           "n": 0,
           "hits": 0
         }
@@ -3814,6 +4435,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -3830,6 +4454,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -3846,6 +4473,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3862,6 +4492,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -3878,6 +4511,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -3894,6 +4530,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -3910,6 +4549,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3926,6 +4568,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -3942,6 +4587,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -3958,6 +4606,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -3974,6 +4625,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "A"
         },
         {
@@ -3990,6 +4644,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -4006,6 +4663,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         }
       ]
@@ -4024,9 +4684,10 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": true,
       "has_codex": false,
+      "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
@@ -4038,6 +4699,10 @@
           "hits": 1
         },
         "codex": {
+          "n": 0,
+          "hits": 0
+        },
+        "claude": {
           "n": 0,
           "hits": 0
         }
@@ -4057,6 +4722,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -4073,6 +4741,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -4089,6 +4760,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -4105,6 +4779,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -4121,6 +4798,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         }
       ]
@@ -4139,9 +4819,10 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-08-29",
+      "generated_date": "2026-09-01",
       "has_gemini": true,
       "has_codex": false,
+      "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
@@ -4153,6 +4834,10 @@
           "hits": 1
         },
         "codex": {
+          "n": 0,
+          "hits": 0
+        },
+        "claude": {
           "n": 0,
           "hits": 0
         }
@@ -4172,6 +4857,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -4188,6 +4876,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         },
         {
@@ -4204,6 +4895,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -4220,6 +4914,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "D"
         },
         {
@@ -4236,6 +4933,9 @@
           "codex_pick": "",
           "codex_confidence": "",
           "codex_reasoning": "",
+          "claude_pick": "",
+          "claude_confidence": "",
+          "claude_reasoning": "",
           "result": "H"
         }
       ]
