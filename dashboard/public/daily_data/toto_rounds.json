@@ -1,6 +1,6 @@
 {
-  "default_round": 1650,
-  "default_key": "1650-toto",
+  "default_round": 1651,
+  "default_key": "1651-toto",
   "rounds": [
     {
       "round": 1653,
@@ -10,7 +10,7 @@
       "payout_detail": null,
       "deadline": "2026-09-12 17:50",
       "result_date": "2026-09-13",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -351,7 +351,7 @@
       "payout_detail": null,
       "deadline": "2026-09-12 17:50",
       "result_date": "2026-09-12",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -505,7 +505,7 @@
       "payout_detail": null,
       "deadline": "2026-09-12 17:50",
       "result_date": "2026-09-13",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -654,7 +654,7 @@
       "payout_detail": null,
       "deadline": "2026-09-09 18:20",
       "result_date": "2026-09-09",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -803,27 +803,27 @@
       "payout_detail": null,
       "deadline": "2026-09-05 18:50",
       "result_date": "2026-09-06",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
-          "hits": 0
+          "n": 3,
+          "hits": 1
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 3,
+          "hits": 1
         },
         "codex": {
-          "n": 0,
-          "hits": 0
+          "n": 3,
+          "hits": 1
         },
         "claude": {
-          "n": 0,
-          "hits": 0
+          "n": 3,
+          "hits": 1
         }
       },
       "matches": [
@@ -849,7 +849,7 @@
           "claude_pick": "A",
           "claude_confidence": "62%",
           "claude_reasoning": "モデルがA確率0.47と明確に支持。水戸の攻撃力が福岡のホームアドバンテージを上回ると判断。",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1650-2",
@@ -1084,7 +1084,7 @@
           "claude_pick": "H",
           "claude_confidence": "62%",
           "claude_reasoning": "ホーム徳島がいわきFC相手に優位。モデルH確率0.47で攻守バランスが良く妥当な選択。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1650-12",
@@ -1108,7 +1108,7 @@
           "claude_pick": "H",
           "claude_confidence": "68%",
           "claude_reasoning": "モデルH確率0.59と高い。山形のホームアドバンテージが甲府を突き放す展開を予測。",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1650-13",
@@ -1144,26 +1144,26 @@
       "payout_detail": null,
       "deadline": "2026-09-05 18:50",
       "result_date": "2026-09-06",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
+          "n": 1,
           "hits": 0
         },
         "gemini": {
-          "n": 0,
+          "n": 1,
           "hits": 0
         },
         "codex": {
-          "n": 0,
+          "n": 1,
           "hits": 0
         },
         "claude": {
-          "n": 0,
+          "n": 1,
           "hits": 0
         }
       },
@@ -1190,7 +1190,7 @@
           "claude_pick": "A",
           "claude_confidence": "62%",
           "claude_reasoning": "モデルがA確率0.47と明確に支持。水戸の攻撃力が福岡のホームアドバンテージを上回ると判断。",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1650-2",
@@ -1298,27 +1298,27 @@
       "payout_detail": null,
       "deadline": "2026-09-05 18:50",
       "result_date": "2026-09-06",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
-          "hits": 0
+          "n": 1,
+          "hits": 1
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 1,
+          "hits": 1
         },
         "codex": {
-          "n": 0,
-          "hits": 0
+          "n": 1,
+          "hits": 1
         },
         "claude": {
-          "n": 0,
-          "hits": 0
+          "n": 1,
+          "hits": 1
         }
       },
       "matches": [
@@ -1435,7 +1435,7 @@
           "claude_pick": "H",
           "claude_confidence": "62%",
           "claude_reasoning": "ホーム徳島がいわきFC相手に優位。モデルH確率0.47で攻守バランスが良く妥当な選択。",
-          "result": ""
+          "result": "H"
         }
       ]
     },
@@ -1463,7 +1463,7 @@
       ],
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -1810,7 +1810,7 @@
       ],
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -1965,7 +1965,7 @@
       ],
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -2135,7 +2135,7 @@
       ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -2482,7 +2482,7 @@
       ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -2637,7 +2637,7 @@
       ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -2807,7 +2807,7 @@
       ],
       "deadline": "2026-08-22 14:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -3154,7 +3154,7 @@
       ],
       "deadline": "2026-08-22 17:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -3309,7 +3309,7 @@
       ],
       "deadline": "2026-08-22 14:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -3479,7 +3479,7 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": false,
       "has_codex": true,
       "has_claude": false,
@@ -3831,7 +3831,7 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": false,
       "has_codex": true,
       "has_claude": false,
@@ -3991,7 +3991,7 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": false,
       "has_codex": true,
       "has_claude": false,
@@ -4161,7 +4161,7 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -4448,7 +4448,7 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -4583,7 +4583,7 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -4728,7 +4728,7 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -5015,7 +5015,7 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -5150,7 +5150,7 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -5295,7 +5295,7 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -5582,7 +5582,7 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -5717,7 +5717,7 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -5862,7 +5862,7 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -6149,7 +6149,7 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -6284,7 +6284,7 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-09-05",
+      "generated_date": "2026-09-06",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
