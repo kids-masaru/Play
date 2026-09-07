@@ -1,6 +1,18 @@
 # Gemma ローカル微調整 — タスク管理
 
-## 最終更新: 2026-06-21
+## 最終更新: 2026-09-07
+
+## 🧭 再開ブロック（最終更新: 2026-09-07・ここだけ読めば再開できる）
+- **現在地**: ローカルLLM弟子を**Qwen3 1.7Bへ刷新完了**。Claude枠=`qwen-boat-claude:1.7b`、GrokX枠=`qwen-boat-grok-x-v2:1.7b` を朝バッチへ組込済み（commit 3037d94）。115レースバックテストで同一教師のGemma弟子を全指標で上回ることを確認済み（詳細: 作業ログ2026-09-07）。
+- **次の一歩**: 明朝9:00バッチ後、ダッシュボード「今日の予測」タブに「学習Qwen (Claude先生)/(Grok+X先生)」の買い目が出るか確認。2〜3週間戦績を蓄積→月別的中率でGemma時代と比較。
+- **今回触ったファイル**: `predict_gemma_ft.py`(Qwen stopトークン対応) / `update_battle_dashboard.py` / `backfill_battle_predictions.py` / `model_performance.py` / `dashboard/src/Battle.jsx` / `gemma_finetune/`新規4スクリプト
+- **未コミット / 未push**: 未pushコミット1件（3037d94）。**明朝9:00の朝バッチが自動pushするので手動push不要**。未コミットの daily_data/models 系差分は朝バッチ管理のため触らない。
+- **待ち・ブロッカー**: なし（Gemini先生のQwen版のみ「教材消失＋API無料枠20回/日」で見送り確定）
+- **落とし穴・注意**:
+  - CSV/タグ名は `GemmaClaude`/`GemmaGrokX` のまま＝**名前はGemmaでも中身はQwen**（履歴連続性のため意図的）。内部キー改名はダッシュボード全体改修になるのでやらない。
+  - Qwen学習は `train_qlora.py`（Gemma用）ではなく **`train_qlora_qwen.py`** を使う（stop/テンプレが違う）。
+  - 弟子の優劣判定は目視でなく **`backtest_disciples.py`**（未学習期間・本番同一条件）で行う。
+  - Gemini APIキーは無料枠プロジェクト（20回/日）。教材再生成に使わない。
 
 ## 現在のステータス
 - Phase 1（planning）: **承認済み（2026-06-17）**
@@ -18,16 +30,16 @@
 - **モデル確定: `unsloth/gemma-3-1b-it`（4bit QLoRA）**。
   Gemma4は最小E2Bでも4bit重みが7GB級→VRAM 6GBで学習OOM必至＝見送り（2026-06-18 実測）。
 
-## 次回やること
-- **運用観察**: 6者対戦の戦績が毎朝自動で積み上がる。Gemini先生版 vs Claude先生版 の的中率/収支推移を見守る。
-- **T15 振り返り**: ある程度レースが溜まったら「どちらの先生に習った方が良い予想か」を総括。
-- （任意）データ再増量や3周目の方針。モデルは 6GB 制約で gemma-3-1b 据え置き。
-- 実行メモ:
-  - 学習: `~/gemma-ft/venv/bin/python ~/gemma-ft/train_qlora.py --epochs 2`（1000件・約45〜60分）
-  - データ作成(Gemini先生): `run_build_dataset.bat <件数>` / (Claude先生): `dump_situations.py`→サブエージェントでお手本→`train_claude.jsonl`
-  - GGUF化: `merge_export.py`→`llama.cpp/convert_hf_to_gguf.py --outtype q8_0`→`ollama create`
-  - 推論モデル: Ollama `gemma-boat:1b`(Gemini先生) / `gemma-boat-claude:1b`(Claude先生)
-  - LoRAバックアップ: `~/gemma-ft/lora_boat_gemini` / `lora_boat_claude`
+## 次回やること（2026-09-07 更新）
+- **運用観察**: Qwen弟子2体（Claude先生/GrokX先生v2）の戦績が毎朝積み上がる。2〜3週間後に月別的中率・収支でGemma時代と比較。
+- （任意）Gemma/Gemini弟子（`gemma-boat:1b`）の去就判断。バックテストではROI 98.8%とほぼ収支トントンで現状維持中。
+- （任意）Qwen 4Bクラスの弟子（学習はVRAM 6GBでOOMリスクあり、要検証）。
+- 実行メモ（Qwen弟子の再学習手順）:
+  - 学習: `wsl` → `cd ~/gemma-ft && venv/bin/python train_qlora_qwen.py --data <jsonl> --out <dir> --adapter <dir> --epochs 2`（1000件・約17分）
+  - GGUF化: `merge_export.py --adapter <dir> --merged <dir>`→`llama.cpp/convert_hf_to_gguf.py <dir> --outtype q8_0`→GGUFを`C:\Users\HP\gemma-boat\`へ→`ollama create <名前> -f Modelfile.qwen-*`（stopは`<|im_end|>`）
+  - バックテスト: `python gemma_finetune/backtest_disciples.py <レース数>`（未学習期間からランダム抽出）
+  - 推論モデル: Ollama `qwen-boat-claude:1.7b` / `qwen-boat-grok-x-v2:1.7b` / `gemma-boat:1b`(Gemini先生・据置)
+  - LoRA: `~/gemma-ft/lora_boat_qwen_claude` / `lora_boat_qwen_grok_x_v2`（旧Gemma系も保持）
 
 ## タスク一覧
 
