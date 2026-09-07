@@ -216,20 +216,22 @@ def main():
         # Claude Maxの利用上限・認証切れでも、他モデルと公開処理は継続する。
         run_py("generate_claude_predictions.py", allow_fail=True)
 
-    # 学習版Gemma 予測（Ollama 未起動/未登録でも、他を止めず続行）
-    # 2モデル: Gemini先生版(gemma-boat:1b) と Claude先生版(gemma-boat-claude:1b)
+    # 学習済みローカルLLM 予測（Ollama 未起動/未登録でも、他を止めず続行）
+    # 2026-09-07: Claude先生枠・Grok+X先生枠をQwen弟子へ切替
+    # （115レースバックテストで同一教師のGemma弟子を全指標で上回ったため。
+    #   CSV/タグ名は対戦履歴の連続性維持のため従来のまま）
     if skip_gemma:
-        log("--skip-gemma 指定のため 学習版Gemma 予測をスキップ")
+        log("--skip-gemma 指定のため 学習版ローカルLLM 予測をスキップ")
     else:
-        run_py("predict_gemma_ft.py", allow_fail=True)  # Gemini先生版(既定)
+        run_py("predict_gemma_ft.py", allow_fail=True)  # Gemini先生版(既定 gemma-boat:1b)
         run_py("predict_gemma_ft.py", allow_fail=True, extra_args=[
-            "--model", "gemma-boat-claude:1b",
+            "--model", "qwen-boat-claude:1.7b",
             "--out", "daily_gemma_claude_predictions.csv",
-            "--tag", "GemmaClaude"])  # Claude先生版
+            "--tag", "GemmaClaude"])  # Claude先生版(Qwen弟子)
         run_py("predict_gemma_ft.py", allow_fail=True, extra_args=[
-            "--model", "gemma-boat-grok-x:1b",
+            "--model", "qwen-boat-grok-x-v2:1.7b",
             "--out", "daily_gemma_grok_x_predictions.csv",
-            "--tag", "GemmaGrokX"])
+            "--tag", "GemmaGrokX"])  # Grok+X先生版(Qwen弟子v2)
 
     # 2回目: Gemini と 学習版Gemma を取り込んだ最終版
     # （--skip-gemini かつ --skip-gemma でも、再生成は無害なので常に回す）

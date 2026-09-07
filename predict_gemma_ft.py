@@ -57,7 +57,11 @@ def check_ollama(model):
 
 
 def call_gemma(prompt, model, max_retries=3):
-    """学習版Gemma(Ollama)を呼び出して応答テキストを返す。"""
+    """学習済みローカルLLM(Ollama)を呼び出して応答テキストを返す。
+
+    stopトークンはモデル系統で自動判別（Gemma系=<end_of_turn> / Qwen系=<|im_end|>）。
+    """
+    stop_token = "<|im_end|>" if "qwen" in model.lower() else "<end_of_turn>"
     for attempt in range(max_retries):
         try:
             response = requests.post(OLLAMA_URL, json={
@@ -67,7 +71,7 @@ def call_gemma(prompt, model, max_retries=3):
                 "options": {
                     "temperature": 0.7,
                     "num_predict": 400,
-                    "stop": ["<end_of_turn>"],
+                    "stop": [stop_token],
                 },
             }, timeout=300)
             if response.status_code == 200:

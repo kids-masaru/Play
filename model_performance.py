@@ -33,8 +33,8 @@ MODELS = [
     {"key": "stakes_gemini", "label": "Gemini", "short": "Gemini", "color": "#059669"},
     {"key": "stakes_grok", "label": "Grok", "short": "Grok", "color": "#7c3aed"},
     {"key": "stakes_gemmaft", "label": "学習Gemma（Gemini先生）", "short": "学Gemini", "color": "#db2777"},
-    {"key": "stakes_gemmaclaude", "label": "学習Gemma（Claude先生）", "short": "学Claude", "color": "#0891b2"},
-    {"key": "stakes_gemmagrokx", "label": "学習Gemma（Grok+X先生）", "short": "学Grok+X", "color": "#ea580c"},
+    {"key": "stakes_gemmaclaude", "label": "学習Qwen（Claude先生）", "short": "学Claude", "color": "#0891b2"},
+    {"key": "stakes_gemmagrokx", "label": "学習Qwen（Grok+X先生）", "short": "学Grok+X", "color": "#ea580c"},
     {"key": "stakes_codex", "label": "Codex", "short": "Codex", "color": "#0d9488"},
     {"key": "stakes_claude", "label": "Claude", "short": "Claude", "color": "#d97706"},
 ]

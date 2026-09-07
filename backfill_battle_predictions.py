@@ -372,7 +372,7 @@ def main():
     # Ollama 系を使うなら起動/登録チェック
     if "gemmaft" in wanted and not gm.check_ollama("gemma-boat:1b"):
         wanted.remove("gemmaft")
-    if "gemmaclaude" in wanted and not gm.check_ollama("gemma-boat-claude:1b"):
+    if "gemmaclaude" in wanted and not gm.check_ollama("qwen-boat-claude:1.7b"):
         wanted.remove("gemmaclaude")
 
     if "gemini" in wanted:
@@ -383,8 +383,9 @@ def main():
                   lambda r: predict_gemma_row(r, "gemma-boat:1b", "GemmaFT"),
                   "daily_gemma_predictions.csv", races, limit, args.force)
     if "gemmaclaude" in wanted:
-        run_model("GemmaClaude(Claude先生)",
-                  lambda r: predict_gemma_row(r, "gemma-boat-claude:1b", "GemmaClaude"),
+        # 2026-09-07: Qwen弟子へ切替（タグ/CSVは履歴連続性のため従来のまま）
+        run_model("QwenClaude(Claude先生)",
+                  lambda r: predict_gemma_row(r, "qwen-boat-claude:1.7b", "GemmaClaude"),
                   "daily_gemma_claude_predictions.csv", races, limit, args.force)
 
     print("\n全モデル完了。次に `python generate_battle_data.py` でサマリを再生成してください。")

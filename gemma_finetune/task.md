@@ -86,6 +86,21 @@
 - [x] T19. ダッシュボードを**6者対戦**化（Battle.jsx + generate_battle_data + 朝バッチで両モデル生成）。push済み。
 
 ## 作業ログ
+### 2026-09-07（Qwen弟子検証）
+- ローカルLLM刷新検討。素のqwen3.5:4b vs gemma4:e2bを本番プロンプトで比較→Gemma優位（Qwenは中国語漏出・競艇ルール誤解）。ルール注入でも差は埋まらず。
+- **同じ教材でのファインチューンならQwenが強い**と判明:
+  - `qwen-boat-claude:1.7b`（Claude先生1000件, train loss **1.01** vs Gemma版1.09）
+  - `qwen-boat-grok-x:1.7b`（Grok+X先生899件, train loss **1.12** vs Gemma版1.28）
+  - 学習: WSL `train_qlora_qwen.py`（ベースunsloth/Qwen3-1.7B, qwen3-instructテンプレ, 1回約17分）
+- 5弟子比較（`compare_disciples_qwen.py`）: **Qwen/Claude先生版が最安定**（推論と買い目が一貫・常に5点）。Gemma/Gemini・Gemma/Claudeは自己矛盾や誇張あり。
+- Grok+X教材899件中123件の冒頭に「まずXで検索します」メタ前置きが混入していたと発見→`clean_grok_x_dataset.py`で除去し`train_grok_x_cleaned.jsonl`作成→Qwen v2再学習。
+- Gemini先生教材の原本1000件は消失確認（WSL側はClaude教材で上書き・ハッシュ一致で確認）。再生成はAPI無料枠(20回/日)で断念、**Gemini版は見送り**（masaru判断）。
+- 方針: Gemma/Gemini・Gemma/Claudeは弱いため退役方向。Qwen/Claude採用、Grok枠はGemma vs Qwen v2の比較で決める。
+- Grok+X教材クリーニング版でQwen v2学習（loss 1.1267）→メタ発言・日付幻覚が消滅。`qwen-boat-grok-x-v2:1.7b`登録、v1と素qwen3.5:4bは削除。
+- **一括バックテスト基盤 `backtest_disciples.py` 新設**（未学習期間2026-08-01以降からランダム抽出・本番同一プロンプト/パラメータ・各買い目100円・的中率/ROI/最大DD算出）。
+- **115レース検証結果**: Qwen/Claude ROI104.8%(+2,760円,最高配当除外でも84.6%) > Gemma/Gemini 98.8% > Qwen/GrokX_v2 85.4%(的中率31.3%で最高) > Gemma/GrokX 50.9% > Gemma/Claude 39.2%(買い目2.5点癖・的中9.6%)。**同じ教師ならQwen弟子が全指標でGemma弟子を上回る**。
+- 次: 朝バッチへの採用判断（qwen-boat-claude + qwen-boat-grok-x-v2、predict_gemma_ft.pyのstopトークンQwen対応が必要）。
+
 ### 2026-07-26
 - トップダッシュボードをAI別タブ（通常予測・Det・Gemini・Grok・学習Gemma各種）に変更し、各AIのROI・的中率・推移・会場別成績を表示。傾向タブは画面から除外。
 - Detの旧モデルは特徴量数が異なるため、比較時は旧列を0補完して列数を維持する方式に修正。`compare_det_models.py`で再学習なしの新旧比較が可能。

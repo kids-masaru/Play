@@ -231,7 +231,7 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
             </div>
           </div>
           <div style={{ padding: '0.5rem', background: 'rgba(6,182,212,0.07)', borderRadius: '6px' }}>
-            <div style={{ fontSize: '0.8rem', color: '#06b6d4', marginBottom: '0.25rem', fontWeight: 600 }}>学習版Gemma (Claude先生)</div>
+            <div style={{ fontSize: '0.8rem', color: '#06b6d4', marginBottom: '0.25rem', fontWeight: 600 }}>学習Qwen (Claude先生)</div>
             <div style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>
               {aiFc.length > 0
                 ? aiFc.map((p, i) => <div key={i}>{p.combo}{p.stake ? `  ¥${p.stake}` : ''}</div>)
@@ -239,7 +239,7 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
             </div>
           </div>
           <div style={{ padding: '0.5rem', background: 'rgba(249,115,22,0.07)', borderRadius: '6px' }}>
-            <div style={{ fontSize: '0.8rem', color: '#f97316', marginBottom: '0.25rem', fontWeight: 600 }}>学習Gemma (Grok+X先生)</div>
+            <div style={{ fontSize: '0.8rem', color: '#f97316', marginBottom: '0.25rem', fontWeight: 600 }}>学習Qwen (Grok+X先生)</div>
             <div style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}>
               {aiGx.length > 0 ? aiGx.map((p, i) => <div key={i}>{p.combo}{p.stake ? `  ¥${p.stake}` : ''}</div>) : '(なし)'}
             </div>
@@ -296,7 +296,7 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
         {race.ai_prediction_gemmaclaude && (
           <details open style={{ marginTop: '0.75rem', borderTop: '1px solid var(--border, #374151)', paddingTop: '0.75rem' }}>
             <summary style={{ cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600, color: '#06b6d4' }}>
-              🎓 学習版Gemma (Claude先生) の推論
+              🎓 学習Qwen (Claude先生) の推論
             </summary>
             <div style={{ marginTop: '0.5rem', whiteSpace: 'pre-wrap', fontSize: '0.85rem', lineHeight: 1.7, color: 'var(--text-primary, #f3f4f6)' }}>
               {race.ai_prediction_gemmaclaude}
@@ -305,7 +305,7 @@ const RaceDetail = ({ race, userPred, onSave, onBack }) => {
         )}
         {race.ai_prediction_gemmagrokx && (
           <details open style={{ marginTop: '0.75rem', borderTop: '1px solid var(--border, #374151)', paddingTop: '0.75rem' }}>
-            <summary style={{ cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600, color: '#f97316' }}>学習Gemma (Grok+X先生) の予測</summary>
+            <summary style={{ cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600, color: '#f97316' }}>学習Qwen (Grok+X先生) の予測</summary>
             <div style={{ marginTop: '0.5rem', whiteSpace: 'pre-wrap', fontSize: '0.85rem', lineHeight: 1.7 }}>{race.ai_prediction_gemmagrokx}</div>
           </details>
         )}
