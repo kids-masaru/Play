@@ -18,3 +18,8 @@ rem ----- Battle dashboard: copy -> generate (Det/LLM + Gemini) -> publish -----
 echo [%date% %time%] ===== battle update start ===== >> "%~dp0logs\morning.log" 2>&1
 python update_battle_dashboard.py >> "%~dp0logs\morning.log" 2>&1
 echo [%date% %time%] ===== battle update end (exit=%ERRORLEVEL%) ===== >> "%~dp0logs\morning.log" 2>&1
+
+rem ----- CLV: persist today's buy lists (accrues for scoring after closing odds) -----
+echo [%date% %time%] ===== clv persist start ===== >> "%~dp0logs\morning.log" 2>&1
+python compute_clv.py >> "%~dp0logs\morning.log" 2>&1
+echo [%date% %time%] ===== clv persist end (exit=%ERRORLEVEL%) ===== >> "%~dp0logs\morning.log" 2>&1

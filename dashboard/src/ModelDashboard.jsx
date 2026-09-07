@@ -57,6 +57,51 @@ const CHARTS = {
   },
 };
 
+// CLV（Closing Line Value）セクション。ROIとは独立の"妙味の先取り"指標。
+// clv_summary.json（compute_clv.py が生成）を独立取得。ファイルが無い／未蓄積でも安全に何も出さない。
+const ClvSection = () => {
+  const [clv, setClv] = useState(null);
+  useEffect(() => {
+    fetch(`./daily_data/clv_summary.json?t=${Date.now()}`)
+      .then(res => res.ok ? res.json() : Promise.reject(new Error(`HTTP ${res.status}`)))
+      .then(setClv)
+      .catch(() => setClv(null));
+  }, []);
+
+  if (!clv || !clv.models) return null;
+  const entries = Object.entries(clv.models);
+  if (!entries.length) return null;
+
+  return <section className="comparison-table-card">
+    <div className="simple-section-heading">
+      <div>
+        <h3>CLV（妙味の先取り）</h3>
+        <p>予測時点(朝)→締切のオッズの動きから、当たり外れと無関係に「良いオッズを先取りできたか」を測る指標。プラスほど締切前に妙味を見抜けています（ROIより運に左右されにくい）。</p>
+      </div>
+    </div>
+    <div className="model-ranking-list">
+      {entries.map(([key, m]) => {
+        const accruing = m.status !== 'active';
+        const noData = m.graded_races == null || m.graded_races === 0;
+        return <article className="model-ranking-card" key={key}>
+          <div className="model-card-top">
+            <strong className="model-card-name">{m.label || key}</strong>
+            <strong className={`model-card-profit ${noData ? '' : (m.avg_clv_pp >= 0 ? 'value-positive' : 'value-negative')}`}>
+              {noData ? '蓄積中' : `${m.avg_clv_pp >= 0 ? '+' : ''}${m.avg_clv_pp.toFixed(2)}pp`}
+            </strong>
+            {accruing && <span className="change neutral">{noData ? '締切オッズ待ち' : '暫定'}</span>}
+          </div>
+          <div className="model-card-metrics">
+            <div><span>平均CLV</span><strong className={noData ? '' : (m.avg_clv_pp >= 0 ? 'value-positive' : '')}>{noData ? '—' : `${m.avg_clv_pp >= 0 ? '+' : ''}${m.avg_clv_pp.toFixed(2)}pp`}</strong></div>
+            <div><span>プラス率</span><strong>{noData ? '—' : `${m.positive_rate_pct}%`}</strong></div>
+            <div><span>採点レース</span><strong>{m.graded_races || 0}</strong></div>
+          </div>
+        </article>;
+      })}
+    </div>
+  </section>;
+};
+
 const ModelDashboard = ({ period = 'weekly' }) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
@@ -203,6 +248,8 @@ const ModelDashboard = ({ period = 'weekly' }) => {
         </ComposedChart>
       </ResponsiveContainer> : <div className="comparison-empty">この期間の確定結果はまだありません。</div>}
     </section>
+
+    <ClvSection />
   </main>;
 };
 

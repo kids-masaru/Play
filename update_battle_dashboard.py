@@ -61,6 +61,8 @@ PUBLISH_FILES = [
     "dashboard/public/daily_data/daily_history_results.csv",
     # 傾向(攻略図)タブの会場別/レース番号別イン率ヒートマップ用
     "dashboard/public/daily_data/boat_tendency.json",
+    # CLV（妙味の先取り）モデル別サマリ。compute_clv.py が生成
+    "dashboard/public/daily_data/clv_summary.json",
 ]
 
 

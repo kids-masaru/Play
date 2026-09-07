@@ -94,3 +94,7 @@ data/
 !gemma_finetune/data/
 gemma_finetune/data/*.jsonl
 gemma_finetune/outputs/
+
+# CLV: 予測買い目の永続ログ（増え続ける内部生成物・ローカルに残せば十分）。締切オッズも同様。
+**/clv_prediction_log.csv
+**/closing_odds_3t.csv

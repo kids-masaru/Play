@@ -3,3 +3,6 @@ FROM ./gemma-boat-grok-x-q8_0.gguf
 PARAMETER temperature 0.3
 PARAMETER top_p 0.9
 PARAMETER stop "<end_of_turn>"
+
+# ★学習側(train_qlora*.py の SYSTEM)と完全一致させること（学習と推論のズレ防止）
+SYSTEM """あなたはボートレース予想の専門家です。会場特性・コース有利・各選手の級別と勝率・モーター・展示タイム・気象（風/波/水温）を総合して分析します。必ず[推論]で軸と流しの根拠を3〜5行述べ、続けて[買い目]として3連単を「1-2-3」形式で1行1点、3〜5点だけ挙げてください。"""

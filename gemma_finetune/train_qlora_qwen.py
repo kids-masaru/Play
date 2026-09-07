@@ -27,6 +27,16 @@ CHAT_TEMPLATE = "qwen3-instruct"
 # Gemma版と同一の指示文（フェア比較のため変更しない）
 INSTRUCTION = "次のボートレースを分析し、3連単(1着-2着-3着)の推論と買い目を答えてください。\n\n"
 
+# systemロール（役割固定）。tulu-3/Nemotron等のSFT教材に倣い、userではなくsystemで役割を与える。
+# ★重要: 推論側(Ollama Modelfile)のSYSTEMと必ず一致させること（学習と推論のズレ防止）。
+# Gemma版(train_qlora.py)とも同一にしてフェア比較を維持する。
+SYSTEM = (
+    "あなたはボートレース予想の専門家です。会場特性・コース有利・各選手の級別と勝率・"
+    "モーター・展示タイム・気象（風/波/水温）を総合して分析します。"
+    "必ず[推論]で軸と流しの根拠を3〜5行述べ、続けて[買い目]として3連単を"
+    "「1-2-3」形式で1行1点、3〜5点だけ挙げてください。"
+)
+
 
 def main():
     ap = argparse.ArgumentParser()
@@ -51,6 +61,7 @@ def main():
 
     def fmt(ex):
         msgs = [
+            {"role": "system", "content": SYSTEM},
             {"role": "user", "content": INSTRUCTION + ex["instruction"]},
             {"role": "assistant", "content": ex["output"]},
         ]
@@ -96,7 +107,8 @@ def main():
         import json
         first = json.loads(open(args.data, encoding="utf-8").readline())
         prompt = tok.apply_chat_template(
-            [{"role": "user", "content": INSTRUCTION + first["instruction"]}],
+            [{"role": "system", "content": SYSTEM},
+             {"role": "user", "content": INSTRUCTION + first["instruction"]}],
             tokenize=False, add_generation_prompt=True)
         FastLanguageModel.for_inference(model)
         ids = tok(prompt, return_tensors="pt").to("cuda")
