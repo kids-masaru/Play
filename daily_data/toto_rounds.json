@@ -10,7 +10,7 @@
       "payout_detail": null,
       "deadline": "2026-09-12 17:50",
       "result_date": "2026-09-13",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -351,7 +351,7 @@
       "payout_detail": null,
       "deadline": "2026-09-12 17:50",
       "result_date": "2026-09-12",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -505,7 +505,7 @@
       "payout_detail": null,
       "deadline": "2026-09-12 17:50",
       "result_date": "2026-09-13",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -654,7 +654,7 @@
       "payout_detail": null,
       "deadline": "2026-09-09 18:20",
       "result_date": "2026-09-09",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -799,31 +799,47 @@
       "round": 1650,
       "kuji": "toto",
       "kuji_label": "toto (13試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 77044240,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 77044240,
+          "count": 1
+        },
+        {
+          "rank": "2等",
+          "amount": 606230,
+          "count": 17
+        },
+        {
+          "rank": "3等",
+          "amount": 78670,
+          "count": 131
+        }
+      ],
       "deadline": "2026-09-05 18:50",
       "result_date": "2026-09-06",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
       "settled": true,
       "summary": {
         "stat": {
-          "n": 3,
-          "hits": 1
+          "n": 12,
+          "hits": 4
         },
         "gemini": {
-          "n": 3,
-          "hits": 1
+          "n": 13,
+          "hits": 4
         },
         "codex": {
-          "n": 3,
-          "hits": 1
+          "n": 13,
+          "hits": 3
         },
         "claude": {
-          "n": 3,
-          "hits": 1
+          "n": 13,
+          "hits": 4
         }
       },
       "matches": [
@@ -873,7 +889,7 @@
           "claude_pick": "H",
           "claude_confidence": "70%",
           "claude_reasoning": "鹿島のホームでの強さが際立つ。モデルH確率0.65でアントラーズ優位な一戦。",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1650-3",
@@ -897,7 +913,7 @@
           "claude_pick": "A",
           "claude_confidence": "58%",
           "claude_reasoning": "G大阪は上位争いの強豪クラブ。モデルA支持でアウェイ勝利が現実的と判断。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1650-4",
@@ -921,7 +937,7 @@
           "claude_pick": "A",
           "claude_confidence": "65%",
           "claude_reasoning": "モデルA確率0.53と高め。町田の組織的守備が名古屋を封じるアウェイ勝利を予測。",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1650-5",
@@ -945,7 +961,7 @@
           "claude_pick": "D",
           "claude_confidence": "44%",
           "claude_reasoning": "三者確率が均衡（H0.39、D0.29、A0.32）。拮抗した試合で引き分けが最も現実的。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1650-6",
@@ -969,7 +985,7 @@
           "claude_pick": "H",
           "claude_confidence": "68%",
           "claude_reasoning": "モデルH確率0.62と高い。柏がホームで横浜FMを退けると予測する。",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1650-7",
@@ -993,7 +1009,7 @@
           "claude_pick": "A",
           "claude_confidence": "70%",
           "claude_reasoning": "モデルA確率0.59と顕著。広島の実力差がはっきり出る一戦とみる。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1650-8",
@@ -1017,7 +1033,7 @@
           "claude_pick": "H",
           "claude_confidence": "70%",
           "claude_reasoning": "モデルH確率0.64と高い。川崎の地力が清水を大きく上回る一戦。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1650-9",
@@ -1036,7 +1052,7 @@
           "claude_pick": "D",
           "claude_confidence": "42%",
           "claude_reasoning": "モデルデータなし。両チームの力量が拮抗しており、引き分けが最も無難な判断。",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1650-10",
@@ -1060,7 +1076,7 @@
           "claude_pick": "A",
           "claude_confidence": "60%",
           "claude_reasoning": "モデルA確率0.48と最高。京都がFC東京をアウェイで下す番狂わせを予測する。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1650-11",
@@ -1132,7 +1148,7 @@
           "claude_pick": "H",
           "claude_confidence": "55%",
           "claude_reasoning": "モデルH優勢だが僅差。格上の札幌がホームで栃木シティを制すると判断した。",
-          "result": ""
+          "result": "A"
         }
       ]
     },
@@ -1140,31 +1156,37 @@
       "round": 1650,
       "kuji": "mini_a",
       "kuji_label": "mini toto-A (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 15250,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 15250,
+          "count": 405
+        }
+      ],
       "deadline": "2026-09-05 18:50",
       "result_date": "2026-09-06",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
       "settled": true,
       "summary": {
         "stat": {
-          "n": 1,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         },
         "gemini": {
-          "n": 1,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         },
         "codex": {
-          "n": 1,
-          "hits": 0
+          "n": 5,
+          "hits": 1
         },
         "claude": {
-          "n": 1,
-          "hits": 0
+          "n": 5,
+          "hits": 1
         }
       },
       "matches": [
@@ -1214,7 +1236,7 @@
           "claude_pick": "H",
           "claude_confidence": "70%",
           "claude_reasoning": "鹿島のホームでの強さが際立つ。モデルH確率0.65でアントラーズ優位な一戦。",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1650-3",
@@ -1238,7 +1260,7 @@
           "claude_pick": "A",
           "claude_confidence": "58%",
           "claude_reasoning": "G大阪は上位争いの強豪クラブ。モデルA支持でアウェイ勝利が現実的と判断。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1650-4",
@@ -1262,7 +1284,7 @@
           "claude_pick": "A",
           "claude_confidence": "65%",
           "claude_reasoning": "モデルA確率0.53と高め。町田の組織的守備が名古屋を封じるアウェイ勝利を予測。",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1650-5",
@@ -1286,7 +1308,7 @@
           "claude_pick": "D",
           "claude_confidence": "44%",
           "claude_reasoning": "三者確率が均衡（H0.39、D0.29、A0.32）。拮抗した試合で引き分けが最も現実的。",
-          "result": ""
+          "result": "H"
         }
       ]
     },
@@ -1294,31 +1316,37 @@
       "round": 1650,
       "kuji": "mini_b",
       "kuji_label": "mini toto-B (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 12340,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 12340,
+          "count": 410
+        }
+      ],
       "deadline": "2026-09-05 18:50",
       "result_date": "2026-09-06",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
       "settled": true,
       "summary": {
         "stat": {
-          "n": 1,
-          "hits": 1
+          "n": 4,
+          "hits": 2
         },
         "gemini": {
-          "n": 1,
-          "hits": 1
+          "n": 5,
+          "hits": 2
         },
         "codex": {
-          "n": 1,
-          "hits": 1
+          "n": 5,
+          "hits": 2
         },
         "claude": {
-          "n": 1,
-          "hits": 1
+          "n": 5,
+          "hits": 3
         }
       },
       "matches": [
@@ -1344,7 +1372,7 @@
           "claude_pick": "A",
           "claude_confidence": "70%",
           "claude_reasoning": "モデルA確率0.59と顕著。広島の実力差がはっきり出る一戦とみる。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1650-8",
@@ -1368,7 +1396,7 @@
           "claude_pick": "H",
           "claude_confidence": "70%",
           "claude_reasoning": "モデルH確率0.64と高い。川崎の地力が清水を大きく上回る一戦。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1650-9",
@@ -1387,7 +1415,7 @@
           "claude_pick": "D",
           "claude_confidence": "42%",
           "claude_reasoning": "モデルデータなし。両チームの力量が拮抗しており、引き分けが最も無難な判断。",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1650-10",
@@ -1411,7 +1439,7 @@
           "claude_pick": "A",
           "claude_confidence": "60%",
           "claude_reasoning": "モデルA確率0.48と最高。京都がFC東京をアウェイで下す番狂わせを予測する。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1650-11",
@@ -1463,7 +1491,7 @@
       ],
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -1810,7 +1838,7 @@
       ],
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -1965,7 +1993,7 @@
       ],
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -2135,7 +2163,7 @@
       ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -2482,7 +2510,7 @@
       ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -2637,7 +2665,7 @@
       ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -2807,7 +2835,7 @@
       ],
       "deadline": "2026-08-22 14:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -3154,7 +3182,7 @@
       ],
       "deadline": "2026-08-22 17:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -3309,7 +3337,7 @@
       ],
       "deadline": "2026-08-22 14:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -3479,7 +3507,7 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": false,
       "has_codex": true,
       "has_claude": false,
@@ -3705,7 +3733,7 @@
           "stats": {
             "p_H": 0.2949,
             "p_D": 0.2107,
-            "p_A": 0.4945,
+            "p_A": 0.4944,
             "pick": "A"
           },
           "gemini_pick": "",
@@ -3831,7 +3859,7 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": false,
       "has_codex": true,
       "has_claude": false,
@@ -3991,7 +4019,7 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": false,
       "has_codex": true,
       "has_claude": false,
@@ -4097,7 +4125,7 @@
           "stats": {
             "p_H": 0.2949,
             "p_D": 0.2107,
-            "p_A": 0.4945,
+            "p_A": 0.4944,
             "pick": "A"
           },
           "gemini_pick": "",
@@ -4161,7 +4189,7 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -4448,7 +4476,7 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -4583,7 +4611,7 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -4728,7 +4756,7 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -5015,7 +5043,7 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -5150,7 +5178,7 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -5295,7 +5323,7 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -5582,7 +5610,7 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -5717,7 +5745,7 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -5862,7 +5890,7 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -6149,7 +6177,7 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -6284,7 +6312,7 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-09-06",
+      "generated_date": "2026-09-07",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
