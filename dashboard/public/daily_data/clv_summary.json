@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08 07:22:49",
+  "generated_at": "2026-09-08 22:04:23",
   "metric": "CLV_pp (closing implied prob - morning implied prob, normalized)",
   "min_races_active": 30,
   "sources": {
@@ -10,14 +10,18 @@
     "claude": {
       "label": "Claude",
       "status": "accruing",
-      "graded_races": 0,
-      "note": "締切オッズ待ち（closing_odds_runner.py 稼働後に蓄積）"
+      "graded_races": 20,
+      "picks": 100,
+      "avg_clv_pp": 1.805,
+      "positive_rate_pct": 67.0
     },
     "codex": {
       "label": "Codex",
       "status": "accruing",
-      "graded_races": 0,
-      "note": "締切オッズ待ち（closing_odds_runner.py 稼働後に蓄積）"
+      "graded_races": 20,
+      "picks": 100,
+      "avg_clv_pp": 1.953,
+      "positive_rate_pct": 66.0
     },
     "gemini": {
       "label": "Gemini",
@@ -28,26 +32,34 @@
     "gemma": {
       "label": "Gemma弟子",
       "status": "accruing",
-      "graded_races": 0,
-      "note": "締切オッズ待ち（closing_odds_runner.py 稼働後に蓄積）"
+      "graded_races": 1,
+      "picks": 3,
+      "avg_clv_pp": -1.214,
+      "positive_rate_pct": 0.0
     },
     "gemma_claude": {
       "label": "Qwen弟子(Claude先生)",
       "status": "accruing",
-      "graded_races": 0,
-      "note": "締切オッズ待ち（closing_odds_runner.py 稼働後に蓄積）"
+      "graded_races": 16,
+      "picks": 18,
+      "avg_clv_pp": 2.615,
+      "positive_rate_pct": 77.8
     },
     "gemma_grok_x": {
       "label": "Qwen弟子(Grok+X先生)",
       "status": "accruing",
-      "graded_races": 0,
-      "note": "締切オッズ待ち（closing_odds_runner.py 稼働後に蓄積）"
+      "graded_races": 15,
+      "picks": 30,
+      "avg_clv_pp": 2.152,
+      "positive_rate_pct": 66.7
     },
     "grok": {
       "label": "Grok",
       "status": "accruing",
-      "graded_races": 0,
-      "note": "締切オッズ待ち（closing_odds_runner.py 稼働後に蓄積）"
+      "graded_races": 20,
+      "picks": 108,
+      "avg_clv_pp": 2.05,
+      "positive_rate_pct": 66.7
     }
   }
 }
