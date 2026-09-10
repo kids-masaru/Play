@@ -1,9 +1,9 @@
 {
-  "generated_date": "2026-09-09",
+  "generated_date": "2026-09-10",
   "date_from": "2026-02-27",
-  "date_to": "2026-09-08",
+  "date_to": "2026-09-09",
   "overall": {
-    "races": 29638,
+    "races": 29662,
     "in_rate": 54.6,
     "det_in_rate": 47.2,
     "det_races": 1047
@@ -155,9 +155,9 @@
     },
     {
       "venue": "桐生",
-      "races": 1297,
-      "in_rate": 51.2,
-      "med_payout": 2890,
+      "races": 1309,
+      "in_rate": 51.0,
+      "med_payout": 2900,
       "det_races": 58,
       "det_in_rate": 37.9
     },
@@ -187,9 +187,9 @@
     },
     {
       "venue": "平和島",
-      "races": 1207,
+      "races": 1219,
       "in_rate": 43.8,
-      "med_payout": 2950,
+      "med_payout": 2970,
       "det_races": 40,
       "det_in_rate": 35.0
     },
@@ -205,7 +205,7 @@
   "races": [
     {
       "r": 1,
-      "races": 2480,
+      "races": 2482,
       "in_rate": 57.1,
       "med_payout": 2490,
       "det_races": 136,
@@ -213,7 +213,7 @@
     },
     {
       "r": 2,
-      "races": 2480,
+      "races": 2482,
       "in_rate": 46.5,
       "med_payout": 2960,
       "det_races": 148,
@@ -221,7 +221,7 @@
     },
     {
       "r": 3,
-      "races": 2479,
+      "races": 2481,
       "in_rate": 45.5,
       "med_payout": 2800,
       "det_races": 82,
@@ -229,7 +229,7 @@
     },
     {
       "r": 4,
-      "races": 2479,
+      "races": 2481,
       "in_rate": 48.0,
       "med_payout": 2750,
       "det_races": 66,
@@ -237,7 +237,7 @@
     },
     {
       "r": 5,
-      "races": 2478,
+      "races": 2480,
       "in_rate": 52.6,
       "med_payout": 2510,
       "det_races": 55,
@@ -245,7 +245,7 @@
     },
     {
       "r": 6,
-      "races": 2474,
+      "races": 2476,
       "in_rate": 47.3,
       "med_payout": 2620,
       "det_races": 48,
@@ -253,7 +253,7 @@
     },
     {
       "r": 7,
-      "races": 2469,
+      "races": 2471,
       "in_rate": 50.3,
       "med_payout": 2440,
       "det_races": 70,
@@ -261,7 +261,7 @@
     },
     {
       "r": 8,
-      "races": 2462,
+      "races": 2464,
       "in_rate": 50.6,
       "med_payout": 2430,
       "det_races": 73,
@@ -269,7 +269,7 @@
     },
     {
       "r": 9,
-      "races": 2462,
+      "races": 2464,
       "in_rate": 58.2,
       "med_payout": 2380,
       "det_races": 84,
@@ -277,15 +277,15 @@
     },
     {
       "r": 10,
-      "races": 2460,
-      "in_rate": 60.2,
+      "races": 2462,
+      "in_rate": 60.1,
       "med_payout": 2200,
       "det_races": 98,
       "det_in_rate": 48.0
     },
     {
       "r": 11,
-      "races": 2458,
+      "races": 2460,
       "in_rate": 67.1,
       "med_payout": 1985,
       "det_races": 89,
@@ -293,7 +293,7 @@
     },
     {
       "r": 12,
-      "races": 2457,
+      "races": 2459,
       "in_rate": 72.2,
       "med_payout": 1880,
       "det_races": 98,
