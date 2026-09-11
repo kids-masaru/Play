@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09 22:13:57",
+  "generated_at": "2026-09-10 21:54:07",
   "metric": "CLV_pp (closing implied prob - morning implied prob, normalized)",
   "min_races_active": 30,
   "sources": {
@@ -10,58 +10,58 @@
     "claude": {
       "label": "Claude",
       "status": "active",
-      "graded_races": 30,
-      "picks": 150,
-      "avg_clv_pp": 1.749,
-      "positive_rate_pct": 71.3
+      "graded_races": 40,
+      "picks": 200,
+      "avg_clv_pp": 1.588,
+      "positive_rate_pct": 68.5
     },
     "codex": {
       "label": "Codex",
       "status": "active",
-      "graded_races": 37,
-      "picks": 185,
-      "avg_clv_pp": 1.51,
-      "positive_rate_pct": 63.2
+      "graded_races": 47,
+      "picks": 235,
+      "avg_clv_pp": 1.464,
+      "positive_rate_pct": 63.0
     },
     "gemini": {
       "label": "Gemini",
       "status": "accruing",
-      "graded_races": 2,
-      "picks": 2,
-      "avg_clv_pp": -2.701,
+      "graded_races": 3,
+      "picks": 3,
+      "avg_clv_pp": -5.236,
       "positive_rate_pct": 0.0
     },
     "gemma": {
       "label": "Gemma弟子",
       "status": "accruing",
-      "graded_races": 2,
-      "picks": 4,
-      "avg_clv_pp": 2.479,
-      "positive_rate_pct": 25.0
+      "graded_races": 3,
+      "picks": 5,
+      "avg_clv_pp": 0.741,
+      "positive_rate_pct": 20.0
     },
     "gemma_claude": {
       "label": "Qwen弟子(Claude先生)",
-      "status": "accruing",
-      "graded_races": 27,
-      "picks": 36,
-      "avg_clv_pp": 2.04,
-      "positive_rate_pct": 69.4
+      "status": "active",
+      "graded_races": 33,
+      "picks": 45,
+      "avg_clv_pp": 1.959,
+      "positive_rate_pct": 68.9
     },
     "gemma_grok_x": {
       "label": "Qwen弟子(Grok+X先生)",
-      "status": "accruing",
-      "graded_races": 26,
-      "picks": 55,
-      "avg_clv_pp": 1.648,
-      "positive_rate_pct": 61.8
+      "status": "active",
+      "graded_races": 32,
+      "picks": 75,
+      "avg_clv_pp": 1.5,
+      "positive_rate_pct": 58.7
     },
     "grok": {
       "label": "Grok",
       "status": "active",
-      "graded_races": 37,
-      "picks": 196,
-      "avg_clv_pp": 1.676,
-      "positive_rate_pct": 66.3
+      "graded_races": 47,
+      "picks": 251,
+      "avg_clv_pp": 1.604,
+      "positive_rate_pct": 65.3
     }
   }
 }
