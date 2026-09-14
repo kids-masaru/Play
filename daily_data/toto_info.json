@@ -6,10 +6,10 @@
   "payout_detail": null,
   "deadline": "2026-09-19 17:50",
   "result_date": "2026-09-20",
-  "generated_date": "2026-09-13",
+  "generated_date": "2026-09-14",
   "has_gemini": false,
   "has_codex": true,
-  "has_claude": false,
+  "has_claude": true,
   "settled": false,
   "summary": {
     "stat": {
@@ -49,9 +49,9 @@
       "codex_pick": "A",
       "codex_confidence": "55%",
       "codex_reasoning": "モデルは広島勝利51.9％で、福岡勝利18.4％を大きく上回る。引き分け約30％は残るが、地力差を優先。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "A",
+      "claude_confidence": "60%",
+      "claude_reasoning": "モデルA55%と明確。広島は実力上位クラブ。Aピック全体の成績は低いが55%超の強シグナルは信頼。",
       "result": ""
     },
     {
@@ -68,9 +68,9 @@
       "codex_pick": "H",
       "codex_confidence": "43%",
       "codex_reasoning": "モデル不在で不確実性は高いが、浦和のホーム優位を採用。過去フィードバックでもH予想が相対的に最も安定している。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "H",
+      "claude_confidence": "52%",
+      "claude_reasoning": "モデルなし。浦和はJ1中位以上、ヴェルディ相手にホームアドバンテージ有り。H基準で選択。",
       "result": ""
     },
     {
@@ -92,9 +92,9 @@
       "codex_pick": "D",
       "codex_confidence": "34%",
       "codex_reasoning": "千葉勝利40.9％が首位だが、引き分け30.7％、清水勝利28.4％で拮抗。清水のホーム効果を加味し引き分け。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "H",
+      "claude_confidence": "43%",
+      "claude_reasoning": "モデルはA39%H31%Dほぼ同率の3択。D実績0%を避け、ホームアドバンテージを加味してH選択。",
       "result": ""
     },
     {
@@ -116,9 +116,9 @@
       "codex_pick": "A",
       "codex_confidence": "49%",
       "codex_reasoning": "京都勝利49.2％に対し、岡山勝利25.6％、引き分け25.3％。岡山ホームでの波乱余地を見込みつつ京都優勢を採用。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "H",
+      "claude_confidence": "48%",
+      "claude_reasoning": "モデルA49%だが岡山は1650広島戦・1653浦和アウェイ戦でいずれも番狂わせ勝利。ホームでの逆張りH。",
       "result": ""
     },
     {
@@ -140,9 +140,9 @@
       "codex_pick": "H",
       "codex_confidence": "51%",
       "codex_reasoning": "FC東京勝利50.4％で、他の二結果は各約25％。過去の同カード周辺では番狂わせもあるが、ホーム優勢を素直に評価。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "H",
+      "claude_confidence": "63%",
+      "claude_reasoning": "モデルH53.3%。FC東京は1650ホーム勝利・1653ガンバアウェイ勝利と好調。ホームなら更に有利。",
       "result": ""
     },
     {
@@ -164,9 +164,9 @@
       "codex_pick": "H",
       "codex_confidence": "52%",
       "codex_reasoning": "長崎勝利50.6％で唯一の過半。過去に長崎H予想の失敗はあるものの、今回はモデル上の明確なホーム優勢を重視。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "H",
+      "claude_confidence": "63%",
+      "claude_reasoning": "モデルH58.5%と強め。1653回で長崎が名古屋に実際勝利(D予測を裏切りH)。ホーム長崎の地力。",
       "result": ""
     },
     {
@@ -188,9 +188,9 @@
       "codex_pick": "H",
       "codex_confidence": "36%",
       "codex_reasoning": "水戸38.0％、横浜35.5％と差は小さく、引き分けも26.4％。過去の横浜A寄り判断の失敗を踏まえホーム側へ振る。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "H",
+      "claude_confidence": "57%",
+      "claude_reasoning": "モデルH39%とやや控えめだが水戸は1653川崎戦ホーム敗戦。マリノスはアウェイでも勝利と好調。",
       "result": ""
     },
     {
@@ -212,9 +212,9 @@
       "codex_pick": "H",
       "codex_confidence": "51%",
       "codex_reasoning": "町田勝利50.8％で過半に達し、柏勝利26.5％との差も十分。H予想の過去的中率が相対的に高い点も小幅に後押し。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "H",
+      "claude_confidence": "60%",
+      "claude_reasoning": "モデルH51.8%。柏は1649・1650の履歴で連敗中と不調。町田ホームで優位とみる。",
       "result": ""
     },
     {
@@ -236,9 +236,9 @@
       "codex_pick": "A",
       "codex_confidence": "48%",
       "codex_reasoning": "神戸勝利49.1％で、G大阪勝利25.1％、引き分け25.8％をほぼ倍に上回る。大阪ホームの不確実性込みで神戸。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "A",
+      "claude_confidence": "62%",
+      "claude_reasoning": "モデルA51.4%。ガンバは1653FC東京戦含め複数連敗中。神戸は実力上位でアウェイでも安定。",
       "result": ""
     },
     {
@@ -260,9 +260,9 @@
       "codex_pick": "H",
       "codex_confidence": "58%",
       "codex_reasoning": "山形勝利59.3％はこの組み合わせで明確な優位。直近に山形H予想の失敗例はあるため、確信度はモデル値より抑えた。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "H",
+      "claude_confidence": "57%",
+      "claude_reasoning": "モデルH54.7%。富山相手にリーグ格差あり。1650甲府戦誤りはあったが今回は相手が格下。H推し。",
       "result": ""
     },
     {
@@ -284,9 +284,9 @@
       "codex_pick": "A",
       "codex_confidence": "46%",
       "codex_reasoning": "大宮勝利45.0％で、藤枝勝利と引き分けはいずれも約27.5％。A予想全体の実績は弱いが、この差なら大宮を選ぶ。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "A",
+      "claude_confidence": "50%",
+      "claude_reasoning": "モデルA44.6%。大宮はJ2上位の実力で格上感あり。藤枝ホームも差は縮まらずA推し。",
       "result": ""
     },
     {
@@ -308,9 +308,9 @@
       "codex_pick": "A",
       "codex_confidence": "65%",
       "codex_reasoning": "磐田勝利65.5％で今回最大級の差があり、新潟勝利は16.1％。A予想の過去精度を割り引いても磐田が本線。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "A",
+      "claude_confidence": "68%",
+      "claude_reasoning": "モデルA62.8%と今ラウンド最強シグナル。磐田の実力差は明確。Aの成績低くても60%超は信頼。",
       "result": ""
     },
     {
@@ -332,9 +332,9 @@
       "codex_pick": "A",
       "codex_confidence": "45%",
       "codex_reasoning": "徳島勝利45.4％が首位で、引き分け31.4％も高い。甲府ホームの上振れを警戒しつつ、モデル差から徳島を選択。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "A",
+      "claude_confidence": "47%",
+      "claude_reasoning": "モデルA45.5%。徳島は1653秋田戦でアウェイ敗戦あり。甲府ホームだが実力差でA推し。",
       "result": ""
     }
   ]
