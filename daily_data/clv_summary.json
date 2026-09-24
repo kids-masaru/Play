@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22 22:01:05",
+  "generated_at": "2026-09-23 21:58:05",
   "metric": "CLV_pp (closing implied prob - morning implied prob, normalized)",
   "min_races_active": 30,
   "sources": {
@@ -10,58 +10,58 @@
     "claude": {
       "label": "Claude",
       "status": "active",
-      "graded_races": 107,
-      "picks": 534,
-      "avg_clv_pp": 1.357,
-      "positive_rate_pct": 59.2
+      "graded_races": 126,
+      "picks": 629,
+      "avg_clv_pp": 1.399,
+      "positive_rate_pct": 59.5
     },
     "codex": {
       "label": "Codex",
       "status": "active",
-      "graded_races": 138,
-      "picks": 690,
-      "avg_clv_pp": 1.138,
-      "positive_rate_pct": 57.7
+      "graded_races": 157,
+      "picks": 785,
+      "avg_clv_pp": 1.191,
+      "positive_rate_pct": 58.5
     },
     "gemini": {
       "label": "Gemini",
       "status": "accruing",
-      "graded_races": 8,
-      "picks": 11,
-      "avg_clv_pp": -2.726,
-      "positive_rate_pct": 36.4
+      "graded_races": 9,
+      "picks": 12,
+      "avg_clv_pp": -2.464,
+      "positive_rate_pct": 33.3
     },
     "gemma": {
       "label": "Gemma弟子",
       "status": "accruing",
-      "graded_races": 9,
-      "picks": 16,
-      "avg_clv_pp": 0.999,
-      "positive_rate_pct": 37.5
+      "graded_races": 10,
+      "picks": 17,
+      "avg_clv_pp": 1.146,
+      "positive_rate_pct": 41.2
     },
     "gemma_claude": {
       "label": "Qwen弟子(Claude先生)",
       "status": "active",
-      "graded_races": 80,
-      "picks": 107,
-      "avg_clv_pp": 1.599,
+      "graded_races": 90,
+      "picks": 121,
+      "avg_clv_pp": 1.564,
       "positive_rate_pct": 57.9
     },
     "gemma_grok_x": {
       "label": "Qwen弟子(Grok+X先生)",
       "status": "active",
-      "graded_races": 77,
-      "picks": 173,
-      "avg_clv_pp": 0.833,
-      "positive_rate_pct": 57.2
+      "graded_races": 85,
+      "picks": 188,
+      "avg_clv_pp": 0.884,
+      "positive_rate_pct": 56.4
     },
     "grok": {
       "label": "Grok",
       "status": "active",
-      "graded_races": 138,
-      "picks": 738,
-      "avg_clv_pp": 1.293,
-      "positive_rate_pct": 58.3
+      "graded_races": 157,
+      "picks": 840,
+      "avg_clv_pp": 1.334,
+      "positive_rate_pct": 59.0
     }
   }
 }
