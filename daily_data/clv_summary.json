@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24 21:58:13",
+  "generated_at": "2026-09-25 22:58:19",
   "metric": "CLV_pp (closing implied prob - morning implied prob, normalized)",
   "min_races_active": 30,
   "sources": {
@@ -10,26 +10,26 @@
     "claude": {
       "label": "Claude",
       "status": "active",
-      "graded_races": 145,
-      "picks": 724,
-      "avg_clv_pp": 1.306,
-      "positive_rate_pct": 58.1
+      "graded_races": 161,
+      "picks": 804,
+      "avg_clv_pp": 1.312,
+      "positive_rate_pct": 58.2
     },
     "codex": {
       "label": "Codex",
       "status": "active",
-      "graded_races": 176,
-      "picks": 880,
-      "avg_clv_pp": 1.14,
-      "positive_rate_pct": 57.6
+      "graded_races": 192,
+      "picks": 960,
+      "avg_clv_pp": 1.141,
+      "positive_rate_pct": 57.7
     },
     "gemini": {
       "label": "Gemini",
       "status": "accruing",
-      "graded_races": 11,
-      "picks": 17,
-      "avg_clv_pp": -3.343,
-      "positive_rate_pct": 35.3
+      "graded_races": 13,
+      "picks": 25,
+      "avg_clv_pp": -2.489,
+      "positive_rate_pct": 48.0
     },
     "gemma": {
       "label": "Gemma弟子",
@@ -42,25 +42,25 @@
     "gemma_claude": {
       "label": "Qwen弟子(Claude先生)",
       "status": "active",
-      "graded_races": 98,
-      "picks": 132,
-      "avg_clv_pp": 1.449,
-      "positive_rate_pct": 57.6
+      "graded_races": 110,
+      "picks": 146,
+      "avg_clv_pp": 1.327,
+      "positive_rate_pct": 58.2
     },
     "gemma_grok_x": {
       "label": "Qwen弟子(Grok+X先生)",
       "status": "active",
-      "graded_races": 94,
-      "picks": 211,
-      "avg_clv_pp": 0.846,
-      "positive_rate_pct": 55.9
+      "graded_races": 105,
+      "picks": 228,
+      "avg_clv_pp": 0.733,
+      "positive_rate_pct": 55.7
     },
     "grok": {
       "label": "Grok",
       "status": "active",
-      "graded_races": 176,
-      "picks": 939,
-      "avg_clv_pp": 1.306,
+      "graded_races": 192,
+      "picks": 1023,
+      "avg_clv_pp": 1.318,
       "positive_rate_pct": 58.9
     }
   }
