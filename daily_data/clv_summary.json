@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25 22:58:19",
+  "generated_at": "2026-09-26 22:02:32",
   "metric": "CLV_pp (closing implied prob - morning implied prob, normalized)",
   "min_races_active": 30,
   "sources": {
@@ -10,58 +10,58 @@
     "claude": {
       "label": "Claude",
       "status": "active",
-      "graded_races": 161,
-      "picks": 804,
-      "avg_clv_pp": 1.312,
-      "positive_rate_pct": 58.2
+      "graded_races": 171,
+      "picks": 854,
+      "avg_clv_pp": 1.307,
+      "positive_rate_pct": 59.0
     },
     "codex": {
       "label": "Codex",
       "status": "active",
-      "graded_races": 192,
-      "picks": 960,
-      "avg_clv_pp": 1.141,
+      "graded_races": 209,
+      "picks": 1045,
+      "avg_clv_pp": 1.136,
       "positive_rate_pct": 57.7
     },
     "gemini": {
       "label": "Gemini",
       "status": "accruing",
-      "graded_races": 13,
-      "picks": 25,
-      "avg_clv_pp": -2.489,
-      "positive_rate_pct": 48.0
+      "graded_races": 15,
+      "picks": 27,
+      "avg_clv_pp": -2.309,
+      "positive_rate_pct": 48.1
     },
     "gemma": {
       "label": "Gemma弟子",
       "status": "accruing",
-      "graded_races": 10,
-      "picks": 17,
-      "avg_clv_pp": 1.146,
-      "positive_rate_pct": 41.2
+      "graded_races": 11,
+      "picks": 20,
+      "avg_clv_pp": 0.964,
+      "positive_rate_pct": 35.0
     },
     "gemma_claude": {
       "label": "Qwen弟子(Claude先生)",
       "status": "active",
-      "graded_races": 110,
-      "picks": 146,
-      "avg_clv_pp": 1.327,
+      "graded_races": 117,
+      "picks": 153,
+      "avg_clv_pp": 1.278,
       "positive_rate_pct": 58.2
     },
     "gemma_grok_x": {
       "label": "Qwen弟子(Grok+X先生)",
       "status": "active",
-      "graded_races": 105,
-      "picks": 228,
-      "avg_clv_pp": 0.733,
-      "positive_rate_pct": 55.7
+      "graded_races": 117,
+      "picks": 254,
+      "avg_clv_pp": 0.559,
+      "positive_rate_pct": 55.5
     },
     "grok": {
       "label": "Grok",
       "status": "active",
-      "graded_races": 192,
-      "picks": 1023,
-      "avg_clv_pp": 1.318,
-      "positive_rate_pct": 58.9
+      "graded_races": 202,
+      "picks": 1073,
+      "avg_clv_pp": 1.343,
+      "positive_rate_pct": 59.9
     }
   }
 }
