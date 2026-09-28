@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26 22:02:32",
+  "generated_at": "2026-09-27 21:57:57",
   "metric": "CLV_pp (closing implied prob - morning implied prob, normalized)",
   "min_races_active": 30,
   "sources": {
@@ -10,18 +10,18 @@
     "claude": {
       "label": "Claude",
       "status": "active",
-      "graded_races": 171,
-      "picks": 854,
-      "avg_clv_pp": 1.307,
-      "positive_rate_pct": 59.0
+      "graded_races": 181,
+      "picks": 904,
+      "avg_clv_pp": 1.368,
+      "positive_rate_pct": 60.2
     },
     "codex": {
       "label": "Codex",
       "status": "active",
-      "graded_races": 209,
-      "picks": 1045,
-      "avg_clv_pp": 1.136,
-      "positive_rate_pct": 57.7
+      "graded_races": 227,
+      "picks": 1135,
+      "avg_clv_pp": 1.169,
+      "positive_rate_pct": 58.4
     },
     "gemini": {
       "label": "Gemini",
@@ -34,34 +34,34 @@
     "gemma": {
       "label": "Gemma弟子",
       "status": "accruing",
-      "graded_races": 11,
-      "picks": 20,
-      "avg_clv_pp": 0.964,
-      "positive_rate_pct": 35.0
+      "graded_races": 14,
+      "picks": 24,
+      "avg_clv_pp": 0.713,
+      "positive_rate_pct": 41.7
     },
     "gemma_claude": {
       "label": "Qwen弟子(Claude先生)",
       "status": "active",
-      "graded_races": 117,
-      "picks": 153,
-      "avg_clv_pp": 1.278,
-      "positive_rate_pct": 58.2
+      "graded_races": 127,
+      "picks": 165,
+      "avg_clv_pp": 1.254,
+      "positive_rate_pct": 58.8
     },
     "gemma_grok_x": {
       "label": "Qwen弟子(Grok+X先生)",
       "status": "active",
-      "graded_races": 117,
-      "picks": 254,
-      "avg_clv_pp": 0.559,
-      "positive_rate_pct": 55.5
+      "graded_races": 131,
+      "picks": 293,
+      "avg_clv_pp": 0.676,
+      "positive_rate_pct": 56.3
     },
     "grok": {
       "label": "Grok",
       "status": "active",
-      "graded_races": 202,
-      "picks": 1073,
-      "avg_clv_pp": 1.343,
-      "positive_rate_pct": 59.9
+      "graded_races": 220,
+      "picks": 1171,
+      "avg_clv_pp": 1.362,
+      "positive_rate_pct": 60.3
     }
   }
 }
