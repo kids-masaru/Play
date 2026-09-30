@@ -1,0 +1,8 @@
+{
+  "date": "2026-09-30",
+  "generated_at": "2026-09-30T10:49:22+09:00",
+  "status": "disabled_missing_api_key",
+  "shadow_only": true,
+  "reason": "TYPESAFE_API_KEYが未設定のため、既存処理へ影響せずスキップしました",
+  "decisions": []
+}
