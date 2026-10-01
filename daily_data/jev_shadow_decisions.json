@@ -1,8 +1,2201 @@
 {
-  "date": "2026-09-30",
-  "generated_at": "2026-09-30T10:49:22+09:00",
-  "status": "disabled_missing_api_key",
+  "date": "2026-10-01",
+  "generated_at": "2026-10-01T13:48:15+09:00",
+  "status": "ok",
   "shadow_only": true,
-  "reason": "TYPESAFE_API_KEYが未設定のため、既存処理へ影響せずスキップしました",
-  "decisions": []
+  "strategy_version": "jev_shadow_v1",
+  "question_version": "jev_boatrace_gate_v1",
+  "summary": {
+    "races_in_input": 20,
+    "decisions": 20,
+    "new_decisions": 4,
+    "reused_decisions": 16,
+    "errors": 0
+  },
+  "decisions": [
+    {
+      "race_id": "20261001_江戸川_11",
+      "date": "2026-10-01",
+      "venue": "江戸川",
+      "race_number": 11,
+      "created_at": "2026-10-01T13:27:47+09:00",
+      "shadow_only": true,
+      "decision_source": "hard_rule",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "action": "skip",
+      "action_confidence": null,
+      "selected_candidate": "",
+      "selected_candidate_confidence": null,
+      "reason": "usable_odds_missing",
+      "agreement": {
+        "active_model_count": 3,
+        "unique_candidate_count": 7,
+        "max_vote_count": 3,
+        "max_vote_ratio": 1.0
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 0,
+        "active_model_count": 3,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [
+        {
+          "combo": "1-2-3",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": null
+        },
+        {
+          "combo": "1-3-2",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": null
+        },
+        {
+          "combo": "1-3-4",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": null
+        },
+        {
+          "combo": "1-4-3",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": null
+        },
+        {
+          "combo": "1-2-4",
+          "model_count": 1,
+          "models": [
+            "grok"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-2-6",
+          "model_count": 1,
+          "models": [
+            "claude"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "4-1-3",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        }
+      ],
+      "historical_cutoff": "2026-09-30"
+    },
+    {
+      "race_id": "20261001_尼崎_3",
+      "date": "2026-10-01",
+      "venue": "尼崎",
+      "race_number": 3,
+      "created_at": "2026-10-01T13:27:47+09:00",
+      "shadow_only": true,
+      "decision_source": "hard_rule",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "action": "skip",
+      "action_confidence": null,
+      "selected_candidate": "",
+      "selected_candidate_confidence": null,
+      "reason": "usable_odds_missing",
+      "agreement": {
+        "active_model_count": 3,
+        "unique_candidate_count": 9,
+        "max_vote_count": 3,
+        "max_vote_ratio": 1.0
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 0,
+        "active_model_count": 3,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [
+        {
+          "combo": "1-2-5",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": null
+        },
+        {
+          "combo": "1-5-2",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": null
+        },
+        {
+          "combo": "5-1-2",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": null
+        },
+        {
+          "combo": "1-2-3",
+          "model_count": 1,
+          "models": [
+            "grok"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-5-3",
+          "model_count": 1,
+          "models": [
+            "grok"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "2-1-5",
+          "model_count": 1,
+          "models": [
+            "claude"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "2-5-1",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "5-1-3",
+          "model_count": 1,
+          "models": [
+            "claude"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "5-2-1",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        }
+      ],
+      "historical_cutoff": "2026-09-30"
+    },
+    {
+      "race_id": "20261001_下関_12",
+      "date": "2026-10-01",
+      "venue": "下関",
+      "race_number": 12,
+      "created_at": "2026-10-01T13:27:47+09:00",
+      "shadow_only": true,
+      "decision_source": "hard_rule",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "action": "skip",
+      "action_confidence": null,
+      "selected_candidate": "",
+      "selected_candidate_confidence": null,
+      "reason": "usable_odds_missing",
+      "agreement": {
+        "active_model_count": 3,
+        "unique_candidate_count": 8,
+        "max_vote_count": 3,
+        "max_vote_ratio": 1.0
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 0,
+        "active_model_count": 3,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [
+        {
+          "combo": "1-2-3",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": null
+        },
+        {
+          "combo": "1-3-2",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": null
+        },
+        {
+          "combo": "1-2-5",
+          "model_count": 2,
+          "models": [
+            "claude",
+            "codex"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": null
+        },
+        {
+          "combo": "1-3-5",
+          "model_count": 2,
+          "models": [
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": null
+        },
+        {
+          "combo": "1-5-2",
+          "model_count": 2,
+          "models": [
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": null
+        },
+        {
+          "combo": "1-2-4",
+          "model_count": 1,
+          "models": [
+            "claude"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-3-4",
+          "model_count": 1,
+          "models": [
+            "claude"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-5-3",
+          "model_count": 1,
+          "models": [
+            "grok"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        }
+      ],
+      "historical_cutoff": "2026-09-30"
+    },
+    {
+      "race_id": "20261001_下関_10",
+      "date": "2026-10-01",
+      "venue": "下関",
+      "race_number": 10,
+      "created_at": "2026-10-01T13:27:47+09:00",
+      "shadow_only": true,
+      "decision_source": "hard_rule",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "action": "skip",
+      "action_confidence": null,
+      "selected_candidate": "",
+      "selected_candidate_confidence": null,
+      "reason": "usable_odds_missing",
+      "agreement": {
+        "active_model_count": 3,
+        "unique_candidate_count": 8,
+        "max_vote_count": 3,
+        "max_vote_ratio": 1.0
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 0,
+        "active_model_count": 3,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [
+        {
+          "combo": "1-2-3",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": null
+        },
+        {
+          "combo": "1-2-5",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": null
+        },
+        {
+          "combo": "1-2-4",
+          "model_count": 2,
+          "models": [
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": null
+        },
+        {
+          "combo": "1-3-2",
+          "model_count": 2,
+          "models": [
+            "claude",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": null
+        },
+        {
+          "combo": "1-5-2",
+          "model_count": 2,
+          "models": [
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": null
+        },
+        {
+          "combo": "1-2-6",
+          "model_count": 1,
+          "models": [
+            "claude"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-3-4",
+          "model_count": 1,
+          "models": [
+            "claude"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-4-2",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        }
+      ],
+      "historical_cutoff": "2026-09-30"
+    },
+    {
+      "race_id": "20261001_住之江_9",
+      "date": "2026-10-01",
+      "venue": "住之江",
+      "race_number": 9,
+      "created_at": "2026-10-01T13:27:47+09:00",
+      "shadow_only": true,
+      "decision_source": "hard_rule",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "action": "skip",
+      "action_confidence": null,
+      "selected_candidate": "",
+      "selected_candidate_confidence": null,
+      "reason": "usable_odds_missing",
+      "agreement": {
+        "active_model_count": 3,
+        "unique_candidate_count": 11,
+        "max_vote_count": 2,
+        "max_vote_ratio": 0.6667
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 0,
+        "active_model_count": 3,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [
+        {
+          "combo": "1-2-3",
+          "model_count": 2,
+          "models": [
+            "claude",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": null
+        },
+        {
+          "combo": "1-2-4",
+          "model_count": 2,
+          "models": [
+            "claude",
+            "codex"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": null
+        },
+        {
+          "combo": "1-3-2",
+          "model_count": 2,
+          "models": [
+            "claude",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": null
+        },
+        {
+          "combo": "1-4-5",
+          "model_count": 2,
+          "models": [
+            "claude",
+            "codex"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": null
+        },
+        {
+          "combo": "1-2-5",
+          "model_count": 1,
+          "models": [
+            "grok"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-3-5",
+          "model_count": 1,
+          "models": [
+            "grok"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-3-6",
+          "model_count": 1,
+          "models": [
+            "claude"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-4-6",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-5-3",
+          "model_count": 1,
+          "models": [
+            "grok"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-5-4",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "4-1-5",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        }
+      ],
+      "historical_cutoff": "2026-09-30"
+    },
+    {
+      "race_id": "20261001_丸亀_11",
+      "date": "2026-10-01",
+      "venue": "丸亀",
+      "race_number": 11,
+      "created_at": "2026-10-01T13:27:48+09:00",
+      "shadow_only": true,
+      "decision_source": "jev",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "jev_model": "jev-1.13.0",
+      "input_sha256": "406016334a1222b87a098f05acbe61b65f3142cb01aa275d74c9f430cb284df5",
+      "action": "skip",
+      "action_confidence": 0.91,
+      "selected_candidate": "1-3-4",
+      "selected_candidate_confidence": 0.44,
+      "answers": {
+        "action": {
+          "type": "choice",
+          "choice": "skip",
+          "confidence": 0.91,
+          "probabilities": {
+            "skip": 0.94,
+            "small": 0.04,
+            "standard": 0.02
+          }
+        },
+        "candidate": {
+          "type": "choice",
+          "choice": "candidate_1_3_4",
+          "confidence": 0.44,
+          "probabilities": {
+            "candidate_1_2_3": 0.28,
+            "candidate_1_3_6": 0.0,
+            "candidate_1_3_4": 0.51,
+            "candidate_1_2_4": 0.01,
+            "candidate_1_3_2": 0.13,
+            "no_candidate": 0.06,
+            "candidate_1_3_5": 0.01,
+            "candidate_1_4_2": 0.0
+          }
+        },
+        "data_sufficient": {
+          "type": "noul",
+          "noul": 0.33
+        },
+        "evidence_strength": {
+          "type": "score",
+          "score": 0.58,
+          "confidence": 0.42,
+          "legend": {
+            "0": "Insufficient evidence; skip.",
+            "1": "Weak or conflicting evidence.",
+            "2": "Moderate evidence with material uncertainty.",
+            "3": "Strong and corroborated evidence."
+          },
+          "probabilities": {
+            "0": 0.58,
+            "1": 0.28,
+            "2": 0.12,
+            "3": 0.02
+          }
+        },
+        "variance_risk": {
+          "type": "score",
+          "score": 1.77,
+          "confidence": 0.61,
+          "legend": {
+            "0": "Low instability risk.",
+            "1": "Moderate instability risk.",
+            "2": "High instability risk.",
+            "3": "Extreme instability risk."
+          },
+          "probabilities": {
+            "0": 0.02,
+            "1": 0.26,
+            "2": 0.64,
+            "3": 0.08
+          }
+        }
+      },
+      "agreement": {
+        "active_model_count": 3,
+        "unique_candidate_count": 7,
+        "max_vote_count": 3,
+        "max_vote_ratio": 1.0
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 20,
+        "active_model_count": 3,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [
+        {
+          "combo": "1-3-2",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": 5.6
+        },
+        {
+          "combo": "1-2-3",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": 6.7
+        },
+        {
+          "combo": "1-3-4",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": 9.0
+        },
+        {
+          "combo": "1-3-5",
+          "model_count": 2,
+          "models": [
+            "claude",
+            "codex"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": 11.9
+        },
+        {
+          "combo": "1-2-4",
+          "model_count": 2,
+          "models": [
+            "claude",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": 18.7
+        },
+        {
+          "combo": "1-3-6",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": 16.5
+        },
+        {
+          "combo": "1-4-2",
+          "model_count": 1,
+          "models": [
+            "grok"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": 36.7
+        }
+      ],
+      "historical_cutoff": "2026-09-30"
+    },
+    {
+      "race_id": "20261001_住之江_10",
+      "date": "2026-10-01",
+      "venue": "住之江",
+      "race_number": 10,
+      "created_at": "2026-10-01T13:27:48+09:00",
+      "shadow_only": true,
+      "decision_source": "hard_rule",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "action": "skip",
+      "action_confidence": null,
+      "selected_candidate": "",
+      "selected_candidate_confidence": null,
+      "reason": "usable_odds_missing",
+      "agreement": {
+        "active_model_count": 3,
+        "unique_candidate_count": 10,
+        "max_vote_count": 3,
+        "max_vote_ratio": 1.0
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 0,
+        "active_model_count": 3,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [
+        {
+          "combo": "1-2-3",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": null
+        },
+        {
+          "combo": "1-3-2",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": null
+        },
+        {
+          "combo": "1-2-4",
+          "model_count": 2,
+          "models": [
+            "claude",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": null
+        },
+        {
+          "combo": "1-2-5",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-3-6",
+          "model_count": 1,
+          "models": [
+            "claude"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-4-2",
+          "model_count": 1,
+          "models": [
+            "grok"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-4-3",
+          "model_count": 1,
+          "models": [
+            "grok"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-4-5",
+          "model_count": 1,
+          "models": [
+            "claude"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-5-2",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-5-3",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        }
+      ],
+      "historical_cutoff": "2026-09-30"
+    },
+    {
+      "race_id": "20261001_福岡_1",
+      "date": "2026-10-01",
+      "venue": "福岡",
+      "race_number": 1,
+      "created_at": "2026-10-01T13:27:48+09:00",
+      "shadow_only": true,
+      "decision_source": "hard_rule",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "action": "skip",
+      "action_confidence": null,
+      "selected_candidate": "",
+      "selected_candidate_confidence": null,
+      "reason": "usable_odds_missing",
+      "agreement": {
+        "active_model_count": 3,
+        "unique_candidate_count": 8,
+        "max_vote_count": 3,
+        "max_vote_ratio": 1.0
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 0,
+        "active_model_count": 3,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [
+        {
+          "combo": "1-2-3",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": null
+        },
+        {
+          "combo": "1-3-4",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": null
+        },
+        {
+          "combo": "1-2-4",
+          "model_count": 2,
+          "models": [
+            "claude",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": null
+        },
+        {
+          "combo": "1-3-2",
+          "model_count": 2,
+          "models": [
+            "claude",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": null
+        },
+        {
+          "combo": "1-3-5",
+          "model_count": 2,
+          "models": [
+            "claude",
+            "codex"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": null
+        },
+        {
+          "combo": "1-3-6",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-4-2",
+          "model_count": 1,
+          "models": [
+            "grok"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-4-3",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        }
+      ],
+      "historical_cutoff": "2026-09-30"
+    },
+    {
+      "race_id": "20261001_平和島_12",
+      "date": "2026-10-01",
+      "venue": "平和島",
+      "race_number": 12,
+      "created_at": "2026-10-01T13:27:48+09:00",
+      "shadow_only": true,
+      "decision_source": "hard_rule",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "action": "skip",
+      "action_confidence": null,
+      "selected_candidate": "",
+      "selected_candidate_confidence": null,
+      "reason": "usable_odds_missing",
+      "agreement": {
+        "active_model_count": 3,
+        "unique_candidate_count": 11,
+        "max_vote_count": 2,
+        "max_vote_ratio": 0.6667
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 0,
+        "active_model_count": 3,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [
+        {
+          "combo": "1-2-3",
+          "model_count": 2,
+          "models": [
+            "claude",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": null
+        },
+        {
+          "combo": "1-2-5",
+          "model_count": 2,
+          "models": [
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": null
+        },
+        {
+          "combo": "1-2-6",
+          "model_count": 2,
+          "models": [
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": null
+        },
+        {
+          "combo": "1-6-2",
+          "model_count": 2,
+          "models": [
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": null
+        },
+        {
+          "combo": "1-3-2",
+          "model_count": 1,
+          "models": [
+            "claude"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-3-4",
+          "model_count": 1,
+          "models": [
+            "claude"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-3-6",
+          "model_count": 1,
+          "models": [
+            "claude"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-4-2",
+          "model_count": 1,
+          "models": [
+            "claude"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-5-2",
+          "model_count": 1,
+          "models": [
+            "grok"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "1-5-6",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "2-1-6",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        }
+      ],
+      "historical_cutoff": "2026-09-30"
+    },
+    {
+      "race_id": "20261001_津_5",
+      "date": "2026-10-01",
+      "venue": "津",
+      "race_number": 5,
+      "created_at": "2026-10-01T13:27:48+09:00",
+      "shadow_only": true,
+      "decision_source": "hard_rule",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "action": "skip",
+      "action_confidence": null,
+      "selected_candidate": "",
+      "selected_candidate_confidence": null,
+      "reason": "usable_odds_missing",
+      "agreement": {
+        "active_model_count": 3,
+        "unique_candidate_count": 6,
+        "max_vote_count": 3,
+        "max_vote_ratio": 1.0
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 0,
+        "active_model_count": 3,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [
+        {
+          "combo": "1-2-3",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": null
+        },
+        {
+          "combo": "1-2-4",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": null
+        },
+        {
+          "combo": "1-3-4",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": null
+        },
+        {
+          "combo": "1-4-2",
+          "model_count": 3,
+          "models": [
+            "claude",
+            "codex",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": null
+        },
+        {
+          "combo": "1-3-2",
+          "model_count": 2,
+          "models": [
+            "claude",
+            "grok"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": null
+        },
+        {
+          "combo": "2-1-3",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        }
+      ],
+      "historical_cutoff": "2026-09-30"
+    },
+    {
+      "race_id": "20261001_大村_12",
+      "date": "2026-10-01",
+      "venue": "大村",
+      "race_number": 12,
+      "created_at": "2026-10-01T13:27:48+09:00",
+      "shadow_only": true,
+      "decision_source": "hard_rule",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "action": "skip",
+      "action_confidence": null,
+      "selected_candidate": "",
+      "selected_candidate_confidence": null,
+      "reason": "fewer_than_two_active_models",
+      "agreement": {
+        "active_model_count": 0,
+        "unique_candidate_count": 0,
+        "max_vote_count": 0,
+        "max_vote_ratio": 0.0
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 20,
+        "active_model_count": 0,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [],
+      "historical_cutoff": "2026-09-30"
+    },
+    {
+      "race_id": "20261001_唐津_3",
+      "date": "2026-10-01",
+      "venue": "唐津",
+      "race_number": 3,
+      "created_at": "2026-10-01T13:27:48+09:00",
+      "shadow_only": true,
+      "decision_source": "hard_rule",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "action": "skip",
+      "action_confidence": null,
+      "selected_candidate": "",
+      "selected_candidate_confidence": null,
+      "reason": "fewer_than_two_active_models",
+      "agreement": {
+        "active_model_count": 0,
+        "unique_candidate_count": 0,
+        "max_vote_count": 0,
+        "max_vote_ratio": 0.0
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 20,
+        "active_model_count": 0,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [],
+      "historical_cutoff": "2026-09-30"
+    },
+    {
+      "race_id": "20261001_唐津_5",
+      "date": "2026-10-01",
+      "venue": "唐津",
+      "race_number": 5,
+      "created_at": "2026-10-01T13:27:48+09:00",
+      "shadow_only": true,
+      "decision_source": "hard_rule",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "action": "skip",
+      "action_confidence": null,
+      "selected_candidate": "",
+      "selected_candidate_confidence": null,
+      "reason": "fewer_than_two_active_models",
+      "agreement": {
+        "active_model_count": 0,
+        "unique_candidate_count": 0,
+        "max_vote_count": 0,
+        "max_vote_ratio": 0.0
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 20,
+        "active_model_count": 0,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [],
+      "historical_cutoff": "2026-09-30"
+    },
+    {
+      "race_id": "20261001_児島_3",
+      "date": "2026-10-01",
+      "venue": "児島",
+      "race_number": 3,
+      "created_at": "2026-10-01T13:27:48+09:00",
+      "shadow_only": true,
+      "decision_source": "hard_rule",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "action": "skip",
+      "action_confidence": null,
+      "selected_candidate": "",
+      "selected_candidate_confidence": null,
+      "reason": "fewer_than_two_active_models",
+      "agreement": {
+        "active_model_count": 0,
+        "unique_candidate_count": 0,
+        "max_vote_count": 0,
+        "max_vote_ratio": 0.0
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 20,
+        "active_model_count": 0,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [],
+      "historical_cutoff": "2026-09-30"
+    },
+    {
+      "race_id": "20261001_唐津_2",
+      "date": "2026-10-01",
+      "venue": "唐津",
+      "race_number": 2,
+      "created_at": "2026-10-01T13:27:48+09:00",
+      "shadow_only": true,
+      "decision_source": "hard_rule",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "action": "skip",
+      "action_confidence": null,
+      "selected_candidate": "",
+      "selected_candidate_confidence": null,
+      "reason": "fewer_than_two_active_models",
+      "agreement": {
+        "active_model_count": 0,
+        "unique_candidate_count": 0,
+        "max_vote_count": 0,
+        "max_vote_ratio": 0.0
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 20,
+        "active_model_count": 0,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [],
+      "historical_cutoff": "2026-09-30"
+    },
+    {
+      "race_id": "20261001_児島_12",
+      "date": "2026-10-01",
+      "venue": "児島",
+      "race_number": 12,
+      "created_at": "2026-10-01T13:27:48+09:00",
+      "shadow_only": true,
+      "decision_source": "hard_rule",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "action": "skip",
+      "action_confidence": null,
+      "selected_candidate": "",
+      "selected_candidate_confidence": null,
+      "reason": "fewer_than_two_active_models",
+      "agreement": {
+        "active_model_count": 0,
+        "unique_candidate_count": 0,
+        "max_vote_count": 0,
+        "max_vote_ratio": 0.0
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 20,
+        "active_model_count": 0,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [],
+      "historical_cutoff": "2026-09-30"
+    },
+    {
+      "race_id": "20261001_唐津_1",
+      "date": "2026-10-01",
+      "venue": "唐津",
+      "race_number": 1,
+      "created_at": "2026-10-01T13:48:14+09:00",
+      "shadow_only": true,
+      "decision_source": "jev",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "jev_model": "jev-1.13.0",
+      "input_sha256": "8ac00232abf305308bd72a8fcabb6d6e86654460de5794d75ee1076e03dcb629",
+      "action": "skip",
+      "action_confidence": 0.92,
+      "selected_candidate": "1-2-4",
+      "selected_candidate_confidence": 0.5,
+      "answers": {
+        "action": {
+          "type": "choice",
+          "choice": "skip",
+          "confidence": 0.92,
+          "probabilities": {
+            "standard": 0.02,
+            "small": 0.04,
+            "skip": 0.94
+          }
+        },
+        "candidate": {
+          "type": "choice",
+          "choice": "candidate_1_2_4",
+          "confidence": 0.5,
+          "probabilities": {
+            "candidate_1_4_2": 0.21,
+            "candidate_1_2_4": 0.55,
+            "candidate_3_1_4": 0.0,
+            "candidate_1_5_4": 0.0,
+            "candidate_3_4_2": 0.0,
+            "candidate_1_4_3": 0.04,
+            "candidate_3_4_1": 0.0,
+            "candidate_1_4_5": 0.14,
+            "candidate_1_3_4": 0.01,
+            "candidate_3_1_2": 0.0,
+            "candidate_1_3_5": 0.0,
+            "candidate_4_1_2": 0.0,
+            "no_candidate": 0.04
+          }
+        },
+        "data_sufficient": {
+          "type": "noul",
+          "noul": 0.32
+        },
+        "evidence_strength": {
+          "type": "score",
+          "score": 0.65,
+          "confidence": 0.35,
+          "legend": {
+            "0": "Insufficient evidence; skip.",
+            "1": "Weak or conflicting evidence.",
+            "2": "Moderate evidence with material uncertainty.",
+            "3": "Strong and corroborated evidence."
+          },
+          "probabilities": {
+            "0": 0.53,
+            "1": 0.32,
+            "2": 0.13,
+            "3": 0.02
+          }
+        },
+        "variance_risk": {
+          "type": "score",
+          "score": 1.75,
+          "confidence": 0.63,
+          "legend": {
+            "0": "Low instability risk.",
+            "1": "Moderate instability risk.",
+            "2": "High instability risk.",
+            "3": "Extreme instability risk."
+          },
+          "probabilities": {
+            "0": 0.02,
+            "1": 0.28,
+            "2": 0.64,
+            "3": 0.06
+          }
+        }
+      },
+      "agreement": {
+        "active_model_count": 5,
+        "unique_candidate_count": 12,
+        "max_vote_count": 4,
+        "max_vote_ratio": 0.8
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 20,
+        "active_model_count": 5,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [
+        {
+          "combo": "1-4-2",
+          "model_count": 4,
+          "models": [
+            "codex",
+            "grok",
+            "qwen_claude",
+            "qwen_grok_x"
+          ],
+          "total_proposed_stake_yen": 400,
+          "odds": 6.3
+        },
+        {
+          "combo": "1-4-5",
+          "model_count": 4,
+          "models": [
+            "codex",
+            "grok",
+            "qwen_claude",
+            "qwen_grok_x"
+          ],
+          "total_proposed_stake_yen": 400,
+          "odds": 6.6
+        },
+        {
+          "combo": "1-2-4",
+          "model_count": 4,
+          "models": [
+            "codex",
+            "grok",
+            "qwen_claude",
+            "qwen_grok_x"
+          ],
+          "total_proposed_stake_yen": 400,
+          "odds": 7.2
+        },
+        {
+          "combo": "1-4-3",
+          "model_count": 3,
+          "models": [
+            "codex",
+            "grok",
+            "qwen_grok_x"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": 11.4
+        },
+        {
+          "combo": "1-3-4",
+          "model_count": 2,
+          "models": [
+            "qwen_claude",
+            "qwen_grok_x"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": 13.0
+        },
+        {
+          "combo": "1-5-4",
+          "model_count": 1,
+          "models": [
+            "grok"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": 15.0
+        },
+        {
+          "combo": "1-3-5",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": 24.9
+        },
+        {
+          "combo": "4-1-2",
+          "model_count": 1,
+          "models": [
+            "qwen_claude"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": 33.3
+        },
+        {
+          "combo": "3-1-2",
+          "model_count": 1,
+          "models": [
+            "gemma_ft"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "3-1-4",
+          "model_count": 1,
+          "models": [
+            "gemma_ft"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "3-4-1",
+          "model_count": 1,
+          "models": [
+            "gemma_ft"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        },
+        {
+          "combo": "3-4-2",
+          "model_count": 1,
+          "models": [
+            "gemma_ft"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": null
+        }
+      ],
+      "historical_cutoff": "2026-09-30"
+    },
+    {
+      "race_id": "20261001_大村_11",
+      "date": "2026-10-01",
+      "venue": "大村",
+      "race_number": 11,
+      "created_at": "2026-10-01T13:48:14+09:00",
+      "shadow_only": true,
+      "decision_source": "jev",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "jev_model": "jev-1.13.0",
+      "input_sha256": "5db51538b2f9e8397dd034a45c3dbb7ad082437c86814f38f91ddd602d10b022",
+      "action": "skip",
+      "action_confidence": 0.91,
+      "selected_candidate": "1-3-2",
+      "selected_candidate_confidence": 0.38,
+      "answers": {
+        "action": {
+          "type": "choice",
+          "choice": "skip",
+          "confidence": 0.91,
+          "probabilities": {
+            "skip": 0.94,
+            "small": 0.04,
+            "standard": 0.02
+          }
+        },
+        "candidate": {
+          "type": "choice",
+          "choice": "candidate_1_3_2",
+          "confidence": 0.38,
+          "probabilities": {
+            "candidate_1_2_3": 0.24,
+            "candidate_1_3_2": 0.45,
+            "candidate_1_3_5": 0.0,
+            "candidate_2_1_4": 0.0,
+            "candidate_1_2_6": 0.0,
+            "candidate_1_5_2": 0.0,
+            "candidate_1_2_5": 0.01,
+            "candidate_1_2_4": 0.24,
+            "candidate_1_4_2": 0.0,
+            "no_candidate": 0.06
+          }
+        },
+        "data_sufficient": {
+          "type": "noul",
+          "noul": 0.34
+        },
+        "evidence_strength": {
+          "type": "score",
+          "score": 0.59,
+          "confidence": 0.41,
+          "legend": {
+            "0": "Insufficient evidence; skip.",
+            "1": "Weak or conflicting evidence.",
+            "2": "Moderate evidence with material uncertainty.",
+            "3": "Strong and corroborated evidence."
+          },
+          "probabilities": {
+            "0": 0.56,
+            "1": 0.31,
+            "2": 0.11,
+            "3": 0.02
+          }
+        },
+        "variance_risk": {
+          "type": "score",
+          "score": 1.76,
+          "confidence": 0.58,
+          "legend": {
+            "0": "Low instability risk.",
+            "1": "Moderate instability risk.",
+            "2": "High instability risk.",
+            "3": "Extreme instability risk."
+          },
+          "probabilities": {
+            "0": 0.03,
+            "1": 0.27,
+            "2": 0.61,
+            "3": 0.09
+          }
+        }
+      },
+      "agreement": {
+        "active_model_count": 5,
+        "unique_candidate_count": 9,
+        "max_vote_count": 5,
+        "max_vote_ratio": 1.0
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 20,
+        "active_model_count": 5,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [
+        {
+          "combo": "1-2-4",
+          "model_count": 5,
+          "models": [
+            "codex",
+            "gemma_ft",
+            "grok",
+            "qwen_claude",
+            "qwen_grok_x"
+          ],
+          "total_proposed_stake_yen": 500,
+          "odds": 5.6
+        },
+        {
+          "combo": "1-2-3",
+          "model_count": 5,
+          "models": [
+            "codex",
+            "gemma_ft",
+            "grok",
+            "qwen_claude",
+            "qwen_grok_x"
+          ],
+          "total_proposed_stake_yen": 500,
+          "odds": 6.2
+        },
+        {
+          "combo": "1-3-2",
+          "model_count": 5,
+          "models": [
+            "codex",
+            "gemma_ft",
+            "grok",
+            "qwen_claude",
+            "qwen_grok_x"
+          ],
+          "total_proposed_stake_yen": 500,
+          "odds": 15.9
+        },
+        {
+          "combo": "1-2-5",
+          "model_count": 3,
+          "models": [
+            "grok",
+            "qwen_claude",
+            "qwen_grok_x"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": 17.7
+        },
+        {
+          "combo": "1-5-2",
+          "model_count": 2,
+          "models": [
+            "grok",
+            "qwen_grok_x"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": 10.7
+        },
+        {
+          "combo": "1-4-2",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": 17.7
+        },
+        {
+          "combo": "1-2-6",
+          "model_count": 1,
+          "models": [
+            "qwen_claude"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": 27.0
+        },
+        {
+          "combo": "2-1-4",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": 27.9
+        },
+        {
+          "combo": "1-3-5",
+          "model_count": 1,
+          "models": [
+            "gemma_ft"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": 43.9
+        }
+      ],
+      "historical_cutoff": "2026-09-30"
+    },
+    {
+      "race_id": "20261001_大村_5",
+      "date": "2026-10-01",
+      "venue": "大村",
+      "race_number": 5,
+      "created_at": "2026-10-01T13:48:14+09:00",
+      "shadow_only": true,
+      "decision_source": "jev",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "jev_model": "jev-1.13.0",
+      "input_sha256": "c1dfd3fecad051d9a9e1dd27cd244a8be4188396e6a1e1958664658d6ba0b232",
+      "action": "skip",
+      "action_confidence": 0.89,
+      "selected_candidate": "1-3-6",
+      "selected_candidate_confidence": 0.48,
+      "answers": {
+        "action": {
+          "type": "choice",
+          "choice": "skip",
+          "confidence": 0.89,
+          "probabilities": {
+            "skip": 0.93,
+            "small": 0.05,
+            "standard": 0.02
+          }
+        },
+        "candidate": {
+          "type": "choice",
+          "choice": "candidate_1_3_6",
+          "confidence": 0.48,
+          "probabilities": {
+            "candidate_1_2_3": 0.01,
+            "candidate_6_1_2": 0.0,
+            "candidate_1_3_6": 0.53,
+            "candidate_2_1_6": 0.0,
+            "candidate_1_2_6": 0.4,
+            "candidate_1_6_3": 0.0,
+            "candidate_1_6_2": 0.02,
+            "candidate_1_2_4": 0.0,
+            "candidate_1_3_2": 0.0,
+            "no_candidate": 0.04
+          }
+        },
+        "data_sufficient": {
+          "type": "noul",
+          "noul": 0.37
+        },
+        "evidence_strength": {
+          "type": "score",
+          "score": 0.58,
+          "confidence": 0.42,
+          "legend": {
+            "0": "Insufficient evidence; skip.",
+            "1": "Weak or conflicting evidence.",
+            "2": "Moderate evidence with material uncertainty.",
+            "3": "Strong and corroborated evidence."
+          },
+          "probabilities": {
+            "0": 0.58,
+            "1": 0.29,
+            "2": 0.11,
+            "3": 0.02
+          }
+        },
+        "variance_risk": {
+          "type": "score",
+          "score": 1.67,
+          "confidence": 0.54,
+          "legend": {
+            "0": "Low instability risk.",
+            "1": "Moderate instability risk.",
+            "2": "High instability risk.",
+            "3": "Extreme instability risk."
+          },
+          "probabilities": {
+            "0": 0.03,
+            "1": 0.33,
+            "2": 0.58,
+            "3": 0.06
+          }
+        }
+      },
+      "agreement": {
+        "active_model_count": 5,
+        "unique_candidate_count": 9,
+        "max_vote_count": 5,
+        "max_vote_ratio": 1.0
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 20,
+        "active_model_count": 5,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [
+        {
+          "combo": "1-2-6",
+          "model_count": 5,
+          "models": [
+            "codex",
+            "gemma_ft",
+            "grok",
+            "qwen_claude",
+            "qwen_grok_x"
+          ],
+          "total_proposed_stake_yen": 500,
+          "odds": 5.7
+        },
+        {
+          "combo": "1-3-6",
+          "model_count": 5,
+          "models": [
+            "codex",
+            "gemma_ft",
+            "grok",
+            "qwen_claude",
+            "qwen_grok_x"
+          ],
+          "total_proposed_stake_yen": 500,
+          "odds": 18.9
+        },
+        {
+          "combo": "1-6-2",
+          "model_count": 4,
+          "models": [
+            "codex",
+            "grok",
+            "qwen_claude",
+            "qwen_grok_x"
+          ],
+          "total_proposed_stake_yen": 400,
+          "odds": 14.0
+        },
+        {
+          "combo": "1-2-3",
+          "model_count": 4,
+          "models": [
+            "codex",
+            "grok",
+            "qwen_claude",
+            "qwen_grok_x"
+          ],
+          "total_proposed_stake_yen": 400,
+          "odds": 15.3
+        },
+        {
+          "combo": "1-6-3",
+          "model_count": 2,
+          "models": [
+            "grok",
+            "qwen_grok_x"
+          ],
+          "total_proposed_stake_yen": 200,
+          "odds": 15.9
+        },
+        {
+          "combo": "1-3-2",
+          "model_count": 1,
+          "models": [
+            "gemma_ft"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": 24.1
+        },
+        {
+          "combo": "6-1-2",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": 25.7
+        },
+        {
+          "combo": "1-2-4",
+          "model_count": 1,
+          "models": [
+            "gemma_ft"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": 42.0
+        },
+        {
+          "combo": "2-1-6",
+          "model_count": 1,
+          "models": [
+            "qwen_claude"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": 45.3
+        }
+      ],
+      "historical_cutoff": "2026-09-30"
+    },
+    {
+      "race_id": "20261001_児島_2",
+      "date": "2026-10-01",
+      "venue": "児島",
+      "race_number": 2,
+      "created_at": "2026-10-01T13:48:15+09:00",
+      "shadow_only": true,
+      "decision_source": "jev",
+      "strategy_version": "jev_shadow_v1",
+      "question_version": "jev_boatrace_gate_v1",
+      "jev_model": "jev-1.13.0",
+      "input_sha256": "dcf6e1ff58d37e5b31c76c5f52d9222768155fd1fe81aa03daf67661b12b78ae",
+      "action": "skip",
+      "action_confidence": 0.9,
+      "selected_candidate": "1-2-3",
+      "selected_candidate_confidence": 0.71,
+      "answers": {
+        "action": {
+          "type": "choice",
+          "choice": "skip",
+          "confidence": 0.9,
+          "probabilities": {
+            "small": 0.05,
+            "standard": 0.02,
+            "skip": 0.93
+          }
+        },
+        "candidate": {
+          "type": "choice",
+          "choice": "candidate_1_2_3",
+          "confidence": 0.71,
+          "probabilities": {
+            "candidate_2_1_4": 0.0,
+            "candidate_1_3_2": 0.03,
+            "candidate_1_2_3": 0.74,
+            "candidate_2_1_6": 0.0,
+            "candidate_1_2_4": 0.05,
+            "candidate_1_2_6": 0.01,
+            "no_candidate": 0.02,
+            "candidate_2_1_3": 0.15,
+            "candidate_1_4_3": 0.0
+          }
+        },
+        "data_sufficient": {
+          "type": "noul",
+          "noul": 0.36
+        },
+        "evidence_strength": {
+          "type": "score",
+          "score": 0.6,
+          "confidence": 0.4,
+          "legend": {
+            "0": "Insufficient evidence; skip.",
+            "1": "Weak or conflicting evidence.",
+            "2": "Moderate evidence with material uncertainty.",
+            "3": "Strong and corroborated evidence."
+          },
+          "probabilities": {
+            "0": 0.55,
+            "1": 0.32,
+            "2": 0.11,
+            "3": 0.02
+          }
+        },
+        "variance_risk": {
+          "type": "score",
+          "score": 1.74,
+          "confidence": 0.62,
+          "legend": {
+            "0": "Low instability risk.",
+            "1": "Moderate instability risk.",
+            "2": "High instability risk.",
+            "3": "Extreme instability risk."
+          },
+          "probabilities": {
+            "0": 0.02,
+            "1": 0.29,
+            "2": 0.63,
+            "3": 0.06
+          }
+        }
+      },
+      "agreement": {
+        "active_model_count": 5,
+        "unique_candidate_count": 8,
+        "max_vote_count": 5,
+        "max_vote_ratio": 1.0
+      },
+      "data_quality": {
+        "boat_count": 6,
+        "odds_count": 20,
+        "active_model_count": 5,
+        "missing_condition_count": 5
+      },
+      "candidate_snapshot": [
+        {
+          "combo": "1-2-3",
+          "model_count": 5,
+          "models": [
+            "codex",
+            "gemma_ft",
+            "grok",
+            "qwen_claude",
+            "qwen_grok_x"
+          ],
+          "total_proposed_stake_yen": 500,
+          "odds": 8.4
+        },
+        {
+          "combo": "1-2-4",
+          "model_count": 4,
+          "models": [
+            "codex",
+            "gemma_ft",
+            "grok",
+            "qwen_claude"
+          ],
+          "total_proposed_stake_yen": 400,
+          "odds": 11.9
+        },
+        {
+          "combo": "1-3-2",
+          "model_count": 4,
+          "models": [
+            "gemma_ft",
+            "grok",
+            "qwen_claude",
+            "qwen_grok_x"
+          ],
+          "total_proposed_stake_yen": 400,
+          "odds": 12.6
+        },
+        {
+          "combo": "2-1-3",
+          "model_count": 4,
+          "models": [
+            "codex",
+            "grok",
+            "qwen_claude",
+            "qwen_grok_x"
+          ],
+          "total_proposed_stake_yen": 400,
+          "odds": 20.0
+        },
+        {
+          "combo": "1-2-6",
+          "model_count": 3,
+          "models": [
+            "codex",
+            "grok",
+            "qwen_grok_x"
+          ],
+          "total_proposed_stake_yen": 300,
+          "odds": 10.2
+        },
+        {
+          "combo": "2-1-6",
+          "model_count": 1,
+          "models": [
+            "codex"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": 17.6
+        },
+        {
+          "combo": "2-1-4",
+          "model_count": 1,
+          "models": [
+            "qwen_claude"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": 29.6
+        },
+        {
+          "combo": "1-4-3",
+          "model_count": 1,
+          "models": [
+            "gemma_ft"
+          ],
+          "total_proposed_stake_yen": 100,
+          "odds": 47.5
+        }
+      ],
+      "historical_cutoff": "2026-09-30"
+    }
+  ],
+  "errors": []
 }
