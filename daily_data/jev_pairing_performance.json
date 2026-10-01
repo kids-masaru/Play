@@ -1,0 +1,141 @@
+{
+  "generated_at": "2026-10-01T21:21:41+09:00",
+  "shadow_only": true,
+  "experiment_version": "jev_pairing_v1",
+  "strategy_version": "jev_shadow_v2",
+  "latest_result_date": "",
+  "arms": {
+    "codex_raw": {
+      "type": "raw_model",
+      "graded_races": 0,
+      "forced_selected": {
+        "graded_races": 0,
+        "purchased_races": 0,
+        "hits": 0,
+        "hit_rate_pct": null,
+        "invest_yen": 0,
+        "return_yen": 0,
+        "profit_yen": 0,
+        "roi_pct": null,
+        "max_drawdown_yen": 0,
+        "largest_single_race_profit_yen": 0,
+        "profit_without_largest_win_yen": 0,
+        "roi_without_largest_win_pct": null
+      },
+      "raw_portfolio": {
+        "graded_races": 0,
+        "purchased_races": 0,
+        "hits": 0,
+        "hit_rate_pct": null,
+        "invest_yen": 0,
+        "return_yen": 0,
+        "profit_yen": 0,
+        "roi_pct": null,
+        "max_drawdown_yen": 0,
+        "largest_single_race_profit_yen": 0,
+        "profit_without_largest_win_yen": 0,
+        "roi_without_largest_win_pct": null
+      }
+    },
+    "codex_jev": {
+      "type": "jev_selector",
+      "graded_races": 0,
+      "forced_selected": {
+        "graded_races": 0,
+        "purchased_races": 0,
+        "hits": 0,
+        "hit_rate_pct": null,
+        "invest_yen": 0,
+        "return_yen": 0,
+        "profit_yen": 0,
+        "roi_pct": null,
+        "max_drawdown_yen": 0,
+        "largest_single_race_profit_yen": 0,
+        "profit_without_largest_win_yen": 0,
+        "roi_without_largest_win_pct": null
+      }
+    },
+    "claude_raw": {
+      "type": "raw_model",
+      "graded_races": 0,
+      "forced_selected": {
+        "graded_races": 0,
+        "purchased_races": 0,
+        "hits": 0,
+        "hit_rate_pct": null,
+        "invest_yen": 0,
+        "return_yen": 0,
+        "profit_yen": 0,
+        "roi_pct": null,
+        "max_drawdown_yen": 0,
+        "largest_single_race_profit_yen": 0,
+        "profit_without_largest_win_yen": 0,
+        "roi_without_largest_win_pct": null
+      },
+      "raw_portfolio": {
+        "graded_races": 0,
+        "purchased_races": 0,
+        "hits": 0,
+        "hit_rate_pct": null,
+        "invest_yen": 0,
+        "return_yen": 0,
+        "profit_yen": 0,
+        "roi_pct": null,
+        "max_drawdown_yen": 0,
+        "largest_single_race_profit_yen": 0,
+        "profit_without_largest_win_yen": 0,
+        "roi_without_largest_win_pct": null
+      }
+    },
+    "claude_jev": {
+      "type": "jev_selector",
+      "graded_races": 0,
+      "forced_selected": {
+        "graded_races": 0,
+        "purchased_races": 0,
+        "hits": 0,
+        "hit_rate_pct": null,
+        "invest_yen": 0,
+        "return_yen": 0,
+        "profit_yen": 0,
+        "roi_pct": null,
+        "max_drawdown_yen": 0,
+        "largest_single_race_profit_yen": 0,
+        "profit_without_largest_win_yen": 0,
+        "roi_without_largest_win_pct": null
+      }
+    },
+    "all_models_jev": {
+      "type": "jev_gate_and_selector",
+      "graded_races": 0,
+      "forced_selected": {
+        "graded_races": 0,
+        "purchased_races": 0,
+        "hits": 0,
+        "hit_rate_pct": null,
+        "invest_yen": 0,
+        "return_yen": 0,
+        "profit_yen": 0,
+        "roi_pct": null,
+        "max_drawdown_yen": 0,
+        "largest_single_race_profit_yen": 0,
+        "profit_without_largest_win_yen": 0,
+        "roi_without_largest_win_pct": null
+      },
+      "action_selected": {
+        "graded_races": 0,
+        "purchased_races": 0,
+        "hits": 0,
+        "hit_rate_pct": null,
+        "invest_yen": 0,
+        "return_yen": 0,
+        "profit_yen": 0,
+        "roi_pct": null,
+        "max_drawdown_yen": 0,
+        "largest_single_race_profit_yen": 0,
+        "profit_without_largest_win_yen": 0,
+        "roi_without_largest_win_pct": null
+      }
+    }
+  }
+}
