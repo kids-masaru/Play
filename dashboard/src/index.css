@@ -729,6 +729,52 @@ body {
 .model-card-metrics span { color: #7b8491; font-size: .62rem; font-weight: 700; }
 .model-card-metrics strong { color: #303846; font-size: .82rem; white-space: nowrap; }
 .model-card-metrics small { color: #9ca3af; font-size: .6rem; }
+.jev-pairing-section { border-top: 3px solid #7c3aed; }
+.jev-pairing-heading { align-items: center; }
+.jev-pairing-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: .75rem;
+  margin: -.2rem 0 .85rem;
+  color: #6b7280;
+  font-size: .65rem;
+}
+.jev-pairing-meta strong { color: #111827; }
+.jev-ranking-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.jev-ranking-card:last-child { grid-column: 1 / -1; }
+.jev-arm-icon {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  color: #5b21b6;
+  background: #ede9fe;
+  border-radius: 10px;
+  font-size: .68rem;
+  font-weight: 850;
+}
+.jev-ranking-card .model-card-name { display: grid; gap: .15rem; }
+.jev-ranking-card .model-card-name strong { color: #111827; font-size: .8rem; }
+.jev-ranking-card .model-card-name small { color: #7b8491; font-size: .6rem; font-weight: 500; }
+.jev-card-note {
+  display: flex;
+  justify-content: space-between;
+  gap: .6rem;
+  padding: .5rem .75rem;
+  color: #7b8491;
+  background: #f6f4fb;
+  border-top: 1px solid #ebe7f4;
+  font-size: .62rem;
+}
+.jev-pairing-empty {
+  padding: 1rem;
+  color: #6b7280;
+  background: #faf9fd;
+  border: 1px dashed #c4b5fd;
+  border-radius: 8px;
+  text-align: center;
+  font-size: .75rem;
+}
 .chart-heading { align-items: center; }
 .simple-segmented { display: flex; flex-wrap: wrap; padding: .2rem; background: #eef0f3; border-radius: 7px; }
 .simple-segmented button { padding: .4rem .65rem; color: #596170; background: transparent; border: 0; border-radius: 5px; cursor: pointer; font-size: .7rem; font-weight: 700; }
@@ -748,6 +794,9 @@ body {
   .chart-heading { align-items: stretch; flex-direction: column; }
   .simple-segmented { width: fit-content; }
   .comparison-table-card, .comparison-chart-card, .how-to-read { padding: .9rem .75rem; }
+  .jev-pairing-meta, .jev-card-note { align-items: flex-start; flex-direction: column; }
+  .jev-ranking-list { grid-template-columns: 1fr; }
+  .jev-ranking-card:last-child { grid-column: auto; }
 }
 
 /* 2026-08 レスポンシブ調整：PCは横幅を活用し、スマホは情報を縦に再構成する。 */

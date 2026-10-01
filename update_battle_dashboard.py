@@ -9,7 +9,9 @@
   4. predict_gemma_ft.py  (race_info.json を読んで 学習版Gemma 予測 / Ollama)
   5. generate_battle_data.py  (2回目: Gemini と 学習版Gemma を取り込んだ最終版)
   6. model_performance.py  (モデル比較の7日/30日/全期間集計)
-  7. 成果物 JSON を git add -> commit -> push (GitHub Pages へ公開)
+  7. jev_shadow.py  (既存買い目をJevでシャドー審査。実購入は変更しない)
+  8. jev_pairing_performance.py  (Codex/ClaudeとJevの確定済み比較成績)
+  9. 成果物 JSON を git add -> commit -> push (GitHub Pages へ公開)
 
 なぜこの順番か:
   generate_gemini は daily_race_info.json を入力に取り、
@@ -21,6 +23,7 @@
   --skip-gemini : Gemini 予測をスキップ (API を呼ばない。テスト用)
   --skip-codex  : Codex 予測をスキップ (ChatGPT利用枠を使わない)
   --skip-claude : Claude 予測をスキップ (Claude Max利用枠を使わない)
+  --skip-jev    : Jevシャドー審査をスキップ (既存の購入判断には影響しない)
 """
 import os
 import sys
@@ -63,6 +66,10 @@ PUBLISH_FILES = [
     "dashboard/public/daily_data/boat_tendency.json",
     # CLV（妙味の先取り）モデル別サマリ。compute_clv.py が生成
     "dashboard/public/daily_data/clv_summary.json",
+    # Jevは当面シャドー判定のみ。画面・LINE・実購入には接続しない。
+    "dashboard/public/daily_data/jev_shadow_decisions.json",
+    # Codex/Claude単体とJev選択の確定済み比較成績。
+    "dashboard/public/daily_data/jev_pairing_performance.json",
 ]
 
 
@@ -183,6 +190,7 @@ def main():
     skip_grok = "--skip-grok" in sys.argv
     skip_codex = "--skip-codex" in sys.argv
     skip_claude = "--skip-claude" in sys.argv
+    skip_jev = "--skip-jev" in sys.argv
     skip_gemma = "--skip-gemma" in sys.argv  # 学習版Gemma(Ollama)をスキップ
 
     t0 = datetime.now()
@@ -241,6 +249,16 @@ def main():
 
     # 画面とLINEが同じ数字を使うように、モデル比較は共通集計から生成する。
     run_py("model_performance.py")
+
+    # Jevは最終買い目とモデル成績が揃った後にだけ実行する。
+    # APIキー未設定・一時障害でも、公開処理と既存モデルは止めない。
+    if skip_jev:
+        log("--skip-jev 指定のため Jevシャドー審査をスキップ")
+    else:
+        run_py("jev_shadow.py", allow_fail=True)
+
+    # 前日までの確定結果だけを使い、Jev組合せ実験の成績を翌日入力用に更新する。
+    run_py("jev_pairing_performance.py", allow_fail=True)
 
     # 傾向(攻略図)タブのデータを再生成（会場別/レース番号別のイン率ヒートマップ）。
     # 最新の結果・予想CSVが揃った後に集計する。失敗しても他の公開は止めない。

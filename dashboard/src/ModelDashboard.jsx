@@ -21,6 +21,39 @@ const MODEL_ICONS = {
   stakes_claude: './model-icons/claude.svg',
 };
 
+const JEV_ARM_META = {
+  codex_raw: {
+    label: 'Codex単体',
+    short: 'C',
+    detail: 'Codexの元買い目をすべて購入',
+    metricKey: 'raw_portfolio',
+  },
+  codex_jev: {
+    label: 'Codex → Jev',
+    short: 'C→J',
+    detail: 'Codex候補からJevが1点選択',
+    metricKey: 'forced_selected',
+  },
+  claude_raw: {
+    label: 'Claude単体',
+    short: 'Cl',
+    detail: 'Claudeの元買い目をすべて購入',
+    metricKey: 'raw_portfolio',
+  },
+  claude_jev: {
+    label: 'Claude → Jev',
+    short: 'Cl→J',
+    detail: 'Claude候補からJevが1点選択',
+    metricKey: 'forced_selected',
+  },
+  all_models_jev: {
+    label: '全モデル → Jev',
+    short: 'ALL→J',
+    detail: '全モデル候補からJevが1点選択',
+    metricKey: 'forced_selected',
+  },
+};
+
 const Direction = ({ model, period }) => {
   if (!model.n) return <span className="change neutral">計測前</span>;
   if (model.roi_change == null) return <span className="change neutral">比較なし</span>;
@@ -99,6 +132,72 @@ const ClvSection = () => {
         </article>;
       })}
     </div>
+  </section>;
+};
+
+// Jevは実購入へ接続せず、元モデルとJev選択を同じ確定結果で比較する。
+const JevPairingSection = () => {
+  const [pairing, setPairing] = useState(null);
+  const [loadError, setLoadError] = useState(false);
+
+  useEffect(() => {
+    fetch(`./daily_data/jev_pairing_performance.json?t=${Date.now()}`)
+      .then(res => res.ok ? res.json() : Promise.reject(new Error(`HTTP ${res.status}`)))
+      .then(payload => {
+        setPairing(payload);
+        setLoadError(false);
+      })
+      .catch(() => setLoadError(true));
+  }, []);
+
+  const arms = pairing?.arms || {};
+  return <section className="comparison-table-card jev-pairing-section">
+    <div className="simple-section-heading jev-pairing-heading">
+      <div>
+        <h3>Jev 組み合わせ比較</h3>
+        <p>元モデルの買い目と、Jevが1点に絞った場合を確定結果で比較します。実購入には反映していません。</p>
+      </div>
+      <span className="sample-status">シャドー実験</span>
+    </div>
+    {loadError
+      ? <div className="jev-pairing-empty">初回集計待ちです。次回の自動更新後から成績が表示されます。</div>
+      : <>
+        <div className="jev-pairing-meta">
+          <span>確定結果の最終日: <strong>{pairing?.latest_result_date || 'まだありません'}</strong></span>
+          <span>最大の当たりを除いたROIも必ず併記します。</span>
+        </div>
+        <div className="model-ranking-list jev-ranking-list">
+          {Object.entries(JEV_ARM_META).map(([armId, meta]) => {
+            const arm = arms[armId] || {};
+            const metric = arm[meta.metricKey] || {};
+            const firstPick = arm.forced_selected || {};
+            const measured = Number(metric.purchased_races || 0) > 0;
+            const profit = Number(metric.profit_yen || 0);
+            return <article className="model-ranking-card jev-ranking-card" key={armId}>
+              <div className="model-card-top">
+                <span className="jev-arm-icon" aria-hidden="true">{meta.short}</span>
+                <span className="model-card-name">
+                  <strong>{meta.label}</strong>
+                  <small>{meta.detail}</small>
+                </span>
+                <strong className={`model-card-profit ${measured ? (profit >= 0 ? 'value-positive' : 'value-negative') : ''}`}>
+                  {measured ? formatYen(profit) : '蓄積中'}
+                </strong>
+                <span className="change neutral">{metric.purchased_races || 0}件</span>
+              </div>
+              <div className="model-card-metrics jev-card-metrics">
+                <div><span>ROI</span><strong className={metric.roi_pct >= 100 ? 'value-positive' : ''}>{formatPercent(metric.roi_pct)}</strong></div>
+                <div><span>最大当たり除外ROI</span><strong className={metric.roi_without_largest_win_pct >= 100 ? 'value-positive' : ''}>{formatPercent(metric.roi_without_largest_win_pct)}</strong></div>
+                <div><span>的中率</span><strong>{formatPercent(metric.hit_rate_pct)}</strong><small>{metric.hits || 0}/{metric.purchased_races || 0}</small></div>
+              </div>
+              <div className="jev-card-note">
+                <span>最大損失幅 {measured ? formatYen(metric.max_drawdown_yen, false) : '—'}</span>
+                {arm.type === 'raw_model' && <span>先頭1点のROI {formatPercent(firstPick.roi_pct)}</span>}
+              </div>
+            </article>;
+          })}
+        </div>
+      </>}
   </section>;
 };
 
@@ -248,6 +347,8 @@ const ModelDashboard = ({ period = 'weekly' }) => {
         </ComposedChart>
       </ResponsiveContainer> : <div className="comparison-empty">この期間の確定結果はまだありません。</div>}
     </section>
+
+    <JevPairingSection />
 
     <ClvSection />
   </main>;

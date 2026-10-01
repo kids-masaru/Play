@@ -74,6 +74,8 @@ credentials.env
 !dashboard/public/daily_data/daily_race_info.json
 !dashboard/public/daily_data/ai_predictions_summary.json
 !dashboard/public/daily_data/model_performance.json
+!dashboard/public/daily_data/jev_shadow_decisions.json
+!dashboard/public/daily_data/jev_pairing_performance.json
 !dashboard/public/daily_data/codex_learning_summary.json
 !dashboard/public/daily_data/toto_info.json
 !dashboard/public/daily_data/toto_rounds.json
@@ -98,3 +100,13 @@ gemma_finetune/outputs/
 # CLV: 予測買い目の永続ログ（増え続ける内部生成物・ローカルに残せば十分）。締切オッズも同様。
 **/clv_prediction_log.csv
 **/closing_odds_3t.csv
+
+# Jevシャドー判定の累積履歴はローカル検証用。日次サマリだけを公開する。
+daily_data/jev_shadow_history.jsonl
+daily_data/jev_backtest_decisions.jsonl
+daily_data/jev_backtest_git_decisions.jsonl
+# daily_data は環境によって公開フォルダと同一実体になるため、別名側も除外する。
+dashboard/public/daily_data/jev_shadow_history.jsonl
+dashboard/public/daily_data/jev_backtest_decisions.jsonl
+dashboard/public/daily_data/jev_backtest_git_decisions.jsonl
+dashboard/.vite-check-dist/
