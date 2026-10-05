@@ -1,6 +1,6 @@
 {
-  "default_round": 1658,
-  "default_key": "1658-toto",
+  "default_round": 1659,
+  "default_key": "1659-toto",
   "rounds": [
     {
       "round": 1660,
@@ -10,9 +10,9 @@
       "payout_detail": null,
       "deadline": "2026-10-10 13:50",
       "result_date": "2026-10-11",
-      "generated_date": "2026-10-03",
-      "has_gemini": false,
-      "has_codex": false,
+      "generated_date": "2026-10-05",
+      "has_gemini": true,
+      "has_codex": true,
       "has_claude": true,
       "settled": false,
       "summary": {
@@ -47,12 +47,12 @@
             "p_A": 0.4867,
             "pick": "A"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルによるアウェイ勝利確率が49%と高く見積もられており、両チームの直近の勢いにも明らかな差が見られます。セレッソ大阪は直近5試合で1勝しか挙げられておらず勝ちきれない試合が続いていますが、横浜Ｆ・マリノスは比較的安定して勝点を積み上げています。セレッソのホームアドバンテージを考慮しても、総合力とフォームで勝る横浜Ｆ・マリノスが優勢に試合を進めて勝利を収めると予想します。",
+          "codex_pick": "A",
+          "codex_confidence": "55%",
+          "codex_reasoning": "モデルは横浜FM勝利48.7%で、ホーム勝利を約21ポイント上回る。優位は明確だが過半数未満で波乱余地もある。",
           "claude_pick": "A",
           "claude_confidence": "62%",
           "claude_reasoning": "モデルA(49%)、マリノスのアウェイ力は直近の柏戦でも実証済み。統計的優位を素直に採用。",
@@ -71,12 +71,12 @@
             "p_A": 0.2927,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルではホームのＦＣ東京の勝利確率が46%と優位に試算されています。\nＦＣ東京は直近5試合で4勝1分と非常に高いパフォーマンスと安定感を維持しています。\n対する浦和レッズも直近4勝1敗と好調ですが、ホームアドバンテージと近況の絶好調ぶりを考慮するとＦＣ東京優勢と見るのが妥当です。\n接戦が予想されるものの、勢いに勝るホームのＦＣ東京が勝ち点3を掴むと予想します。",
+          "codex_pick": "H",
+          "codex_confidence": "51%",
+          "codex_reasoning": "FC東京勝利46.3%が浦和勝利29.3%を上回る。直近履歴では両者絡みの番狂わせもあり、確信度は抑える。",
           "claude_pick": "H",
           "claude_confidence": "54%",
           "claude_reasoning": "モデルH(46%)、過去ラウンドでFC東京がホームで京都を下した実績あり。ホームアドバンテージを支持。",
@@ -95,12 +95,12 @@
             "p_A": 0.2978,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルの推定確率ではホームのアビスパ福岡が40%とリードしており、ホームアドバンテージを含めたチーム力が評価されています。\n直近フォームでは福岡が5戦未勝利（1分4敗）と低調な一方、岡山は3勝を挙げており勢いの差が存在します。\nしかし、福岡はホームで守備を再構築し、連敗の流れを断ち切る底力を備えています。\n直近の好不調の乖離はあるものの、統計モデルの優位性とホーム戦の利点を重視し、アビスパ福岡の勝利と見込みます。",
+          "codex_pick": "D",
+          "codex_confidence": "34%",
+          "codex_reasoning": "福岡40.1%が最多だが、引分け30.2%と岡山29.8%がほぼ並ぶ接戦。三択の分散を考慮し引分けを狙う。",
           "claude_pick": "H",
           "claude_confidence": "44%",
           "claude_reasoning": "三者拮抗(40/30/30)だがモデルH。D実績が0/5のため回避、ホーム微優位に従う。",
@@ -116,15 +116,15 @@
           "stats": {
             "p_H": 0.2913,
             "p_D": 0.2662,
-            "p_A": 0.4426,
+            "p_A": 0.4425,
             "pick": "A"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルではアウェイの長崎勝利確率が44%と算出されており、得点期待値ベースで長崎が優位に立っています。\n両チームともに直近5試合で1勝止まりと調子は上がっていませんが、チーム力や決定力においては長崎がリードしています。\n千葉のホームアドバンテージはあるものの、直近で3敗を喫している不安定さを考慮すると、長崎が優勢に進める展開が予想されます。",
+          "codex_pick": "A",
+          "codex_confidence": "48%",
+          "codex_reasoning": "長崎勝利44.3%が千葉勝利29.1%を約15ポイント上回る。引分けも26.6%あり、アウェー優位は中程度。",
           "claude_pick": "A",
           "claude_confidence": "55%",
           "claude_reasoning": "モデルA(44%)と最大確率。長崎のアウェイ強度を評価、千葉ホームとの拮抗だが統計に従う。",
@@ -143,12 +143,12 @@
             "p_A": 0.136,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルによる勝敗確率でホームの水戸が63%と大きく優勢に試算されており、データ面の裏付けが強固です。\n直近のパフォーマンスにおいても、水戸が直近3試合で無敗（1勝2分）と粘り強い戦いを見せているのに対し、清水は直近3試合で1分2敗と失速傾向にあります。\nアウェイで調子を落としている清水に対し、ホームアドバンテージと近況の安定感を持つ水戸が優位に試合を進めると予想します。",
+          "codex_pick": "H",
+          "codex_confidence": "71%",
+          "codex_reasoning": "水戸勝利62.7%に対し清水勝利は13.6%。過去の水戸戦で外した履歴はあるが、数値差を優先してホーム勝利。",
           "claude_pick": "H",
           "claude_confidence": "63%",
           "claude_reasoning": "モデルH(63%)と高確率。川崎のアウェイ勝利は例外的強豪特例で、清水相手は水戸のホーム優位が有効。",
@@ -164,15 +164,15 @@
           "stats": {
             "p_H": 0.3539,
             "p_D": 0.2414,
-            "p_A": 0.4048,
+            "p_A": 0.4047,
             "pick": "A"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルの推定値ではアウェイの町田が40%と最も高い勝率を示しており、わずかに有利と見られます。\n町田は直近5試合で1敗のみと安定した戦いぶりを維持しており、アウェイにおいても堅守と決定力を活かした勝負強さが期待できます。\n京都もホームで勢いに乗ると強力ですが、チーム全体の安定感と戦術の浸透度で上回る町田が接戦を制して勝利を収めると予想します。",
+          "codex_pick": "A",
+          "codex_confidence": "44%",
+          "codex_reasoning": "町田勝利40.5%が京都勝利35.4%を小幅に上回る。差は約5ポイントしかなく、アウェー本命ながら不確実性は高い。",
           "claude_pick": "A",
           "claude_confidence": "51%",
           "claude_reasoning": "モデルA(40%)、京都のホーム成績も不安定。統計的にアウェイ町田をやや支持。",
@@ -186,12 +186,12 @@
           "home": "東京ヴェルディ",
           "away": "サンフレッチェ広島",
           "stats": null,
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "チーム総合力や選手層の面において、近年のJ1で常に上位争いを繰り広げるサンフレッチェ広島が優位に立ちます。\n東京ヴェルディは規律ある組織守備とハードワークで粘り強く対応するスタイルですが、広島の強烈なプレッシングと多彩な攻撃陣を90分間完全に抑え込むのは困難です。\n東京ヴェルディのホームアドバンテージを考慮しても、個の決定力とチームの完成度で勝るアウェイのサンフレッチェ広島が主導権を握り勝利を収めると予想します。",
+          "codex_pick": "A",
+          "codex_confidence": "42%",
+          "codex_reasoning": "この試合だけモデル確率がなく定量的な裏付けを欠く。対戦カード上は広島を選ぶが、情報不足のため確信度は低い。",
           "claude_pick": "A",
           "claude_confidence": "42%",
           "claude_reasoning": "統計データなし。広島はJ1上位の総合力を持ち、アウェイでも実力差が出やすいと判断。不確実性高い。",
@@ -205,17 +205,17 @@
           "home": "川崎フロンターレ",
           "away": "名古屋グランパス",
           "stats": {
-            "p_H": 0.6218,
+            "p_H": 0.6217,
             "p_D": 0.1807,
             "p_A": 0.1975,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "統計モデルによる勝率推定でホームの川崎フロンターレが62%と大きな支持を集めており、データ面で圧倒的に有利な情勢です。\n直近のフォームでも川崎が5試合で3勝を挙げるなど安定した戦いを見せている一方、名古屋グランパスは4連敗を喫するなど調子の落差が目立ちます。\nホームアドバンテージと両チームの勢いの差を総合的に勘案すると、川崎フロンターレが主導権を握り勝利を収める可能性が高いと分析します。",
+          "codex_pick": "H",
+          "codex_confidence": "70%",
+          "codex_reasoning": "川崎勝利62.2%が最多で、引分け18.1%、名古屋勝利19.8%との差も大きい。モデル根拠の強いホーム選択。",
           "claude_pick": "H",
           "claude_confidence": "65%",
           "claude_reasoning": "モデルH(62%)、川崎は水戸アウェイを制した直近の強さあり。ホームでの名古屋戦は川崎優位と判断。",
@@ -229,17 +229,17 @@
           "home": "ヴァンフォーレ甲府",
           "away": "栃木シティ",
           "stats": {
-            "p_H": 0.394,
-            "p_D": 0.3023,
-            "p_A": 0.3036,
+            "p_H": 0.3517,
+            "p_D": 0.3099,
+            "p_A": 0.3384,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "ヴァンフォーレ甲府は直近2連勝と復調傾向にあり、ホームで勢いに乗って試合を進められる好調さを見せています。\n一方の栃木シティは直近5試合で勝利がなく引き分けが先行しており、勝ちきれない展開が続いています。\n統計モデルの推定でもホーム勝率が最も高く算出されており、勢いとホームアドバンテージを備えた甲府が優勢とみられます。",
+          "codex_pick": "D",
+          "codex_confidence": "36%",
+          "codex_reasoning": "三確率が35.2%、31.0%、33.8%に密集し、実質互角。勝敗を断定できる材料が乏しく引分けを選択する。",
           "claude_pick": "H",
           "claude_confidence": "43%",
           "claude_reasoning": "確率がほぼ均等(39/30/30)でモデルH。D回避・ホームアドバンテージを優先した僅差の判断。",
@@ -253,17 +253,17 @@
           "home": "サガン鳥栖",
           "away": "藤枝ＭＹＦＣ",
           "stats": {
-            "p_H": 0.4125,
-            "p_D": 0.2823,
-            "p_A": 0.3051,
+            "p_H": 0.4159,
+            "p_D": 0.2775,
+            "p_A": 0.3067,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルの推定確率ではホームのサガン鳥栖が41%と優勢であり、ホームアドバンテージの利を活かせる展開が予想されます。鳥栖は直近の連敗から1勝1分と復調の兆しを見せ始めており、ホームで連勝・勝ち点獲得を狙う意欲が高い状況です。一方の藤枝ＭＹＦＣは直近で引き分けが多く粘り強さはあるものの、アウェイでの勝ち切りにはやや不安が残ります。総合的に見て、ホームの鳥栖が主導権を握り競り勝つ可能性が高いと分析します。",
+          "codex_pick": "H",
+          "codex_confidence": "43%",
+          "codex_reasoning": "鳥栖のホーム勝利41.6%が首位だが、引分けと藤枝勝利も合計約58%。僅差のためホーム優位を弱めに採用。",
           "claude_pick": "H",
           "claude_confidence": "50%",
           "claude_reasoning": "モデルH(41%)で微差。直近の今治戦でホーム鳥栖が勝利しており、ホーム優位を評価。",
@@ -277,17 +277,17 @@
           "home": "徳島ヴォルティス",
           "away": "ＦＣ今治",
           "stats": {
-            "p_H": 0.6499,
-            "p_D": 0.2174,
-            "p_A": 0.1327,
+            "p_H": 0.6318,
+            "p_D": 0.2202,
+            "p_A": 0.148,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "ホームの徳島ヴォルティスは直近5試合で4勝を記録しており、非常に優れたパフォーマンスと勢いを維持しています。\n一方でアウェイのＦＣ今治は直近5試合で1勝しか挙げられておらず、調子の波に乗れていない状態です。\n統計モデルによる勝敗確率でもホーム勝が65%と圧倒的であり、ホームアドバンテージを含めても徳島が優位に試合を進めて勝利を収める可能性が高いと判断します。",
+          "codex_pick": "H",
+          "codex_confidence": "72%",
+          "codex_reasoning": "徳島勝利63.2%で今治勝利14.8%を大幅に上回る。この組で最も強いモデル優位の一つとして順当に本命視。",
           "claude_pick": "H",
           "claude_confidence": "68%",
           "claude_reasoning": "モデルH(65%)と確率が高く根拠明確。アウェイ今治はカテゴリ差もあり徳島ホーム優位が強い。",
@@ -301,17 +301,17 @@
           "home": "モンテディオ山形",
           "away": "ベガルタ仙台",
           "stats": {
-            "p_H": 0.3583,
-            "p_D": 0.2546,
-            "p_A": 0.3871,
-            "pick": "A"
+            "p_H": 0.3793,
+            "p_D": 0.2569,
+            "p_A": 0.3637,
+            "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "アウェイのベガルタ仙台は直近5試合で4勝1分と非常に優れたフォームを維持しており、チームの勢いと安定感で勝っています。対するモンテディオ山形は直近で2勝3敗と好不調の波が大きく、やや不安定な戦いが続いています。みちのくダービーとしての接戦が予想されるものの、統計モデルでもアウェイ勝利確率が39%と優勢を示しており、現在の好調さを維持する仙台が押し切ると判断します。",
+          "codex_pick": "H",
+          "codex_confidence": "39%",
+          "codex_reasoning": "山形37.9%、仙台36.4%でほぼ互角だが、モデル上の首位とホーム条件を重視。差が僅少なので低信頼の予想。",
           "claude_pick": "A",
           "claude_confidence": "48%",
           "claude_reasoning": "モデルA(39%)でH(36%)と拮抗。山形はホームで甲府に敗戦歴あり、仙台アウェイをわずかに採用。",
@@ -330,12 +330,12 @@
             "p_A": 0.2074,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルの推定確率において、いわきＦＣの勝率が58%と優勢に評価されています。\nいわきＦＣは直近5試合で2勝3敗とやや好不調の波があるものの、ホームでの高い運動量と強度を活かした戦術展開で強みを発揮できます。\n一方のブラウブリッツ秋田は直近5試合で3引き分けと堅守を誇るものの勝ちきれない展開が多く、アウェイでの優位性を築きにくくなっています。\nホームアドバンテージとデータ上の優位性を考慮し、いわきＦＣが競り勝つと予想します。",
+          "codex_pick": "H",
+          "codex_confidence": "64%",
+          "codex_reasoning": "いわき勝利57.6%で、引分け21.7%と秋田勝利20.7%を大きく上回る。ホーム本命が妥当と判断。",
           "claude_pick": "H",
           "claude_confidence": "59%",
           "claude_reasoning": "モデルH(58%)安定的優位。秋田はホームで徳島を下したが、アウェイでのいわき相手はモデルが示す差あり。",
@@ -351,9 +351,9 @@
       "payout_detail": null,
       "deadline": "2026-10-10 13:50",
       "result_date": "2026-10-11",
-      "generated_date": "2026-10-03",
-      "has_gemini": false,
-      "has_codex": false,
+      "generated_date": "2026-10-05",
+      "has_gemini": true,
+      "has_codex": true,
       "has_claude": true,
       "settled": false,
       "summary": {
@@ -388,12 +388,12 @@
             "p_A": 0.4867,
             "pick": "A"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルによるアウェイ勝利確率が49%と高く見積もられており、両チームの直近の勢いにも明らかな差が見られます。セレッソ大阪は直近5試合で1勝しか挙げられておらず勝ちきれない試合が続いていますが、横浜Ｆ・マリノスは比較的安定して勝点を積み上げています。セレッソのホームアドバンテージを考慮しても、総合力とフォームで勝る横浜Ｆ・マリノスが優勢に試合を進めて勝利を収めると予想します。",
+          "codex_pick": "A",
+          "codex_confidence": "55%",
+          "codex_reasoning": "モデルは横浜FM勝利48.7%で、ホーム勝利を約21ポイント上回る。優位は明確だが過半数未満で波乱余地もある。",
           "claude_pick": "A",
           "claude_confidence": "62%",
           "claude_reasoning": "モデルA(49%)、マリノスのアウェイ力は直近の柏戦でも実証済み。統計的優位を素直に採用。",
@@ -412,12 +412,12 @@
             "p_A": 0.2927,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルではホームのＦＣ東京の勝利確率が46%と優位に試算されています。\nＦＣ東京は直近5試合で4勝1分と非常に高いパフォーマンスと安定感を維持しています。\n対する浦和レッズも直近4勝1敗と好調ですが、ホームアドバンテージと近況の絶好調ぶりを考慮するとＦＣ東京優勢と見るのが妥当です。\n接戦が予想されるものの、勢いに勝るホームのＦＣ東京が勝ち点3を掴むと予想します。",
+          "codex_pick": "H",
+          "codex_confidence": "51%",
+          "codex_reasoning": "FC東京勝利46.3%が浦和勝利29.3%を上回る。直近履歴では両者絡みの番狂わせもあり、確信度は抑える。",
           "claude_pick": "H",
           "claude_confidence": "54%",
           "claude_reasoning": "モデルH(46%)、過去ラウンドでFC東京がホームで京都を下した実績あり。ホームアドバンテージを支持。",
@@ -436,12 +436,12 @@
             "p_A": 0.2978,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルの推定確率ではホームのアビスパ福岡が40%とリードしており、ホームアドバンテージを含めたチーム力が評価されています。\n直近フォームでは福岡が5戦未勝利（1分4敗）と低調な一方、岡山は3勝を挙げており勢いの差が存在します。\nしかし、福岡はホームで守備を再構築し、連敗の流れを断ち切る底力を備えています。\n直近の好不調の乖離はあるものの、統計モデルの優位性とホーム戦の利点を重視し、アビスパ福岡の勝利と見込みます。",
+          "codex_pick": "D",
+          "codex_confidence": "34%",
+          "codex_reasoning": "福岡40.1%が最多だが、引分け30.2%と岡山29.8%がほぼ並ぶ接戦。三択の分散を考慮し引分けを狙う。",
           "claude_pick": "H",
           "claude_confidence": "44%",
           "claude_reasoning": "三者拮抗(40/30/30)だがモデルH。D実績が0/5のため回避、ホーム微優位に従う。",
@@ -457,15 +457,15 @@
           "stats": {
             "p_H": 0.2913,
             "p_D": 0.2662,
-            "p_A": 0.4426,
+            "p_A": 0.4425,
             "pick": "A"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルではアウェイの長崎勝利確率が44%と算出されており、得点期待値ベースで長崎が優位に立っています。\n両チームともに直近5試合で1勝止まりと調子は上がっていませんが、チーム力や決定力においては長崎がリードしています。\n千葉のホームアドバンテージはあるものの、直近で3敗を喫している不安定さを考慮すると、長崎が優勢に進める展開が予想されます。",
+          "codex_pick": "A",
+          "codex_confidence": "48%",
+          "codex_reasoning": "長崎勝利44.3%が千葉勝利29.1%を約15ポイント上回る。引分けも26.6%あり、アウェー優位は中程度。",
           "claude_pick": "A",
           "claude_confidence": "55%",
           "claude_reasoning": "モデルA(44%)と最大確率。長崎のアウェイ強度を評価、千葉ホームとの拮抗だが統計に従う。",
@@ -484,12 +484,12 @@
             "p_A": 0.136,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルによる勝敗確率でホームの水戸が63%と大きく優勢に試算されており、データ面の裏付けが強固です。\n直近のパフォーマンスにおいても、水戸が直近3試合で無敗（1勝2分）と粘り強い戦いを見せているのに対し、清水は直近3試合で1分2敗と失速傾向にあります。\nアウェイで調子を落としている清水に対し、ホームアドバンテージと近況の安定感を持つ水戸が優位に試合を進めると予想します。",
+          "codex_pick": "H",
+          "codex_confidence": "71%",
+          "codex_reasoning": "水戸勝利62.7%に対し清水勝利は13.6%。過去の水戸戦で外した履歴はあるが、数値差を優先してホーム勝利。",
           "claude_pick": "H",
           "claude_confidence": "63%",
           "claude_reasoning": "モデルH(63%)と高確率。川崎のアウェイ勝利は例外的強豪特例で、清水相手は水戸のホーム優位が有効。",
@@ -505,9 +505,9 @@
       "payout_detail": null,
       "deadline": "2026-10-10 13:50",
       "result_date": "2026-10-11",
-      "generated_date": "2026-10-03",
-      "has_gemini": false,
-      "has_codex": false,
+      "generated_date": "2026-10-05",
+      "has_gemini": true,
+      "has_codex": true,
       "has_claude": true,
       "settled": false,
       "summary": {
@@ -539,15 +539,15 @@
           "stats": {
             "p_H": 0.3539,
             "p_D": 0.2414,
-            "p_A": 0.4048,
+            "p_A": 0.4047,
             "pick": "A"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルの推定値ではアウェイの町田が40%と最も高い勝率を示しており、わずかに有利と見られます。\n町田は直近5試合で1敗のみと安定した戦いぶりを維持しており、アウェイにおいても堅守と決定力を活かした勝負強さが期待できます。\n京都もホームで勢いに乗ると強力ですが、チーム全体の安定感と戦術の浸透度で上回る町田が接戦を制して勝利を収めると予想します。",
+          "codex_pick": "A",
+          "codex_confidence": "44%",
+          "codex_reasoning": "町田勝利40.5%が京都勝利35.4%を小幅に上回る。差は約5ポイントしかなく、アウェー本命ながら不確実性は高い。",
           "claude_pick": "A",
           "claude_confidence": "51%",
           "claude_reasoning": "モデルA(40%)、京都のホーム成績も不安定。統計的にアウェイ町田をやや支持。",
@@ -561,12 +561,12 @@
           "home": "東京ヴェルディ",
           "away": "サンフレッチェ広島",
           "stats": null,
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "A",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "チーム総合力や選手層の面において、近年のJ1で常に上位争いを繰り広げるサンフレッチェ広島が優位に立ちます。\n東京ヴェルディは規律ある組織守備とハードワークで粘り強く対応するスタイルですが、広島の強烈なプレッシングと多彩な攻撃陣を90分間完全に抑え込むのは困難です。\n東京ヴェルディのホームアドバンテージを考慮しても、個の決定力とチームの完成度で勝るアウェイのサンフレッチェ広島が主導権を握り勝利を収めると予想します。",
+          "codex_pick": "A",
+          "codex_confidence": "42%",
+          "codex_reasoning": "この試合だけモデル確率がなく定量的な裏付けを欠く。対戦カード上は広島を選ぶが、情報不足のため確信度は低い。",
           "claude_pick": "A",
           "claude_confidence": "42%",
           "claude_reasoning": "統計データなし。広島はJ1上位の総合力を持ち、アウェイでも実力差が出やすいと判断。不確実性高い。",
@@ -580,17 +580,17 @@
           "home": "川崎フロンターレ",
           "away": "名古屋グランパス",
           "stats": {
-            "p_H": 0.6218,
+            "p_H": 0.6217,
             "p_D": 0.1807,
             "p_A": 0.1975,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "統計モデルによる勝率推定でホームの川崎フロンターレが62%と大きな支持を集めており、データ面で圧倒的に有利な情勢です。\n直近のフォームでも川崎が5試合で3勝を挙げるなど安定した戦いを見せている一方、名古屋グランパスは4連敗を喫するなど調子の落差が目立ちます。\nホームアドバンテージと両チームの勢いの差を総合的に勘案すると、川崎フロンターレが主導権を握り勝利を収める可能性が高いと分析します。",
+          "codex_pick": "H",
+          "codex_confidence": "70%",
+          "codex_reasoning": "川崎勝利62.2%が最多で、引分け18.1%、名古屋勝利19.8%との差も大きい。モデル根拠の強いホーム選択。",
           "claude_pick": "H",
           "claude_confidence": "65%",
           "claude_reasoning": "モデルH(62%)、川崎は水戸アウェイを制した直近の強さあり。ホームでの名古屋戦は川崎優位と判断。",
@@ -604,17 +604,17 @@
           "home": "ヴァンフォーレ甲府",
           "away": "栃木シティ",
           "stats": {
-            "p_H": 0.394,
-            "p_D": 0.3023,
-            "p_A": 0.3036,
+            "p_H": 0.3517,
+            "p_D": 0.3099,
+            "p_A": 0.3384,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "ヴァンフォーレ甲府は直近2連勝と復調傾向にあり、ホームで勢いに乗って試合を進められる好調さを見せています。\n一方の栃木シティは直近5試合で勝利がなく引き分けが先行しており、勝ちきれない展開が続いています。\n統計モデルの推定でもホーム勝率が最も高く算出されており、勢いとホームアドバンテージを備えた甲府が優勢とみられます。",
+          "codex_pick": "D",
+          "codex_confidence": "36%",
+          "codex_reasoning": "三確率が35.2%、31.0%、33.8%に密集し、実質互角。勝敗を断定できる材料が乏しく引分けを選択する。",
           "claude_pick": "H",
           "claude_confidence": "43%",
           "claude_reasoning": "確率がほぼ均等(39/30/30)でモデルH。D回避・ホームアドバンテージを優先した僅差の判断。",
@@ -628,17 +628,17 @@
           "home": "サガン鳥栖",
           "away": "藤枝ＭＹＦＣ",
           "stats": {
-            "p_H": 0.4125,
-            "p_D": 0.2823,
-            "p_A": 0.3051,
+            "p_H": 0.4159,
+            "p_D": 0.2775,
+            "p_A": 0.3067,
             "pick": "H"
           },
-          "gemini_pick": "",
-          "gemini_confidence": "",
-          "gemini_reasoning": "",
-          "codex_pick": "",
-          "codex_confidence": "",
-          "codex_reasoning": "",
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "統計モデルの推定確率ではホームのサガン鳥栖が41%と優勢であり、ホームアドバンテージの利を活かせる展開が予想されます。鳥栖は直近の連敗から1勝1分と復調の兆しを見せ始めており、ホームで連勝・勝ち点獲得を狙う意欲が高い状況です。一方の藤枝ＭＹＦＣは直近で引き分けが多く粘り強さはあるものの、アウェイでの勝ち切りにはやや不安が残ります。総合的に見て、ホームの鳥栖が主導権を握り競り勝つ可能性が高いと分析します。",
+          "codex_pick": "H",
+          "codex_confidence": "43%",
+          "codex_reasoning": "鳥栖のホーム勝利41.6%が首位だが、引分けと藤枝勝利も合計約58%。僅差のためホーム優位を弱めに採用。",
           "claude_pick": "H",
           "claude_confidence": "50%",
           "claude_reasoning": "モデルH(41%)で微差。直近の今治戦でホーム鳥栖が勝利しており、ホーム優位を評価。",
@@ -654,7 +654,7 @@
       "payout_detail": null,
       "deadline": "2026-10-07 18:20",
       "result_date": "2026-10-07",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -803,7 +803,7 @@
       "payout_detail": null,
       "deadline": "2026-10-07 17:50",
       "result_date": "2026-10-07",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -953,31 +953,47 @@
       "round": 1658,
       "kuji": "toto",
       "kuji_label": "toto (13試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 14784630,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 14784630,
+          "count": 2
+        },
+        {
+          "rank": "2等",
+          "amount": 1056040,
+          "count": 6
+        },
+        {
+          "rank": "3等",
+          "amount": 39850,
+          "count": 159
+        }
+      ],
       "deadline": "2026-10-03 13:50",
       "result_date": "2026-10-04",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
-          "hits": 0
+          "n": 13,
+          "hits": 4
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 13,
+          "hits": 4
         },
         "codex": {
-          "n": 0,
-          "hits": 0
+          "n": 13,
+          "hits": 4
         },
         "claude": {
-          "n": 0,
-          "hits": 0
+          "n": 13,
+          "hits": 4
         }
       },
       "matches": [
@@ -1003,7 +1019,7 @@
           "claude_pick": "H",
           "claude_confidence": "53%",
           "claude_reasoning": "モデルH53.7%。町田は1653・1654節と連続でH予測を外しているが、京都はアウェイで強い実績もある。モデルに従いつつ確信度を抑える。",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1658-2",
@@ -1027,7 +1043,7 @@
           "claude_pick": "H",
           "claude_confidence": "67%",
           "claude_reasoning": "モデルがH68%と今節最高水準の確信度。柏は1650節に外したが、G大阪アウェイは近年勝率低く、確率差が大きいためH支持を維持。",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1658-3",
@@ -1051,7 +1067,7 @@
           "claude_pick": "H",
           "claude_confidence": "62%",
           "claude_reasoning": "モデルが55.8%でH支持。藤枝のホーム優位は明確で、湘南のアウェイ勝率は低い。過去の藤枝戦ミスはアウェイ予測だったため、今回はモデルに従う。",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1658-4",
@@ -1075,7 +1091,7 @@
           "claude_pick": "A",
           "claude_confidence": "50%",
           "claude_reasoning": "A38.8% vs H34.2%と僅差。富山は1654節に山形ホームでアウェイ勝利の実績あり。甲府ホームも安定せず、モデルの微妙なA推奨に従う。",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1658-5",
@@ -1099,7 +1115,7 @@
           "claude_pick": "A",
           "claude_confidence": "56%",
           "claude_reasoning": "モデルがA51.9%と明確に支持。大分のホーム勝率は低く、山形アウェイの実力が上回ると判断。D回避のためAで確定。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1658-6",
@@ -1123,7 +1139,7 @@
           "claude_pick": "A",
           "claude_confidence": "58%",
           "claude_reasoning": "モデルが60%でA支持と強力。ただし1654節で新潟ホームをAと読んで外した前歴あり。今回は確率差が大きいためAを維持。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1658-7",
@@ -1147,7 +1163,7 @@
           "claude_pick": "A",
           "claude_confidence": "57%",
           "claude_reasoning": "モデルA55.3%と明確にいわき優位。札幌ホームでも下位相手に苦戦傾向。アウェイいわきの上位勝ちを支持。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1658-8",
@@ -1171,7 +1187,7 @@
           "claude_pick": "H",
           "claude_confidence": "52%",
           "claude_reasoning": "モデルH52.3%。1653節に八戸ホームをH読みして外した前歴あり。ただし今節の相手は横浜FCで湘南より格が下がる可能性があり、低確信でH維持。",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1658-9",
@@ -1195,7 +1211,7 @@
           "claude_pick": "H",
           "claude_confidence": "56%",
           "claude_reasoning": "モデルH52.4%。1654節で磐田アウェイをAと読んで外した(新潟H的中)。磐田アウェイ過信を避け、仙台ホームを支持。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1658-10",
@@ -1219,7 +1235,7 @@
           "claude_pick": "H",
           "claude_confidence": "52%",
           "claude_reasoning": "H42.8%でモデルH推奨。今治はホームで強かったが(1653節H的中)、アウェイ実績は薄い。栃木シティのホーム優位をわずかに信頼。",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1658-11",
@@ -1243,7 +1259,7 @@
           "claude_pick": "H",
           "claude_confidence": "54%",
           "claude_reasoning": "1653節でDと読んで外した秋田ホームは実際にHだった。モデルもH41.8%。鳥栖アウェイの勝率は高くなく、秋田ホームの実力を再評価。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1658-12",
@@ -1267,7 +1283,7 @@
           "claude_pick": "A",
           "claude_confidence": "55%",
           "claude_reasoning": "モデルA49.2%でアウェイ栃木SC優位。讃岐はホームでも低勝率で、栃木SCのアウェイ安定感を信頼。",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1658-13",
@@ -1291,7 +1307,7 @@
           "claude_pick": "A",
           "claude_confidence": "55%",
           "claude_reasoning": "モデルA49%でアウェイ金沢が優勢。琉球のホーム勝率は低く、確率差も明確。A一択。",
-          "result": ""
+          "result": "A"
         }
       ]
     },
@@ -1299,31 +1315,37 @@
       "round": 1658,
       "kuji": "mini_a",
       "kuji_label": "mini toto-A (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 21620,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 21620,
+          "count": 240
+        }
+      ],
       "deadline": "2026-10-03 13:50",
       "result_date": "2026-10-03",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 1
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 1
         },
         "codex": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 1
         },
         "claude": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 1
         }
       },
       "matches": [
@@ -1349,7 +1371,7 @@
           "claude_pick": "H",
           "claude_confidence": "53%",
           "claude_reasoning": "モデルH53.7%。町田は1653・1654節と連続でH予測を外しているが、京都はアウェイで強い実績もある。モデルに従いつつ確信度を抑える。",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1658-2",
@@ -1373,7 +1395,7 @@
           "claude_pick": "H",
           "claude_confidence": "67%",
           "claude_reasoning": "モデルがH68%と今節最高水準の確信度。柏は1650節に外したが、G大阪アウェイは近年勝率低く、確率差が大きいためH支持を維持。",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1658-3",
@@ -1397,7 +1419,7 @@
           "claude_pick": "H",
           "claude_confidence": "62%",
           "claude_reasoning": "モデルが55.8%でH支持。藤枝のホーム優位は明確で、湘南のアウェイ勝率は低い。過去の藤枝戦ミスはアウェイ予測だったため、今回はモデルに従う。",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1658-4",
@@ -1421,7 +1443,7 @@
           "claude_pick": "A",
           "claude_confidence": "50%",
           "claude_reasoning": "A38.8% vs H34.2%と僅差。富山は1654節に山形ホームでアウェイ勝利の実績あり。甲府ホームも安定せず、モデルの微妙なA推奨に従う。",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1658-5",
@@ -1445,7 +1467,7 @@
           "claude_pick": "A",
           "claude_confidence": "56%",
           "claude_reasoning": "モデルがA51.9%と明確に支持。大分のホーム勝率は低く、山形アウェイの実力が上回ると判断。D回避のためAで確定。",
-          "result": ""
+          "result": "H"
         }
       ]
     },
@@ -1453,31 +1475,37 @@
       "round": 1658,
       "kuji": "mini_b",
       "kuji_label": "mini toto-B (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 4890,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 4890,
+          "count": 915
+        }
+      ],
       "deadline": "2026-10-03 13:50",
       "result_date": "2026-10-04",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 1
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 1
         },
         "codex": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 1
         },
         "claude": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 1
         }
       },
       "matches": [
@@ -1503,7 +1531,7 @@
           "claude_pick": "A",
           "claude_confidence": "58%",
           "claude_reasoning": "モデルが60%でA支持と強力。ただし1654節で新潟ホームをAと読んで外した前歴あり。今回は確率差が大きいためAを維持。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1658-7",
@@ -1527,7 +1555,7 @@
           "claude_pick": "A",
           "claude_confidence": "57%",
           "claude_reasoning": "モデルA55.3%と明確にいわき優位。札幌ホームでも下位相手に苦戦傾向。アウェイいわきの上位勝ちを支持。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1658-8",
@@ -1551,7 +1579,7 @@
           "claude_pick": "H",
           "claude_confidence": "52%",
           "claude_reasoning": "モデルH52.3%。1653節に八戸ホームをH読みして外した前歴あり。ただし今節の相手は横浜FCで湘南より格が下がる可能性があり、低確信でH維持。",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1658-9",
@@ -1575,7 +1603,7 @@
           "claude_pick": "H",
           "claude_confidence": "56%",
           "claude_reasoning": "モデルH52.4%。1654節で磐田アウェイをAと読んで外した(新潟H的中)。磐田アウェイ過信を避け、仙台ホームを支持。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1658-10",
@@ -1599,7 +1627,7 @@
           "claude_pick": "H",
           "claude_confidence": "52%",
           "claude_reasoning": "H42.8%でモデルH推奨。今治はホームで強かったが(1653節H的中)、アウェイ実績は薄い。栃木シティのホーム優位をわずかに信頼。",
-          "result": ""
+          "result": "A"
         }
       ]
     },
@@ -1611,7 +1639,7 @@
       "payout_detail": null,
       "deadline": "2026-09-23 16:50",
       "result_date": "2026-09-23",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -1781,7 +1809,7 @@
       ],
       "deadline": "2026-09-19 17:50",
       "result_date": "2026-09-20",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -2128,7 +2156,7 @@
       ],
       "deadline": "2026-09-19 17:50",
       "result_date": "2026-09-19",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -2283,7 +2311,7 @@
       ],
       "deadline": "2026-09-19 18:20",
       "result_date": "2026-09-20",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -2453,7 +2481,7 @@
       ],
       "deadline": "2026-09-12 17:50",
       "result_date": "2026-09-13",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -2800,7 +2828,7 @@
       ],
       "deadline": "2026-09-12 17:50",
       "result_date": "2026-09-12",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -2960,7 +2988,7 @@
       ],
       "deadline": "2026-09-12 17:50",
       "result_date": "2026-09-13",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -3109,7 +3137,7 @@
       "payout_detail": null,
       "deadline": "2026-09-09 18:20",
       "result_date": "2026-09-09",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -3274,7 +3302,7 @@
       ],
       "deadline": "2026-09-05 18:50",
       "result_date": "2026-09-06",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -3621,7 +3649,7 @@
       ],
       "deadline": "2026-09-05 18:50",
       "result_date": "2026-09-06",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -3781,7 +3809,7 @@
       ],
       "deadline": "2026-09-05 18:50",
       "result_date": "2026-09-06",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -3946,7 +3974,7 @@
       ],
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -4293,7 +4321,7 @@
       ],
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -4448,7 +4476,7 @@
       ],
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -4618,7 +4646,7 @@
       ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -4965,7 +4993,7 @@
       ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -5120,7 +5148,7 @@
       ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -5290,7 +5318,7 @@
       ],
       "deadline": "2026-08-22 14:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -5637,7 +5665,7 @@
       ],
       "deadline": "2026-08-22 17:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -5792,7 +5820,7 @@
       ],
       "deadline": "2026-08-22 14:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -5962,7 +5990,7 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": false,
       "has_codex": true,
       "has_claude": false,
@@ -6019,7 +6047,7 @@
           "away": "横浜Ｆ・マリノス",
           "stats": {
             "p_H": 0.3463,
-            "p_D": 0.2568,
+            "p_D": 0.2567,
             "p_A": 0.397,
             "pick": "A"
           },
@@ -6091,8 +6119,8 @@
           "away": "セレッソ大阪",
           "stats": {
             "p_H": 0.3113,
-            "p_D": 0.284,
-            "p_A": 0.4047,
+            "p_D": 0.2839,
+            "p_A": 0.4048,
             "pick": "A"
           },
           "gemini_pick": "",
@@ -6114,8 +6142,8 @@
           "home": "水戸ホーリーホック",
           "away": "ガンバ大阪",
           "stats": {
-            "p_H": 0.569,
-            "p_D": 0.2344,
+            "p_H": 0.5691,
+            "p_D": 0.2343,
             "p_A": 0.1966,
             "pick": "H"
           },
@@ -6314,7 +6342,7 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": false,
       "has_codex": true,
       "has_claude": false,
@@ -6371,7 +6399,7 @@
           "away": "横浜Ｆ・マリノス",
           "stats": {
             "p_H": 0.3463,
-            "p_D": 0.2568,
+            "p_D": 0.2567,
             "p_A": 0.397,
             "pick": "A"
           },
@@ -6443,8 +6471,8 @@
           "away": "セレッソ大阪",
           "stats": {
             "p_H": 0.3113,
-            "p_D": 0.284,
-            "p_A": 0.4047,
+            "p_D": 0.2839,
+            "p_A": 0.4048,
             "pick": "A"
           },
           "gemini_pick": "",
@@ -6474,7 +6502,7 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": false,
       "has_codex": true,
       "has_claude": false,
@@ -6506,8 +6534,8 @@
           "home": "水戸ホーリーホック",
           "away": "ガンバ大阪",
           "stats": {
-            "p_H": 0.569,
-            "p_D": 0.2344,
+            "p_H": 0.5691,
+            "p_D": 0.2343,
             "p_A": 0.1966,
             "pick": "H"
           },
@@ -6644,7 +6672,7 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -6931,7 +6959,7 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -7066,7 +7094,7 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -7211,7 +7239,7 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -7498,7 +7526,7 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -7633,7 +7661,7 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -7778,7 +7806,7 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -8065,7 +8093,7 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -8200,7 +8228,7 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -8345,7 +8373,7 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -8632,7 +8660,7 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -8767,7 +8795,7 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-10-03",
+      "generated_date": "2026-10-05",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
