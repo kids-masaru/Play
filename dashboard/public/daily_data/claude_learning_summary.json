@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-10-08 09:42:05",
-  "target_date": "2026-10-08",
+  "generated_at": "2026-10-09 09:36:03",
+  "target_date": "2026-10-09",
   "strategy_version": "feedback_v2_model_isolated",
-  "leakage_guard": "Only races dated before 2026-10-08 were used.",
+  "leakage_guard": "Only races dated before 2026-10-09 were used.",
   "historical_results_used": 30865,
   "global_baseline": {
     "sample_count": 30865,
@@ -198,223 +198,79 @@
     "caution": "直近50件と全期間の両方を確認し、短期変動へ過剰反応しない。"
   },
   "races": {
-    "20261008_多摩川_11": {
+    "20261009_桐生_9": {
       "sample_count": 60,
       "winner_lane_rates_pct": {
-        "1": 78.3,
-        "2": 6.7,
-        "3": 3.3,
-        "4": 5.0,
-        "5": 5.0,
-        "6": 1.7
+        "1": 33.3,
+        "2": 16.7,
+        "3": 18.3,
+        "4": 6.7,
+        "5": 8.3,
+        "6": 16.7
       },
-      "lane1_top3_rate_pct": 86.7,
+      "lane1_top3_rate_pct": 61.7,
       "top_results": [
         {
-          "combo": "1-3-2",
-          "count": 6,
-          "rate_pct": 10.0
-        },
-        {
-          "combo": "1-2-3",
-          "count": 6,
-          "rate_pct": 10.0
-        },
-        {
-          "combo": "1-4-2",
-          "count": 4,
-          "rate_pct": 6.7
-        },
-        {
-          "combo": "1-2-4",
-          "count": 4,
-          "rate_pct": 6.7
-        },
-        {
-          "combo": "1-2-6",
-          "count": 3,
-          "rate_pct": 5.0
-        }
-      ],
-      "closest_examples": [
-        {
-          "date": "2026-10-07",
-          "venue": "多摩川",
-          "r": 11,
-          "lane1_strength": "strong",
-          "actual_result": "1-3-2",
-          "payout": 690
-        },
-        {
-          "date": "2026-10-07",
-          "venue": "多摩川",
-          "r": 12,
-          "lane1_strength": "strong",
-          "actual_result": "1-2-5",
-          "payout": 1280
-        },
-        {
-          "date": "2026-10-06",
-          "venue": "多摩川",
-          "r": 11,
-          "lane1_strength": "strong",
-          "actual_result": "1-3-6",
-          "payout": 6180
-        }
-      ],
-      "target_profile": {
-        "race_band": "late",
-        "lane1_strength": "strong",
-        "top_win_rate_lane": 1,
-        "wind_bucket": "unknown",
-        "wave_bucket": "unknown"
-      }
-    },
-    "20261008_江戸川_12": {
-      "sample_count": 60,
-      "winner_lane_rates_pct": {
-        "1": 70.0,
-        "2": 0.0,
-        "3": 10.0,
-        "4": 11.7,
-        "5": 6.7,
-        "6": 1.7
-      },
-      "lane1_top3_rate_pct": 91.7,
-      "top_results": [
-        {
-          "combo": "1-2-3",
-          "count": 6,
-          "rate_pct": 10.0
-        },
-        {
-          "combo": "1-2-6",
+          "combo": "1-6-2",
           "count": 5,
           "rate_pct": 8.3
         },
         {
-          "combo": "1-3-4",
+          "combo": "1-2-6",
           "count": 4,
           "rate_pct": 6.7
         },
         {
-          "combo": "1-3-2",
-          "count": 4,
-          "rate_pct": 6.7
-        },
-        {
-          "combo": "1-4-3",
+          "combo": "1-6-4",
           "count": 3,
           "rate_pct": 5.0
+        },
+        {
+          "combo": "4-1-6",
+          "count": 2,
+          "rate_pct": 3.3
+        },
+        {
+          "combo": "3-6-4",
+          "count": 2,
+          "rate_pct": 3.3
         }
       ],
       "closest_examples": [
         {
-          "date": "2026-10-07",
-          "venue": "江戸川",
+          "date": "2026-04-05",
+          "venue": "桐生",
           "r": 10,
-          "lane1_strength": "strong",
-          "actual_result": "1-2-3",
-          "payout": 950
+          "lane1_strength": "weak",
+          "actual_result": "3-6-2",
+          "payout": 4220
         },
         {
-          "date": "2026-10-07",
-          "venue": "江戸川",
-          "r": 11,
-          "lane1_strength": "strong",
-          "actual_result": "1-3-4",
-          "payout": 720
+          "date": "2026-06-07",
+          "venue": "桐生",
+          "r": 10,
+          "lane1_strength": "weak",
+          "actual_result": "1-6-2",
+          "payout": 2080
         },
         {
-          "date": "2026-10-07",
-          "venue": "江戸川",
-          "r": 12,
-          "lane1_strength": "strong",
-          "actual_result": "4-1-2",
-          "payout": 7330
+          "date": "2026-08-12",
+          "venue": "桐生",
+          "r": 10,
+          "lane1_strength": "weak",
+          "actual_result": "2-6-3",
+          "payout": 5090
         }
       ],
       "target_profile": {
         "race_band": "late",
-        "lane1_strength": "strong",
-        "top_win_rate_lane": 1,
-        "wind_bucket": "unknown",
-        "wave_bucket": "unknown"
-      }
-    },
-    "20261008_江戸川_3": {
-      "sample_count": 60,
-      "winner_lane_rates_pct": {
-        "1": 41.7,
-        "2": 11.7,
-        "3": 10.0,
-        "4": 11.7,
-        "5": 20.0,
-        "6": 5.0
-      },
-      "lane1_top3_rate_pct": 68.3,
-      "top_results": [
-        {
-          "combo": "1-3-2",
-          "count": 5,
-          "rate_pct": 8.3
-        },
-        {
-          "combo": "1-2-3",
-          "count": 4,
-          "rate_pct": 6.7
-        },
-        {
-          "combo": "1-2-5",
-          "count": 4,
-          "rate_pct": 6.7
-        },
-        {
-          "combo": "5-4-3",
-          "count": 3,
-          "rate_pct": 5.0
-        },
-        {
-          "combo": "1-5-3",
-          "count": 3,
-          "rate_pct": 5.0
-        }
-      ],
-      "closest_examples": [
-        {
-          "date": "2026-08-24",
-          "venue": "江戸川",
-          "r": 4,
-          "lane1_strength": "weak",
-          "actual_result": "2-5-1",
-          "payout": 1800
-        },
-        {
-          "date": "2026-09-07",
-          "venue": "江戸川",
-          "r": 4,
-          "lane1_strength": "weak",
-          "actual_result": "1-2-4",
-          "payout": 2260
-        },
-        {
-          "date": "2026-03-09",
-          "venue": "江戸川",
-          "r": 2,
-          "lane1_strength": "weak",
-          "actual_result": "1-2-3",
-          "payout": 1910
-        }
-      ],
-      "target_profile": {
-        "race_band": "early",
         "lane1_strength": "weak",
-        "top_win_rate_lane": 5,
+        "top_win_rate_lane": 6,
         "wind_bucket": "unknown",
         "wave_bucket": "unknown"
       }
     },
-    "20261008_桐生_6": {
+    "20261009_桐生_6": {
       "sample_count": 60,
       "winner_lane_rates_pct": {
         "1": 68.3,
@@ -486,27 +342,171 @@
         "wave_bucket": "unknown"
       }
     },
-    "20261008_びわこ_6": {
+    "20261009_桐生_1": {
       "sample_count": 60,
       "winner_lane_rates_pct": {
-        "1": 80.0,
-        "2": 10.0,
-        "3": 6.7,
-        "4": 0.0,
-        "5": 1.7,
+        "1": 56.7,
+        "2": 11.7,
+        "3": 18.3,
+        "4": 8.3,
+        "5": 3.3,
         "6": 1.7
       },
-      "lane1_top3_rate_pct": 96.7,
+      "lane1_top3_rate_pct": 81.7,
       "top_results": [
         {
+          "combo": "1-3-2",
+          "count": 8,
+          "rate_pct": 13.3
+        },
+        {
+          "combo": "1-3-5",
+          "count": 6,
+          "rate_pct": 10.0
+        },
+        {
           "combo": "1-2-3",
-          "count": 9,
-          "rate_pct": 15.0
+          "count": 4,
+          "rate_pct": 6.7
         },
         {
           "combo": "1-2-4",
-          "count": 6,
-          "rate_pct": 10.0
+          "count": 3,
+          "rate_pct": 5.0
+        },
+        {
+          "combo": "3-1-4",
+          "count": 3,
+          "rate_pct": 5.0
+        }
+      ],
+      "closest_examples": [
+        {
+          "date": "2026-03-01",
+          "venue": "桐生",
+          "r": 4,
+          "lane1_strength": "middle",
+          "actual_result": "4-6-2",
+          "payout": 2250
+        },
+        {
+          "date": "2026-05-24",
+          "venue": "桐生",
+          "r": 4,
+          "lane1_strength": "middle",
+          "actual_result": "6-1-4",
+          "payout": 24040
+        },
+        {
+          "date": "2026-09-08",
+          "venue": "桐生",
+          "r": 3,
+          "lane1_strength": "middle",
+          "actual_result": "1-3-2",
+          "payout": 950
+        }
+      ],
+      "target_profile": {
+        "race_band": "early",
+        "lane1_strength": "middle",
+        "top_win_rate_lane": 3,
+        "wind_bucket": "unknown",
+        "wave_bucket": "unknown"
+      }
+    },
+    "20261009_桐生_10": {
+      "sample_count": 60,
+      "winner_lane_rates_pct": {
+        "1": 55.0,
+        "2": 28.3,
+        "3": 5.0,
+        "4": 6.7,
+        "5": 3.3,
+        "6": 1.7
+      },
+      "lane1_top3_rate_pct": 78.3,
+      "top_results": [
+        {
+          "combo": "1-2-3",
+          "count": 10,
+          "rate_pct": 16.7
+        },
+        {
+          "combo": "1-3-4",
+          "count": 4,
+          "rate_pct": 6.7
+        },
+        {
+          "combo": "1-3-2",
+          "count": 4,
+          "rate_pct": 6.7
+        },
+        {
+          "combo": "1-2-5",
+          "count": 3,
+          "rate_pct": 5.0
+        },
+        {
+          "combo": "2-3-4",
+          "count": 3,
+          "rate_pct": 5.0
+        }
+      ],
+      "closest_examples": [
+        {
+          "date": "2026-04-24",
+          "venue": "桐生",
+          "r": 10,
+          "lane1_strength": "weak",
+          "actual_result": "1-2-4",
+          "payout": 650
+        },
+        {
+          "date": "2026-04-22",
+          "venue": "桐生",
+          "r": 9,
+          "lane1_strength": "weak",
+          "actual_result": "4-1-2",
+          "payout": 11570
+        },
+        {
+          "date": "2026-06-28",
+          "venue": "桐生",
+          "r": 9,
+          "lane1_strength": "weak",
+          "actual_result": "2-3-5",
+          "payout": 5290
+        }
+      ],
+      "target_profile": {
+        "race_band": "late",
+        "lane1_strength": "weak",
+        "top_win_rate_lane": 2,
+        "wind_bucket": "unknown",
+        "wave_bucket": "unknown"
+      }
+    },
+    "20261009_桐生_7": {
+      "sample_count": 60,
+      "winner_lane_rates_pct": {
+        "1": 68.3,
+        "2": 3.3,
+        "3": 8.3,
+        "4": 8.3,
+        "5": 6.7,
+        "6": 5.0
+      },
+      "lane1_top3_rate_pct": 91.7,
+      "top_results": [
+        {
+          "combo": "1-3-4",
+          "count": 8,
+          "rate_pct": 13.3
+        },
+        {
+          "combo": "1-2-3",
+          "count": 7,
+          "rate_pct": 11.7
         },
         {
           "combo": "1-2-5",
@@ -514,12 +514,12 @@
           "rate_pct": 10.0
         },
         {
-          "combo": "1-3-4",
-          "count": 5,
-          "rate_pct": 8.3
+          "combo": "1-4-5",
+          "count": 4,
+          "rate_pct": 6.7
         },
         {
-          "combo": "1-3-2",
+          "combo": "1-4-2",
           "count": 4,
           "rate_pct": 6.7
         }
@@ -527,27 +527,27 @@
       "closest_examples": [
         {
           "date": "2026-10-07",
-          "venue": "びわこ",
-          "r": 8,
+          "venue": "桐生",
+          "r": 6,
           "lane1_strength": "strong",
-          "actual_result": "1-3-4",
-          "payout": 670
+          "actual_result": "1-2-4",
+          "payout": 980
         },
         {
-          "date": "2026-10-06",
-          "venue": "びわこ",
-          "r": 5,
+          "date": "2026-09-24",
+          "venue": "桐生",
+          "r": 6,
           "lane1_strength": "strong",
-          "actual_result": "1-3-2",
-          "payout": 560
+          "actual_result": "1-4-5",
+          "payout": 2880
         },
         {
-          "date": "2026-10-05",
-          "venue": "びわこ",
-          "r": 5,
+          "date": "2026-09-24",
+          "venue": "桐生",
+          "r": 7,
           "lane1_strength": "strong",
-          "actual_result": "1-3-5",
-          "payout": 430
+          "actual_result": "6-1-2",
+          "payout": 6580
         }
       ],
       "target_profile": {
@@ -558,159 +558,87 @@
         "wave_bucket": "unknown"
       }
     },
-    "20261008_常滑_1": {
+    "20261009_桐生_4": {
       "sample_count": 60,
       "winner_lane_rates_pct": {
-        "1": 75.0,
-        "2": 8.3,
-        "3": 5.0,
-        "4": 8.3,
-        "5": 1.7,
-        "6": 1.7
+        "1": 25.0,
+        "2": 15.0,
+        "3": 20.0,
+        "4": 5.0,
+        "5": 10.0,
+        "6": 25.0
       },
-      "lane1_top3_rate_pct": 93.3,
+      "lane1_top3_rate_pct": 55.0,
       "top_results": [
         {
+          "combo": "1-6-2",
+          "count": 3,
+          "rate_pct": 5.0
+        },
+        {
+          "combo": "1-2-6",
+          "count": 3,
+          "rate_pct": 5.0
+        },
+        {
           "combo": "1-2-3",
-          "count": 5,
-          "rate_pct": 8.3
+          "count": 2,
+          "rate_pct": 3.3
         },
         {
-          "combo": "1-3-5",
-          "count": 5,
-          "rate_pct": 8.3
+          "combo": "3-2-4",
+          "count": 2,
+          "rate_pct": 3.3
         },
         {
-          "combo": "1-3-6",
-          "count": 4,
-          "rate_pct": 6.7
-        },
-        {
-          "combo": "1-4-2",
-          "count": 4,
-          "rate_pct": 6.7
-        },
-        {
-          "combo": "1-5-2",
-          "count": 4,
-          "rate_pct": 6.7
+          "combo": "6-2-1",
+          "count": 2,
+          "rate_pct": 3.3
         }
       ],
       "closest_examples": [
         {
-          "date": "2026-10-07",
-          "venue": "常滑",
-          "r": 1,
-          "lane1_strength": "strong",
-          "actual_result": "1-3-6",
-          "payout": 4350
+          "date": "2026-04-25",
+          "venue": "桐生",
+          "r": 4,
+          "lane1_strength": "weak",
+          "actual_result": "4-2-6",
+          "payout": 2450
         },
         {
-          "date": "2026-09-27",
-          "venue": "常滑",
+          "date": "2026-05-02",
+          "venue": "桐生",
           "r": 1,
-          "lane1_strength": "strong",
-          "actual_result": "1-4-5",
-          "payout": 4930
+          "lane1_strength": "weak",
+          "actual_result": "6-3-5",
+          "payout": 8580
         },
         {
-          "date": "2026-09-26",
-          "venue": "常滑",
-          "r": 1,
-          "lane1_strength": "strong",
-          "actual_result": "1-6-2",
-          "payout": 3520
+          "date": "2026-05-19",
+          "venue": "桐生",
+          "r": 3,
+          "lane1_strength": "weak",
+          "actual_result": "2-3-6",
+          "payout": 3060
         }
       ],
       "target_profile": {
         "race_band": "early",
-        "lane1_strength": "strong",
-        "top_win_rate_lane": 1,
+        "lane1_strength": "weak",
+        "top_win_rate_lane": 6,
         "wind_bucket": "unknown",
         "wave_bucket": "unknown"
       }
     },
-    "20261008_桐生_12": {
+    "20261009_桐生_11": {
       "sample_count": 60,
       "winner_lane_rates_pct": {
-        "1": 60.0,
-        "2": 6.7,
-        "3": 11.7,
-        "4": 11.7,
-        "5": 10.0,
-        "6": 0.0
-      },
-      "lane1_top3_rate_pct": 86.7,
-      "top_results": [
-        {
-          "combo": "1-2-4",
-          "count": 7,
-          "rate_pct": 11.7
-        },
-        {
-          "combo": "1-3-2",
-          "count": 7,
-          "rate_pct": 11.7
-        },
-        {
-          "combo": "1-4-6",
-          "count": 3,
-          "rate_pct": 5.0
-        },
-        {
-          "combo": "1-5-4",
-          "count": 3,
-          "rate_pct": 5.0
-        },
-        {
-          "combo": "1-2-3",
-          "count": 3,
-          "rate_pct": 5.0
-        }
-      ],
-      "closest_examples": [
-        {
-          "date": "2026-05-30",
-          "venue": "桐生",
-          "r": 9,
-          "lane1_strength": "strong",
-          "actual_result": "1-2-5",
-          "payout": 730
-        },
-        {
-          "date": "2026-08-14",
-          "venue": "桐生",
-          "r": 12,
-          "lane1_strength": "strong",
-          "actual_result": "1-2-4",
-          "payout": 620
-        },
-        {
-          "date": "2026-08-11",
-          "venue": "桐生",
-          "r": 12,
-          "lane1_strength": "strong",
-          "actual_result": "4-2-6",
-          "payout": 45470
-        }
-      ],
-      "target_profile": {
-        "race_band": "late",
-        "lane1_strength": "strong",
-        "top_win_rate_lane": 2,
-        "wind_bucket": "unknown",
-        "wave_bucket": "unknown"
-      }
-    },
-    "20261008_三国_3": {
-      "sample_count": 60,
-      "winner_lane_rates_pct": {
-        "1": 55.0,
-        "2": 10.0,
-        "3": 15.0,
-        "4": 10.0,
+        "1": 68.3,
+        "2": 5.0,
+        "3": 8.3,
+        "4": 6.7,
         "5": 8.3,
-        "6": 1.7
+        "6": 3.3
       },
       "lane1_top3_rate_pct": 88.3,
       "top_results": [
@@ -720,300 +648,89 @@
           "rate_pct": 10.0
         },
         {
-          "combo": "1-3-4",
+          "combo": "1-3-2",
           "count": 5,
           "rate_pct": 8.3
         },
         {
-          "combo": "1-4-5",
-          "count": 3,
-          "rate_pct": 5.0
-        },
-        {
-          "combo": "1-3-2",
-          "count": 3,
-          "rate_pct": 5.0
-        },
-        {
           "combo": "1-2-4",
-          "count": 3,
-          "rate_pct": 5.0
-        }
-      ],
-      "closest_examples": [
-        {
-          "date": "2026-04-19",
-          "venue": "三国",
-          "r": 4,
-          "lane1_strength": "strong",
-          "actual_result": "1-2-3",
-          "payout": 550
-        },
-        {
-          "date": "2026-08-15",
-          "venue": "三国",
-          "r": 3,
-          "lane1_strength": "strong",
-          "actual_result": "1-4-5",
-          "payout": 3650
-        },
-        {
-          "date": "2026-06-28",
-          "venue": "三国",
-          "r": 4,
-          "lane1_strength": "strong",
-          "actual_result": "1-2-3",
-          "payout": 540
-        }
-      ],
-      "target_profile": {
-        "race_band": "early",
-        "lane1_strength": "strong",
-        "top_win_rate_lane": 3,
-        "wind_bucket": "unknown",
-        "wave_bucket": "unknown"
-      }
-    },
-    "20261008_びわこ_3": {
-      "sample_count": 60,
-      "winner_lane_rates_pct": {
-        "1": 71.7,
-        "2": 8.3,
-        "3": 5.0,
-        "4": 6.7,
-        "5": 6.7,
-        "6": 1.7
-      },
-      "lane1_top3_rate_pct": 90.0,
-      "top_results": [
-        {
-          "combo": "1-2-3",
-          "count": 10,
-          "rate_pct": 16.7
-        },
-        {
-          "combo": "1-3-5",
-          "count": 6,
-          "rate_pct": 10.0
-        },
-        {
-          "combo": "1-3-2",
           "count": 4,
           "rate_pct": 6.7
         },
         {
-          "combo": "1-2-5",
-          "count": 3,
-          "rate_pct": 5.0
-        },
-        {
-          "combo": "1-2-4",
-          "count": 3,
-          "rate_pct": 5.0
-        }
-      ],
-      "closest_examples": [
-        {
-          "date": "2026-05-23",
-          "venue": "びわこ",
-          "r": 2,
-          "lane1_strength": "strong",
-          "actual_result": "1-4-6",
-          "payout": 5690
-        },
-        {
-          "date": "2026-05-25",
-          "venue": "びわこ",
-          "r": 3,
-          "lane1_strength": "strong",
-          "actual_result": "1-3-5",
-          "payout": 2670
-        },
-        {
-          "date": "2026-04-23",
-          "venue": "びわこ",
-          "r": 3,
-          "lane1_strength": "strong",
-          "actual_result": "1-2-5",
-          "payout": 860
-        }
-      ],
-      "target_profile": {
-        "race_band": "early",
-        "lane1_strength": "strong",
-        "top_win_rate_lane": 2,
-        "wind_bucket": "unknown",
-        "wave_bucket": "unknown"
-      }
-    },
-    "20261008_蒲郡_11": {
-      "sample_count": 60,
-      "winner_lane_rates_pct": {
-        "1": 81.7,
-        "2": 5.0,
-        "3": 5.0,
-        "4": 5.0,
-        "5": 1.7,
-        "6": 1.7
-      },
-      "lane1_top3_rate_pct": 96.7,
-      "top_results": [
-        {
-          "combo": "1-2-3",
-          "count": 10,
-          "rate_pct": 16.7
-        },
-        {
           "combo": "1-3-5",
-          "count": 6,
-          "rate_pct": 10.0
-        },
-        {
-          "combo": "1-2-4",
-          "count": 6,
-          "rate_pct": 10.0
-        },
-        {
-          "combo": "1-3-2",
           "count": 4,
           "rate_pct": 6.7
         },
         {
-          "combo": "1-4-6",
-          "count": 3,
-          "rate_pct": 5.0
+          "combo": "1-5-4",
+          "count": 4,
+          "rate_pct": 6.7
         }
       ],
       "closest_examples": [
         {
-          "date": "2026-10-07",
-          "venue": "蒲郡",
-          "r": 10,
-          "lane1_strength": "strong",
-          "actual_result": "1-3-6",
-          "payout": 5270
-        },
-        {
-          "date": "2026-10-07",
-          "venue": "蒲郡",
+          "date": "2026-09-09",
+          "venue": "桐生",
           "r": 11,
           "lane1_strength": "strong",
-          "actual_result": "1-6-4",
-          "payout": 8670
+          "actual_result": "5-1-4",
+          "payout": 7020
         },
         {
-          "date": "2026-10-07",
-          "venue": "蒲郡",
+          "date": "2026-09-10",
+          "venue": "桐生",
           "r": 12,
           "lane1_strength": "strong",
-          "actual_result": "5-1-4",
-          "payout": 30640
+          "actual_result": "3-4-6",
+          "payout": 12280
+        },
+        {
+          "date": "2026-09-10",
+          "venue": "桐生",
+          "r": 11,
+          "lane1_strength": "strong",
+          "actual_result": "3-1-6",
+          "payout": 4300
         }
       ],
       "target_profile": {
         "race_band": "late",
         "lane1_strength": "strong",
-        "top_win_rate_lane": 1,
-        "wind_bucket": "unknown",
-        "wave_bucket": "unknown"
-      }
-    },
-    "20261008_大村_5": {
-      "sample_count": 60,
-      "winner_lane_rates_pct": {
-        "1": 58.3,
-        "2": 8.3,
-        "3": 3.3,
-        "4": 5.0,
-        "5": 23.3,
-        "6": 1.7
-      },
-      "lane1_top3_rate_pct": 81.7,
-      "top_results": [
-        {
-          "combo": "1-3-5",
-          "count": 6,
-          "rate_pct": 10.0
-        },
-        {
-          "combo": "1-4-5",
-          "count": 4,
-          "rate_pct": 6.7
-        },
-        {
-          "combo": "1-2-5",
-          "count": 3,
-          "rate_pct": 5.0
-        },
-        {
-          "combo": "1-2-4",
-          "count": 3,
-          "rate_pct": 5.0
-        },
-        {
-          "combo": "1-6-2",
-          "count": 3,
-          "rate_pct": 5.0
-        }
-      ],
-      "closest_examples": [
-        {
-          "date": "2026-08-08",
-          "venue": "大村",
-          "r": 5,
-          "lane1_strength": "middle",
-          "actual_result": "1-2-5",
-          "payout": 980
-        },
-        {
-          "date": "2026-03-13",
-          "venue": "大村",
-          "r": 7,
-          "lane1_strength": "middle",
-          "actual_result": "2-6-3",
-          "payout": 142250
-        },
-        {
-          "date": "2026-03-12",
-          "venue": "大村",
-          "r": 5,
-          "lane1_strength": "middle",
-          "actual_result": "3-2-1",
-          "payout": 3140
-        }
-      ],
-      "target_profile": {
-        "race_band": "middle",
-        "lane1_strength": "middle",
         "top_win_rate_lane": 5,
         "wind_bucket": "unknown",
         "wave_bucket": "unknown"
       }
     },
-    "20261008_唐津_2": {
+    "20261009_桐生_12": {
       "sample_count": 60,
       "winner_lane_rates_pct": {
-        "1": 81.7,
-        "2": 6.7,
-        "3": 6.7,
-        "4": 1.7,
-        "5": 1.7,
+        "1": 51.7,
+        "2": 11.7,
+        "3": 25.0,
+        "4": 5.0,
+        "5": 5.0,
         "6": 1.7
       },
-      "lane1_top3_rate_pct": 98.3,
+      "lane1_top3_rate_pct": 81.7,
       "top_results": [
         {
-          "combo": "1-2-3",
-          "count": 7,
-          "rate_pct": 11.7
+          "combo": "3-1-5",
+          "count": 5,
+          "rate_pct": 8.3
         },
         {
           "combo": "1-3-2",
-          "count": 6,
-          "rate_pct": 10.0
+          "count": 5,
+          "rate_pct": 8.3
         },
         {
-          "combo": "1-4-2",
+          "combo": "1-2-3",
+          "count": 4,
+          "rate_pct": 6.7
+        },
+        {
+          "combo": "1-3-5",
           "count": 4,
           "rate_pct": 6.7
         },
@@ -1021,361 +738,135 @@
           "combo": "1-3-4",
           "count": 3,
           "rate_pct": 5.0
-        },
-        {
-          "combo": "1-4-3",
-          "count": 3,
-          "rate_pct": 5.0
         }
       ],
       "closest_examples": [
         {
-          "date": "2026-10-05",
-          "venue": "唐津",
-          "r": 1,
-          "lane1_strength": "strong",
-          "actual_result": "1-3-4",
-          "payout": 1610
+          "date": "2026-06-01",
+          "venue": "桐生",
+          "r": 11,
+          "lane1_strength": "middle",
+          "actual_result": "3-1-5",
+          "payout": 6530
         },
         {
-          "date": "2026-10-05",
-          "venue": "唐津",
-          "r": 2,
-          "lane1_strength": "strong",
-          "actual_result": "1-4-2",
-          "payout": 1060
+          "date": "2026-06-02",
+          "venue": "桐生",
+          "r": 12,
+          "lane1_strength": "middle",
+          "actual_result": "1-2-3",
+          "payout": 770
         },
         {
-          "date": "2026-10-05",
-          "venue": "唐津",
-          "r": 3,
-          "lane1_strength": "strong",
-          "actual_result": "3-1-6",
-          "payout": 76960
-        }
-      ],
-      "target_profile": {
-        "race_band": "early",
-        "lane1_strength": "strong",
-        "top_win_rate_lane": 1,
-        "wind_bucket": "unknown",
-        "wave_bucket": "unknown"
-      }
-    },
-    "20261008_唐津_1": {
-      "sample_count": 60,
-      "winner_lane_rates_pct": {
-        "1": 81.7,
-        "2": 6.7,
-        "3": 6.7,
-        "4": 1.7,
-        "5": 1.7,
-        "6": 1.7
-      },
-      "lane1_top3_rate_pct": 98.3,
-      "top_results": [
-        {
-          "combo": "1-2-3",
-          "count": 7,
-          "rate_pct": 11.7
-        },
-        {
-          "combo": "1-3-2",
-          "count": 6,
-          "rate_pct": 10.0
-        },
-        {
-          "combo": "1-4-2",
-          "count": 4,
-          "rate_pct": 6.7
-        },
-        {
-          "combo": "1-3-4",
-          "count": 3,
-          "rate_pct": 5.0
-        },
-        {
-          "combo": "1-4-3",
-          "count": 3,
-          "rate_pct": 5.0
-        }
-      ],
-      "closest_examples": [
-        {
-          "date": "2026-10-05",
-          "venue": "唐津",
-          "r": 1,
-          "lane1_strength": "strong",
-          "actual_result": "1-3-4",
-          "payout": 1610
-        },
-        {
-          "date": "2026-10-05",
-          "venue": "唐津",
-          "r": 2,
-          "lane1_strength": "strong",
-          "actual_result": "1-4-2",
-          "payout": 1060
-        },
-        {
-          "date": "2026-10-05",
-          "venue": "唐津",
-          "r": 3,
-          "lane1_strength": "strong",
-          "actual_result": "3-1-6",
-          "payout": 76960
-        }
-      ],
-      "target_profile": {
-        "race_band": "early",
-        "lane1_strength": "strong",
-        "top_win_rate_lane": 1,
-        "wind_bucket": "unknown",
-        "wave_bucket": "unknown"
-      }
-    },
-    "20261008_江戸川_10": {
-      "sample_count": 60,
-      "winner_lane_rates_pct": {
-        "1": 35.0,
-        "2": 18.3,
-        "3": 16.7,
-        "4": 16.7,
-        "5": 3.3,
-        "6": 10.0
-      },
-      "lane1_top3_rate_pct": 75.0,
-      "top_results": [
-        {
-          "combo": "4-3-1",
-          "count": 3,
-          "rate_pct": 5.0
-        },
-        {
-          "combo": "1-2-4",
-          "count": 3,
-          "rate_pct": 5.0
-        },
-        {
-          "combo": "6-1-2",
-          "count": 2,
-          "rate_pct": 3.3
-        },
-        {
-          "combo": "1-2-5",
-          "count": 2,
-          "rate_pct": 3.3
-        },
-        {
-          "combo": "1-6-2",
-          "count": 2,
-          "rate_pct": 3.3
-        }
-      ],
-      "closest_examples": [
-        {
-          "date": "2026-09-06",
-          "venue": "江戸川",
-          "r": 9,
-          "lane1_strength": "weak",
-          "actual_result": "6-1-2",
-          "payout": 8620
-        },
-        {
-          "date": "2026-05-25",
-          "venue": "江戸川",
-          "r": 10,
-          "lane1_strength": "weak",
-          "actual_result": "1-5-6",
-          "payout": 3930
-        },
-        {
-          "date": "2026-09-28",
-          "venue": "江戸川",
-          "r": 9,
-          "lane1_strength": "weak",
-          "actual_result": "4-2-6",
-          "payout": 46760
+          "date": "2026-08-13",
+          "venue": "桐生",
+          "r": 11,
+          "lane1_strength": "middle",
+          "actual_result": "2-5-4",
+          "payout": 2580
         }
       ],
       "target_profile": {
         "race_band": "late",
-        "lane1_strength": "weak",
-        "top_win_rate_lane": 6,
+        "lane1_strength": "middle",
+        "top_win_rate_lane": 3,
         "wind_bucket": "unknown",
         "wave_bucket": "unknown"
       }
     },
-    "20261008_三国_5": {
+    "20261009_桐生_2": {
       "sample_count": 60,
       "winner_lane_rates_pct": {
-        "1": 53.3,
-        "2": 16.7,
-        "3": 13.3,
-        "4": 6.7,
-        "5": 8.3,
-        "6": 1.7
+        "1": 35.0,
+        "2": 13.3,
+        "3": 20.0,
+        "4": 10.0,
+        "5": 18.3,
+        "6": 3.3
       },
-      "lane1_top3_rate_pct": 80.0,
+      "lane1_top3_rate_pct": 61.7,
       "top_results": [
-        {
-          "combo": "1-3-2",
-          "count": 4,
-          "rate_pct": 6.7
-        },
-        {
-          "combo": "1-4-5",
-          "count": 3,
-          "rate_pct": 5.0
-        },
-        {
-          "combo": "1-2-3",
-          "count": 3,
-          "rate_pct": 5.0
-        },
         {
           "combo": "1-5-2",
           "count": 3,
           "rate_pct": 5.0
         },
         {
-          "combo": "2-4-1",
-          "count": 3,
-          "rate_pct": 5.0
-        }
-      ],
-      "closest_examples": [
-        {
-          "date": "2026-09-14",
-          "venue": "三国",
-          "r": 7,
-          "lane1_strength": "strong",
-          "actual_result": "1-4-5",
-          "payout": 3180
-        },
-        {
-          "date": "2026-09-13",
-          "venue": "三国",
-          "r": 5,
-          "lane1_strength": "strong",
-          "actual_result": "1-2-3",
-          "payout": 1830
-        },
-        {
-          "date": "2026-09-08",
-          "venue": "三国",
-          "r": 7,
-          "lane1_strength": "strong",
-          "actual_result": "2-5-6",
-          "payout": 68100
-        }
-      ],
-      "target_profile": {
-        "race_band": "middle",
-        "lane1_strength": "strong",
-        "top_win_rate_lane": 1,
-        "wind_bucket": "unknown",
-        "wave_bucket": "unknown"
-      }
-    },
-    "20261008_常滑_2": {
-      "sample_count": 60,
-      "winner_lane_rates_pct": {
-        "1": 33.3,
-        "2": 16.7,
-        "3": 23.3,
-        "4": 6.7,
-        "5": 3.3,
-        "6": 16.7
-      },
-      "lane1_top3_rate_pct": 65.0,
-      "top_results": [
-        {
-          "combo": "1-6-3",
-          "count": 4,
-          "rate_pct": 6.7
-        },
-        {
-          "combo": "1-6-2",
-          "count": 3,
-          "rate_pct": 5.0
-        },
-        {
-          "combo": "2-1-6",
-          "count": 3,
-          "rate_pct": 5.0
-        },
-        {
-          "combo": "2-3-1",
+          "combo": "1-6-4",
           "count": 2,
           "rate_pct": 3.3
         },
         {
-          "combo": "4-6-2",
+          "combo": "2-5-1",
+          "count": 2,
+          "rate_pct": 3.3
+        },
+        {
+          "combo": "1-2-3",
+          "count": 2,
+          "rate_pct": 3.3
+        },
+        {
+          "combo": "1-5-3",
           "count": 2,
           "rate_pct": 3.3
         }
       ],
       "closest_examples": [
         {
-          "date": "2026-10-06",
-          "venue": "常滑",
-          "r": 4,
+          "date": "2026-06-02",
+          "venue": "桐生",
+          "r": 1,
           "lane1_strength": "weak",
-          "actual_result": "6-5-2",
-          "payout": 3650
+          "actual_result": "3-5-2",
+          "payout": 6890
         },
         {
-          "date": "2026-07-31",
-          "venue": "常滑",
-          "r": 4,
-          "lane1_strength": "weak",
-          "actual_result": "2-6-3",
-          "payout": 1200
-        },
-        {
-          "date": "2026-07-31",
-          "venue": "常滑",
+          "date": "2026-04-01",
+          "venue": "桐生",
           "r": 3,
           "lane1_strength": "weak",
-          "actual_result": "2-3-4",
-          "payout": 13790
+          "actual_result": "1-6-4",
+          "payout": 2270
+        },
+        {
+          "date": "2026-04-25",
+          "venue": "桐生",
+          "r": 3,
+          "lane1_strength": "weak",
+          "actual_result": "5-2-1",
+          "payout": 2280
         }
       ],
       "target_profile": {
         "race_band": "early",
         "lane1_strength": "weak",
-        "top_win_rate_lane": 6,
+        "top_win_rate_lane": 5,
         "wind_bucket": "unknown",
         "wave_bucket": "unknown"
       }
     },
-    "20261008_大村_9": {
+    "20261009_桐生_5": {
       "sample_count": 60,
       "winner_lane_rates_pct": {
-        "1": 68.3,
-        "2": 10.0,
-        "3": 11.7,
-        "4": 5.0,
-        "5": 1.7,
-        "6": 3.3
+        "1": 31.7,
+        "2": 11.7,
+        "3": 18.3,
+        "4": 15.0,
+        "5": 18.3,
+        "6": 5.0
       },
-      "lane1_top3_rate_pct": 91.7,
+      "lane1_top3_rate_pct": 65.0,
       "top_results": [
         {
-          "combo": "1-2-3",
-          "count": 8,
-          "rate_pct": 13.3
-        },
-        {
-          "combo": "1-3-4",
-          "count": 6,
-          "rate_pct": 10.0
-        },
-        {
-          "combo": "1-2-6",
+          "combo": "1-2-5",
           "count": 4,
           "rate_pct": 6.7
+        },
+        {
+          "combo": "3-5-6",
+          "count": 3,
+          "rate_pct": 5.0
         },
         {
           "combo": "1-3-5",
@@ -1383,41 +874,46 @@
           "rate_pct": 5.0
         },
         {
+          "combo": "5-2-4",
+          "count": 2,
+          "rate_pct": 3.3
+        },
+        {
           "combo": "1-3-2",
-          "count": 3,
-          "rate_pct": 5.0
+          "count": 2,
+          "rate_pct": 3.3
         }
       ],
       "closest_examples": [
         {
-          "date": "2026-10-07",
-          "venue": "大村",
-          "r": 10,
-          "lane1_strength": "strong",
-          "actual_result": "1-2-3",
-          "payout": 360
+          "date": "2026-09-08",
+          "venue": "桐生",
+          "r": 5,
+          "lane1_strength": "weak",
+          "actual_result": "5-2-4",
+          "payout": 1960
         },
         {
-          "date": "2026-10-07",
-          "venue": "大村",
-          "r": 11,
-          "lane1_strength": "strong",
-          "actual_result": "1-3-6",
-          "payout": 490
+          "date": "2026-03-10",
+          "venue": "桐生",
+          "r": 8,
+          "lane1_strength": "weak",
+          "actual_result": "1-3-2",
+          "payout": 2560
         },
         {
-          "date": "2026-10-07",
-          "venue": "大村",
-          "r": 12,
-          "lane1_strength": "strong",
-          "actual_result": "1-6-3",
-          "payout": 2250
+          "date": "2026-05-15",
+          "venue": "桐生",
+          "r": 5,
+          "lane1_strength": "weak",
+          "actual_result": "5-2-4",
+          "payout": 2680
         }
       ],
       "target_profile": {
-        "race_band": "late",
-        "lane1_strength": "strong",
-        "top_win_rate_lane": 1,
+        "race_band": "middle",
+        "lane1_strength": "weak",
+        "top_win_rate_lane": 5,
         "wind_bucket": "unknown",
         "wave_bucket": "unknown"
       }
