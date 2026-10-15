@@ -713,6 +713,29 @@ def make_raw_model_record(
     }
 
 
+# 入力がそろえば判定できる見送り理由。これらは後の実行で判定し直してよい。
+RETRYABLE_SKIP_REASONS = frozenset(
+    {
+        "usable_odds_missing",
+        "source_model_prediction_missing",
+        "fewer_than_two_active_models",
+    }
+)
+
+
+def is_retryable_skip(record: dict[str, Any]) -> bool:
+    """入力不足によるハードルール見送りなら True（Jev自身の判断による見送りは対象外）。"""
+
+    return (
+        record.get("decision_source") == "hard_rule"
+        and record.get("reason") in RETRYABLE_SKIP_REASONS
+    )
+
+
+def is_same_skip(previous: dict[str, Any], current: dict[str, Any]) -> bool:
+    return is_retryable_skip(current) and current.get("reason") == previous.get("reason")
+
+
 def load_history(path: Path) -> dict[tuple[str, str, str, str], dict[str, Any]]:
     """JSONL履歴を読み込み、同じ戦略・レース・実験の再課金を防ぐ。"""
 
@@ -916,14 +939,22 @@ def run(args: argparse.Namespace) -> int:
             arm_id = str(arm["id"])
             stats = arm_stats[arm_id]
             record = existing_for_date.get((race_id, arm_id))
+            if record is not None and is_retryable_skip(record):
+                # 夜間など入力がそろう前の見送りは確定判定にせず、朝の再実行で判定し直す。
+                previous_skip = record
+                record = None
+            else:
+                previous_skip = None
+            needs_api_key = (
+                str(arm["type"]).startswith("jev_") and not api_key and not args.dry_run
+            )
+            if record is None and previous_skip is not None and needs_api_key:
+                # APIキーが無く判定し直せない時は、以前の見送りをそのまま使う。
+                record = previous_skip
             if record is not None:
                 stats["reused"] += 1
             else:
-                if (
-                    str(arm["type"]).startswith("jev_")
-                    and not api_key
-                    and not args.dry_run
-                ):
+                if needs_api_key:
                     stats["errors"] += 1
                     errors.append(
                         {
@@ -944,9 +975,14 @@ def run(args: argparse.Namespace) -> int:
                         api_key,
                     )
                     stats["api_calls"] += int(api_called)
-                    stats["new"] += 1
-                    if not args.dry_run:
-                        append_history(Path(args.history), record)
+                    if previous_skip is not None and is_same_skip(previous_skip, record):
+                        # まだ入力がそろわない場合は同じ見送りを重ねて書かない。
+                        record = previous_skip
+                        stats["reused"] += 1
+                    else:
+                        stats["new"] += 1
+                        if not args.dry_run:
+                            append_history(Path(args.history), record)
                 except Exception as exc:  # 入力不正やAPI障害を実験アーム単位で分離する
                     stats["errors"] += 1
                     errors.append(

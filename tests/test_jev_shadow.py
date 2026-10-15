@@ -252,5 +252,72 @@ class JevShadowTest(unittest.TestCase):
             self.assertIn(name, ignore_text)
 
 
+class JevRetrySkipTest(unittest.TestCase):
+    """夜間の入力不足による見送りが、朝の再実行で判定し直されることを確認する。"""
+
+    def _run_with_history(self, prior_reason: str, new_record: dict) -> list[dict]:
+        today = jev_shadow.datetime.now(jev_shadow.JST).date().isoformat()
+        race_id = f"{today.replace('-', '')}_平和島_5"
+        prior = {
+            "date": today,
+            "race_id": race_id,
+            "strategy_version": jev_shadow.STRATEGY_VERSION,
+            "experiment_version": jev_shadow.EXPERIMENT_VERSION,
+            "experiment_id": "all_models_jev",
+            "decision_source": "hard_rule",
+            "action": "skip",
+            "reason": prior_reason,
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            (folder / "race.json").write_text(
+                json.dumps({"date": today, "races": [{"race_id": race_id, "date": today}]}),
+                encoding="utf-8",
+            )
+            history = folder / "history.jsonl"
+            jev_shadow.append_history(history, prior)
+            args = jev_shadow.parse_args([
+                "--input", str(folder / "race.json"),
+                "--performance", str(folder / "none.json"),
+                "--clv", str(folder / "none.json"),
+                "--experiment-performance", str(folder / "none.json"),
+                "--output", str(folder / "out.json"),
+                "--history", str(history),
+                "--no-pairing-experiments",
+            ])
+            record = {**prior, **new_record}
+            with (
+                patch.object(jev_shadow, "load_api_key", return_value="dummy"),
+                patch.object(jev_shadow, "build_arm_record", return_value=(record, True)) as build,
+            ):
+                jev_shadow.run(args)
+            self.build_calls = build.call_count
+            lines = history.read_text(encoding="utf-8").splitlines()
+        return [json.loads(line) for line in lines if line.strip()]
+
+    def test_night_skip_is_rejudged_in_morning(self) -> None:
+        lines = self._run_with_history(
+            "usable_odds_missing",
+            {"decision_source": "jev", "action": "select", "reason": "ok"},
+        )
+        self.assertEqual(self.build_calls, 1)
+        self.assertEqual(len(lines), 2)
+        self.assertEqual(lines[-1]["decision_source"], "jev")
+
+    def test_same_skip_is_not_duplicated(self) -> None:
+        lines = self._run_with_history("usable_odds_missing", {})
+        self.assertEqual(self.build_calls, 1)
+        self.assertEqual(len(lines), 1)
+
+    def test_jev_own_skip_is_not_rejudged(self) -> None:
+        # Jev自身の判断による見送り（hard_ruleでない）は確定扱いのまま
+        self.assertFalse(jev_shadow.is_retryable_skip(
+            {"decision_source": "jev", "action": "skip", "reason": "usable_odds_missing"}
+        ))
+        self.assertTrue(jev_shadow.is_retryable_skip(
+            {"decision_source": "hard_rule", "action": "skip", "reason": "usable_odds_missing"}
+        ))
+
+
 if __name__ == "__main__":
     unittest.main()
