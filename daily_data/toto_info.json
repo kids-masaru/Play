@@ -2,31 +2,47 @@
   "round": 1660,
   "kuji": "toto",
   "kuji_label": "toto (13試合)",
-  "payout": null,
-  "payout_detail": null,
+  "payout": 16743700,
+  "payout_detail": [
+    {
+      "rank": "1等",
+      "amount": 16743700,
+      "count": 2
+    },
+    {
+      "rank": "2等",
+      "amount": 239190,
+      "count": 30
+    },
+    {
+      "rank": "3等",
+      "amount": 25530,
+      "count": 281
+    }
+  ],
   "deadline": "2026-10-10 13:50",
   "result_date": "2026-10-11",
-  "generated_date": "2026-10-08",
+  "generated_date": "2026-10-15",
   "has_gemini": true,
   "has_codex": true,
   "has_claude": true,
-  "settled": false,
+  "settled": true,
   "summary": {
     "stat": {
-      "n": 0,
-      "hits": 0
+      "n": 12,
+      "hits": 6
     },
     "gemini": {
-      "n": 0,
-      "hits": 0
+      "n": 13,
+      "hits": 8
     },
     "codex": {
-      "n": 0,
-      "hits": 0
+      "n": 13,
+      "hits": 5
     },
     "claude": {
-      "n": 0,
-      "hits": 0
+      "n": 13,
+      "hits": 8
     }
   },
   "matches": [
@@ -52,7 +68,7 @@
       "claude_pick": "A",
       "claude_confidence": "62%",
       "claude_reasoning": "モデルA(49%)、マリノスのアウェイ力は直近の柏戦でも実証済み。統計的優位を素直に採用。",
-      "result": ""
+      "result": "D"
     },
     {
       "match_id": "1660-2",
@@ -76,7 +92,7 @@
       "claude_pick": "H",
       "claude_confidence": "54%",
       "claude_reasoning": "モデルH(46%)、過去ラウンドでFC東京がホームで京都を下した実績あり。ホームアドバンテージを支持。",
-      "result": ""
+      "result": "H"
     },
     {
       "match_id": "1660-3",
@@ -100,7 +116,7 @@
       "claude_pick": "H",
       "claude_confidence": "44%",
       "claude_reasoning": "三者拮抗(40/30/30)だがモデルH。D実績が0/5のため回避、ホーム微優位に従う。",
-      "result": ""
+      "result": "H"
     },
     {
       "match_id": "1660-4",
@@ -124,7 +140,7 @@
       "claude_pick": "A",
       "claude_confidence": "55%",
       "claude_reasoning": "モデルA(44%)と最大確率。長崎のアウェイ強度を評価、千葉ホームとの拮抗だが統計に従う。",
-      "result": ""
+      "result": "D"
     },
     {
       "match_id": "1660-5",
@@ -148,7 +164,7 @@
       "claude_pick": "H",
       "claude_confidence": "63%",
       "claude_reasoning": "モデルH(63%)と高確率。川崎のアウェイ勝利は例外的強豪特例で、清水相手は水戸のホーム優位が有効。",
-      "result": ""
+      "result": "A"
     },
     {
       "match_id": "1660-6",
@@ -172,7 +188,7 @@
       "claude_pick": "A",
       "claude_confidence": "51%",
       "claude_reasoning": "モデルA(40%)、京都のホーム成績も不安定。統計的にアウェイ町田をやや支持。",
-      "result": ""
+      "result": "A"
     },
     {
       "match_id": "1660-7",
@@ -191,7 +207,7 @@
       "claude_pick": "A",
       "claude_confidence": "42%",
       "claude_reasoning": "統計データなし。広島はJ1上位の総合力を持ち、アウェイでも実力差が出やすいと判断。不確実性高い。",
-      "result": ""
+      "result": "A"
     },
     {
       "match_id": "1660-8",
@@ -215,7 +231,7 @@
       "claude_pick": "H",
       "claude_confidence": "65%",
       "claude_reasoning": "モデルH(62%)、川崎は水戸アウェイを制した直近の強さあり。ホームでの名古屋戦は川崎優位と判断。",
-      "result": ""
+      "result": "A"
     },
     {
       "match_id": "1660-9",
@@ -239,7 +255,7 @@
       "claude_pick": "H",
       "claude_confidence": "43%",
       "claude_reasoning": "確率がほぼ均等(39/30/30)でモデルH。D回避・ホームアドバンテージを優先した僅差の判断。",
-      "result": ""
+      "result": "H"
     },
     {
       "match_id": "1660-10",
@@ -263,7 +279,7 @@
       "claude_pick": "H",
       "claude_confidence": "50%",
       "claude_reasoning": "モデルH(41%)で微差。直近の今治戦でホーム鳥栖が勝利しており、ホーム優位を評価。",
-      "result": ""
+      "result": "H"
     },
     {
       "match_id": "1660-11",
@@ -287,7 +303,7 @@
       "claude_pick": "H",
       "claude_confidence": "68%",
       "claude_reasoning": "モデルH(65%)と確率が高く根拠明確。アウェイ今治はカテゴリ差もあり徳島ホーム優位が強い。",
-      "result": ""
+      "result": "A"
     },
     {
       "match_id": "1660-12",
@@ -311,7 +327,7 @@
       "claude_pick": "A",
       "claude_confidence": "48%",
       "claude_reasoning": "モデルA(39%)でH(36%)と拮抗。山形はホームで甲府に敗戦歴あり、仙台アウェイをわずかに採用。",
-      "result": ""
+      "result": "A"
     },
     {
       "match_id": "1660-13",
@@ -335,7 +351,7 @@
       "claude_pick": "H",
       "claude_confidence": "59%",
       "claude_reasoning": "モデルH(58%)安定的優位。秋田はホームで徳島を下したが、アウェイでのいわき相手はモデルが示す差あり。",
-      "result": ""
+      "result": "H"
     }
   ]
 }
