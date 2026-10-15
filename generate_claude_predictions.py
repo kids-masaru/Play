@@ -146,7 +146,11 @@ HISTORICAL_LEARNING_JSON:
 
 def _load_schema() -> dict[str, Any]:
     with SCHEMA_JSON.open("r", encoding="utf-8") as handle:
-        return json.load(handle)
+        schema = json.load(handle)
+    # Claude CLIは "$schema"（メタスキーマURL）を解決できず起動時に失敗するため取り除く。
+    # スキーマファイル自体はCodexと共用なので、Claudeに渡す時だけ外す。
+    schema.pop("$schema", None)
+    return schema
 
 
 def _coerce_predictions(value: Any) -> dict[str, Any] | None:
@@ -309,12 +313,20 @@ def save_rows(
     predictions = result.get("predictions")
     if not isinstance(predictions, list):
         raise ValueError("Claude出力にpredictions配列がありません。")
+    rejected: list[str] = []
     for item in predictions:
+        # 1レースの不備で当日全体を捨てないよう、不正なレースだけ除外して残りは保存する。
         if not isinstance(item, dict):
-            raise ValueError("Claude出力の予測形式が不正です。")
-        race_id, picks, explanation = validate_prediction(item, expected_ids)
+            rejected.append("予測形式が不正な要素")
+            continue
+        try:
+            race_id, picks, explanation = validate_prediction(item, expected_ids)
+        except ValueError as error:
+            rejected.append(str(error))
+            continue
         if race_id in received_ids:
-            raise ValueError(f"RaceIDが重複しています: {race_id}")
+            rejected.append(f"RaceIDが重複しています: {race_id}")
+            continue
         received_ids.add(race_id)
         race = races_by_id[race_id]
         staged[race_id] = {
@@ -331,10 +343,15 @@ def save_rows(
                 learning_context.get("model_feedback", {}).get("settled_count", 0)
             ),
         }
+    for reason in rejected:
+        print(f"[WARN] 除外: {reason}")
     missing = expected_ids - received_ids
     if missing:
-        raise ValueError(f"Claude出力に不足レースがあります: {', '.join(sorted(missing))}")
-    # 全件検証が通ってから既存履歴へ反映し、不完全出力を保存しない。
+        # 除外・欠落レースは保存しない。次回バッチで未生成分として再試行される。
+        print(f"[WARN] 未保存レース（次回再試行）: {', '.join(sorted(missing))}")
+    if not staged:
+        raise ValueError("Claude出力に保存できる予測が1件もありません。")
+    # 検証を通ったレースだけ既存履歴へ反映し、不完全な買い目は保存しない。
     existing.update(staged)
     write_rows(existing)
     return len(staged)
