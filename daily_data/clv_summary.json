@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08 21:56:28",
+  "generated_at": "2026-10-14 22:00:02",
   "metric": "CLV_pp (closing implied prob - morning implied prob, normalized)",
   "min_races_active": 30,
   "sources": {
@@ -18,50 +18,50 @@
     "codex": {
       "label": "Codex",
       "status": "active",
-      "graded_races": 305,
-      "picks": 1521,
-      "avg_clv_pp": 1.172,
-      "positive_rate_pct": 58.8
+      "graded_races": 415,
+      "picks": 2067,
+      "avg_clv_pp": 1.153,
+      "positive_rate_pct": 60.4
     },
     "gemini": {
       "label": "Gemini",
       "status": "accruing",
-      "graded_races": 17,
-      "picks": 30,
-      "avg_clv_pp": -1.543,
-      "positive_rate_pct": 53.3
+      "graded_races": 20,
+      "picks": 33,
+      "avg_clv_pp": -1.766,
+      "positive_rate_pct": 48.5
     },
     "gemma": {
       "label": "Gemma弟子",
       "status": "active",
-      "graded_races": 33,
-      "picks": 61,
-      "avg_clv_pp": 1.026,
-      "positive_rate_pct": 47.5
+      "graded_races": 57,
+      "picks": 97,
+      "avg_clv_pp": 0.961,
+      "positive_rate_pct": 45.4
     },
     "gemma_claude": {
       "label": "Qwen弟子(Claude先生)",
       "status": "active",
-      "graded_races": 181,
-      "picks": 246,
-      "avg_clv_pp": 1.089,
-      "positive_rate_pct": 56.9
+      "graded_races": 259,
+      "picks": 363,
+      "avg_clv_pp": 1.209,
+      "positive_rate_pct": 60.1
     },
     "gemma_grok_x": {
       "label": "Qwen弟子(Grok+X先生)",
       "status": "active",
-      "graded_races": 194,
-      "picks": 461,
-      "avg_clv_pp": 0.902,
-      "positive_rate_pct": 54.2
+      "graded_races": 280,
+      "picks": 704,
+      "avg_clv_pp": 0.934,
+      "positive_rate_pct": 55.8
     },
     "grok": {
       "label": "Grok",
       "status": "active",
-      "graded_races": 306,
-      "picks": 1604,
-      "avg_clv_pp": 1.355,
-      "positive_rate_pct": 59.9
+      "graded_races": 416,
+      "picks": 2188,
+      "avg_clv_pp": 1.33,
+      "positive_rate_pct": 61.5
     }
   }
 }
