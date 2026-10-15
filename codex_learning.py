@@ -43,6 +43,27 @@ MODEL_PREDICTION_CONFIGS = {
         "strategy": "Strategy_Grok",
         "label": "Grok",
     },
+    "gemma_ft": {
+        "file": "daily_gemma_predictions.csv",
+        "stakes": "Stakes_GemmaFT",
+        "strategy": "Strategy_GemmaFT",
+        "label": "学習Gemma（Gemini先生）",
+    },
+    "qwen_claude": {
+        "file": "daily_gemma_claude_predictions.csv",
+        "stakes": "Stakes_GemmaClaude",
+        "strategy": "Strategy_GemmaClaude",
+        "label": "学習Qwen（Claude先生）",
+        # 2026-09-07より前は同じCSV列に旧Gemma弟子の予測が入っている。
+        "feedback_start_date": "2026-09-07",
+    },
+    "qwen_grok_x": {
+        "file": "daily_gemma_grok_x_predictions.csv",
+        "stakes": "Stakes_GemmaGrokX",
+        "strategy": "Strategy_GemmaGrokX",
+        "label": "学習Qwen（Grok+X先生）",
+        "feedback_start_date": "2026-09-07",
+    },
 }
 
 
@@ -303,7 +324,11 @@ def model_feedback(
     settled: list[dict[str, Any]] = []
     with prediction_path.open("r", encoding="utf-8-sig", newline="") as handle:
         for row in csv.DictReader(handle):
-            if str(row.get("Date", "")) >= target_date:
+            prediction_date = str(row.get("Date", ""))
+            if prediction_date >= target_date:
+                continue
+            feedback_start_date = str(config.get("feedback_start_date", ""))
+            if feedback_start_date and prediction_date < feedback_start_date:
                 continue
             record = record_by_id.get(str(row.get("RaceID", "")))
             picks = parse_stakes(row.get(config["stakes"]))
@@ -351,6 +376,17 @@ def model_feedback(
         for row in reversed(settled)
         if not row["hit"]
     ][:5]
+    # 的中・不的中の両方を直近順で残す。前日の結果が的中だった場合も、
+    # 次回予測で「成功例」として参照できるようにする。
+    recent_results = [
+        {
+            "race_id": row["race_id"],
+            "predicted": row["picks"],
+            "actual": row["actual"],
+            "hit": row["hit"],
+        }
+        for row in reversed(settled)
+    ][:5]
     count = len(settled)
     by_strategy: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in settled:
@@ -367,6 +403,7 @@ def model_feedback(
             for strategy, rows in sorted(by_strategy.items())
         },
         "actual_winner_not_covered_by_lane": dict(sorted(missed_winner_lanes.items())),
+        "recent_results": recent_results,
         "recent_misses": recent_misses,
         "caution": f"{config['label']}固有データが200件未満の間は、失敗傾向を参考値として扱い過学習しない。" if count < 200 else "直近50件と全期間の両方を確認し、短期変動へ過剰反応しない。",
     }
@@ -432,6 +469,79 @@ def learning_context_for_prompt(context: dict[str, Any], race_ids: set[str]) -> 
             for race_id in race_ids
         },
     }
+
+
+def _format_rate_map(values: Any) -> str:
+    """艇番別率を、小型モデルが読み取りやすい1行へ整形する。"""
+    if not isinstance(values, dict):
+        return "-"
+    parts = []
+    for lane in range(1, 7):
+        value = values.get(str(lane))
+        if value is not None:
+            parts.append(f"{lane}号艇{value}%")
+    return " / ".join(parts) or "-"
+
+
+def format_local_learning_context(
+    learning_context: dict[str, Any] | None,
+    race_id: str,
+) -> str:
+    """ローカル小型モデル向けに、自己成績と類似レースを短く整形する。"""
+    if not learning_context:
+        return ""
+
+    feedback = learning_context.get("model_feedback") or {}
+    similar = (learning_context.get("races") or {}).get(str(race_id), {})
+    lines = ["【前日までの学習メモ】"]
+
+    settled_count = int(feedback.get("settled_count") or 0)
+    if settled_count:
+        all_time = feedback.get("all_time") or {}
+        recent = feedback.get("recent_50") or {}
+        lines.append(
+            f"自分の確定結果{settled_count}レース。"
+            f"全期間: 的中率{all_time.get('hit_rate_pct', 0)}%、ROI{all_time.get('roi_pct', 0)}%。"
+            f"直近50件: 的中率{recent.get('hit_rate_pct', 0)}%、ROI{recent.get('roi_pct', 0)}%。"
+        )
+
+        missed = feedback.get("actual_winner_not_covered_by_lane") or {}
+        if missed:
+            missed_text = " / ".join(
+                f"{lane}号艇{count}回"
+                for lane, count in sorted(
+                    missed.items(), key=lambda item: (-item[1], item[0])
+                )[:3]
+            )
+            lines.append(f"1着候補から外しやすい艇: {missed_text}。")
+
+        recent_results = feedback.get("recent_results") or []
+        if recent_results:
+            lines.append("直近結果:")
+            for item in recent_results[:3]:
+                result_label = "的中" if item.get("hit") else "不的中"
+                picks = "/".join(item.get("predicted") or [])
+                lines.append(
+                    f"  {item.get('race_id', '-')}: {result_label} "
+                    f"予想[{picks}] → 結果{item.get('actual', '-')}"
+                )
+    else:
+        lines.append("自分の確定結果はまだありません。")
+
+    sample_count = int(similar.get("sample_count") or 0)
+    if sample_count:
+        lines.append(f"【類似レース{sample_count}件】")
+        lines.append(f"1着率: {_format_rate_map(similar.get('winner_lane_rates_pct'))}")
+        top_results = similar.get("top_results") or []
+        if top_results:
+            top_text = " / ".join(
+                f"{item.get('combo')} {item.get('rate_pct')}%"
+                for item in top_results[:3]
+            )
+            lines.append(f"多い結果: {top_text}")
+
+    lines.append("短期の当たり外れへ過剰反応せず、当日の出走表とオッズを優先して判断してください。")
+    return "\n".join(lines)
 
 
 def save_learning_context(path: Path, context: dict[str, Any]) -> None:

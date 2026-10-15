@@ -16,8 +16,18 @@ import json
 import time
 import re
 import argparse
+import csv
+from pathlib import Path
+
 import requests
 import pandas as pd
+
+from codex_learning import (
+    LEARNING_STRATEGY_VERSION,
+    build_model_learning_context,
+    format_local_learning_context,
+    save_learning_context,
+)
 
 # Windows cmd の stdout が cp932 でも日本語/絵文字で落ちないよう UTF-8 化
 try:
@@ -36,6 +46,19 @@ SLEEP_BETWEEN_CALLS = 0.3  # ローカルなので軽め
 
 # 学習時の instruction と同じ文言（微調整の効果を素直に出すため揃える）
 INSTRUCTION = "次のボートレースを分析し、3連単(1着-2着-3着)の推論と買い目を答えてください。\n\n"
+
+# CSV名・列名は既存の対戦履歴との互換性を保つ。学習キーだけモデルの実体に合わせる。
+LEARNING_KEY_BY_TAG = {
+    "GemmaFT": "gemma_ft",
+    "GemmaClaude": "qwen_claude",
+    "GemmaGrokX": "qwen_grok_x",
+}
+
+LEARNING_SUMMARY_BY_KEY = {
+    "gemma_ft": "gemma_ft_learning_summary.json",
+    "qwen_claude": "qwen_claude_learning_summary.json",
+    "qwen_grok_x": "qwen_grok_x_learning_summary.json",
+}
 
 
 def check_ollama(model):
@@ -84,7 +107,7 @@ def call_gemma(prompt, model, max_retries=3):
     return ""
 
 
-def format_race(race):
+def format_race(race, learning_context=None):
     """学習データと同じ並び（会場/天候/出走表）で状況テキストを作る。"""
     lines = [f"【会場】{race['venue']} {race['r']}R"]
     lines.append(
@@ -111,6 +134,9 @@ def format_race(race):
                 lines.append(f"  {o['combo']}: {float(o['odds']):.1f}倍")
             except (KeyError, TypeError, ValueError):
                 continue
+    learning_text = format_local_learning_context(learning_context, race["race_id"])
+    if learning_text:
+        lines.append(learning_text)
     return INSTRUCTION + "\n".join(lines)
 
 
@@ -139,6 +165,11 @@ def main():
     ap.add_argument("--model", default=MODEL_NAME, help="Ollamaモデル名 (例 gemma-boat:1b / gemma-boat-claude:1b)")
     ap.add_argument("--out", default="daily_gemma_predictions.csv", help="出力CSV(DATA_DIR相対 or 絶対)")
     ap.add_argument("--tag", default="GemmaFT", help="CSV列サフィックス (Prediction_<tag> 等)")
+    ap.add_argument(
+        "--learning-key",
+        default="",
+        help="自己フィードバック識別子。未指定時は既知のtagから自動判定",
+    )
     args = ap.parse_args()
     model, tag = args.model, args.tag
     out_csv = args.out if os.path.isabs(args.out) else os.path.join(DATA_DIR, args.out)
@@ -152,12 +183,37 @@ def main():
     print(f"=== 学習版Gemma予測 ({model}) ===")
     print(f"対象日: {info['date']} / レース数: {len(races)}")
 
+    learning_key = args.learning_key or LEARNING_KEY_BY_TAG.get(tag, "")
+    learning_context = None
+    if learning_key:
+        try:
+            learning_context = build_model_learning_context(
+                Path(DATA_DIR), info["date"], races, learning_key
+            )
+            summary_name = LEARNING_SUMMARY_BY_KEY.get(
+                learning_key, f"{learning_key}_learning_summary.json"
+            )
+            save_learning_context(Path(DATA_DIR) / summary_name, learning_context)
+            feedback_count = (
+                learning_context.get("model_feedback", {}).get("settled_count", 0)
+            )
+            print(
+                f"学習情報: 過去{learning_context.get('historical_results_used', 0):,}レース / "
+                f"自分の確定結果{feedback_count}レース"
+            )
+        except (OSError, ValueError, csv.Error, json.JSONDecodeError) as e:
+            # 学習情報の一時的な不調で、当日の予測全体を止めない。
+            print(f"  [WARN] 学習情報を生成できないため当日データのみで予測: {type(e).__name__}: {e}")
+            learning_context = None
+    else:
+        print(f"  [WARN] tag={tag} の学習キーが未設定のため、自己フィードバックなしで予測します")
+
     results = []
     t_overall = time.time()
     for i, race in enumerate(races, 1):
         rid = race["race_id"]
         print(f"\n[{i}/{len(races)}] {race['venue']} {race['r']}R", flush=True)
-        prompt = format_race(race)
+        prompt = format_race(race, learning_context)
         t0 = time.time()
         text = call_gemma(prompt, model)
         parsed = parse_response(text)
@@ -172,6 +228,15 @@ def main():
             f"Prediction_{tag}": parsed["reasoning"][:1500],
             f"Log_{tag}": text.strip()[:2500],
             f"Stakes_{tag}": stakes_str,
+            f"Strategy_{tag}": LEARNING_STRATEGY_VERSION if learning_context else "no_feedback",
+            f"Learning{tag}SettledCount": (
+                learning_context.get("model_feedback", {}).get("settled_count", 0)
+                if learning_context else 0
+            ),
+            f"Learning{tag}HistoryCount": (
+                learning_context.get("historical_results_used", 0)
+                if learning_context else 0
+            ),
         })
         time.sleep(SLEEP_BETWEEN_CALLS)
 

@@ -60,6 +60,9 @@ PUBLISH_FILES = [
     "dashboard/public/daily_data/codex_learning_summary.json",
     "dashboard/public/daily_data/daily_claude_predictions.csv",
     "dashboard/public/daily_data/claude_learning_summary.json",
+    "dashboard/public/daily_data/gemma_ft_learning_summary.json",
+    "dashboard/public/daily_data/qwen_claude_learning_summary.json",
+    "dashboard/public/daily_data/qwen_grok_x_learning_summary.json",
     # 予測対戦の「4者戦績」は結果CSVが要る。これが無いと本番で的中率が全部0になる。
     "dashboard/public/daily_data/daily_history_results.csv",
     # 傾向(攻略図)タブの会場別/レース番号別イン率ヒートマップ用
@@ -233,15 +236,18 @@ def main():
     if skip_gemma:
         log("--skip-gemma 指定のため 学習版ローカルLLM 予測をスキップ")
     else:
-        run_py("predict_gemma_ft.py", allow_fail=True)  # Gemini先生版(既定 gemma-boat:1b)
+        run_py("predict_gemma_ft.py", allow_fail=True, extra_args=[
+            "--learning-key", "gemma_ft"])  # Gemini先生版(既定 gemma-boat:1b)
         run_py("predict_gemma_ft.py", allow_fail=True, extra_args=[
             "--model", "qwen-boat-claude:1.7b",
             "--out", "daily_gemma_claude_predictions.csv",
-            "--tag", "GemmaClaude"])  # Claude先生版(Qwen弟子)
+            "--tag", "GemmaClaude",
+            "--learning-key", "qwen_claude"])  # Claude先生版(Qwen弟子)
         run_py("predict_gemma_ft.py", allow_fail=True, extra_args=[
             "--model", "qwen-boat-grok-x-v2:1.7b",
             "--out", "daily_gemma_grok_x_predictions.csv",
-            "--tag", "GemmaGrokX"])  # Grok+X先生版(Qwen弟子v2)
+            "--tag", "GemmaGrokX",
+            "--learning-key", "qwen_grok_x"])  # Grok+X先生版(Qwen弟子v2)
 
     # 2回目: Gemini と 学習版Gemma を取り込んだ最終版
     # （--skip-gemini かつ --skip-gemma でも、再生成は無害なので常に回す）

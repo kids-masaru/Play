@@ -7,7 +7,12 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from codex_learning import load_history_records, model_feedback
+from codex_learning import (
+    build_model_learning_context,
+    format_local_learning_context,
+    load_history_records,
+    model_feedback,
+)
 
 
 class BoatModelFeedbackTest(unittest.TestCase):
@@ -22,6 +27,14 @@ class BoatModelFeedbackTest(unittest.TestCase):
                 "r": 1,
                 "result": "1-2-3",
                 "payout": 1000,
+            },
+            {
+                "race_id": "qwen-race",
+                "date": "2026-09-08",
+                "venue": "戸田",
+                "r": 2,
+                "result": "2-1-3",
+                "payout": 1200,
             }
         ]
 
@@ -82,6 +95,88 @@ class BoatModelFeedbackTest(unittest.TestCase):
 
         records = load_history_records(self.data_dir, "2026-09-01")
         self.assertEqual([row["race_id"] for row in records], ["past"])
+
+    def test_local_learned_models_use_only_their_own_feedback(self) -> None:
+        cases = [
+            ("gemma_ft", "daily_gemma_predictions.csv", "Stakes_GemmaFT", "Strategy_GemmaFT", "past-race", "2026-08-30", "2026-09-01", "1-2-3:100", 1),
+            ("qwen_claude", "daily_gemma_claude_predictions.csv", "Stakes_GemmaClaude", "Strategy_GemmaClaude", "qwen-race", "2026-09-08", "2026-09-10", "2-1-3:100", 1),
+            ("qwen_grok_x", "daily_gemma_grok_x_predictions.csv", "Stakes_GemmaGrokX", "Strategy_GemmaGrokX", "qwen-race", "2026-09-08", "2026-09-10", "3-1-2:100", 0),
+        ]
+        for model_key, filename, stakes_column, strategy_column, race_id, prediction_date, target_date, stakes, expected_hits in cases:
+            self._write_csv(
+                filename,
+                ["RaceID", "Date", stakes_column, strategy_column],
+                [
+                    {
+                        "RaceID": "past-race",
+                        "Date": "2026-08-30",
+                        stakes_column: "1-2-3:100",
+                        strategy_column: "old-model",
+                    },
+                    {
+                        "RaceID": race_id,
+                        "Date": prediction_date,
+                        stakes_column: stakes,
+                        strategy_column: f"{model_key}-v1",
+                    },
+                ] if model_key.startswith("qwen_") else [{
+                    "RaceID": race_id,
+                    "Date": prediction_date,
+                    stakes_column: stakes,
+                    strategy_column: f"{model_key}-v1",
+                }],
+            )
+
+            feedback = model_feedback(self.data_dir, target_date, self.records, model_key)
+            self.assertEqual(feedback["settled_count"], 1)
+            self.assertEqual(feedback["all_time"]["hits"], expected_hits)
+            self.assertEqual(feedback["recent_results"][0]["race_id"], race_id)
+
+    def test_local_prompt_contains_previous_results_and_similar_races(self) -> None:
+        self._write_csv(
+            "daily_history_results.csv",
+            ["ID", "Date", "Venue", "R", "Result", "Payout"],
+            [{"ID": "qwen-race", "Date": "2026-09-08", "Venue": "戸田", "R": "1", "Result": "1-2-3", "Payout": "1000"}],
+        )
+        self._write_csv(
+            "daily_raw_race_data.csv",
+            ["ID", "Lane", "WinRate", "Rank"],
+            [
+                {"ID": "qwen-race", "Lane": str(lane), "WinRate": str(7 - lane), "Rank": "A1"}
+                for lane in range(1, 7)
+            ],
+        )
+        self._write_csv(
+            "daily_gemma_claude_predictions.csv",
+            ["RaceID", "Date", "Stakes_GemmaClaude", "Strategy_GemmaClaude"],
+            [{
+                "RaceID": "qwen-race",
+                "Date": "2026-09-08",
+                "Stakes_GemmaClaude": "1-2-3:100",
+                "Strategy_GemmaClaude": "feedback-test",
+            }],
+        )
+        target_race = {
+            "race_id": "target-race",
+            "venue": "戸田",
+            "r": 1,
+            "wind_speed": "1m",
+            "wave": "1cm",
+            "boats": [
+                {"lane": lane, "win_rate": 7 - lane, "rank": "A1"}
+                for lane in range(1, 7)
+            ],
+        }
+
+        context = build_model_learning_context(
+            self.data_dir, "2026-09-10", [target_race], "qwen_claude"
+        )
+        prompt_section = format_local_learning_context(context, "target-race")
+
+        self.assertIn("自分の確定結果1レース", prompt_section)
+        self.assertIn("qwen-race: 的中", prompt_section)
+        self.assertIn("類似レース1件", prompt_section)
+        self.assertNotIn("target-race: 的中", prompt_section)
 
 
 if __name__ == "__main__":
