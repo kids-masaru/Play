@@ -232,6 +232,43 @@ class ReflectRunTest(ReflectTestBase):
         self.assertFalse(self.base_dir.exists())
 
 
+class MorningBatchTest(unittest.TestCase):
+    def _run_batch(self, extra_argv: list[str]) -> list[str]:
+        from unittest.mock import patch
+
+        import update_battle_dashboard as ubd
+
+        calls: list[str] = []
+
+        def fake_run(script, allow_fail=False, extra_args=None):
+            calls.append(script)
+            if script == "playbook_reflect.py":
+                self.assertTrue(allow_fail)  # 失敗しても朝バッチを止めない
+                return False
+            return True
+
+        argv = ["update_battle_dashboard.py", "--no-push", "--skip-gemini", "--skip-grok", "--skip-gemma", "--skip-jev"]
+        with (
+            patch.object(sys, "argv", argv + extra_argv),
+            patch.object(ubd, "copy_sources"),
+            patch.object(ubd, "run_py", side_effect=fake_run),
+            patch.object(ubd, "publish") as publish,
+        ):
+            ubd.main()
+        publish.assert_called_once_with(no_push=True)
+        return calls
+
+    def test_reflection_runs_before_predictions_and_failure_continues(self) -> None:
+        calls = self._run_batch([])
+        self.assertLess(calls.index("playbook_reflect.py"), calls.index("generate_codex_predictions.py"))
+        self.assertLess(calls.index("playbook_reflect.py"), calls.index("generate_claude_predictions.py"))
+        self.assertEqual(calls.index("generate_battle_data.py"), 0)
+        self.assertIn("model_performance.py", calls)
+
+    def test_skip_playbook(self) -> None:
+        self.assertNotIn("playbook_reflect.py", self._run_batch(["--skip-playbook"]))
+
+
 class OutputParseTest(unittest.TestCase):
     def test_structured_output_wrapper(self) -> None:
         stdout = json.dumps({"type": "result", "structured_output": {"summary": "s", "ops": []}})

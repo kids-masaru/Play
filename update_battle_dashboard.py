@@ -5,6 +5,7 @@
 やること:
   1. 必要な当日CSVを daily_data/ -> dashboard/public/daily_data/ にコピー
   2. generate_battle_data.py  (1回目: daily_race_info.json を生成)
+  2.5 playbook_reflect.py  (強いモデルが前日までの結果を振り返り、モデル別の心得集を更新)
   3. generate_gemini_predictions.py  (race_info.json を読んで Gemini 予測)
   4. predict_gemma_ft.py  (race_info.json を読んで 学習版Gemma 予測 / Ollama)
   5. generate_battle_data.py  (2回目: Gemini と 学習版Gemma を取り込んだ最終版)
@@ -24,6 +25,7 @@
   --skip-codex  : Codex 予測をスキップ (ChatGPT利用枠を使わない)
   --skip-claude : Claude 予測をスキップ (Claude Max利用枠を使わない)
   --skip-jev    : Jevシャドー審査をスキップ (既存の購入判断には影響しない)
+  --skip-playbook : 心得集の振り返りをスキップ (Claude/Codex利用枠を使わない)
 """
 import os
 import sys
@@ -195,6 +197,7 @@ def main():
     skip_claude = "--skip-claude" in sys.argv
     skip_jev = "--skip-jev" in sys.argv
     skip_gemma = "--skip-gemma" in sys.argv  # 学習版Gemma(Ollama)をスキップ
+    skip_playbook = "--skip-playbook" in sys.argv  # 心得集の振り返りをスキップ
 
     t0 = datetime.now()
     log("===== 予測対戦ダッシュボード更新 開始 =====")
@@ -205,6 +208,13 @@ def main():
     # 穴②: 生成（正しい順序で）
     # 1回目: Gemini 抜きで daily_race_info.json を作る（Gemini の入力になる）
     run_py("generate_battle_data.py")
+
+    # 心得集の振り返り（たすき掛け）。予測より前に、前日までの確定結果だけで更新する。
+    # 実験用で既存の買い目には使わない。失敗しても予測と公開は止めない（前日版を使う）。
+    if skip_playbook:
+        log("--skip-playbook 指定のため 心得集の振り返りをスキップ")
+    else:
+        run_py("playbook_reflect.py", allow_fail=True)
 
     if skip_gemini:
         log("--skip-gemini 指定のため Gemini 予測をスキップ")
