@@ -110,3 +110,7 @@ dashboard/public/daily_data/jev_shadow_history.jsonl
 dashboard/public/daily_data/jev_backtest_decisions.jsonl
 dashboard/public/daily_data/jev_backtest_git_decisions.jsonl
 dashboard/.vite-check-dist/
+
+# 心得集（プレイブック）本体・日付版・変更履歴は非公開。公開は overview.json の要約だけ。
+daily_data/playbooks/
+dashboard/public/daily_data/playbooks/
