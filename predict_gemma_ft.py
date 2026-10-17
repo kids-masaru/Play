@@ -29,11 +29,17 @@ from codex_learning import (
     save_learning_context,
 )
 
-# Windows cmd の stdout が cp932 でも日本語/絵文字で落ちないよう UTF-8 化
+# Windows cmd の stdout が cp932 でも日本語/絵文字で落ちないよう UTF-8 化。
+# 作り直し（TextIOWrapper で包み直す）だと、他のスクリプトから読み込まれたときに古い出力が
+# 片付けられる拍子に共有の出力先が閉じられ、表示が消えたりエラーになったりするため、
+# 既存の出力の文字コードだけを切り替える（2026-10-17）。
 try:
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
-except Exception:
-    pass
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, ValueError):
+    try:
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+    except Exception:
+        pass
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(ROOT, "dashboard", "public", "daily_data")

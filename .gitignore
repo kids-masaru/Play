@@ -79,6 +79,8 @@ credentials.env
 !dashboard/public/daily_data/codex_learning_summary.json
 !dashboard/public/daily_data/toto_info.json
 !dashboard/public/daily_data/toto_rounds.json
+# まとめページ用の集計（心得集は要約と上位3件の本文だけを含む）
+!dashboard/public/daily_data/overview.json
 !auto_research/wf_baseline.json
 # 予測対戦の戦績表示に必要（結果CSV）。本番配信のため除外解除
 !dashboard/public/daily_data/daily_history_results.csv
