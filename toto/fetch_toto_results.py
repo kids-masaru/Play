@@ -27,7 +27,11 @@ RESULT_URL = (
 )
 HEADERS = {"User-Agent": "Mozilla/5.0 (Play toto result fetcher)"}
 KUJI_ORDER = ["toto", "mini_a", "mini_b", "goal3"]
+# 勝敗（1=ホーム勝 / 0=引分 / 2=アウェイ勝）を当てるくじ。goal3 は得点数なので含めない。
+RESULT_KUJI_ORDER = ["toto", "mini_a", "mini_b"]
 PICK_MAP = {"1": "H", "0": "D", "2": "A"}
+# 公式結果の読み方の版。版が古い保存分は一度だけ取り直す（2026-10-17 の修正前の誤読を消すため）。
+OFFICIAL_VERSION = 2
 
 
 def load_json(path, fallback):
@@ -112,23 +116,66 @@ def parse_payout_table(table):
     return {"payout": details[0]["amount"], "detail": details} if details else None
 
 
-def parse_round(round_no, html):
-    if f"第{round_no}回 toto　くじ結果" not in html and f"第{round_no}回 toto くじ結果" not in html:
+def expected_kuji(round_data):
+    """その回で勝敗を当てるくじ（toto / mini_a / mini_b）と試合数を、公式ページの並び順で返す。"""
+    kuji = (round_data or {}).get("kuji", {}) or {}
+    return [
+        (key, len(kuji[key]["matches"]))
+        for key in RESULT_KUJI_ORDER
+        if (kuji.get(key) or {}).get("matches")
+    ]
+
+
+def is_goal3_table(table):
+    """totoGOAL3（チームごとの得点数を当てるくじ）の表。くじ結果は得点数なので勝敗として読まない。"""
+    return any("予想チーム" in column for column in flatten_columns(table).columns)
+
+
+def parse_round(round_no, html, expected):
+    """公式結果ページを、くじ種別ごとの結果（H/D/A）と当せん金に分ける。
+
+    2026-10-17 修正：
+    - 見出しは「第N回 toto　くじ結果」に限らず「第N回 mini toto-A組　くじ結果」等も受け付ける
+      （平日のmini回が永遠に未確定になっていた）。
+    - 表の位置で割り当てず、形で見分ける。GOAL3の表は勝敗として読まない
+      （以前は4番目の結果表をgoal3として 0/1/2 得点を H/D/A に読み替えていた）。
+    - 結果の表は、その回にあるくじへ、試合数が合うものだけを順に割り当てる。
+      直後の当せん金の表は、直前に割り当てたくじのものとして扱う。
+    """
+    if not re.search(rf"第{round_no}回[^<]{{0,40}}くじ結果", html):
         return None
     tables = pd.read_html(io.StringIO(html))
-    result_tables = [parsed for table in tables if (parsed := parse_result_table(table))]
-    payout_tables = [parsed for table in tables if (parsed := parse_payout_table(table))]
-    if not result_tables or not payout_tables:
-        return None
+    payload = {"version": OFFICIAL_VERSION, "detail": {}, "results": {}}
+    pending = list(expected)
+    current = None
+    for table in tables:
+        if is_goal3_table(table):
+            current = "goal3"
+            continue
+        values = parse_result_table(table)
+        if values is not None:
+            current = None
+            for index, (key, count) in enumerate(pending):
+                if len(values) == count:
+                    payload["results"][key] = values
+                    current = key
+                    pending.pop(index)
+                    break
+            continue
+        payout = parse_payout_table(table)
+        if payout and current:
+            payload[current] = payout["payout"]
+            payload["detail"][current] = payout["detail"]
+            current = None
+    return payload if payload["results"] else None
 
-    payload = {"detail": {}, "results": {}}
-    for index, key in enumerate(KUJI_ORDER):
-        if index < len(result_tables):
-            payload["results"][key] = result_tables[index]
-        if index < len(payout_tables):
-            payload[key] = payout_tables[index]["payout"]
-            payload["detail"][key] = payout_tables[index]["detail"]
-    return payload
+
+def is_complete(entry, expected):
+    """新しい読み方で、その回の全くじの結果がそろっているか。"""
+    if not entry or entry.get("version") != OFFICIAL_VERSION:
+        return False
+    results = entry.get("results", {}) or {}
+    return all(len(results.get(key, []) or []) == count for key, count in expected)
 
 
 def saved_round_numbers():
@@ -147,20 +194,27 @@ def main():
     updated = 0
     for round_no in numbers:
         existing = stored.get(str(round_no), {}) or {}
-        # 通常運用では取得済みの確定回を再通信せず、新しい回だけを補完する。
-        if not requested and len((existing.get("results", {}) or {}).get("toto", [])) == 13 and existing.get("detail", {}).get("toto"):
+        expected = expected_kuji(load_json(os.path.join(DATA_DIR, f"round_{round_no}.json"), {}))
+        if not expected:
+            continue
+        # 通常運用では取得済みの確定回を再通信せず、新しい回・未完成の回だけを補完する。
+        if not requested and is_complete(existing, expected):
             continue
         try:
-            parsed = parse_round(round_no, fetch_html(round_no))
+            parsed = parse_round(round_no, fetch_html(round_no), expected)
         except Exception as error:
             print(f"  [WARN] 第{round_no}回の公式結果取得に失敗: {error}")
             continue
         if not parsed:
-            print(f"  第{round_no}回: toto公式結果は未掲載")
+            print(f"  第{round_no}回: 公式結果は未掲載")
             continue
         stored[str(round_no)] = parsed
         updated += 1
-        print(f"  第{round_no}回: 1等 {parsed.get('toto', 0):,}円 / 結果{len(parsed.get('results', {}).get('toto', []))}試合")
+        summary = " / ".join(
+            f"{key} {len(parsed['results'].get(key, []))}試合・1等{(parsed.get(key) or 0):,}円"
+            for key, _ in expected
+        )
+        print(f"  第{round_no}回: {summary}")
 
     if updated:
         os.makedirs(DATA_DIR, exist_ok=True)

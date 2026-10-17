@@ -13,7 +13,7 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
-from model_feedback import STRATEGY_VERSION, load_model_feedback, match_key
+from model_feedback import PICK_GUIDANCE, STRATEGY_VERSION, load_model_feedback, match_key
 from predict_gemini import build_context, collect_unique_matches, load_stats_model
 
 
@@ -85,8 +85,9 @@ date. Treat them as evidence, not an answer to copy.
 
 HISTORICAL_MODEL_FEEDBACK contains only Claude's predictions from settled rounds before
 this target round. Use sample size, pick-specific accuracy, and recent mistakes to calibrate
-the decision without overfitting. Prefer a realistic mix of H/D/A outcomes. No other model's
-prediction is supplied.
+the decision without overfitting. No other model's prediction is supplied.
+
+{PICK_GUIDANCE}
 
 Return the required JSON schema. match_key must exactly match the input. confidence must be
 an integer from 1 to 99. reasoning must be concise Japanese, roughly 50-140 characters.

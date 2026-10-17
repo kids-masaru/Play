@@ -10,6 +10,21 @@ from typing import Any
 
 STRATEGY_VERSION = "feedback_v2_model_isolated"
 
+# Codex・Claude 共通の「選び方」の指示（2026-10-17 変更）。
+# 以前の「Prefer a realistic mix of H/D/A outcomes」は引分を無理に増やして的中率を下げていた
+# （J1/J2の回で、どのAIも「常にホーム勝ち」約44%を下回っていた）。
+# 各試合で最も起こりそうな結果を独立に選ばせ、引分・アウェイ勝は根拠がある時だけにする。
+PICK_GUIDANCE = """How to choose each pick:
+- Choose the single most likely outcome for each match independently. Do not try to
+  balance or mix H/D/A across the round; the number of each pick does not matter.
+- In this league data the home team wins most often (roughly 4 in 10 matches), and a plain
+  "always pick H" rule has so far beaten every AI's picks. Start from H and move away from it
+  only with clear evidence.
+- Pick D only when stats_model gives D the highest probability, or when H and A are within
+  about 5 percentage points and there is a specific reason to expect a draw.
+- Pick A only when the evidence (stats_model and the matchup) clearly favors the away team.
+- If stats_model is missing for a match, rely on general team strength and home advantage."""
+
 
 def load_json(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as handle:

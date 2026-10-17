@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Any
 
 from predict_gemini import build_context, collect_unique_matches, load_stats_model
-from model_feedback import STRATEGY_VERSION, load_model_feedback
+from model_feedback import PICK_GUIDANCE, STRATEGY_VERSION, load_model_feedback
 
 
 ROOT = Path(__file__).resolve().parent
@@ -92,7 +92,9 @@ before the fixture date. Treat them as useful evidence, not an answer to copy.
 
 HISTORICAL_CODEX_FEEDBACK contains Codex predictions whose results were already settled
 before this round. Use sample size, pick-specific accuracy, and recent mistakes to calibrate
-your judgment. Do not overfit small samples. Prefer a realistic mix of H/D/A outcomes.
+your judgment. Do not overfit small samples.
+
+{PICK_GUIDANCE}
 
 Return the required JSON schema. match_key must exactly match the input. confidence is an
 integer from 1 to 99. reasoning must be concise Japanese (roughly 50-140 characters) and

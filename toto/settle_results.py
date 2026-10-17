@@ -85,6 +85,54 @@ def pick_display_kuji(round_data):
     return None
 
 
+def round_matches(round_data):
+    """toto・mini A・mini B の全試合を、同じ試合は1つにまとめて返す（表示と同じ順）。
+
+    以前は表示用の1くじ（toto優先）しか答え合わせしなかったため、totoに入っていない
+    miniの試合や平日のmini回は、モデルの成績フィードバックから漏れていた（2026-10-17）。
+    戻り値: [(match, match_id, [(kuji_key, index), ...])]
+    """
+    merged = {}
+    display = pick_display_kuji(round_data)
+    for kuji_key in DISPLAY_KUJI_ORDER:
+        sec = round_data["kuji"].get(kuji_key) or {}
+        for index, m in enumerate(sec.get("matches") or []):
+            key = (m.get("date"), m.get("home"), m.get("away"))
+            if key not in merged:
+                # 表示くじの試合は従来どおり「回-番号」（manual_results.json のキーと同じ）
+                match_id = (
+                    f"{round_data['round']}-{m.get('no')}"
+                    if sec is display
+                    else f"{round_data['round']}-{kuji_key}-{m.get('no')}"
+                )
+                merged[key] = (m, match_id, [])
+            merged[key][2].append((kuji_key, index))
+    return list(merged.values())
+
+
+def official_actual(official_round, positions):
+    """公式結果（くじ種別ごとの並び）から、その試合のH/D/Aを引く。無ければ ''。"""
+    results = (official_round or {}).get("results", {}) or {}
+    for kuji_key, index in positions:
+        values = results.get(kuji_key) or []
+        if index < len(values) and values[index] in ("H", "D", "A"):
+            return values[index]
+    return ""
+
+
+def load_official():
+    """新しい読み方（版2）で取得した公式結果だけを使う。古い版は誤読の可能性があるため使わない。"""
+    path = os.path.join(DATA_DIR, "official_results.json")
+    if not os.path.exists(path):
+        return {}
+    try:
+        data = load_json(path)
+    except Exception as e:
+        print(f"[WARN] official_results.json 読み込み失敗: {type(e).__name__}: {e}")
+        return {}
+    return {str(k): v for k, v in data.items() if isinstance(v, dict) and v.get("version") == 2}
+
+
 def gemini_index(gem):
     idx = {}
     if not gem:
@@ -103,25 +151,30 @@ def lookup_actual(match, lut, teams, normalize):
     return lut.get((str(match.get("date")), h, a), "")
 
 
-def settle_round(round_no, lut, teams, normalize, today, manual=None):
+def settle_round(round_no, lut, teams, normalize, today, manual=None, official=None):
     manual = manual or {}
+    official = official or {}
     rpath = os.path.join(DATA_DIR, f"round_{round_no}.json")
     if not os.path.exists(rpath):
         return None
     round_data = load_json(rpath)
-    sec = pick_display_kuji(round_data)
-    if not sec:
+    if not pick_display_kuji(round_data):
         return None
 
     gpath = os.path.join(DATA_DIR, f"gemini_round_{round_no}.json")
     gidx = gemini_index(load_json(gpath) if os.path.exists(gpath) else None)
+    official_round = official.get(str(round_no))
 
     results = []
     stat_n = stat_hits = gem_n = gem_hits = 0
-    for m in sec["matches"]:
-        mid = f"{round_no}-{m.get('no')}"
-        # Jリーグ自動結果を優先。引けなければ手入力フォールバック(国際試合等)。
-        actual = lookup_actual(m, lut, teams, normalize) or manual.get(mid, "")
+    for m, mid, positions in round_matches(round_data):
+        # 正解の基準：公式結果 → Jリーグ自動結果 → 手入力（国際試合等）の順。
+        # 表示（generate_toto_data）も公式結果を優先しているので、フィードバックと表示の正解がそろう。
+        actual = (
+            official_actual(official_round, positions)
+            or lookup_actual(m, lut, teams, normalize)
+            or manual.get(mid, "")
+        )
         g = gidx.get((m.get("date"), m.get("home"), m.get("away"))) or {}
         stats_pick = (g.get("stats") or {}).get("pick", "")
         gemini_pick = g.get("pick", "")
@@ -188,6 +241,9 @@ def main():
     manual = load_manual()
     if manual:
         print(f"[INFO] 手入力結果 {len(manual)} 件を読み込み（国際試合等のフォールバック）")
+    official = load_official()
+    if official:
+        print(f"[INFO] 公式結果 {len(official)} 回分を正解の基準に使います")
 
     if args:
         rounds = [int(a) for a in args]
@@ -201,7 +257,7 @@ def main():
 
     print(f"=== 答え合わせ (基準日 {today.isoformat()}) ===")
     for rno in sorted(rounds):
-        out = settle_round(rno, lut, teams, normalize_team, today, manual)
+        out = settle_round(rno, lut, teams, normalize_team, today, manual, official)
         if out is None:
             continue
         path = save(out)
