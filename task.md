@@ -4,11 +4,11 @@
 
 ## 🧭 再開ブロック（最終更新: 2026-10-16・ここだけ読めば再開できる。まず `NOW.md` も読む）
 - **なぜやっているか**：「知識を育てる仕組み」が実は数値要約だけだった。強いモデル（Claude・Codex）が振り返って心得集を育て、各モデルに渡す方式を実験追加し、今まで／Jev／心得集／心得集＋Jev を比較する（井﨑さん承認済み 10/15）。
-- **現在地**：A（前提の修理）完了・push済み。10/16朝バッチで効果確認済み（Claude 9/9レース保存、Jev 3アームとも19レース判定・夜の見送り10件も朝に再判定）。B（`playbook.py`）完了。C（`playbook_reflect.py`）本体・テスト・本物での試運転・朝バッチ組み込みまで完了、ローカルコミット済み（夜23時に自動push）。
-- **次の一歩**：次の朝バッチで振り返りが動いたかを確認 → D（心得集あり版の予測）。
+- **現在地**：A（前提の修理）完了・push済み。10/16朝バッチで効果確認済み（Claude 9/9レース保存、Jev 3アームとも19レース判定・夜の見送り10件も朝に再判定）。B（`playbook.py`）完了。C（`playbook_reflect.py`）完了。朝に組み込んだら予測が2時間遅れたため、夜バッチ（`run_daily.bat`）へ移した（`be3b1ac`、ローカルコミット済み・夜に自動push）。
+- **次の一歩**：10/17夜の振り返り（`logs/playbook_reflect.log`）と10/18朝の公開時刻を確認 → D（心得集あり版の予測）。
 - **やらないこと・待つこと**：Gemini・Grok・基本Gemmaに心得集を載せない／実購入・買い目・LINE買い目は変えない／旧反省会と旧教訓は触らない／`generate_grok_predictions.py` の未コミット変更は別件で触らない／途中段階のコードをコミットしない（夜23時のバッチが未pushコミットを自動pushする）。
 - **答え待ちの質問**：なし
-- **今回触ったファイル**：`playbook.py`、`tests/test_playbook.py`、`playbook_reflect.py`、`tests/test_playbook_reflect.py`、`update_battle_dashboard.py`、`.gitignore`、`task.md`、`NOW.md`
+- **今回触ったファイル**：`playbook.py`、`tests/test_playbook.py`、`playbook_reflect.py`、`tests/test_playbook_reflect.py`、`update_battle_dashboard.py`、`run_daily.bat`、`.gitignore`、`task.md`、`NOW.md`
 - **未コミット / 未push**：B はローカルコミット済み（夜23時のバッチで自動push予定）。NOW.md は未コミット。`generate_grok_predictions.py` は別件で未コミット。
 - **待ち・ブロッカー**：なし
 - **落とし穴・注意**：Bashは1コマンドずつ／テストは `python -m unittest discover -s tests`／ダッシュボードはローカルビルド不可（Actionsで確認）／スキーマファイルはCodexと共用。
@@ -17,7 +17,7 @@
 
 - 最終更新: 2026-10-16
 - 現在のステータス: Phase 2（実装）中。本体・ダッシュボード刷新（I）ともMasaru承認済み（10/15。並びは提案どおり、上位3件の心得本文は公開OK）。A・B完了
-- 次回やること: 朝バッチでの振り返りの動作確認 → D（心得集あり版の予測）
+- 次回やること: 夜バッチでの振り返りの動作確認 → D（心得集あり版の予測）。まとめページ刷新（I）はまだ未着手（10/17に井﨑さんが「見やすくなった？」と気にしていた）
 - 10/16朝バッチ確認：Claude予測 9/9レース保存（10/6からの停止が解消）。Jev 3アーム（codex_jev・claude_jev・all_models_jev）とも19レースすべてjev判定、夜の「オッズ不足」見送り10件も朝に再判定済み
 - 注意：夜23時のバッチ（`main_runner.py`）がローカルの未pushコミットもまとめてpushするため、途中段階のコードはコミットせず、動く単位でコミットする
 - push済み：`430cdce`・`c4fd44a`・`1278f2b`・`3697021`（10/16 0:10の夜間バッチが自動でpush）
@@ -47,14 +47,18 @@
 - [x] `changes.jsonl` への変更記録
 - [x] 単体テスト `tests/test_playbook_reflect.py`（15件、全体81件合格）
 - [x] 本物での試運転（10/17、一時フォルダのみ・本番の心得集には未反映）：Claude→Codex 1件追加、Codex→Claude 5件追加、拒否0。どちらも条件→行動の具体的な心得
-- [x] 朝バッチ（`update_battle_dashboard.py` の1回目 `generate_battle_data.py` の直後・各予測の前）へ組み込み（10/17 Masaru了承「今すぐ組み込む」）。`allow_fail=True`、`--skip-playbook` で停止可。テスト2件追加（全体83件合格）
-- [ ] 10/17朝以降の朝バッチで振り返りが動いたか確認（`logs/morning.log` の「心得集の振り返り」行、`daily_data/playbooks/` の生成、バッチ所要時間の伸び）
+- [x] 朝バッチへ組み込み（10/17 `4d493b6`）→ **10/17朝に問題**：Claudeの振り返り3件（codex・gemma_ft・qwen_grok_x）が15分タイムアウト、各モデルの予測と公開が約2時間遅れ（公開12:14）。成功は claude（Codexが5件）と qwen_claude（Claudeが1件）
+- [x] 夜バッチへ移動（10/17 Masaru了承「夜バッチへ移す」、`be3b1ac`）：`run_daily.bat` の `main_runner.py` の後で `python playbook_reflect.py --night`（18時以降は翌日、0時過ぎは当日が対象日）。ログ `logs/playbook_reflect.log`。材料は20レースに削減。朝バッチからは削除。全86件合格
+- [ ] 10/17夜（23時〜）の夜バッチで振り返りが動いたか確認（`logs/playbook_reflect.log` に5モデル分の結果行、対象日 2026-10-18、タイムアウトの有無）と、10/18朝の公開が元の時刻（10時前）に戻ったか確認
 
 ### D. 心得集あり版の予測
-- [ ] Codex・Claudeの心得集あり版（使った心得IDの出力つき）
-- [ ] ローカル3モデルの心得集あり版
-- [ ] `generate_battle_data.py`・`model_performance.py` への登録
-- [ ] `update_battle_dashboard.py` へ障害分離して接続
+- [x] Codex・Claudeの心得集あり版（使った心得IDの出力つき）：新規 `playbook_predict.py`（10/17）。既存の指示文・学習情報をそのまま使い末尾に心得集だけ足す。出力形式は別に持つ（`used_playbook_ids` 追加。共用スキーマファイルは変えない）
+- [x] ローカル3モデルの心得集あり版：`predict_gemma_ft.py` の入力作成・呼び出し・解析を使い回し、末尾に心得集を足す。使用IDは本文中のID表記を拾う
+  - 出力：`daily_<model>_playbook_predictions.csv`（codex / claude / gemma_ft / qwen_claude / qwen_grok_x）。列接尾辞 CodexPB・ClaudePB・GemmaFTPB・QwenClaudePB・QwenGrokXPB、心得集の版・ハッシュ・件数・使用ID
+  - 心得集が空のモデルは予測しない。入力の対象日が今日でなければ予測しない
+- [x] 朝バッチへ障害分離して接続：`run_morning.bat` の最後（battle update・CLVの後）で `python playbook_predict.py`。既存の予測・公開を遅らせない（10/17の教訓）。常に終了コード0
+- [x] テスト `tests/test_playbook_predict.py`（9件、全体95件合格）
+- [ ] `generate_battle_data.py`・`model_performance.py` への登録（採点・画面表示）→ E で行う（既存の公開JSONを変えるため、評価と一緒に）
 
 ### E. Jevと評価
 - [ ] `jev_shadow.py` に4アーム追加、`jev_pairing_v2` へ版上げ
