@@ -242,9 +242,6 @@ class MorningBatchTest(unittest.TestCase):
 
         def fake_run(script, allow_fail=False, extra_args=None):
             calls.append(script)
-            if script == "playbook_reflect.py":
-                self.assertTrue(allow_fail)  # 失敗しても朝バッチを止めない
-                return False
             return True
 
         argv = ["update_battle_dashboard.py", "--no-push", "--skip-gemini", "--skip-grok", "--skip-gemma", "--skip-jev"]
@@ -258,15 +255,34 @@ class MorningBatchTest(unittest.TestCase):
         publish.assert_called_once_with(no_push=True)
         return calls
 
-    def test_reflection_runs_before_predictions_and_failure_continues(self) -> None:
+    def test_morning_batch_does_not_run_reflection(self) -> None:
+        # 2026-10-17 に朝で動かして予測が約2時間遅れたため、振り返りは夜の run_daily.bat で行う
         calls = self._run_batch([])
-        self.assertLess(calls.index("playbook_reflect.py"), calls.index("generate_codex_predictions.py"))
-        self.assertLess(calls.index("playbook_reflect.py"), calls.index("generate_claude_predictions.py"))
-        self.assertEqual(calls.index("generate_battle_data.py"), 0)
-        self.assertIn("model_performance.py", calls)
+        self.assertNotIn("playbook_reflect.py", calls)
+        self.assertIn("generate_claude_predictions.py", calls)
 
-    def test_skip_playbook(self) -> None:
-        self.assertNotIn("playbook_reflect.py", self._run_batch(["--skip-playbook"]))
+    def test_night_batch_runs_reflection_after_main_runner(self) -> None:
+        bat = (ROOT / "run_daily.bat").read_text(encoding="ascii")
+        self.assertIn("python playbook_reflect.py --night", bat)
+        self.assertLess(bat.index("python main_runner.py"), bat.index("python playbook_reflect.py"))
+
+
+class NightTargetDateTest(unittest.TestCase):
+    def test_evening_targets_next_day(self) -> None:
+        from datetime import datetime
+
+        self.assertEqual(pr.night_target_date(datetime(2026, 10, 17, 23, 0)), "2026-10-18")
+        self.assertEqual(pr.night_target_date(datetime(2026, 10, 17, 18, 0)), "2026-10-18")
+        self.assertEqual(pr.night_target_date(datetime(2026, 12, 31, 23, 30)), "2027-01-01")
+
+    def test_after_midnight_targets_same_day(self) -> None:
+        from datetime import datetime
+
+        # 夜のバッチが0時を回った場合は、その日（=次に予測する日）が対象
+        self.assertEqual(pr.night_target_date(datetime(2026, 10, 18, 0, 30)), "2026-10-18")
+
+    def test_date_and_night_together_is_rejected(self) -> None:
+        self.assertEqual(pr.main(["--date", "2026-10-18", "--night", "--dry-run"]), 2)
 
 
 class OutputParseTest(unittest.TestCase):

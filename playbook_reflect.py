@@ -2,8 +2,11 @@
 
 - Claude が Codex・学習Gemma・学習Qwen2種を、Codex が Claude を振り返る（自己採点しない）。
 - 材料は対象モデル自身の確定済み予測と、レース結果・事前情報だけ。他モデルの買い目は見せない。
-- 呼び出しは1モデル1日1回。前回の振り返り以降の新しいレースだけを、新しい順に最大40件使う
+- 呼び出しは1モデル1日1回。前回の振り返り以降の新しいレースだけを、新しい順に最大20件使う
   （旧反省会のように古い順に処理して遅れが積み上がるのを避ける）。
+- 実行は夜のバッチ（run_daily.bat の main_runner.py の後）で `--night` を付けて行い、
+  その日の結果まで使って翌日用の心得集を作る。2026-10-17 に朝バッチで動かしたところ
+  Claude の応答待ちで朝の予測が約2時間遅れたため、朝からは外した。
 - どのモデルの振り返りが失敗しても、ほかのモデル・既存の予測は止めない。失敗した日は
   心得集を変えず、予測側は playbook.load_snapshot で前日以前の版を使う。
 - 実購入・既存の買い目・LINE通知には一切関わらない。
@@ -19,7 +22,7 @@ import re
 import subprocess
 import sys
 import tempfile
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any, Callable
 
@@ -44,7 +47,8 @@ DATA_DIR = ROOT / "dashboard" / "public" / "daily_data"
 STATE_FILE_NAME = "reflect_state.json"
 REFLECTIONS_DIR_NAME = "reflections"
 
-MAX_RACES_PER_REFLECTION = 40  # 1回の振り返りに渡す最大レース数（新しい順）
+MAX_RACES_PER_REFLECTION = 20  # 1回の振り返りに渡す最大レース数（新しい順）
+NIGHT_START_HOUR = 18  # --night: この時刻以降なら翌日用、それより前（0時過ぎ）なら当日用
 MAX_EXPLANATION_CHARS = 200  # 材料に入れる各予測の理由文の上限
 CALL_TIMEOUT_SEC = 900
 
@@ -580,9 +584,23 @@ def format_result(outcome: dict[str, Any]) -> str:
     return f"[WARN] {head}: 失敗（心得集は前日版のまま）: {outcome.get('error')}"
 
 
+def night_target_date(now: datetime | None = None) -> str:
+    """夜のバッチから呼ばれたときの対象日（次に予測する日）を決める。
+
+    23時台なら翌日、日付が変わった後（0時過ぎまでバッチが延びた場合）なら当日。
+    main_runner.py の date_pred と同じ考え方。
+    """
+    now = now or datetime.now()
+    day = now.date()
+    if now.hour >= NIGHT_START_HOUR:
+        day = day + timedelta(days=1)
+    return day.isoformat()
+
+
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="強いモデルの振り返りで心得集を更新します（たすき掛け）。")
-    parser.add_argument("--date", default=date.today().isoformat(), help="次に予測する日（既定: 今日）")
+    parser.add_argument("--date", default=None, help="次に予測する日（既定: 今日）")
+    parser.add_argument("--night", action="store_true", help="夜のバッチ用：18時以降なら翌日を対象日にする")
     parser.add_argument(
         "--models",
         default=",".join(pb.MODEL_KEYS),
@@ -595,6 +613,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
+    if args.date and args.night:
+        print("[ERROR] --date と --night は同時に指定できません", file=sys.stderr)
+        return 2
+    if args.date is None:
+        args.date = night_target_date() if args.night else date.today().isoformat()
     models = [m.strip() for m in args.models.split(",") if m.strip()]
     unknown = [m for m in models if m not in pb.MODEL_KEYS]
     if unknown:
@@ -603,7 +626,7 @@ def main(argv: list[str] | None = None) -> int:
     print(f"心得集の振り返り 開始（対象日: {args.date}）")
     for outcome in run(args.date, models, force=args.force, dry_run=args.dry_run):
         print(format_result(outcome))
-    # 振り返りの失敗で朝バッチ全体を止めないため、常に 0 を返す
+    # 振り返りの失敗で夜バッチの後続（終了待ちなど）を乱さないため、常に 0 を返す
     return 0
 
 
