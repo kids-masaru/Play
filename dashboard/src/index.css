@@ -944,3 +944,112 @@ body {
   .comparison-table-card, .comparison-chart-card, .how-to-read { padding-left: .6rem; padding-right: .6rem; }
   .page-heading h2 { font-size: 1.2rem; }
 }
+
+/* ===== まとめ・実験ページ（2026-10-17） ===== */
+.ov-page { display: flex; flex-direction: column; gap: 1rem; }
+.ov-title { margin: 0 0 .6rem; color: #111827; font-size: 1rem; }
+.ov-empty { padding: 1.4rem; color: #6b7280; background: #fafbfc; border: 1px dashed #d6dbe1; border-radius: 9px; text-align: center; font-size: .8rem; }
+.ov-muted { margin: .3rem 0 0; color: #8a93a0; font-size: .72rem; }
+.ov-link { padding: .4rem .7rem; color: #111827; background: #f3f4f6; border: 1px solid #dfe3e8; border-radius: 7px; font-size: .72rem; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.ov-link:hover { background: #e9ebef; }
+
+.ov-pill { display: inline-block; padding: .18rem .45rem; border-radius: 999px; font-size: .62rem; font-weight: 800; white-space: nowrap; }
+.ov-pill-ok { color: #047857; background: #e7f6f0; }
+.ov-pill-partial { color: #8a5a00; background: #fff3d6; }
+.ov-pill-failed { color: #be344f; background: #fdecef; }
+.ov-pill-pending { color: #596170; background: #eef0f3; }
+.ov-alert-badge { color: #be344f !important; background: #fdecef !important; }
+
+/* 1. 運用チェック */
+.ov-ops-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .55rem; }
+.ov-ops-card { display: grid; gap: .3rem; min-width: 0; padding: .65rem .7rem; background: #fafbfc; border: 1px solid #e2e5e9; border-left: 4px solid #07966f; border-radius: 8px; }
+.ov-ops-card.status-partial { border-left-color: #d69e2e; }
+.ov-ops-card.status-failed { border-left-color: #9ca3af; }
+.ov-ops-card.is-alert { background: #fff5f6; border-color: #f3c2cc; border-left-color: #be344f; }
+.ov-ops-top { display: flex; align-items: flex-start; justify-content: space-between; gap: .4rem; }
+.ov-ops-top strong { color: #111827; font-size: .74rem; line-height: 1.35; }
+.ov-ops-count { display: flex; align-items: baseline; gap: .25rem; }
+.ov-ops-count strong { color: #111827; font-size: 1.25rem; }
+.ov-ops-count span { color: #6b7280; font-size: .68rem; }
+.ov-ops-card small { color: #7b8491; font-size: .62rem; }
+.ov-ops-card.is-alert small { color: #be344f; font-weight: 700; }
+.ov-jobs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .55rem; margin-top: .7rem; }
+.ov-job { display: flex; align-items: flex-start; gap: .55rem; padding: .6rem .7rem; background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; }
+.ov-job > div { display: grid; gap: .12rem; min-width: 0; }
+.ov-job strong { color: #111827; font-size: .74rem; }
+.ov-job span { color: #303846; font-size: .7rem; }
+.ov-job small { color: #9ca3af; font-size: .6rem; }
+
+/* 2. 結論ボード */
+.ov-board { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr)); gap: .7rem; }
+.ov-board-card { padding: .75rem .8rem; background: #fafbfc; border: 1px solid #e2e5e9; border-radius: 9px; }
+.ov-board-head { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-bottom: .55rem; }
+.ov-board-head strong { color: #111827; font-size: .86rem; }
+.ov-verdict { padding: .2rem .5rem; border-radius: 5px; font-size: .64rem; font-weight: 800; color: #596170; background: #eef0f3; }
+.ov-verdict-playbook_better { color: #047857; background: #e7f6f0; }
+.ov-verdict-baseline_better { color: #be344f; background: #fdecef; }
+.ov-cells { display: grid; gap: .45rem; }
+.ov-cells.is-four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.ov-cells.is-two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ov-cell { display: grid; align-content: start; gap: .15rem; min-width: 0; padding: .55rem .6rem; background: #fff; border: 1px solid #e5e7eb; border-radius: 7px; }
+.ov-cell-title { color: #6b7280; font-size: .62rem; font-weight: 800; }
+.ov-cell > strong { color: #111827; font-size: 1.05rem; }
+.ov-cell small { color: #8a93a0; font-size: .6rem; }
+.ov-cell.is-empty { background: #f7f8fa; }
+.ov-cell .ov-cell-empty { color: #9ca3af; font-size: .82rem; }
+.ov-cell .ov-cell-note { color: #a0a7b2; font-style: normal; }
+.ov-progress { display: flex; align-items: center; gap: .55rem; margin-top: .6rem; }
+.ov-progress-bar { flex: 1; height: 6px; overflow: hidden; background: #e5e7eb; border-radius: 99px; }
+.ov-progress-bar i { display: block; height: 100%; background: #2563eb; border-radius: 99px; }
+.ov-progress span { color: #6b7280; font-size: .64rem; font-weight: 700; white-space: nowrap; }
+.ov-diff { display: block; margin-top: .4rem; color: #6b7280; font-size: .66rem; line-height: 1.5; }
+
+/* 3. 心得集の今 */
+.ov-playbooks { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .7rem; }
+.ov-playbook-card { display: grid; align-content: start; gap: .5rem; min-width: 0; padding: .75rem .8rem; background: #fafbfc; border: 1px solid #e2e5e9; border-radius: 9px; }
+.ov-playbook-head { display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem; }
+.ov-playbook-head > div:first-child { display: grid; gap: .15rem; }
+.ov-playbook-head strong { color: #111827; font-size: .8rem; }
+.ov-playbook-head small { color: #8a93a0; font-size: .62rem; }
+.ov-playbook-count { display: flex; align-items: baseline; gap: .15rem; }
+.ov-playbook-count strong { font-size: 1.35rem; }
+.ov-playbook-count span { color: #6b7280; font-size: .68rem; }
+.ov-week { display: flex; flex-wrap: wrap; gap: .35rem; }
+.ov-week span { padding: .2rem .45rem; color: #596170; background: #eef0f3; border-radius: 5px; font-size: .62rem; }
+.ov-week b { color: #111827; }
+.ov-top-items { display: grid; gap: .45rem; margin: 0; padding-left: 1.1rem; }
+.ov-top-items li { color: #303846; }
+.ov-top-items p { margin: 0; font-size: .72rem; line-height: 1.55; }
+.ov-top-items small { color: #8a93a0; font-size: .6rem; }
+
+/* 4・5. 検証・全体成績 */
+.ov-backtest, .ov-overall { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
+.ov-backtest > div, .ov-overall-card { display: grid; gap: .2rem; min-width: 0; padding: .7rem .8rem; background: #fafbfc; border: 1px solid #e2e5e9; border-radius: 8px; }
+.ov-backtest span, .ov-overall-label { color: #6b7280; font-size: .7rem; font-weight: 700; }
+.ov-overall-label small { margin-left: .4rem; color: #9ca3af; font-weight: 600; }
+.ov-backtest strong, .ov-overall-card strong { font-size: 1.3rem; }
+.ov-backtest small, .ov-overall-card small { color: #7b8491; font-size: .64rem; line-height: 1.5; }
+
+/* 実験ページ：心得集の効果 */
+.ov-effect-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: .7rem; }
+.ov-effect-card { padding: .75rem .8rem; background: #fafbfc; border: 1px solid #e2e5e9; border-radius: 9px; }
+.ov-effect-head { display: flex; justify-content: space-between; gap: .5rem; margin-bottom: .5rem; }
+.ov-effect-head strong { color: #111827; font-size: .8rem; }
+.ov-effect-head span { color: #6b7280; font-size: .64rem; font-weight: 700; }
+.ov-effect-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) repeat(2, minmax(0, 1fr)); gap: .3rem .5rem; align-items: baseline; font-size: .7rem; }
+.ov-effect-grid b { color: #6b7280; font-size: .62rem; text-align: right; }
+.ov-effect-grid span { color: #7b8491; }
+.ov-effect-grid strong { color: #303846; text-align: right; }
+
+@media (max-width: 760px) {
+  .ov-jobs { grid-template-columns: 1fr; }
+  .ov-ops-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ov-cells.is-four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ov-backtest, .ov-overall { grid-template-columns: 1fr; }
+  .ov-page .simple-section-heading { flex-wrap: wrap; align-items: flex-start; }
+}
+@media (max-width: 390px) {
+  .ov-ops-grid { grid-template-columns: 1fr 1fr; gap: .4rem; }
+  .ov-cell { padding: .45rem .5rem; }
+  .ov-cell > strong { font-size: .92rem; }
+}

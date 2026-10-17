@@ -11,6 +11,7 @@
   6. model_performance.py  (モデル比較の7日/30日/全期間集計)
   7. jev_shadow.py  (既存買い目をJevでシャドー審査。実購入は変更しない)
   8. jev_pairing_performance.py  (Codex/ClaudeとJevの確定済み比較成績)
+  8.5 build_overview.py  (まとめページ用 overview.json)
   9. 成果物 JSON を git add -> commit -> push (GitHub Pages へ公開)
 
 なぜこの順番か:
@@ -76,6 +77,8 @@ PUBLISH_FILES = [
     "dashboard/public/daily_data/jev_shadow_decisions.json",
     # Codex/Claude単体とJev選択の確定済み比較成績。
     "dashboard/public/daily_data/jev_pairing_performance.json",
+    # まとめページ（運用チェック・結論ボード・心得集の今など）。build_overview.py が生成
+    "dashboard/public/daily_data/overview.json",
 ]
 
 
@@ -272,6 +275,9 @@ def main():
     # 傾向(攻略図)タブのデータを再生成（会場別/レース番号別のイン率ヒートマップ）。
     # 最新の結果・予想CSVが揃った後に集計する。失敗しても他の公開は止めない。
     run_py("analysis/boat_venue_tendency.py", allow_fail=True)
+
+    # まとめページ用の集計。ほかの集計が全部そろった後に作る。失敗しても公開は止めない。
+    run_py("build_overview.py", allow_fail=True)
 
     # 穴③: 公開
     publish(no_push=no_push)

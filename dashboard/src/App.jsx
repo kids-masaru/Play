@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Battle from './Battle';
 import Toto from './Toto';
 import ModelDashboard from './ModelDashboard';
+import Overview from './Overview';
+import Experiments from './Experiments';
 import './index.css';
 
 const App = () => {
@@ -9,7 +11,8 @@ const App = () => {
   const [loopData, setLoopData] = useState(null);
   const [error, setError] = useState(null);
   const [period, setPeriod] = useState('weekly'); // 初期表示は直近7日。30日・全期間へ切替可能。
-  const [page, setPage] = useState('dashboard'); // 'dashboard', 'ailab'
+  // 初期表示は「まとめ」（2026-10-17〜）。'overview' / 'dashboard' / 'experiments' / 'battle' / 'toto' / 'ailab'
+  const [page, setPage] = useState('overview');
 
   useEffect(() => {
     // 日次更新データの古いキャッシュを避けるためクエリで打ち消す
@@ -121,7 +124,9 @@ const App = () => {
             <div><span className="brand-kicker">BOAT RACE</span><h1>予測成績</h1></div>
           </div>
           <nav className="tab-container primary-nav" aria-label="メインメニュー">
+            <button className={`tab-button ${page === 'overview' ? 'active' : ''}`} onClick={() => setPage('overview')}>まとめ</button>
             <button className={`tab-button ${page === 'dashboard' ? 'active' : ''}`} onClick={() => setPage('dashboard')}>モデル比較</button>
+            <button className={`tab-button ${page === 'experiments' ? 'active' : ''}`} onClick={() => setPage('experiments')}>実験</button>
             {/* AI Lab タブは非表示（自己改善ループ停止中のため）。将来AIが賢くなったら復活できるよう
                 renderAiLab() と loop_results.json・ループ関連スクリプトはそのまま残してある。
                 再表示するにはこの行のコメントを戻すだけ:
@@ -151,6 +156,10 @@ const App = () => {
           </div>
         )}
       </header>
+
+      {page === 'overview' && <Overview onOpenModels={() => setPage('dashboard')} />}
+
+      {page === 'experiments' && <Experiments />}
 
       {page === 'ailab' && renderAiLab()}
 

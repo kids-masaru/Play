@@ -92,7 +92,7 @@ const CHARTS = {
 
 // CLV（Closing Line Value）セクション。ROIとは独立の"妙味の先取り"指標。
 // clv_summary.json（compute_clv.py が生成）を独立取得。ファイルが無い／未蓄積でも安全に何も出さない。
-const ClvSection = () => {
+export const ClvSection = () => {
   const [clv, setClv] = useState(null);
   useEffect(() => {
     fetch(`./daily_data/clv_summary.json?t=${Date.now()}`)
@@ -136,7 +136,7 @@ const ClvSection = () => {
 };
 
 // Jevは実購入へ接続せず、元モデルとJev選択を同じ確定結果で比較する。
-const JevPairingSection = () => {
+export const JevPairingSection = () => {
   const [pairing, setPairing] = useState(null);
   const [loadError, setLoadError] = useState(false);
 
@@ -347,10 +347,7 @@ const ModelDashboard = ({ period = 'weekly' }) => {
         </ComposedChart>
       </ResponsiveContainer> : <div className="comparison-empty">この期間の確定結果はまだありません。</div>}
     </section>
-
-    <JevPairingSection />
-
-    <ClvSection />
+    {/* Jev組み合わせ比較とCLVは「実験」タブ（Experiments.jsx）へ移動（2026-10-17） */}
   </main>;
 };
 
