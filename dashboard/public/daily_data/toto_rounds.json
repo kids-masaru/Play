@@ -26,15 +26,15 @@
       ],
       "deadline": "2026-10-10 13:50",
       "result_date": "2026-10-11",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
       "settled": true,
       "summary": {
         "stat": {
-          "n": 12,
-          "hits": 6
+          "n": 13,
+          "hits": 7
         },
         "gemini": {
           "n": 13,
@@ -201,7 +201,12 @@
           "kickoff": "15:00",
           "home": "東京ヴェルディ",
           "away": "サンフレッチェ広島",
-          "stats": null,
+          "stats": {
+            "p_H": 0.0827,
+            "p_D": 0.2538,
+            "p_A": 0.6635,
+            "pick": "A"
+          },
           "gemini_pick": "A",
           "gemini_confidence": "中",
           "gemini_reasoning": "チーム総合力や選手層の面において、近年のJ1で常に上位争いを繰り広げるサンフレッチェ広島が優位に立ちます。\n東京ヴェルディは規律ある組織守備とハードワークで粘り強く対応するスタイルですが、広島の強烈なプレッシングと多彩な攻撃陣を90分間完全に抑え込むのは困難です。\n東京ヴェルディのホームアドバンテージを考慮しても、個の決定力とチームの完成度で勝るアウェイのサンフレッチェ広島が主導権を握り勝利を収めると予想します。",
@@ -373,7 +378,7 @@
       ],
       "deadline": "2026-10-10 13:50",
       "result_date": "2026-10-11",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -533,15 +538,15 @@
       ],
       "deadline": "2026-10-10 13:50",
       "result_date": "2026-10-11",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
       "settled": true,
       "summary": {
         "stat": {
-          "n": 4,
-          "hits": 3
+          "n": 5,
+          "hits": 4
         },
         "gemini": {
           "n": 5,
@@ -588,7 +593,12 @@
           "kickoff": "15:00",
           "home": "東京ヴェルディ",
           "away": "サンフレッチェ広島",
-          "stats": null,
+          "stats": {
+            "p_H": 0.0827,
+            "p_D": 0.2538,
+            "p_A": 0.6635,
+            "pick": "A"
+          },
           "gemini_pick": "A",
           "gemini_confidence": "中",
           "gemini_reasoning": "チーム総合力や選手層の面において、近年のJ1で常に上位争いを繰り広げるサンフレッチェ広島が優位に立ちます。\n東京ヴェルディは規律ある組織守備とハードワークで粘り強く対応するスタイルですが、広島の強烈なプレッシングと多彩な攻撃陣を90分間完全に抑え込むのは困難です。\n東京ヴェルディのホームアドバンテージを考慮しても、個の決定力とチームの完成度で勝るアウェイのサンフレッチェ広島が主導権を握り勝利を収めると予想します。",
@@ -678,31 +688,37 @@
       "round": 1659,
       "kuji": "mini_a",
       "kuji_label": "mini toto-A (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 1910,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 1910,
+          "count": 2726
+        }
+      ],
       "deadline": "2026-10-07 18:20",
       "result_date": "2026-10-07",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 3
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 3
         },
         "codex": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 3
         },
         "claude": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 3
         }
       },
       "matches": [
@@ -728,7 +744,7 @@
           "claude_pick": "H",
           "claude_confidence": "72%",
           "claude_reasoning": "広島がホームで56.9%の確率。過去ラウンドでも広島の実力を示す結果が多く、格下相手のホームゲームで安定感高い。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1659-2",
@@ -752,7 +768,7 @@
           "claude_pick": "H",
           "claude_confidence": "50%",
           "claude_reasoning": "モデルH優位だが岡山でH予測を過去2連続で外した実績あり。自信は低めで追従。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1659-3",
@@ -776,7 +792,7 @@
           "claude_pick": "A",
           "claude_confidence": "63%",
           "claude_reasoning": "モデルA51.5%。長崎はアウェイでも上位の実力を見せる傾向があり、清水のホームは過信しない。",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1659-4",
@@ -785,7 +801,12 @@
           "kickoff": "19:00",
           "home": "ガイナーレ鳥取",
           "away": "東京ヴェルディ",
-          "stats": null,
+          "stats": {
+            "p_H": 0.5919,
+            "p_D": 0.2546,
+            "p_A": 0.1535,
+            "pick": "H"
+          },
           "gemini_pick": "A",
           "gemini_confidence": "高",
           "gemini_reasoning": "J1所属の東京ヴェルディとJ3所属のガイナーレ鳥取との間には、チームの全体的な戦力や選手層において明確なカテゴリー差が存在します。\n鳥取がホームアドバンテージを生かして挑むものの、ヴェルディの組織的な守備と個のクオリティに対応し続けるのは極めて困難です。\nカップ戦等によるメンバーチェンジを考慮してもサブ層の厚さで優る東京ヴェルディが主導権を握り、勝ち切る可能性が非常に高いと判断します。",
@@ -795,7 +816,7 @@
           "claude_pick": "A",
           "claude_confidence": "44%",
           "claude_reasoning": "統計モデルなし。東京ヴェルディは格上クラブで実力差を評価し、不確実性を反映して低信頼度でA選択。",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1659-5",
@@ -819,7 +840,7 @@
           "claude_pick": "H",
           "claude_confidence": "58%",
           "claude_reasoning": "川崎はアウェイでも強さを示した実績あり、ホームではさらに優位。モデルH43.1%を支持。",
-          "result": ""
+          "result": "H"
         }
       ]
     },
@@ -827,31 +848,37 @@
       "round": 1659,
       "kuji": "mini_b",
       "kuji_label": "mini toto-B (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 790,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 790,
+          "count": 5401
+        }
+      ],
       "deadline": "2026-10-07 17:50",
       "result_date": "2026-10-07",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 3
         },
         "codex": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         },
         "claude": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         }
       },
       "matches": [
@@ -877,7 +904,7 @@
           "claude_pick": "H",
           "claude_confidence": "58%",
           "claude_reasoning": "川崎はアウェイでも強さを示した実績あり、ホームではさらに優位。モデルH43.1%を支持。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1659-2",
@@ -901,7 +928,7 @@
           "claude_pick": "A",
           "claude_confidence": "62%",
           "claude_reasoning": "モデルがA優位(46.6%)を示す埼玉ダービー。直近ラウンドでも浦和H予測が外れた実績あり。大宮が勢いを維持と判断。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1659-3",
@@ -925,7 +952,7 @@
           "claude_pick": "H",
           "claude_confidence": "55%",
           "claude_reasoning": "モデルH優位(39.8%)。福岡は近過去の結果でホーム勝利の実績があり、差は小さいが地の利を評価。",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1659-4",
@@ -949,7 +976,7 @@
           "claude_pick": "A",
           "claude_confidence": "68%",
           "claude_reasoning": "モデルがA54.3%と強いシグナル。Dは過去5回0中の実績から除外し、最も確率の高い鹿児島勝利を選択。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1659-5",
@@ -973,7 +1000,7 @@
           "claude_pick": "H",
           "claude_confidence": "74%",
           "claude_reasoning": "モデルH59.1%と最も強い信号。FC東京はホームで好結果を出す傾向があり、湘南相手に最上位信頼度。",
-          "result": ""
+          "result": "H"
         }
       ]
     },
@@ -1001,7 +1028,7 @@
       ],
       "deadline": "2026-10-03 13:50",
       "result_date": "2026-10-04",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -1353,7 +1380,7 @@
       ],
       "deadline": "2026-10-03 13:50",
       "result_date": "2026-10-03",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -1513,7 +1540,7 @@
       ],
       "deadline": "2026-10-03 13:50",
       "result_date": "2026-10-04",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -1663,31 +1690,37 @@
       "round": 1655,
       "kuji": "mini_a",
       "kuji_label": "mini toto-A (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 210,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 210,
+          "count": 29590
+        }
+      ],
       "deadline": "2026-09-23 16:50",
       "result_date": "2026-09-23",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 4
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 4
         },
         "codex": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 4
         },
         "claude": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 4
         }
       },
       "matches": [
@@ -1713,7 +1746,7 @@
           "claude_pick": "H",
           "claude_confidence": "62%",
           "claude_reasoning": "モデル61%でH支持。甲府はアウェイでの勝利実績あるが、鹿島ホームの地力を優先。D回避（命中率0%）。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1655-2",
@@ -1737,7 +1770,7 @@
           "claude_pick": "H",
           "claude_confidence": "55%",
           "claude_reasoning": "R1650で神戸ホームD予測→実際Hの実績。鳥栖はアウェイで直近苦戦傾向。モデル51%H支持で追従。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1655-3",
@@ -1761,7 +1794,7 @@
           "claude_pick": "H",
           "claude_confidence": "67%",
           "claude_reasoning": "モデル71%でH最強シグナル。栃木シティはカテゴリー差あり。R1653のD引き分けは格上相手の話。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1655-4",
@@ -1785,7 +1818,7 @@
           "claude_pick": "A",
           "claude_confidence": "47%",
           "claude_reasoning": "G大阪はホームでも直近2ラウンドで敗戦・引き分け連続。モデルも46% A支持。ただしA命中率低く確信度抑制。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1655-5",
@@ -1809,7 +1842,7 @@
           "claude_pick": "H",
           "claude_confidence": "70%",
           "claude_reasoning": "モデル74%H。今治はホーム強いがアウェイでの実績は乏しい。柏の地力とモデル確信度が高く最上位H。",
-          "result": ""
+          "result": "H"
         }
       ]
     },
@@ -1837,15 +1870,15 @@
       ],
       "deadline": "2026-09-19 17:50",
       "result_date": "2026-09-20",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
       "settled": true,
       "summary": {
         "stat": {
-          "n": 12,
-          "hits": 6
+          "n": 13,
+          "hits": 7
         },
         "gemini": {
           "n": 13,
@@ -1892,7 +1925,12 @@
           "kickoff": "18:30",
           "home": "浦和レッズ",
           "away": "東京ヴェルディ",
-          "stats": null,
+          "stats": {
+            "p_H": 0.5943,
+            "p_D": 0.2692,
+            "p_A": 0.1364,
+            "pick": "H"
+          },
           "gemini_pick": "H",
           "gemini_confidence": "中",
           "gemini_reasoning": "チーム個々の戦力や選手層の厚さにおいて、ホームの浦和レッズが東京ヴェルディを上回っています。\n埼玉スタジアムでの浦和は圧倒的なサポーターの後押しもあり、強力なホームアドバンテージを発揮して試合の主導権を握ることが予想されます。\n東京ヴェルディの粘り強い組織守備も健闘が期待されますが、90分を通して浦和の攻撃力を抑えきることは難しく、ホームチームが勝ち点3を獲得する可能性が高いと判断します。",
@@ -2184,15 +2222,15 @@
       ],
       "deadline": "2026-09-19 17:50",
       "result_date": "2026-09-19",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
       "settled": true,
       "summary": {
         "stat": {
-          "n": 4,
-          "hits": 3
+          "n": 5,
+          "hits": 4
         },
         "gemini": {
           "n": 5,
@@ -2239,7 +2277,12 @@
           "kickoff": "18:30",
           "home": "浦和レッズ",
           "away": "東京ヴェルディ",
-          "stats": null,
+          "stats": {
+            "p_H": 0.5943,
+            "p_D": 0.2692,
+            "p_A": 0.1364,
+            "pick": "H"
+          },
           "gemini_pick": "H",
           "gemini_confidence": "中",
           "gemini_reasoning": "チーム個々の戦力や選手層の厚さにおいて、ホームの浦和レッズが東京ヴェルディを上回っています。\n埼玉スタジアムでの浦和は圧倒的なサポーターの後押しもあり、強力なホームアドバンテージを発揮して試合の主導権を握ることが予想されます。\n東京ヴェルディの粘り強い組織守備も健闘が期待されますが、90分を通して浦和の攻撃力を抑えきることは難しく、ホームチームが勝ち点3を獲得する可能性が高いと判断します。",
@@ -2339,7 +2382,7 @@
       ],
       "deadline": "2026-09-19 18:20",
       "result_date": "2026-09-20",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -2509,14 +2552,14 @@
       ],
       "deadline": "2026-09-12 17:50",
       "result_date": "2026-09-13",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
       "settled": true,
       "summary": {
         "stat": {
-          "n": 12,
+          "n": 13,
           "hits": 4
         },
         "gemini": {
@@ -2684,7 +2727,12 @@
           "kickoff": "18:00",
           "home": "東京ヴェルディ",
           "away": "ジェフユナイテッド千葉",
-          "stats": null,
+          "stats": {
+            "p_H": 0.2128,
+            "p_D": 0.3598,
+            "p_A": 0.4274,
+            "pick": "A"
+          },
           "gemini_pick": "H",
           "gemini_confidence": "中",
           "gemini_reasoning": "J1で組織的なハードワークと堅固な守備ブロックを定着させている東京ヴェルディと、前線からのハイプレスを得意とするジェフユナイテッド千葉の一戦です。東京ヴェルディはゲームコントロール力に優れ、ホーム味の素スタジアムでは極めて手堅い試合運びを展開できます。千葉の積極的な攻撃に対しても冷静に対処して守備の隙を与えず、要所での勝負強さとホームアドバンテージを活かして東京ヴェルディが優位に試合を進めて競り勝つと予想します。",
@@ -2856,7 +2904,7 @@
       ],
       "deadline": "2026-09-12 17:50",
       "result_date": "2026-09-12",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -3016,14 +3064,14 @@
       ],
       "deadline": "2026-09-12 17:50",
       "result_date": "2026-09-13",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
       "settled": true,
       "summary": {
         "stat": {
-          "n": 4,
+          "n": 5,
           "hits": 2
         },
         "gemini": {
@@ -3071,7 +3119,12 @@
           "kickoff": "18:00",
           "home": "東京ヴェルディ",
           "away": "ジェフユナイテッド千葉",
-          "stats": null,
+          "stats": {
+            "p_H": 0.2128,
+            "p_D": 0.3598,
+            "p_A": 0.4274,
+            "pick": "A"
+          },
           "gemini_pick": "H",
           "gemini_confidence": "中",
           "gemini_reasoning": "J1で組織的なハードワークと堅固な守備ブロックを定着させている東京ヴェルディと、前線からのハイプレスを得意とするジェフユナイテッド千葉の一戦です。東京ヴェルディはゲームコントロール力に優れ、ホーム味の素スタジアムでは極めて手堅い試合運びを展開できます。千葉の積極的な攻撃に対しても冷静に対処して守備の隙を与えず、要所での勝負強さとホームアドバンテージを活かして東京ヴェルディが優位に試合を進めて競り勝つと予想します。",
@@ -3161,31 +3214,37 @@
       "round": 1651,
       "kuji": "mini_a",
       "kuji_label": "mini toto-A (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 9040,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 9040,
+          "count": 644
+        }
+      ],
       "deadline": "2026-09-09 18:20",
       "result_date": "2026-09-09",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 1
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         },
         "codex": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         },
         "claude": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         }
       },
       "matches": [
@@ -3196,7 +3255,12 @@
           "kickoff": "18:30",
           "home": "レイラック滋賀ＦＣ",
           "away": "東京ヴェルディ",
-          "stats": null,
+          "stats": {
+            "p_H": 0.6669,
+            "p_D": 0.215,
+            "p_A": 0.118,
+            "pick": "H"
+          },
           "gemini_pick": "A",
           "gemini_confidence": "高",
           "gemini_reasoning": "JFLに所属するレイラック滋賀ＦＣと、J1に所属する東京ヴェルディによるカテゴリーの異なる対戦です。\n両チームの間には戦力規模や選手個々の質、日常的なプレイ強度において明確な差が存在します。\nカップ戦特有の一発勝負で滋賀がホームの利を活かして健闘する展開も考えられますが、地力で勝る東京ヴェルディが試合を優位に進め、勝機を逃さず勝ち切る可能性が極めて高いと分析します。",
@@ -3206,7 +3270,7 @@
           "claude_pick": "A",
           "claude_confidence": "58%",
           "claude_reasoning": "スタッツモデルなしだが東京ヴェルディは格上クラブ。アウェイでも実力差が出やすいと判断。",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1651-2",
@@ -3230,7 +3294,7 @@
           "claude_pick": "A",
           "claude_confidence": "68%",
           "claude_reasoning": "モデルがp_A=0.646と強く示す。水戸の優位を支持し追随。",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1651-3",
@@ -3254,7 +3318,7 @@
           "claude_pick": "H",
           "claude_confidence": "49%",
           "claude_reasoning": "モデルはH/Aほぼ拮抗(0.369 vs 0.371)。ホームアドバンテージを加味してホーム支持。",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1651-4",
@@ -3278,7 +3342,7 @@
           "claude_pick": "A",
           "claude_confidence": "63%",
           "claude_reasoning": "仙台は格上でモデルもp_A=0.462。アウェイ勝利が最有力。",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1651-5",
@@ -3302,7 +3366,7 @@
           "claude_pick": "A",
           "claude_confidence": "68%",
           "claude_reasoning": "モデルp_A=0.616と強いシグナル。長崎は格上でアウェイ勝利を支持。",
-          "result": ""
+          "result": "A"
         }
       ]
     },
@@ -3330,14 +3394,14 @@
       ],
       "deadline": "2026-09-05 18:50",
       "result_date": "2026-09-06",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
       "settled": true,
       "summary": {
         "stat": {
-          "n": 12,
+          "n": 13,
           "hits": 4
         },
         "gemini": {
@@ -3553,7 +3617,12 @@
           "kickoff": "19:00",
           "home": "セレッソ大阪",
           "away": "東京ヴェルディ",
-          "stats": null,
+          "stats": {
+            "p_H": 0.6599,
+            "p_D": 0.2264,
+            "p_A": 0.1137,
+            "pick": "H"
+          },
           "gemini_pick": "H",
           "gemini_confidence": "中",
           "gemini_reasoning": "セレッソ大阪は個別能力の高さと多彩な攻撃バリエーションを備えており、ホームで主導権を握る戦いを得意としています。対する東京ヴェルディは組織的な守備で粘り強く戦うチームですが、敵地でセレッソ大阪の攻撃陣を90分間抑え切るには課題が残ります。総合的な戦力差とホームアドバンテージを加味すると、セレッソ大阪が競り勝つ可能性が高いと判断します。",
@@ -3677,7 +3746,7 @@
       ],
       "deadline": "2026-09-05 18:50",
       "result_date": "2026-09-06",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -3837,14 +3906,14 @@
       ],
       "deadline": "2026-09-05 18:50",
       "result_date": "2026-09-06",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
       "settled": true,
       "summary": {
         "stat": {
-          "n": 4,
+          "n": 5,
           "hits": 2
         },
         "gemini": {
@@ -3916,7 +3985,12 @@
           "kickoff": "19:00",
           "home": "セレッソ大阪",
           "away": "東京ヴェルディ",
-          "stats": null,
+          "stats": {
+            "p_H": 0.6599,
+            "p_D": 0.2264,
+            "p_A": 0.1137,
+            "pick": "H"
+          },
           "gemini_pick": "H",
           "gemini_confidence": "中",
           "gemini_reasoning": "セレッソ大阪は個別能力の高さと多彩な攻撃バリエーションを備えており、ホームで主導権を握る戦いを得意としています。対する東京ヴェルディは組織的な守備で粘り強く戦うチームですが、敵地でセレッソ大阪の攻撃陣を90分間抑え切るには課題が残ります。総合的な戦力差とホームアドバンテージを加味すると、セレッソ大阪が競り勝つ可能性が高いと判断します。",
@@ -4002,15 +4076,15 @@
       ],
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
       "settled": true,
       "summary": {
         "stat": {
-          "n": 12,
-          "hits": 3
+          "n": 13,
+          "hits": 4
         },
         "gemini": {
           "n": 13,
@@ -4033,7 +4107,12 @@
           "kickoff": "19:00",
           "home": "東京ヴェルディ",
           "away": "ヴィッセル神戸",
-          "stats": null,
+          "stats": {
+            "p_H": 0.1586,
+            "p_D": 0.3376,
+            "p_A": 0.5038,
+            "pick": "A"
+          },
           "gemini_pick": "A",
           "gemini_confidence": "中",
           "gemini_reasoning": "ヴィッセル神戸はJ1屈指の資金力と前線の強烈なタレント陣（大迫勇也や武藤嘉紀など）を擁し、高い強度と決定力を備えたリーグトップクラスの強豪です。\n対する東京ヴェルディは組織的な守備とタフなハードワークを武器に粘り強く戦いますが、個の打開力や選手層の厚さにおいては神戸に分があります。\n東京ヴェルディのホームアドバンテージを考慮しても、神戸のフィジカルの強さと勝負強さが上回り、アウェイチームが勝ち点3を持ち帰る可能性が高いと分析します。",
@@ -4349,15 +4428,15 @@
       ],
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
       "settled": true,
       "summary": {
         "stat": {
-          "n": 4,
-          "hits": 1
+          "n": 5,
+          "hits": 2
         },
         "gemini": {
           "n": 5,
@@ -4380,7 +4459,12 @@
           "kickoff": "19:00",
           "home": "東京ヴェルディ",
           "away": "ヴィッセル神戸",
-          "stats": null,
+          "stats": {
+            "p_H": 0.1586,
+            "p_D": 0.3376,
+            "p_A": 0.5038,
+            "pick": "A"
+          },
           "gemini_pick": "A",
           "gemini_confidence": "中",
           "gemini_reasoning": "ヴィッセル神戸はJ1屈指の資金力と前線の強烈なタレント陣（大迫勇也や武藤嘉紀など）を擁し、高い強度と決定力を備えたリーグトップクラスの強豪です。\n対する東京ヴェルディは組織的な守備とタフなハードワークを武器に粘り強く戦いますが、個の打開力や選手層の厚さにおいては神戸に分があります。\n東京ヴェルディのホームアドバンテージを考慮しても、神戸のフィジカルの強さと勝負強さが上回り、アウェイチームが勝ち点3を持ち帰る可能性が高いと分析します。",
@@ -4504,7 +4588,7 @@
       ],
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -4674,15 +4758,15 @@
       ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
-          "n": 12,
-          "hits": 9
+          "n": 13,
+          "hits": 10
         },
         "gemini": {
           "n": 13,
@@ -4777,7 +4861,12 @@
           "kickoff": "19:00",
           "home": "東京ヴェルディ",
           "away": "鹿島アントラーズ",
-          "stats": null,
+          "stats": {
+            "p_H": 0.1297,
+            "p_D": 0.2919,
+            "p_A": 0.5784,
+            "pick": "A"
+          },
           "gemini_pick": "A",
           "gemini_confidence": "中",
           "gemini_reasoning": "鹿島アントラーズは高い個のクオリティと勝負強さを備えた強豪であり、年間を通した戦力の安定感で勝ります。\n対する東京ヴェルディは組織的な守備とハードワークで粘り強く戦うスタイルですが、上位陣相手には決定力の差が出やすい傾向があります。\nヴェルディのホーム開催という利点はあるものの、勝負どころでの試合運びや選手層の厚さで勝る鹿島が主導権を握る展開が予想されます。\n接戦にはなるものの、最終的には鹿島が勝機を逃さず勝ち点3を奪取する可能性が高いと分析します。",
@@ -5021,15 +5110,15 @@
       ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
-          "n": 4,
-          "hits": 3
+          "n": 5,
+          "hits": 4
         },
         "gemini": {
           "n": 5,
@@ -5124,7 +5213,12 @@
           "kickoff": "19:00",
           "home": "東京ヴェルディ",
           "away": "鹿島アントラーズ",
-          "stats": null,
+          "stats": {
+            "p_H": 0.1297,
+            "p_D": 0.2919,
+            "p_A": 0.5784,
+            "pick": "A"
+          },
           "gemini_pick": "A",
           "gemini_confidence": "中",
           "gemini_reasoning": "鹿島アントラーズは高い個のクオリティと勝負強さを備えた強豪であり、年間を通した戦力の安定感で勝ります。\n対する東京ヴェルディは組織的な守備とハードワークで粘り強く戦うスタイルですが、上位陣相手には決定力の差が出やすい傾向があります。\nヴェルディのホーム開催という利点はあるものの、勝負どころでの試合運びや選手層の厚さで勝る鹿島が主導権を握る展開が予想されます。\n接戦にはなるものの、最終的には鹿島が勝機を逃さず勝ち点3を奪取する可能性が高いと分析します。",
@@ -5176,7 +5270,7 @@
       ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -5346,14 +5440,14 @@
       ],
       "deadline": "2026-08-22 14:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
-          "n": 12,
+          "n": 13,
           "hits": 5
         },
         "gemini": {
@@ -5401,7 +5495,12 @@
           "kickoff": "18:30",
           "home": "ファジアーノ岡山",
           "away": "東京ヴェルディ",
-          "stats": null,
+          "stats": {
+            "p_H": 0.4,
+            "p_D": 0.3701,
+            "p_A": 0.2299,
+            "pick": "H"
+          },
           "gemini_pick": "D",
           "gemini_confidence": "中",
           "gemini_reasoning": "近年J1で組織的な守備と高い走力を武器に安定した戦いを見せる東京ヴェルディは、アウェイであってもゲームコントロール能力でやや優位に立ちます。\n対するファジアーノ岡山も強力なホームアドバンテージと強固な守備ブロックを誇り、格上相手であっても簡単には隙を見せない粘り強さを持っています。\n互いにハードワークをベースとした堅守のスタイルであるため、中盤での激しい潰し合いによるロースコアな展開となり、決定打を欠いて引き分ける可能性が高いと分析します。",
@@ -5693,14 +5792,14 @@
       ],
       "deadline": "2026-08-22 17:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
       "settled": true,
       "summary": {
         "stat": {
-          "n": 4,
+          "n": 5,
           "hits": 1
         },
         "gemini": {
@@ -5748,7 +5847,12 @@
           "kickoff": "18:30",
           "home": "ファジアーノ岡山",
           "away": "東京ヴェルディ",
-          "stats": null,
+          "stats": {
+            "p_H": 0.4,
+            "p_D": 0.3701,
+            "p_A": 0.2299,
+            "pick": "H"
+          },
           "gemini_pick": "D",
           "gemini_confidence": "中",
           "gemini_reasoning": "近年J1で組織的な守備と高い走力を武器に安定した戦いを見せる東京ヴェルディは、アウェイであってもゲームコントロール能力でやや優位に立ちます。\n対するファジアーノ岡山も強力なホームアドバンテージと強固な守備ブロックを誇り、格上相手であっても簡単には隙を見せない粘り強さを持っています。\n互いにハードワークをベースとした堅守のスタイルであるため、中盤での激しい潰し合いによるロースコアな展開となり、決定打を欠いて引き分ける可能性が高いと分析します。",
@@ -5848,7 +5952,7 @@
       ],
       "deadline": "2026-08-22 14:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -6018,7 +6122,7 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": false,
       "has_codex": true,
       "has_claude": false,
@@ -6098,7 +6202,7 @@
           "home": "ヴィッセル神戸",
           "away": "ＦＣ東京",
           "stats": {
-            "p_H": 0.5842,
+            "p_H": 0.5841,
             "p_D": 0.2453,
             "p_A": 0.1705,
             "pick": "H"
@@ -6370,7 +6474,7 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": false,
       "has_codex": true,
       "has_claude": false,
@@ -6450,7 +6554,7 @@
           "home": "ヴィッセル神戸",
           "away": "ＦＣ東京",
           "stats": {
-            "p_H": 0.5842,
+            "p_H": 0.5841,
             "p_D": 0.2453,
             "p_A": 0.1705,
             "pick": "H"
@@ -6530,7 +6634,7 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": false,
       "has_codex": true,
       "has_claude": false,
@@ -6700,7 +6804,7 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -6987,7 +7091,7 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -7122,7 +7226,7 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -7267,7 +7371,7 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -7554,7 +7658,7 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -7689,7 +7793,7 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -7834,7 +7938,7 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -8121,7 +8225,7 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -8256,7 +8360,7 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -8401,7 +8505,7 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -8688,7 +8792,7 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -8823,7 +8927,7 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-10-17",
+      "generated_date": "2026-10-18",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
