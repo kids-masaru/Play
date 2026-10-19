@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import hashlib
 import json
 import os
@@ -42,7 +43,10 @@ JEV_MODEL = "jev-latest"
 STRATEGY_VERSION = "jev_shadow_v2"
 QUESTION_VERSION = "jev_boatrace_gate_v1"
 SELECTOR_QUESTION_VERSION = "jev_boatrace_selector_v1"
-EXPERIMENT_VERSION = "jev_pairing_v1"
+EXPERIMENT_VERSION = "jev_pairing_v2"
+# v2 は心得集あり版の4アームを足しただけで、既存5アームの質問・入力は v1 と同じ。
+# v1 の記録も同じ実験として再利用・採点し、これまでの蓄積を捨てない。
+COMPATIBLE_EXPERIMENT_VERSIONS = frozenset({"jev_pairing_v1", EXPERIMENT_VERSION})
 MAX_CANDIDATES = 12
 MIN_ACTIVE_MODELS = 2
 
@@ -106,6 +110,31 @@ MODEL_SOURCES = (
     },
 )
 
+# 心得集あり版（playbook_predict.py の出力CSV）。MODEL_SOURCES とは分け、
+# 全モデルJevや jev_backtest の入力には混ぜない（既存の比較を変えないため）。
+# 成績・CLVは元モデルと同じものを渡し、入力の差を「心得集の有無」だけにする。
+PLAYBOOK_SOURCES = (
+    {
+        "id": "codex_playbook",
+        "label": "Codex（心得集あり）",
+        "pick_field": "ai_picks_codex_playbook",
+        "performance_key": "stakes_codex",
+        "clv_key": "codex",
+        "csv": "daily_codex_playbook_predictions.csv",
+        "stakes_column": "Stakes_CodexPB",
+    },
+    {
+        "id": "claude_playbook",
+        "label": "Claude（心得集あり）",
+        "pick_field": "ai_picks_claude_playbook",
+        "performance_key": "stakes_claude",
+        "clv_key": "claude",
+        "csv": "daily_claude_playbook_predictions.csv",
+        "stakes_column": "Stakes_ClaudePB",
+    },
+)
+DEFAULT_PLAYBOOK_DIR = ROOT / "daily_data"
+
 PAIRING_ARMS = (
     {
         "id": "codex_raw",
@@ -136,6 +165,32 @@ PAIRING_ARMS = (
         "type": "jev_gate_and_selector",
         "source_ids": None,
         "minimum_models": MIN_ACTIVE_MODELS,
+    },
+    # 心得集あり版（v2で追加）。心得集の予測は朝バッチの最後に出るため、
+    # battle update 中の実行では「予測なし（判定し直し可）」になり、最後の再実行で判定される。
+    {
+        "id": "codex_playbook_raw",
+        "type": "raw_model",
+        "source_ids": ("codex_playbook",),
+        "minimum_models": 1,
+    },
+    {
+        "id": "codex_playbook_jev",
+        "type": "jev_selector",
+        "source_ids": ("codex_playbook",),
+        "minimum_models": 1,
+    },
+    {
+        "id": "claude_playbook_raw",
+        "type": "raw_model",
+        "source_ids": ("claude_playbook",),
+        "minimum_models": 1,
+    },
+    {
+        "id": "claude_playbook_jev",
+        "type": "jev_selector",
+        "source_ids": ("claude_playbook",),
+        "minimum_models": 1,
     },
 )
 
@@ -183,6 +238,43 @@ def parse_stakes(value: Any) -> list[dict[str, Any]]:
         {"combo": combo, "stake_yen": int(stake) if stake.is_integer() else stake}
         for combo, stake in parsed.items()
     ]
+
+
+def load_playbook_picks(
+    playbook_dir: Path, target_date: str
+) -> dict[str, dict[str, str]]:
+    """心得集あり版CSVから、対象日の買い目を RaceID → {pick_field: 買い目} で返す。
+
+    ファイルが無い・読めない時は空（心得集のアームは「予測なし」の見送りになるだけ）。
+    """
+
+    picks: dict[str, dict[str, str]] = defaultdict(dict)
+    for source in PLAYBOOK_SOURCES:
+        path = Path(playbook_dir) / source["csv"]
+        if not path.is_file():
+            continue
+        try:
+            with path.open("r", encoding="utf-8-sig", newline="") as handle:
+                for row in csv.DictReader(handle):
+                    race_id = str(row.get("RaceID") or "").strip()
+                    stakes = str(row.get(source["stakes_column"]) or "").strip()
+                    if race_id and stakes and str(row.get("Date") or "") == target_date:
+                        picks[race_id][source["pick_field"]] = stakes
+        except (OSError, csv.Error, UnicodeDecodeError) as exc:
+            log(f"[WARN] 心得集あり版の予測を読めません（{source['csv']}）: {exc}")
+    return dict(picks)
+
+
+def attach_playbook_picks(
+    races: list[Any], playbook_picks: dict[str, dict[str, str]]
+) -> list[Any]:
+    """元のレース情報は変えず、心得集あり版の買い目を足したコピーを返す。"""
+
+    attached = []
+    for race in races:
+        extra = playbook_picks.get(str(race.get("race_id") or "")) if isinstance(race, dict) else None
+        attached.append({**race, **extra} if extra else race)
+    return attached
 
 
 def _metric_index(performance: dict[str, Any], period: str) -> dict[str, dict[str, Any]]:
@@ -253,10 +345,17 @@ def build_race_state(
     candidate_models: dict[str, set[str]] = defaultdict(set)
     candidate_stakes: dict[str, float] = defaultdict(float)
 
-    allowed_sources = set(source_ids) if source_ids is not None else None
-    for source in MODEL_SOURCES:
-        if allowed_sources is not None and source["id"] not in allowed_sources:
-            continue
+    # 指定なし（全モデルJev）は既存モデルだけ。心得集あり版は名指しされた時だけ使う。
+    if source_ids is None:
+        sources = MODEL_SOURCES
+    else:
+        allowed_sources = set(source_ids)
+        sources = tuple(
+            source
+            for source in MODEL_SOURCES + PLAYBOOK_SOURCES
+            if source["id"] in allowed_sources
+        )
+    for source in sources:
         picks = parse_stakes(race.get(source["pick_field"]))
         if not picks:
             continue
@@ -805,6 +904,18 @@ def build_arm_record(
         selector_feedback=feedback,
     )
     if arm_type == "raw_model":
+        if arm.get("source_ids") and not state["model_predictions"]:
+            # 元モデルの予測がまだ無い（心得集あり版は朝バッチの最後に出る）。
+            # 空の記録で固めず、予測がそろった後の再実行で記録し直せる見送りにする。
+            return (
+                make_rule_skip_record(
+                    state,
+                    "source_model_prediction_missing",
+                    experiment_id=arm_id,
+                    question_version=None,
+                ),
+                False,
+            )
         return make_raw_model_record(state, experiment_id=arm_id), False
 
     quality = state["data_quality"]
@@ -895,13 +1006,16 @@ def run(args: argparse.Namespace) -> int:
 
     validate_temporal_boundary(target_date, performance)
     validate_experiment_temporal_boundary(target_date, experiment_performance)
+    races = attach_playbook_picks(
+        races, load_playbook_picks(Path(args.playbook_dir), target_date)
+    )
     history = load_history(Path(args.history))
     existing_for_date = {
         (key[1], key[3]): record
         for key, record in history.items()
         if key[0] == target_date
         and key[2] == STRATEGY_VERSION
-        and record.get("experiment_version") == EXPERIMENT_VERSION
+        and record.get("experiment_version") in COMPATIBLE_EXPERIMENT_VERSIONS
     }
 
     api_key = load_api_key()
@@ -1057,6 +1171,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT))
     parser.add_argument("--history", default=str(DEFAULT_HISTORY))
+    parser.add_argument(
+        "--playbook-dir",
+        default=str(DEFAULT_PLAYBOOK_DIR),
+        help="心得集あり版の予測CSVがあるフォルダ",
+    )
     parser.add_argument("--endpoint", default=API_ENDPOINT)
     parser.add_argument("--model", default=JEV_MODEL)
     parser.add_argument("--timeout", type=float, default=30.0)

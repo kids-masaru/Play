@@ -16,7 +16,6 @@ import argparse
 import csv
 import json
 import os
-import random
 import sys
 from collections import defaultdict
 from datetime import date, datetime, timedelta
@@ -24,6 +23,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 import playbook as pb
+from paired_stats import DECISION_SAMPLE, paired_bootstrap, verdict
 from codex_learning import MODEL_PREDICTION_CONFIGS, normalize_result, parse_stakes, safe_float
 from playbook_predict import STREAMS as PLAYBOOK_STREAMS
 
@@ -52,10 +52,6 @@ SHORT_LABELS = {
     "qwen_grok_x": "学習Qwen（Grok+X先生）",
 }
 ALERT_STREAK_DAYS = 2  # 2日以上続けて失敗したら赤で目立たせる
-DECISION_SAMPLE = 500  # 正式判断の目安（1モデルあたりの件数）
-MIN_CI_SAMPLE = 30  # これ未満は区間も出さない
-BOOTSTRAP_ROUNDS = 2000
-BOOTSTRAP_SEED = 20261015
 TOP_PLAYBOOK_ITEMS = 3
 
 
@@ -141,28 +137,7 @@ def metrics(settled: list[dict[str, Any]]) -> dict[str, Any]:
     return result
 
 
-def paired_bootstrap(diffs: list[float], rounds: int = BOOTSTRAP_ROUNDS, seed: int = BOOTSTRAP_SEED) -> dict[str, Any]:
-    """同じレースの損益差（あり−なし）の平均と95%区間（ペア・ブートストラップ）。"""
-    n = len(diffs)
-    if n < MIN_CI_SAMPLE:
-        return {"n": n, "mean_diff_yen": round(sum(diffs) / n, 1) if n else None, "ci95": None}
-    rng = random.Random(seed)
-    means = sorted(sum(diffs[rng.randrange(n)] for _ in range(n)) / n for _ in range(rounds))
-    low = means[int(rounds * 0.025)]
-    high = means[int(rounds * 0.975) - 1]
-    return {"n": n, "mean_diff_yen": round(sum(diffs) / n, 1), "ci95": [round(low, 1), round(high, 1)]}
-
-
-def verdict(diff: dict[str, Any]) -> str:
-    """結論ボードの判定。500件までは優劣を断定しない（spec の判断の目安）。"""
-    if diff["n"] < DECISION_SAMPLE or not diff.get("ci95"):
-        return "accruing"
-    low, high = diff["ci95"]
-    if low > 0:
-        return "playbook_better"
-    if high < 0:
-        return "baseline_better"
-    return "no_difference"
+# paired_bootstrap・verdict は paired_stats.py に共通化（Jev 組合せ成績と同じ判定にする）
 
 
 # ---------------------------------------------------------------------------
@@ -335,7 +310,9 @@ def build_board(data_dir: Path, results: dict[str, dict[str, Any]]) -> dict[str,
         if row["kind"] == "strong":
             row["jev"] = jev_cell(arms, f"{key}_jev")
             row["jev_note"] = f"Jev実験の期間（確定 {jev.get('latest_result_date') or '—'} まで）。心得集とは対象レースが違う参考値"
-            row["playbook_jev"] = None  # E で追加予定
+            row["playbook_jev"] = jev_cell(arms, f"{key}_playbook_jev")
+            # 同じレースでの「Jev」と「心得集＋Jev」の比較（jev_pairing_performance.py が集計）
+            row["jev_effect"] = ((jev.get("playbook_effect") or {}).get(key) or {}).get("jev")
         rows.append(row)
     return {"decision_sample": DECISION_SAMPLE, "models": rows}
 

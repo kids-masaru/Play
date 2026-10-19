@@ -2,14 +2,19 @@
 
 > 詳細仕様は `spec.md` を参照
 
-## 🧭 再開ブロック（最終更新: 2026-10-16・ここだけ読めば再開できる。まず `NOW.md` も読む）
+## 🧭 再開ブロック（最終更新: 2026-10-18・ここだけ読めば再開できる。まず `NOW.md` も読む）
 - **なぜやっているか**：「知識を育てる仕組み」が実は数値要約だけだった。強いモデル（Claude・Codex）が振り返って心得集を育て、各モデルに渡す方式を実験追加し、今まで／Jev／心得集／心得集＋Jev を比較する（井﨑さん承認済み 10/15）。
 - **現在地**：A（前提の修理）完了・push済み。10/16朝バッチで効果確認済み（Claude 9/9レース保存、Jev 3アームとも19レース判定・夜の見送り10件も朝に再判定）。B（`playbook.py`）完了。C（`playbook_reflect.py`）完了。朝に組み込んだら予測が2時間遅れたため、夜バッチ（`run_daily.bat`）へ移した（`be3b1ac`、ローカルコミット済み・夜に自動push）。
-- **次の一歩**：10/17夜の振り返り（`logs/playbook_reflect.log`）と10/18朝の公開時刻を確認 → D（心得集あり版の予測）。
+D（心得集あり版の予測 `playbook_predict.py`）も完了・朝バッチの最後に接続（`5d76326`、ローカルコミット済み）。
+I（まとめページ）も実装済み（`797ec78`・`67ee043`）。toto修正 `48cc590`。**これらは 10/18 2:20 の夜間バッチで全部push済み・Actionsビルド成功・公開ページは「まとめ」から開くことを確認済み**。
+10/17夜（実行は10/18 2:20〜2:24）の振り返りは5モデルとも成功・タイムアウトなし（対象日 2026-10-18。有効件数 codex1・claude5・gemma_ft2・qwen_claude2・qwen_grok_x1）。
+10/18朝：心得集あり版の予測は5モデルとも20/20保存。朝バッチは boatrace.jp の接続不良で大幅に遅れた（公開13:25、外部要因）。
+E（Jev4アーム・評価の共通化・画面）完了・ローカルコミット（10/20）。
+- **次の一歩**：10/21朝バッチ後に「playbook jev」の判定を確認 → F（過去30日検証）。スマホ幅の表示は未確認。totoの③〜⑤は保留（NOW.md 仕事③）。
 - **やらないこと・待つこと**：Gemini・Grok・基本Gemmaに心得集を載せない／実購入・買い目・LINE買い目は変えない／旧反省会と旧教訓は触らない／`generate_grok_predictions.py` の未コミット変更は別件で触らない／途中段階のコードをコミットしない（夜23時のバッチが未pushコミットを自動pushする）。
 - **答え待ちの質問**：なし
-- **今回触ったファイル**：`playbook.py`、`tests/test_playbook.py`、`playbook_reflect.py`、`tests/test_playbook_reflect.py`、`update_battle_dashboard.py`、`run_daily.bat`、`.gitignore`、`task.md`、`NOW.md`
-- **未コミット / 未push**：B はローカルコミット済み（夜23時のバッチで自動push予定）。NOW.md は未コミット。`generate_grok_predictions.py` は別件で未コミット。
+- **今回触ったファイル**：`playbook.py`、`tests/test_playbook.py`、`playbook_reflect.py`、`tests/test_playbook_reflect.py`、`update_battle_dashboard.py`、`run_daily.bat`、`playbook_predict.py`、`tests/test_playbook_predict.py`、`run_morning.bat`、`.gitignore`、`task.md`、`NOW.md`
+- **未コミット / 未push**：コードは全部push済み。task.md・NOW.md（ドキュメントのみ）は未コミット。`generate_grok_predictions.py` は別件で未コミット。
 - **待ち・ブロッカー**：なし
 - **落とし穴・注意**：Bashは1コマンドずつ／テストは `python -m unittest discover -s tests`／ダッシュボードはローカルビルド不可（Actionsで確認）／スキーマファイルはCodexと共用。
 
@@ -17,7 +22,7 @@
 
 - 最終更新: 2026-10-16
 - 現在のステータス: Phase 2（実装）中。本体・ダッシュボード刷新（I）ともMasaru承認済み（10/15。並びは提案どおり、上位3件の心得本文は公開OK）。A・B完了
-- 次回やること: 夜バッチでの振り返りの動作確認 → D（心得集あり版の予測）。まとめページ刷新（I）はまだ未着手（10/17に井﨑さんが「見やすくなった？」と気にしていた）
+- 次回やること: 夜の振り返りと朝の心得集あり版予測の動作確認 → E（採点・評価）。まとめページ刷新（I）はまだ未着手（10/17に井﨑さんが「見やすくなった？」と気にしていた）
 - 10/16朝バッチ確認：Claude予測 9/9レース保存（10/6からの停止が解消）。Jev 3アーム（codex_jev・claude_jev・all_models_jev）とも19レースすべてjev判定、夜の「オッズ不足」見送り10件も朝に再判定済み
 - 注意：夜23時のバッチ（`main_runner.py`）がローカルの未pushコミットもまとめてpushするため、途中段階のコードはコミットせず、動く単位でコミットする
 - push済み：`430cdce`・`c4fd44a`・`1278f2b`・`3697021`（10/16 0:10の夜間バッチが自動でpush）
@@ -61,9 +66,15 @@
 - [ ] `generate_battle_data.py`・`model_performance.py` への登録（採点・画面表示）→ E で行う（既存の公開JSONを変えるため、評価と一緒に）
 
 ### E. Jevと評価
-- [ ] `jev_shadow.py` に4アーム追加、`jev_pairing_v2` へ版上げ
-- [ ] 指標計算とペア・ブートストラップの共通化
-- [ ] ダッシュボード：Jevカード追加、「心得集の効果」セクション追加
+- [x] `jev_shadow.py` に4アーム追加（`codex_playbook_raw/jev`・`claude_playbook_raw/jev`）、`jev_pairing_v2` へ版上げ（10/20）
+  - 心得集あり版は `PLAYBOOK_SOURCES` に分け、全モデルJev・`jev_backtest.py` の入力には混ぜない。成績・CLVは元モデルと同じものを渡す
+  - v1 の記録も同じ実験として再利用・採点（`COMPATIBLE_EXPERIMENT_VERSIONS`）。既存アームの蓄積287件はそのまま
+  - 単体アームで元予測が無い時は「判定し直し可」の見送りにする（心得集の予測は朝バッチの最後に出るため）
+  - `run_morning.bat` の最後（心得集あり版予測の後）で `jev_shadow.py` を再実行。既存アームは履歴を再利用し追加のAPI呼び出しなし
+- [x] ペア・ブートストラップと判定を `paired_stats.py` に共通化（`build_overview.py`・`jev_pairing_performance.py` が使用）。`jev_pairing_performance.json` に `playbook_effect`（同じレースでの「心得集あり−なし」：単体は全買い目、Jevは選んだ1点）
+- [x] ダッシュボード：Jevカードに4アーム追加（`ModelDashboard.jsx`）、まとめの結論ボードに「心得集＋Jev」のマスと「Jev同士の差」（`Overview.jsx`）
+- [x] テスト `tests/test_jev_playbook.py`（11件、全体121件合格）。本物データで採点集計・dry-run・overview を一時フォルダに出して確認
+- [ ] 10/21朝バッチ後に `logs/morning.log` 末尾「playbook jev」で心得集アームが判定されたか（API呼び出し数・エラー0）確認。採点は翌日以降
 
 ### F. 過去30日の検証
 - [ ] `playbook_backtest.py`（Gitスナップショット、日付順の再現、なし版も再予測、再開可能、`--live`・`--max-days` 必須）
@@ -73,10 +84,12 @@
 - [ ] `playbook_weekly_report.py`（月曜朝、LINEとレポート）
 
 ### I. ダッシュボード（まとめページ）の刷新
-- [ ] `build_overview.py`：運用チェック・結論ボード・心得集の今・検証結果・全体成績を `overview.json` に集計（テスト付き）
-- [ ] 朝・夜のバッチに組み込み、公開ファイルに追加
-- [ ] `Overview.jsx`（まとめ）・`Experiments.jsx`（Jev・心得集の効果・CLV）を新設、`App.jsx` のタブ再編
-- [ ] スマホ幅の表示確認、Actionsのビルド成功確認
+- [x] `build_overview.py`：運用チェック・結論ボード・心得集の今・検証結果・全体成績を `overview.json` に集計（テスト7件、`797ec78`、10/17）。結論ボードの「なし／あり」の採点もここで行う（同じレースのみ・ペア・ブートストラップ）
+- [x] 朝バッチ（`update_battle_dashboard.py` の公開直前）に組み込み、公開ファイル・`.gitignore` に追加（`67ee043`）。※心得集あり版予測は朝バッチの最後なので、まとめの「心得集あり版の予測」は公開時点で「この後実行」と出ることがある
+- [x] `Overview.jsx`（まとめ・初期表示）・`Experiments.jsx`（心得集の効果・Jev・CLV）を新設、`App.jsx` のタブ再編（まとめ／モデル比較／実験／今日の予測／toto）（`67ee043`）
+- [x] ローカルの開発サーバーでパソコン幅の表示を確認。esbuild でまとめて構文・import確認
+- [ ] スマホ幅の実機確認、Actionsのビルド成功確認（10/17夜のpush後）
+- [ ] 実験ページの「日別の推移」グラフ（データがたまってから）
 
 ### H. 仕上げ
 - [ ] 全単体テスト、code-check、simulation

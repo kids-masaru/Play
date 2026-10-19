@@ -52,6 +52,31 @@ const JEV_ARM_META = {
     detail: '全モデル候補からJevが1点選択',
     metricKey: 'forced_selected',
   },
+  // 心得集あり版（2026-10 追加）。朝バッチの最後に予測・判定される
+  codex_playbook_raw: {
+    label: 'Codex（心得集）単体',
+    short: 'C+',
+    detail: '心得集ありCodexの買い目をすべて購入',
+    metricKey: 'raw_portfolio',
+  },
+  codex_playbook_jev: {
+    label: 'Codex（心得集） → Jev',
+    short: 'C+→J',
+    detail: '心得集ありCodexの候補からJevが1点選択',
+    metricKey: 'forced_selected',
+  },
+  claude_playbook_raw: {
+    label: 'Claude（心得集）単体',
+    short: 'Cl+',
+    detail: '心得集ありClaudeの買い目をすべて購入',
+    metricKey: 'raw_portfolio',
+  },
+  claude_playbook_jev: {
+    label: 'Claude（心得集） → Jev',
+    short: 'Cl+→J',
+    detail: '心得集ありClaudeの候補からJevが1点選択',
+    metricKey: 'forced_selected',
+  },
 };
 
 const Direction = ({ model, period }) => {

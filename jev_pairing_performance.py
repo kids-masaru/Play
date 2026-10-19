@@ -16,6 +16,7 @@ from pathlib import Path
 from typing import Any
 
 import jev_shadow
+import paired_stats
 
 
 try:
@@ -179,7 +180,7 @@ def build_report(
     grouped: dict[str, list[dict[str, Any]]] = {}
     graded_dates: list[str] = []
     for record in history.values():
-        if record.get("experiment_version") != jev_shadow.EXPERIMENT_VERSION:
+        if record.get("experiment_version") not in jev_shadow.COMPATIBLE_EXPERIMENT_VERSIONS:
             continue
         if record.get("strategy_version") != jev_shadow.STRATEGY_VERSION:
             continue
@@ -214,6 +215,58 @@ def build_report(
         "strategy_version": jev_shadow.STRATEGY_VERSION,
         "latest_result_date": max(graded_dates) if graded_dates else "",
         "arms": arms,
+        "playbook_effect": build_playbook_effect(grouped),
+    }
+
+
+# 心得集の効果：同じレースで「心得集あり − なし」を比べる組（なし側, あり側, 採点の種類）。
+# 単体は元の買い目すべて（raw_portfolio）、Jevは選んだ1点（forced_selected）で比べる。
+PLAYBOOK_PAIRS = {
+    "codex": {
+        "raw": ("codex_raw", "codex_playbook_raw", "raw_portfolio"),
+        "jev": ("codex_jev", "codex_playbook_jev", "forced_selected"),
+    },
+    "claude": {
+        "raw": ("claude_raw", "claude_playbook_raw", "raw_portfolio"),
+        "jev": ("claude_jev", "claude_playbook_jev", "forced_selected"),
+    },
+}
+
+
+def compare_arms(
+    grouped: dict[str, list[dict[str, Any]]], base_arm: str, playbook_arm: str, key: str
+) -> dict[str, Any]:
+    """両方のアームで買い目があるレースだけを並べ、損益差をペア・ブートストラップする。"""
+
+    base_rows = {row["race_id"]: row for row in grouped.get(base_arm, [])}
+    pairs = []
+    for row in grouped.get(playbook_arm, []):
+        base = base_rows.get(row["race_id"])
+        # どちらかが買っていない（見送り・予測なし）レースは比べない
+        if base is None or base[key]["invest"] <= 0 or row[key]["invest"] <= 0:
+            continue
+        pairs.append((base, row))
+    pairs.sort(key=lambda pair: (pair[1]["date"], pair[1]["race_id"]))
+    diff = paired_stats.paired_bootstrap(
+        [row[key]["profit"] - base[key]["profit"] for base, row in pairs]
+    )
+    return {
+        "metric": key,
+        "baseline": metrics([base for base, _ in pairs], key),
+        "playbook": metrics([row for _, row in pairs], key),
+        "diff": diff,
+        "verdict": paired_stats.verdict(diff),
+        "progress_pct": round(min(len(pairs) / paired_stats.DECISION_SAMPLE, 1) * 100, 1),
+    }
+
+
+def build_playbook_effect(grouped: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
+    return {
+        model: {
+            kind: compare_arms(grouped, base_arm, playbook_arm, key)
+            for kind, (base_arm, playbook_arm, key) in kinds.items()
+        }
+        for model, kinds in PLAYBOOK_PAIRS.items()
     }
 
 

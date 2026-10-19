@@ -28,3 +28,8 @@ rem ----- Playbook predictions (experiment only). Runs last so existing predicti
 echo [%date% %time%] ===== playbook predict start ===== >> "%~dp0logs\morning.log" 2>&1
 python playbook_predict.py >> "%~dp0logs\morning.log" 2>&1
 echo [%date% %time%] ===== playbook predict end (exit=%ERRORLEVEL%) ===== >> "%~dp0logs\morning.log" 2>&1
+
+rem ----- Jev for playbook arms (experiment only). Existing arms are reused from history (no extra API calls). -----
+echo [%date% %time%] ===== playbook jev start ===== >> "%~dp0logs\morning.log" 2>&1
+python jev_shadow.py >> "%~dp0logs\morning.log" 2>&1
+echo [%date% %time%] ===== playbook jev end (exit=%ERRORLEVEL%) ===== >> "%~dp0logs\morning.log" 2>&1

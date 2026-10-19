@@ -104,7 +104,7 @@ const BoardSection = ({ board }) => {
             <Cell title="今まで" metric={row.baseline} />
             {row.kind === 'strong' && <Cell title="Jev" metric={row.jev} note="期間が違う参考値" />}
             <Cell title="心得集" metric={row.playbook} empty={row.first_date ? '蓄積中' : '開始前'} />
-            {row.kind === 'strong' && <Cell title="心得集＋Jev" metric={row.playbook_jev} empty="準備中" />}
+            {row.kind === 'strong' && <Cell title="心得集＋Jev" metric={row.playbook_jev} note="Jevが1点に絞った場合" />}
           </div>
           <div className="ov-progress">
             <div className="ov-progress-bar"><i style={{ width: `${row.progress_pct || 0}%` }} /></div>
@@ -115,6 +115,11 @@ const BoardSection = ({ board }) => {
               ? `1レースあたりの差（あり−なし） ${formatYen(diff.mean_diff_yen)}${diff.ci95 ? `　95%区間 ${formatYen(diff.ci95[0])} 〜 ${formatYen(diff.ci95[1])}` : '（30件から区間を表示）'}`
               : '心得集ありの予測がたまると、ここに差が出ます。'}
           </small>
+          {row.kind === 'strong' && <small className="ov-diff">
+            {row.jev_effect?.diff?.n
+              ? `Jev同士の差（心得集＋Jev − Jev） ${formatYen(row.jev_effect.diff.mean_diff_yen)}・${row.jev_effect.diff.n}件${row.jev_effect.diff.ci95 ? `　95%区間 ${formatYen(row.jev_effect.diff.ci95[0])} 〜 ${formatYen(row.jev_effect.diff.ci95[1])}` : ''}`
+              : 'Jev同士の比較（心得集＋Jev − Jev）は、確定結果がたまると表示します。'}
+          </small>}
         </article>;
       })}
     </div>
