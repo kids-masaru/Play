@@ -10,6 +10,11 @@ if exist credentials.env (
 
 if not exist "%~dp0logs" mkdir "%~dp0logs"
 
+rem ----- Playbook weekly review (Mondays only, LINE + report). No AI calls, finishes in seconds, never fails the batch. -----
+echo [%date% %time%] ===== playbook weekly start ===== >> "%~dp0logs\morning.log" 2>&1
+python playbook_weekly_report.py >> "%~dp0logs\morning.log" 2>&1
+echo [%date% %time%] ===== playbook weekly end (exit=%ERRORLEVEL%) ===== >> "%~dp0logs\morning.log" 2>&1
+
 echo [%date% %time%] ===== morning start ===== >> "%~dp0logs\morning.log" 2>&1
 python morning_odds_runner.py >> "%~dp0logs\morning.log" 2>&1
 echo [%date% %time%] ===== morning end (exit=%ERRORLEVEL%) ===== >> "%~dp0logs\morning.log" 2>&1

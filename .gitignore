@@ -116,3 +116,5 @@ dashboard/.vite-check-dist/
 # 心得集（プレイブック）本体・日付版・変更履歴は非公開。公開は overview.json の要約だけ。
 daily_data/playbooks/
 dashboard/public/daily_data/playbooks/
+# 心得集の週1見直しレポートは心得の本文を含むため非公開。
+reports/playbook_weekly_*.md

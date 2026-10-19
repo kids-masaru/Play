@@ -10,7 +10,8 @@ I（まとめページ）も実装済み（`797ec78`・`67ee043`）。toto修正
 10/17夜（実行は10/18 2:20〜2:24）の振り返りは5モデルとも成功・タイムアウトなし（対象日 2026-10-18。有効件数 codex1・claude5・gemma_ft2・qwen_claude2・qwen_grok_x1）。
 10/18朝：心得集あり版の予測は5モデルとも20/20保存。朝バッチは boatrace.jp の接続不良で大幅に遅れた（公開13:25、外部要因）。
 E（Jev4アーム・評価の共通化・画面）完了・ローカルコミット（10/20）。
-- **次の一歩**：10/21朝バッチ後に「playbook jev」の判定を確認 → F（過去30日検証）。スマホ幅の表示は未確認。totoの③〜⑤は保留（NOW.md 仕事③）。
+G（週1見直し）も完了・ローカルコミット（10/20）。
+- **次の一歩**：10/21朝バッチ後に「playbook jev」の判定を確認。10/27（月）朝に週1見直しの初回LINEを確認 → F（過去30日検証。始める前に井﨑さんと日程相談）。スマホ幅の表示は未確認。totoの③〜⑤は保留（NOW.md 仕事③）。
 - **やらないこと・待つこと**：Gemini・Grok・基本Gemmaに心得集を載せない／実購入・買い目・LINE買い目は変えない／旧反省会と旧教訓は触らない／`generate_grok_predictions.py` の未コミット変更は別件で触らない／途中段階のコードをコミットしない（夜23時のバッチが未pushコミットを自動pushする）。
 - **答え待ちの質問**：なし
 - **今回触ったファイル**：`playbook.py`、`tests/test_playbook.py`、`playbook_reflect.py`、`tests/test_playbook_reflect.py`、`update_battle_dashboard.py`、`run_daily.bat`、`playbook_predict.py`、`tests/test_playbook_predict.py`、`run_morning.bat`、`.gitignore`、`task.md`、`NOW.md`
@@ -81,7 +82,14 @@ E（Jev4アーム・評価の共通化・画面）完了・ローカルコミッ
 - [ ] パイロット10日→残りを実行し、`reports/playbook_backtest_report.md` を作成
 
 ### G. 週1の見直し
-- [ ] `playbook_weekly_report.py`（月曜朝、LINEとレポート）
+- [x] `playbook_weekly_report.py`（月曜朝、LINEとレポート）（10/20）
+  - `run_morning.bat` の最初で毎日呼び、月曜だけ作る。同じ日の2回目は送らない（送信記録 `daily_data/playbooks/weekly_state.json`）。AIは呼ばない
+  - モデルごとに今週の変更（追加・修正・無効化）、今週・累計の「あり−なし」、心得ごとの使用回数・的中・損益（今週・累計）
+  - 見直し候補：累計10回以上使って損益マイナス／作って14日以上使われていない（使った心得IDを答えないローカル3モデルには未使用の印を付けない）
+  - レポート `reports/playbook_weekly_<日付>.md` は本文を含むので `.gitignore`。LINEは要約のみ
+  - 手動の無効化：`python playbook_weekly_report.py --disable <ID> --reason "<理由>"`（changes.jsonl に reflector=manual で記録、翌日用の版も作る＝翌日の予測から外れる）
+  - テスト `tests/test_playbook_weekly_report.py`（8件、全体129件合格）。本物データで試作（LINE送信なし）を確認
+- [ ] 10/27（月）朝の初回送信を確認（`logs/morning.log` の「playbook weekly」とLINE）
 
 ### I. ダッシュボード（まとめページ）の刷新
 - [x] `build_overview.py`：運用チェック・結論ボード・心得集の今・検証結果・全体成績を `overview.json` に集計（テスト7件、`797ec78`、10/17）。結論ボードの「なし／あり」の採点もここで行う（同じレースのみ・ペア・ブートストラップ）
