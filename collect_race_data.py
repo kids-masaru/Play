@@ -474,22 +474,8 @@ def scrape_motor_stats(jcd, date_str):
 MOTOR_STATS_HEADERS = ["Venue", "MotorNo", "WinRate", "Top2Rate", "Top3Rate", "UpdatedDate"]
 
 
-def scrape_odds_3t(jcd, rno, date_str):
-    """3連単オッズ（全120通り）をPlaywrightで取得する。
-
-    boatrace.jpのオッズページはJavaScriptで動的にオッズ値を注入するため、
-    requestsベースの静的スクレイピングでは取得できない。
-    Playwrightでヘッドレスブラウザを使い、JSレンダリング後のDOMからオッズを抽出する。
-
-    Returns:
-        list of [race_id, display_date, venue_name, rno, combination, odds] の120行
-        （取得失敗時は空リスト）
-    """
-    venue_name = VENUE_MAP.get(jcd, f"Venue_{jcd}")
-    display_date = f"{date_str[:4]}-{date_str[4:6]}-{date_str[6:]}"
-    race_id = f"{date_str}_{venue_name}_{rno}"
-
-    # 既知の組み合わせ順序を生成
+def _odds_3t_combos_by_block():
+    """オッズ表の並び順（1着ごとの6ブロック×20行）どおりの組み合わせを返す。"""
     def get_combos_for_first(first):
         others = [b for b in range(1, 7) if b != first]
         combos = []
@@ -499,8 +485,64 @@ def scrape_odds_3t(jcd, rno, date_str):
                 combos.append((first, second, third))
         return combos
 
-    block_combos = [get_combos_for_first(f) for f in range(1, 7)]
+    return [get_combos_for_first(f) for f in range(1, 7)]
 
+
+def _odds_3t_rows_from_texts(texts, race_id, display_date, venue_name, rno):
+    """td.oddsPoint の文字（表の上から順）を、組み合わせごとの行にする。数字でないもの（欠場など）は 0.0。"""
+    block_combos = _odds_3t_combos_by_block()
+    rows_data = []
+    for row_idx in range(20):
+        for block_idx in range(6):
+            cell_idx = row_idx * 6 + block_idx
+            if cell_idx >= len(texts):
+                continue
+            try:
+                odds_val = float(texts[cell_idx])
+            except (ValueError, TypeError):
+                odds_val = 0.0
+            combo = block_combos[block_idx][row_idx]
+            combo_str = f"{combo[0]}-{combo[1]}-{combo[2]}"
+            rows_data.append([race_id, display_date, venue_name, rno, combo_str, odds_val])
+    return rows_data
+
+
+def _odds_3t_texts_from_html(html):
+    """オッズページのHTMLから td.oddsPoint の文字を順に取り出す（無ければ空リスト）。"""
+    if not html:
+        return []
+    soup = BeautifulSoup(html, 'html.parser')
+    return [td.get_text(strip=True) for td in soup.select('td.oddsPoint')]
+
+
+def scrape_odds_3t(jcd, rno, date_str):
+    """3連単オッズ（全120通り）を取得する。
+
+    2026-10-20 変更：ページを requests で1回取るだけにした。
+    以前は Playwright でページを丸ごと開いており、1レースごとに boatrace.jp へ約41回
+    （画像・スクリプト等）アクセスしていた。これがこのPCの回線への応答遅れ（約10秒待ち）の
+    主な原因とみられる。今は静的HTMLに120通りのオッズが入っている（実ページで同じ値を確認済み）。
+    HTMLから取れなかった時だけ、画像・広告などを読まない設定のブラウザ方式で取り直す。
+
+    Returns:
+        list of [race_id, display_date, venue_name, rno, combination, odds] の120行
+        （取得失敗時は空リスト）
+    """
+    venue_name = VENUE_MAP.get(jcd, f"Venue_{jcd}")
+    display_date = f"{date_str[:4]}-{date_str[4:6]}-{date_str[6:]}"
+    race_id = f"{date_str}_{venue_name}_{rno}"
+    url = f"https://www.boatrace.jp/owpc/pc/race/odds3t?rno={rno}&jcd={jcd}&hd={date_str}"
+
+    texts = _odds_3t_texts_from_html(fetch_url(url, retries=2))
+    if texts:
+        return _odds_3t_rows_from_texts(texts, race_id, display_date, venue_name, rno)
+
+    # HTMLで取れなかった時だけブラウザで取り直す（発売前などで本当に無い時もここに来る）
+    return _scrape_odds_3t_browser(url, race_id, display_date, venue_name, rno)
+
+
+def _scrape_odds_3t_browser(url, race_id, display_date, venue_name, rno):
+    """予備：Playwright でJS実行後のDOMからオッズを取る（画像・CSS・フォント・他社サイトは読まない）。"""
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
@@ -511,7 +553,6 @@ def scrape_odds_3t(jcd, rno, date_str):
         # グローバルブラウザインスタンスを使用（_odds_browserが存在すれば再利用）
         page = _get_odds_page()
 
-        url = f"https://www.boatrace.jp/owpc/pc/race/odds3t?rno={rno}&jcd={jcd}&hd={date_str}"
         page.goto(url, wait_until='domcontentloaded', timeout=30000)
 
         # JSがオッズを注入するのを待つ（最大6秒、0.5秒刻み）
@@ -528,29 +569,26 @@ def scrape_odds_3t(jcd, rno, date_str):
         if not cells:
             return []
 
-        # 120セルの値を抽出
-        rows_data = []
-        for row_idx in range(20):
-            for block_idx in range(6):
-                cell_idx = row_idx * 6 + block_idx
-                if cell_idx >= len(cells):
-                    continue
-
-                odds_text = cells[cell_idx].inner_text().strip()
-                try:
-                    odds_val = float(odds_text)
-                except (ValueError, TypeError):
-                    odds_val = 0.0
-
-                combo = block_combos[block_idx][row_idx]
-                combo_str = f"{combo[0]}-{combo[1]}-{combo[2]}"
-                rows_data.append([race_id, display_date, venue_name, rno, combo_str, odds_val])
-
-        return rows_data
+        texts = [cell.inner_text().strip() for cell in cells]
+        return _odds_3t_rows_from_texts(texts, race_id, display_date, venue_name, rno)
 
     except Exception as e:
-        print(f"    Error scraping Odds3T {jcd} R{rno}: {e}", flush=True)
+        print(f"    Error scraping Odds3T {race_id}: {e}", flush=True)
         return []
+
+
+# ブラウザ方式（予備）で読まないもの：オッズの数字には要らず、アクセス回数だけを増やす
+_ODDS_BLOCKED_RESOURCE_TYPES = {"image", "stylesheet", "font", "media"}
+
+
+def _block_unneeded_requests(route):
+    """画像・CSS・フォント・動画と、boatrace.jp 以外（広告・解析）への読み込みを止める。"""
+    request = route.request
+    host = request.url.split("/")[2] if "://" in request.url else ""
+    if request.resource_type in _ODDS_BLOCKED_RESOURCE_TYPES or not host.endswith("boatrace.jp"):
+        route.abort()
+    else:
+        route.continue_()
 
 
 # --- Playwright ブラウザ管理（オッズ取得用） ---
@@ -568,6 +606,7 @@ def _get_odds_page():
     _odds_playwright = sync_playwright().start()
     _odds_browser = _odds_playwright.chromium.launch(headless=True)
     _odds_page = _odds_browser.new_page()
+    _odds_page.route("**/*", _block_unneeded_requests)
     return _odds_page
 
 def close_odds_browser():
