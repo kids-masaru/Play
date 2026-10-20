@@ -10,6 +10,9 @@ if exist credentials.env (
 
 if not exist "%~dp0logs" mkdir "%~dp0logs"
 
+rem ----- Wait until the nightly batch finishes so they do not fight over Ollama and AI APIs (max 8h, then start anyway). -----
+python batch_lock.py start morning --wait-for daily --max-wait-minutes 480 >> "%~dp0logs\morning.log" 2>&1
+
 rem ----- Playbook weekly review (Mondays only, LINE + report). No AI calls, finishes in seconds, never fails the batch. -----
 echo [%date% %time%] ===== playbook weekly start ===== >> "%~dp0logs\morning.log" 2>&1
 python playbook_weekly_report.py >> "%~dp0logs\morning.log" 2>&1
@@ -38,3 +41,5 @@ rem ----- Jev for playbook arms (experiment only). Existing arms are reused from
 echo [%date% %time%] ===== playbook jev start ===== >> "%~dp0logs\morning.log" 2>&1
 python jev_shadow.py >> "%~dp0logs\morning.log" 2>&1
 echo [%date% %time%] ===== playbook jev end (exit=%ERRORLEVEL%) ===== >> "%~dp0logs\morning.log" 2>&1
+
+python batch_lock.py end morning >> "%~dp0logs\morning.log" 2>&1

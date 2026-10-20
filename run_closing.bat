@@ -10,6 +10,9 @@ if exist credentials.env (
 
 if not exist "%~dp0logs" mkdir "%~dp0logs"
 
+rem ----- Mark closing as running (no waiting: closing odds are time-sensitive). The nightly batch waits for this mark. -----
+python batch_lock.py start closing >> "%~dp0logs\closing.log" 2>&1
+
 echo [%date% %time%] ===== closing start ===== >> "%~dp0logs\closing.log" 2>&1
 python closing_odds_runner.py >> "%~dp0logs\closing.log" 2>&1
 echo [%date% %time%] ===== closing end (exit=%ERRORLEVEL%) ===== >> "%~dp0logs\closing.log" 2>&1
@@ -18,3 +21,5 @@ rem ----- CLV recompute after closing odds captured -----
 echo [%date% %time%] ===== clv compute start ===== >> "%~dp0logs\closing.log" 2>&1
 python compute_clv.py >> "%~dp0logs\closing.log" 2>&1
 echo [%date% %time%] ===== clv compute end (exit=%ERRORLEVEL%) ===== >> "%~dp0logs\closing.log" 2>&1
+
+python batch_lock.py end closing >> "%~dp0logs\closing.log" 2>&1
