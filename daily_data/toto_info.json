@@ -22,7 +22,7 @@
   ],
   "deadline": "2026-10-10 13:50",
   "result_date": "2026-10-11",
-  "generated_date": "2026-10-19",
+  "generated_date": "2026-10-20",
   "has_gemini": true,
   "has_codex": true,
   "has_claude": true,
@@ -199,7 +199,7 @@
       "away": "サンフレッチェ広島",
       "stats": {
         "p_H": 0.0827,
-        "p_D": 0.2538,
+        "p_D": 0.2539,
         "p_A": 0.6635,
         "pick": "A"
       },
