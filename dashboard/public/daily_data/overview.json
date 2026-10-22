@@ -1,18 +1,18 @@
 {
   "schema": "overview_v1",
-  "generated_at": "2026-10-21T09:55:13",
-  "today": "2026-10-21",
-  "latest_result_date": "2026-10-20",
+  "generated_at": "2026-10-22T09:48:37",
+  "today": "2026-10-22",
+  "latest_result_date": "2026-10-21",
   "ops": {
-    "date": "2026-10-21",
-    "target_races": 20,
+    "date": "2026-10-22",
+    "target_races": 19,
     "models": [
       {
         "key": "codex",
         "label": "Codex",
-        "today_count": 20,
-        "target_races": 20,
-        "last_success_date": "2026-10-21",
+        "today_count": 19,
+        "target_races": 19,
+        "last_success_date": "2026-10-22",
         "fail_streak_days": 0,
         "status": "ok",
         "alert": false
@@ -20,9 +20,9 @@
       {
         "key": "claude",
         "label": "Claude",
-        "today_count": 20,
-        "target_races": 20,
-        "last_success_date": "2026-10-21",
+        "today_count": 19,
+        "target_races": 19,
+        "last_success_date": "2026-10-22",
         "fail_streak_days": 0,
         "status": "ok",
         "alert": false
@@ -30,9 +30,9 @@
       {
         "key": "gemini",
         "label": "Gemini",
-        "today_count": 9,
-        "target_races": 20,
-        "last_success_date": "2026-10-21",
+        "today_count": 5,
+        "target_races": 19,
+        "last_success_date": "2026-10-22",
         "fail_streak_days": 0,
         "status": "partial",
         "alert": false
@@ -41,18 +41,18 @@
         "key": "grok",
         "label": "Grok",
         "today_count": 19,
-        "target_races": 20,
-        "last_success_date": "2026-10-21",
+        "target_races": 19,
+        "last_success_date": "2026-10-22",
         "fail_streak_days": 0,
-        "status": "partial",
+        "status": "ok",
         "alert": false
       },
       {
         "key": "gemma_ft",
         "label": "学習Gemma（Gemini先生）",
-        "today_count": 20,
-        "target_races": 20,
-        "last_success_date": "2026-10-21",
+        "today_count": 19,
+        "target_races": 19,
+        "last_success_date": "2026-10-22",
         "fail_streak_days": 0,
         "status": "ok",
         "alert": false
@@ -60,9 +60,9 @@
       {
         "key": "qwen_claude",
         "label": "学習Qwen（Claude先生）",
-        "today_count": 20,
-        "target_races": 20,
-        "last_success_date": "2026-10-21",
+        "today_count": 19,
+        "target_races": 19,
+        "last_success_date": "2026-10-22",
         "fail_streak_days": 0,
         "status": "ok",
         "alert": false
@@ -70,9 +70,9 @@
       {
         "key": "qwen_grok_x",
         "label": "学習Qwen（Grok+X先生）",
-        "today_count": 20,
-        "target_races": 20,
-        "last_success_date": "2026-10-21",
+        "today_count": 19,
+        "target_races": 19,
+        "last_success_date": "2026-10-22",
         "fail_streak_days": 0,
         "status": "ok",
         "alert": false
@@ -89,14 +89,14 @@
       {
         "key": "playbook_predict",
         "label": "心得集あり版の予測",
-        "detail": "最終 2026-10-20",
+        "detail": "最終 2026-10-21",
         "status": "pending",
         "note": "朝バッチの最後に実行（この画面の公開より後のことがある）"
       },
       {
         "key": "jev",
         "label": "Jev判定（シャドー）",
-        "detail": "20/20レース判定",
+        "detail": "19/19レース判定",
         "status": "ok",
         "note": "実購入には未接続"
       }
@@ -110,90 +110,90 @@
         "label": "Codex",
         "kind": "strong",
         "baseline": {
-          "n": 39,
-          "hits": 13,
-          "invest_yen": 19500,
-          "profit_yen": -8240,
-          "roi_pct": 57.7,
-          "hit_rate_pct": 33.3,
-          "roi_without_largest_win_pct": 48.9
+          "n": 59,
+          "hits": 17,
+          "invest_yen": 29500,
+          "profit_yen": -15200,
+          "roi_pct": 48.5,
+          "hit_rate_pct": 28.8,
+          "roi_without_largest_win_pct": 42.6
         },
         "playbook": {
-          "n": 39,
-          "hits": 14,
-          "invest_yen": 19500,
-          "profit_yen": -2950,
-          "roi_pct": 84.9,
-          "hit_rate_pct": 35.9,
-          "roi_without_largest_win_pct": 59.3
+          "n": 59,
+          "hits": 18,
+          "invest_yen": 29500,
+          "profit_yen": -9020,
+          "roi_pct": 69.4,
+          "hit_rate_pct": 30.5,
+          "roi_without_largest_win_pct": 52.4
         },
         "diff": {
-          "n": 39,
-          "mean_diff_yen": 135.6,
+          "n": 59,
+          "mean_diff_yen": 104.7,
           "ci95": [
-            -104.1,
-            471.5
+            -73.4,
+            348.6
           ]
         },
         "verdict": "accruing",
-        "progress_pct": 7.8,
+        "progress_pct": 11.8,
         "first_date": "2026-10-18",
         "jev": {
-          "n": 70,
-          "graded_races": 306,
+          "n": 75,
+          "graded_races": 326,
           "hits": 7,
-          "profit_yen": -1600,
-          "roi_pct": 77.1,
-          "hit_rate_pct": 10.0,
-          "roi_without_largest_win_pct": 43.1
+          "profit_yen": -2100,
+          "roi_pct": 72.0,
+          "hit_rate_pct": 9.3,
+          "roi_without_largest_win_pct": 40.3
         },
-        "jev_note": "Jev実験の期間（確定 2026-10-20 まで）。心得集とは対象レースが違う参考値",
+        "jev_note": "Jev実験の期間（確定 2026-10-21 まで）。心得集とは対象レースが違う参考値",
         "playbook_jev": {
-          "n": 8,
-          "graded_races": 19,
+          "n": 15,
+          "graded_races": 39,
           "hits": 1,
-          "profit_yen": -110,
-          "roi_pct": 86.2,
-          "hit_rate_pct": 12.5,
-          "roi_without_largest_win_pct": 12.5
+          "profit_yen": -810,
+          "roi_pct": 46.0,
+          "hit_rate_pct": 6.7,
+          "roi_without_largest_win_pct": 6.7
         },
         "jev_effect": {
           "metric": "forced_selected",
           "baseline": {
-            "graded_races": 5,
-            "purchased_races": 5,
+            "graded_races": 10,
+            "purchased_races": 10,
             "hits": 0,
             "hit_rate_pct": 0.0,
-            "invest_yen": 500,
+            "invest_yen": 1000,
             "return_yen": 0,
-            "profit_yen": -500,
+            "profit_yen": -1000,
             "roi_pct": 0.0,
-            "max_drawdown_yen": 500,
+            "max_drawdown_yen": 1000,
             "largest_single_race_profit_yen": 0,
-            "profit_without_largest_win_yen": -500,
+            "profit_without_largest_win_yen": -1000,
             "roi_without_largest_win_pct": 0.0
           },
           "playbook": {
-            "graded_races": 5,
-            "purchased_races": 5,
+            "graded_races": 10,
+            "purchased_races": 10,
             "hits": 1,
-            "hit_rate_pct": 20.0,
-            "invest_yen": 500,
+            "hit_rate_pct": 10.0,
+            "invest_yen": 1000,
             "return_yen": 690,
-            "profit_yen": 190,
-            "roi_pct": 138.0,
-            "max_drawdown_yen": 200,
+            "profit_yen": -310,
+            "roi_pct": 69.0,
+            "max_drawdown_yen": 700,
             "largest_single_race_profit_yen": 590,
-            "profit_without_largest_win_yen": -400,
-            "roi_without_largest_win_pct": 20.0
+            "profit_without_largest_win_yen": -900,
+            "roi_without_largest_win_pct": 10.0
           },
           "diff": {
-            "n": 5,
-            "mean_diff_yen": 138.0,
+            "n": 10,
+            "mean_diff_yen": 69.0,
             "ci95": null
           },
           "verdict": "accruing",
-          "progress_pct": 1.0
+          "progress_pct": 2.0
         }
       },
       {
@@ -201,90 +201,90 @@
         "label": "Claude",
         "kind": "strong",
         "baseline": {
-          "n": 39,
-          "hits": 16,
-          "invest_yen": 19500,
-          "profit_yen": -5570,
-          "roi_pct": 71.4,
-          "hit_rate_pct": 41.0,
-          "roi_without_largest_win_pct": 60.2
+          "n": 59,
+          "hits": 21,
+          "invest_yen": 29500,
+          "profit_yen": -11530,
+          "roi_pct": 60.9,
+          "hit_rate_pct": 35.6,
+          "roi_without_largest_win_pct": 53.4
         },
         "playbook": {
-          "n": 39,
-          "hits": 17,
-          "invest_yen": 19500,
-          "profit_yen": -5370,
-          "roi_pct": 72.5,
-          "hit_rate_pct": 43.6,
-          "roi_without_largest_win_pct": 64.1
+          "n": 59,
+          "hits": 22,
+          "invest_yen": 29500,
+          "profit_yen": -10510,
+          "roi_pct": 64.4,
+          "hit_rate_pct": 37.3,
+          "roi_without_largest_win_pct": 58.6
         },
         "diff": {
-          "n": 39,
-          "mean_diff_yen": 5.1,
+          "n": 59,
+          "mean_diff_yen": 17.3,
           "ci95": [
-            -185.1,
-            192.3
+            -134.4,
+            163.9
           ]
         },
         "verdict": "accruing",
-        "progress_pct": 7.8,
+        "progress_pct": 11.8,
         "first_date": "2026-10-18",
         "jev": {
-          "n": 29,
-          "graded_races": 306,
-          "hits": 4,
-          "profit_yen": -480,
-          "roi_pct": 83.4,
-          "hit_rate_pct": 13.8,
-          "roi_without_largest_win_pct": 52.8
+          "n": 34,
+          "graded_races": 326,
+          "hits": 5,
+          "profit_yen": -360,
+          "roi_pct": 89.4,
+          "hit_rate_pct": 14.7,
+          "roi_without_largest_win_pct": 63.2
         },
-        "jev_note": "Jev実験の期間（確定 2026-10-20 まで）。心得集とは対象レースが違う参考値",
+        "jev_note": "Jev実験の期間（確定 2026-10-21 まで）。心得集とは対象レースが違う参考値",
         "playbook_jev": {
-          "n": 5,
-          "graded_races": 19,
+          "n": 16,
+          "graded_races": 39,
           "hits": 1,
-          "profit_yen": 190,
-          "roi_pct": 138.0,
-          "hit_rate_pct": 20.0,
-          "roi_without_largest_win_pct": 20.0
+          "profit_yen": -910,
+          "roi_pct": 43.1,
+          "hit_rate_pct": 6.2,
+          "roi_without_largest_win_pct": 6.2
         },
         "jev_effect": {
           "metric": "forced_selected",
           "baseline": {
-            "graded_races": 3,
-            "purchased_races": 3,
+            "graded_races": 7,
+            "purchased_races": 7,
             "hits": 0,
             "hit_rate_pct": 0.0,
-            "invest_yen": 300,
+            "invest_yen": 700,
             "return_yen": 0,
-            "profit_yen": -300,
+            "profit_yen": -700,
             "roi_pct": 0.0,
-            "max_drawdown_yen": 300,
+            "max_drawdown_yen": 700,
             "largest_single_race_profit_yen": 0,
-            "profit_without_largest_win_yen": -300,
+            "profit_without_largest_win_yen": -700,
             "roi_without_largest_win_pct": 0.0
           },
           "playbook": {
-            "graded_races": 3,
-            "purchased_races": 3,
+            "graded_races": 7,
+            "purchased_races": 7,
             "hits": 1,
-            "hit_rate_pct": 33.3,
-            "invest_yen": 300,
+            "hit_rate_pct": 14.3,
+            "invest_yen": 700,
             "return_yen": 690,
-            "profit_yen": 390,
-            "roi_pct": 230.0,
-            "max_drawdown_yen": 200,
+            "profit_yen": -10,
+            "roi_pct": 98.6,
+            "max_drawdown_yen": 400,
             "largest_single_race_profit_yen": 590,
-            "profit_without_largest_win_yen": -200,
-            "roi_without_largest_win_pct": 33.3
+            "profit_without_largest_win_yen": -600,
+            "roi_without_largest_win_pct": 14.3
           },
           "diff": {
-            "n": 3,
-            "mean_diff_yen": 230.0,
+            "n": 7,
+            "mean_diff_yen": 98.6,
             "ci95": null
           },
           "verdict": "accruing",
-          "progress_pct": 0.6
+          "progress_pct": 1.4
         }
       },
       {
@@ -292,33 +292,33 @@
         "label": "学習Gemma（Gemini先生）",
         "kind": "local",
         "baseline": {
-          "n": 49,
-          "hits": 12,
-          "invest_yen": 20900,
-          "profit_yen": -2440,
-          "roi_pct": 88.3,
-          "hit_rate_pct": 24.5,
-          "roi_without_largest_win_pct": 73.7
+          "n": 69,
+          "hits": 18,
+          "invest_yen": 29400,
+          "profit_yen": 2150,
+          "roi_pct": 107.3,
+          "hit_rate_pct": 26.1,
+          "roi_without_largest_win_pct": 82.2
         },
         "playbook": {
-          "n": 49,
-          "hits": 14,
-          "invest_yen": 22100,
-          "profit_yen": -8150,
-          "roi_pct": 63.1,
-          "hit_rate_pct": 28.6,
-          "roi_without_largest_win_pct": 49.1
+          "n": 69,
+          "hits": 18,
+          "invest_yen": 30900,
+          "profit_yen": -7090,
+          "roi_pct": 77.1,
+          "hit_rate_pct": 26.1,
+          "roi_without_largest_win_pct": 52.7
         },
         "diff": {
-          "n": 49,
-          "mean_diff_yen": -116.5,
+          "n": 69,
+          "mean_diff_yen": -133.9,
           "ci95": [
-            -327.1,
-            45.5
+            -292.9,
+            4.6
           ]
         },
         "verdict": "accruing",
-        "progress_pct": 9.8,
+        "progress_pct": 13.8,
         "first_date": "2026-10-18"
       },
       {
@@ -326,33 +326,33 @@
         "label": "学習Qwen（Claude先生）",
         "kind": "local",
         "baseline": {
-          "n": 49,
-          "hits": 14,
-          "invest_yen": 24500,
-          "profit_yen": -7910,
-          "roi_pct": 67.7,
-          "hit_rate_pct": 28.6,
-          "roi_without_largest_win_pct": 54.9
+          "n": 69,
+          "hits": 21,
+          "invest_yen": 34500,
+          "profit_yen": -4620,
+          "roi_pct": 86.6,
+          "hit_rate_pct": 30.4,
+          "roi_without_largest_win_pct": 69.3
         },
         "playbook": {
-          "n": 49,
-          "hits": 13,
-          "invest_yen": 24500,
-          "profit_yen": -8930,
-          "roi_pct": 63.6,
-          "hit_rate_pct": 26.5,
-          "roi_without_largest_win_pct": 52.1
+          "n": 69,
+          "hits": 19,
+          "invest_yen": 34400,
+          "profit_yen": -11120,
+          "roi_pct": 67.7,
+          "hit_rate_pct": 27.5,
+          "roi_without_largest_win_pct": 59.6
         },
         "diff": {
-          "n": 49,
-          "mean_diff_yen": -20.8,
+          "n": 69,
+          "mean_diff_yen": -94.2,
           "ci95": [
-            -250.0,
-            232.0
+            -340.3,
+            133.6
           ]
         },
         "verdict": "accruing",
-        "progress_pct": 9.8,
+        "progress_pct": 13.8,
         "first_date": "2026-10-18"
       },
       {
@@ -360,49 +360,49 @@
         "label": "学習Qwen（Grok+X先生）",
         "kind": "local",
         "baseline": {
-          "n": 49,
-          "hits": 18,
-          "invest_yen": 24400,
-          "profit_yen": -6860,
-          "roi_pct": 71.9,
-          "hit_rate_pct": 36.7,
-          "roi_without_largest_win_pct": 59.1
+          "n": 69,
+          "hits": 23,
+          "invest_yen": 34400,
+          "profit_yen": -11760,
+          "roi_pct": 65.8,
+          "hit_rate_pct": 33.3,
+          "roi_without_largest_win_pct": 56.7
         },
         "playbook": {
-          "n": 49,
-          "hits": 15,
-          "invest_yen": 24500,
-          "profit_yen": -9020,
-          "roi_pct": 63.2,
-          "hit_rate_pct": 30.6,
-          "roi_without_largest_win_pct": 50.5
+          "n": 69,
+          "hits": 23,
+          "invest_yen": 34400,
+          "profit_yen": -9520,
+          "roi_pct": 72.3,
+          "hit_rate_pct": 33.3,
+          "roi_without_largest_win_pct": 63.5
         },
         "diff": {
-          "n": 49,
-          "mean_diff_yen": -44.1,
+          "n": 69,
+          "mean_diff_yen": 32.5,
           "ci95": [
-            -283.3,
-            191.4
+            -145.8,
+            220.0
           ]
         },
         "verdict": "accruing",
-        "progress_pct": 9.8,
+        "progress_pct": 13.8,
         "first_date": "2026-10-18"
       }
     ]
   },
   "playbooks": {
-    "week_start": "2026-10-15",
+    "week_start": "2026-10-16",
     "models": [
       {
         "key": "codex",
         "label": "Codex",
         "reflector": "claude",
         "status": "ok",
-        "active_count": 2,
-        "updated_for": "2026-10-21",
+        "active_count": 3,
+        "updated_for": "2026-10-22",
         "week_changes": {
-          "add": 2,
+          "add": 3,
           "update": 1,
           "disable": 0
         },
@@ -411,10 +411,10 @@
             "id": "codex-002",
             "text": "1号艇が強(lane1_strength=strong)で1着本線のとき、5点を2〜4号艇だけの2・3着で固めない。1-x-5や1-x-6のように、5・6号艇を3着(まれに2着)に置く組み合わせを5点中1〜2点入れる。外側は勝率が上位の艇を選ぶ。",
             "status": "active",
-            "n": 14,
-            "hits": 5,
-            "profit_yen": -2240,
-            "roi_pct": 68.0
+            "n": 27,
+            "hits": 9,
+            "profit_yen": -4810,
+            "roi_pct": 64.4
           },
           {
             "id": "codex-001",
@@ -432,10 +432,10 @@
         "label": "Claude",
         "reflector": "codex",
         "status": "ok",
-        "active_count": 6,
-        "updated_for": "2026-10-21",
+        "active_count": 8,
+        "updated_for": "2026-10-22",
         "week_changes": {
-          "add": 6,
+          "add": 8,
           "update": 2,
           "disable": 0
         },
@@ -444,28 +444,28 @@
             "id": "claude-001",
             "text": "1号艇がstrongで頭固定する場合、2着本線を最低3点維持する。特に3号艇が2着本線で、5・6号艇がB1以上または勝率3.8以上なら、5点中最低1点は本線2着―5・6号艇3着に振る。",
             "status": "active",
-            "n": 25,
-            "hits": 11,
-            "profit_yen": -3690,
-            "roi_pct": 70.5
+            "n": 36,
+            "hits": 14,
+            "profit_yen": -6840,
+            "roi_pct": 62.0
           },
           {
             "id": "claude-003",
             "text": "1号艇がstrongでも、勝率首位との差が0.5以内で3・4号艇にA級または勝率6点台がいるときは、1頭固定を最大3点に抑え、3号艇・4号艇頭を各1点以上入れる。",
             "status": "active",
-            "n": 10,
-            "hits": 6,
-            "profit_yen": 400,
-            "roi_pct": 108.0
+            "n": 13,
+            "hits": 7,
+            "profit_yen": -580,
+            "roi_pct": 91.1
           },
           {
             "id": "claude-002",
             "text": "1号艇がweakまたはmiddleで、最高勝率の外艇が1号艇を1.0以上上回るときは、1頭固定を避け、5点中3点以上を外艇頭にする。外艇頭では1号艇を2・3着の双方に配置する。",
             "status": "active",
-            "n": 6,
-            "hits": 1,
-            "profit_yen": -2170,
-            "roi_pct": 27.7
+            "n": 12,
+            "hits": 2,
+            "profit_yen": -3180,
+            "roi_pct": 47.0
           }
         ]
       },
@@ -474,11 +474,11 @@
         "label": "学習Gemma（Gemini先生）",
         "reflector": "claude",
         "status": "ok",
-        "active_count": 3,
-        "updated_for": "2026-10-21",
+        "active_count": 4,
+        "updated_for": "2026-10-22",
         "week_changes": {
-          "add": 3,
-          "update": 2,
+          "add": 4,
+          "update": 3,
           "disable": 0
         },
         "top_items": []
@@ -488,10 +488,10 @@
         "label": "学習Qwen（Claude先生）",
         "reflector": "claude",
         "status": "ok",
-        "active_count": 2,
-        "updated_for": "2026-10-21",
+        "active_count": 3,
+        "updated_for": "2026-10-22",
         "week_changes": {
-          "add": 2,
+          "add": 3,
           "update": 4,
           "disable": 0
         },
@@ -502,12 +502,12 @@
         "label": "学習Qwen（Grok+X先生）",
         "reflector": "claude",
         "status": "ok",
-        "active_count": 2,
-        "updated_for": "2026-10-21",
+        "active_count": 1,
+        "updated_for": "2026-10-22",
         "week_changes": {
           "add": 2,
-          "update": 2,
-          "disable": 0
+          "update": 3,
+          "disable": 1
         },
         "top_items": []
       }
@@ -518,42 +518,42 @@
     "note": "過去30日（9/15〜10/14）の検証はまだ実施していません。"
   },
   "overall": {
-    "latest_result_date": "2026-10-20",
+    "latest_result_date": "2026-10-21",
     "periods": {
       "weekly": {
         "label": "直近7日",
-        "start_date": "2026-10-14",
-        "end_date": "2026-10-20",
+        "start_date": "2026-10-15",
+        "end_date": "2026-10-21",
         "combined": {
-          "n": 665,
-          "profit": -115610,
-          "roi": 64.1,
-          "hit_rate": 29.6
+          "n": 693,
+          "profit": -117740,
+          "roi": 64.9,
+          "hit_rate": 28.0
         },
         "top_model": {
-          "label": "Gemini",
-          "profit": -6430,
-          "roi": 45.0,
-          "n": 27
+          "label": "学習Gemma（Gemini先生）",
+          "profit": -2270,
+          "roi": 95.5,
+          "n": 118
         },
         "positive_models": 0,
         "measured_models": 7
       },
       "monthly": {
         "label": "直近30日",
-        "start_date": "2026-09-21",
-        "end_date": "2026-10-20",
+        "start_date": "2026-09-22",
+        "end_date": "2026-10-21",
         "combined": {
-          "n": 2816,
-          "profit": -399040,
-          "roi": 70.7,
-          "hit_rate": 33.6
+          "n": 2944,
+          "profit": -418100,
+          "roi": 70.6,
+          "hit_rate": 33.2
         },
         "top_model": {
           "label": "Gemini",
-          "profit": -20450,
-          "roi": 76.3,
-          "n": 192
+          "profit": -23180,
+          "roi": 74.3,
+          "n": 201
         },
         "positive_models": 0,
         "measured_models": 7
