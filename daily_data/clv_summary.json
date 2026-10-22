@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20 21:56:19",
+  "generated_at": "2026-10-21 22:01:29",
   "metric": "CLV_pp (closing implied prob - morning implied prob, normalized)",
   "min_races_active": 30,
   "sources": {
@@ -10,34 +10,34 @@
     "claude": {
       "label": "Claude",
       "status": "active",
-      "graded_races": 265,
-      "picks": 1319,
-      "avg_clv_pp": 1.357,
-      "positive_rate_pct": 59.7
+      "graded_races": 285,
+      "picks": 1419,
+      "avg_clv_pp": 1.38,
+      "positive_rate_pct": 60.9
     },
     "claude_playbook": {
       "label": "claude_playbook",
-      "status": "accruing",
-      "graded_races": 16,
-      "picks": 80,
-      "avg_clv_pp": 1.368,
-      "positive_rate_pct": 67.5
+      "status": "active",
+      "graded_races": 36,
+      "picks": 180,
+      "avg_clv_pp": 1.474,
+      "positive_rate_pct": 68.3
     },
     "codex": {
       "label": "Codex",
       "status": "active",
-      "graded_races": 480,
-      "picks": 2392,
-      "avg_clv_pp": 1.167,
-      "positive_rate_pct": 60.1
+      "graded_races": 500,
+      "picks": 2492,
+      "avg_clv_pp": 1.175,
+      "positive_rate_pct": 60.5
     },
     "codex_playbook": {
       "label": "codex_playbook",
-      "status": "accruing",
-      "graded_races": 16,
-      "picks": 80,
-      "avg_clv_pp": 1.016,
-      "positive_rate_pct": 68.8
+      "status": "active",
+      "graded_races": 36,
+      "picks": 180,
+      "avg_clv_pp": 1.281,
+      "positive_rate_pct": 68.3
     },
     "gemini": {
       "label": "Gemini",
@@ -50,58 +50,58 @@
     "gemma": {
       "label": "Gemma弟子",
       "status": "active",
-      "graded_races": 66,
-      "picks": 111,
-      "avg_clv_pp": 0.946,
-      "positive_rate_pct": 45.0
+      "graded_races": 72,
+      "picks": 119,
+      "avg_clv_pp": 0.901,
+      "positive_rate_pct": 45.4
     },
     "gemma_claude": {
       "label": "Qwen弟子(Claude先生)",
       "status": "active",
-      "graded_races": 303,
-      "picks": 427,
-      "avg_clv_pp": 1.288,
-      "positive_rate_pct": 60.4
+      "graded_races": 318,
+      "picks": 450,
+      "avg_clv_pp": 1.281,
+      "positive_rate_pct": 60.9
     },
     "gemma_ft_playbook": {
       "label": "gemma_ft_playbook",
-      "status": "accruing",
-      "graded_races": 16,
-      "picks": 73,
-      "avg_clv_pp": 1.255,
-      "positive_rate_pct": 63.0
+      "status": "active",
+      "graded_races": 36,
+      "picks": 161,
+      "avg_clv_pp": 1.088,
+      "positive_rate_pct": 63.4
     },
     "gemma_grok_x": {
       "label": "Qwen弟子(Grok+X先生)",
       "status": "active",
-      "graded_races": 332,
-      "picks": 860,
-      "avg_clv_pp": 0.949,
-      "positive_rate_pct": 55.0
+      "graded_races": 351,
+      "picks": 920,
+      "avg_clv_pp": 0.97,
+      "positive_rate_pct": 55.5
     },
     "grok": {
       "label": "Grok",
       "status": "active",
-      "graded_races": 481,
-      "picks": 2537,
-      "avg_clv_pp": 1.297,
-      "positive_rate_pct": 60.7
+      "graded_races": 500,
+      "picks": 2638,
+      "avg_clv_pp": 1.317,
+      "positive_rate_pct": 61.3
     },
     "qwen_claude_playbook": {
       "label": "qwen_claude_playbook",
-      "status": "accruing",
-      "graded_races": 16,
-      "picks": 80,
-      "avg_clv_pp": 1.791,
-      "positive_rate_pct": 68.8
+      "status": "active",
+      "graded_races": 36,
+      "picks": 179,
+      "avg_clv_pp": 1.705,
+      "positive_rate_pct": 72.6
     },
     "qwen_grok_x_playbook": {
       "label": "qwen_grok_x_playbook",
-      "status": "accruing",
-      "graded_races": 16,
-      "picks": 80,
-      "avg_clv_pp": 1.395,
-      "positive_rate_pct": 71.2
+      "status": "active",
+      "graded_races": 36,
+      "picks": 179,
+      "avg_clv_pp": 1.442,
+      "positive_rate_pct": 70.4
     }
   }
 }
