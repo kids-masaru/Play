@@ -133,7 +133,31 @@ class BoardTest(OverviewTestBase):
         ])
         self.assertEqual(m["roi_pct"], round(5250 / 1500 * 100, 1))
         self.assertEqual(m["roi_without_largest_win_pct"], 25.0)
+        self.assertEqual(m["roi_without_top3_wins_pct"], 0.0)
+        self.assertEqual(m["largest_return_share_pct"], 95.2)
         self.assertEqual(m["hit_rate_pct"], 66.7)
+
+    def test_assessment_keeps_profit_and_dependency_separate(self) -> None:
+        assessment = bo.assess_overall({
+            "n": 120,
+            "profit": 10000,
+            "roi_without_largest_win": 80.0,
+            "roi_without_top3_wins": 40.0,
+            "largest_return_share": 70.0,
+        })
+        self.assertEqual(assessment["label"], "黒字・高配当依存")
+        self.assertEqual(assessment["sample_label"], "蓄積中")
+        self.assertEqual(assessment["sample_progress_pct"], 24.0)
+
+        robust = bo.assess_overall({
+            "n": 500,
+            "profit": 10000,
+            "roi_without_largest_win": 110.0,
+            "roi_without_top3_wins": 101.0,
+            "largest_return_share": 20.0,
+        })
+        self.assertEqual(robust["label"], "黒字・再現性あり")
+        self.assertEqual(robust["sample_label"], "判定目安到達")
 
 
 class PlaybookSectionTest(OverviewTestBase):

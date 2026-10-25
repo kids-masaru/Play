@@ -23,7 +23,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 import playbook as pb
-from paired_stats import DECISION_SAMPLE, paired_bootstrap, verdict
+from paired_stats import DECISION_SAMPLE, paired_bootstrap, robustness_metrics, verdict
 from codex_learning import MODEL_PREDICTION_CONFIGS, normalize_result, parse_stakes, safe_float
 from playbook_predict import STREAMS as PLAYBOOK_STREAMS
 
@@ -38,7 +38,7 @@ for _stream in (sys.stdout, sys.stderr):
 ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "dashboard" / "public" / "daily_data"
 OUTPUT_JSON = DATA_DIR / "overview.json"
-SCHEMA_VERSION = "overview_v1"
+SCHEMA_VERSION = "overview_v2"
 
 # 運用チェックの対象（モデル比較に出ている7モデル。基本Gemmaは対象外の既存方針どおり）
 OPS_MODELS = ("codex", "claude", "gemini", "grok", "gemma_ft", "qwen_claude", "qwen_grok_x")
@@ -115,26 +115,10 @@ def settle(prediction: dict[str, Any], result: dict[str, Any]) -> dict[str, Any]
 
 
 def metrics(settled: list[dict[str, Any]]) -> dict[str, Any]:
-    """ROI・最大当たり除外ROI・的中率・損益。件数0なら None を並べる。"""
-    n = len(settled)
-    invest = sum(row["invest"] for row in settled)
-    returned = sum(row["return"] for row in settled)
-    hits = sum(1 for row in settled if row["hit"])
-    result: dict[str, Any] = {
-        "n": n,
-        "hits": hits,
-        "invest_yen": round(invest),
-        "profit_yen": round(returned - invest),
-        "roi_pct": round(returned / invest * 100, 1) if invest else None,
-        "hit_rate_pct": round(hits / n * 100, 1) if n else None,
-        "roi_without_largest_win_pct": None,
-    }
-    if settled and invest:
-        best = max(settled, key=lambda row: row["profit"])
-        rest_invest = invest - best["invest"]
-        if rest_invest > 0:
-            result["roi_without_largest_win_pct"] = round((returned - best["return"]) / rest_invest * 100, 1)
-    return result
+    """共通定義による実収支・高配当依存・損失耐性を返す。"""
+
+    shared = robustness_metrics(settled)
+    return {"n": shared["graded_races"], **shared}
 
 
 # paired_bootstrap・verdict は paired_stats.py に共通化（Jev 組合せ成績と同じ判定にする）
@@ -398,16 +382,68 @@ def build_overall(data_dir: Path) -> dict[str, Any]:
         combined = view.get("combined") or {}
         measured = [m for m in (view.get("models") or []) if m.get("n")]
         top = max(measured, key=lambda m: m.get("profit", 0), default=None)
+        combined_view = {
+            key: combined.get(key)
+            for key in (
+                "n", "hits", "invest", "return", "profit", "roi", "hit_rate",
+                "max_drawdown", "longest_losing_streak",
+                "roi_without_largest_win", "roi_without_top3_wins",
+                "largest_return_share", "top3_return_share",
+            )
+        }
+        combined_view["assessment"] = assess_overall(combined_view)
         result["periods"][period_key] = {
             "label": period.get("label"),
             "start_date": period.get("start_date"),
             "end_date": period.get("end_date"),
-            "combined": {k: combined.get(k) for k in ("n", "profit", "roi", "hit_rate")},
+            "combined": combined_view,
             "top_model": {k: top.get(k) for k in ("label", "profit", "roi", "n")} if top else None,
             "positive_models": sum(1 for m in measured if m.get("profit", 0) > 0),
             "measured_models": len(measured),
         }
+    result["decision_sample"] = DECISION_SAMPLE
     return result
+
+
+def assess_overall(metric: dict[str, Any]) -> dict[str, Any]:
+    """実収支とストレス結果を分け、総合ページ用の平易な結論を返す。"""
+
+    n = int(metric.get("n") or 0)
+    profit = float(metric.get("profit") or 0)
+    without_largest = metric.get("roi_without_largest_win")
+    without_top3 = metric.get("roi_without_top3_wins")
+    largest_share = metric.get("largest_return_share")
+    enough = n >= DECISION_SAMPLE
+    concentrated = profit > 0 and (
+        (without_largest is not None and without_largest < 100)
+        or (largest_share is not None and largest_share >= 50)
+    )
+
+    if n == 0:
+        code, label, note = "unmeasured", "計測前", "確定結果が入ると評価を始めます。"
+    elif profit > 0 and concentrated:
+        code, label = "profitable_concentrated", "黒字・高配当依存"
+        note = "実際の収支は黒字ですが、利益が少数の高配当に強く支えられています。"
+    elif profit > 0 and enough and without_top3 is not None and without_top3 >= 100:
+        code, label = "profitable_robust", "黒字・再現性あり"
+        note = "実収支が黒字で、上位3件を除くストレス後もROI 100%以上です。"
+    elif profit > 0:
+        code, label = "profitable_reviewing", "黒字・再現性を確認中"
+        note = "実収支は黒字です。件数と高配当を除いた成績を引き続き確認します。"
+    elif profit == 0:
+        code, label, note = "break_even", "損益分岐・優位未確認", "実収支は損益分岐で、優位性はまだ確認できません。"
+    else:
+        code, label = "loss_unconfirmed", "赤字・優位未確認"
+        note = "現時点の実収支は赤字です。高配当の有無にかかわらず優位性は未確認です。"
+
+    return {
+        "code": code,
+        "label": label,
+        "note": note,
+        "sample_code": "enough" if enough else "accruing",
+        "sample_label": "判定目安到達" if enough else "蓄積中",
+        "sample_progress_pct": round(min(n / DECISION_SAMPLE, 1) * 100, 1),
+    }
 
 
 # ---------------------------------------------------------------------------

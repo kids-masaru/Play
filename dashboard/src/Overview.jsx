@@ -112,12 +112,12 @@ const BoardSection = ({ board }) => {
           </div>
           <small className="ov-diff">
             {diff.n
-              ? `1レースあたりの差（あり−なし） ${formatYen(diff.mean_diff_yen)}${diff.ci95 ? `　95%区間 ${formatYen(diff.ci95[0])} 〜 ${formatYen(diff.ci95[1])}` : '（30件から区間を表示）'}`
+              ? `1レースあたりの差（あり−なし） ${formatYen(diff.mean_diff_yen)}${diff.ci95 ? ` / 95%区間 ${formatYen(diff.ci95[0])} 〜 ${formatYen(diff.ci95[1])}` : '（30件から区間を表示）'}`
               : '心得集ありの予測がたまると、ここに差が出ます。'}
           </small>
           {row.kind === 'strong' && <small className="ov-diff">
             {row.jev_effect?.diff?.n
-              ? `Jev同士の差（心得集＋Jev − Jev） ${formatYen(row.jev_effect.diff.mean_diff_yen)}・${row.jev_effect.diff.n}件${row.jev_effect.diff.ci95 ? `　95%区間 ${formatYen(row.jev_effect.diff.ci95[0])} 〜 ${formatYen(row.jev_effect.diff.ci95[1])}` : ''}`
+              ? `Jev同士の差（心得集＋Jev − Jev） ${formatYen(row.jev_effect.diff.mean_diff_yen)}・${row.jev_effect.diff.n}件${row.jev_effect.diff.ci95 ? ` / 95%区間 ${formatYen(row.jev_effect.diff.ci95[0])} 〜 ${formatYen(row.jev_effect.diff.ci95[1])}` : ''}`
               : 'Jev同士の比較（心得集＋Jev − Jev）は、確定結果がたまると表示します。'}
           </small>}
         </article>;
@@ -188,7 +188,7 @@ const OverallSection = ({ overall, onOpenModels }) => {
   if (unavailable(overall)) return <section className="comparison-table-card"><h3 className="ov-title">全体成績</h3><Waiting /></section>;
   return <section className="comparison-table-card">
     <div className="simple-section-heading">
-      <div><h3>全体成績</h3><p>全モデル合計と、期間中いちばん収支が良いモデル。詳しくは「モデル比較」へ。</p></div>
+      <div><h3>全体成績</h3><p>大当たりを含む実際の収支と、その当たりを除いたストレス結果を分けて表示します。</p></div>
       <button type="button" className="ov-link" onClick={onOpenModels}>モデル比較を見る →</button>
     </div>
     <div className="ov-overall">
@@ -196,11 +196,27 @@ const OverallSection = ({ overall, onOpenModels }) => {
         const period = overall.periods?.[key];
         if (!period) return null;
         const combined = period.combined || {};
+        const assessment = combined.assessment || {};
         return <div key={key} className="ov-overall-card">
-          <span className="ov-overall-label">{period.label}<small>{shortDate(period.start_date)}〜{shortDate(period.end_date)}</small></span>
+          <div className="ov-overall-head">
+            <span className="ov-overall-label">{period.label}<small>{shortDate(period.start_date)}〜{shortDate(period.end_date)}</small></span>
+            <span className={`ov-assessment ov-assessment-${assessment.code || 'unmeasured'}`}>{assessment.label || '集計待ち'}</span>
+          </div>
           <strong className={combined.profit >= 0 ? 'value-positive' : 'value-negative'}>{formatYen(combined.profit)}</strong>
-          <small>ROI {formatPercent(combined.roi)}・的中率 {formatPercent(combined.hit_rate)}・{combined.n ?? 0}予測</small>
-          <small>トップ: {period.top_model ? `${period.top_model.label}（${formatYen(period.top_model.profit)}）` : '—'}　黒字 {period.positive_models}/{period.measured_models}モデル</small>
+          <small>実投資 {formatYen(combined.invest, false)}・実払戻 {formatYen(combined.return, false)}・的中率 {formatPercent(combined.hit_rate)}</small>
+          <div className="ov-stress-grid">
+            <div><span>大当たり込みROI</span><strong>{formatPercent(combined.roi)}</strong></div>
+            <div><span>最大1件を除く</span><strong>{formatPercent(combined.roi_without_largest_win)}</strong></div>
+            <div><span>上位3件を除く</span><strong>{formatPercent(combined.roi_without_top3_wins)}</strong></div>
+            <div><span>最大1件の払戻依存</span><strong>{formatPercent(combined.largest_return_share)}</strong></div>
+          </div>
+          <div className="ov-overall-sample">
+            <div className="ov-progress-bar"><i style={{ width: `${assessment.sample_progress_pct || 0}%` }} /></div>
+            <span>{assessment.sample_label || '蓄積中'} {combined.n ?? 0} / {overall.decision_sample || 500}延べ予測</span>
+          </div>
+          <p className="ov-assessment-note">{assessment.note || '次回の集計更新後に再現性を判定します。'}</p>
+          <small>最大損失幅 {formatYen(combined.max_drawdown, false)}・最長連敗 {combined.longest_losing_streak ?? '—'}回</small>
+          <small>トップ: {period.top_model ? `${period.top_model.label}（${formatYen(period.top_model.profit)}）` : '—'}・黒字 {period.positive_models}/{period.measured_models}モデル</small>
         </div>;
       })}
     </div>
@@ -226,7 +242,7 @@ const Overview = ({ onOpenModels }) => {
       <div>
         <span className="comparison-kicker">OVERVIEW</span>
         <h2>まとめ</h2>
-        <p>運用が正しく動いているか、どの方式が効いているか、心得集がどう育っているかを1画面で。</p>
+        <p>運用状況、実際の収支、高配当への依存、実験の進み具合を1画面で。</p>
       </div>
       <div className="comparison-date">
         <strong>{overview.today}</strong>

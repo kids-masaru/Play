@@ -14,6 +14,8 @@ import sys
 from collections import defaultdict
 from typing import Any
 
+from paired_stats import robustness_metrics
+
 try:
     sys.stdout.reconfigure(encoding="utf-8")
 except Exception:
@@ -153,23 +155,22 @@ def _filter_dates(records: list[dict[str, Any]], start: str | None, end: str | N
 
 
 def _metrics(records: list[dict[str, Any]]) -> dict[str, Any]:
-    invest = sum(row["invest"] for row in records)
-    returned = sum(row["return"] for row in records)
-    hits = sum(1 for row in records if row["hit"])
-    equity = peak = max_drawdown = 0.0
-    for row in sorted(records, key=lambda item: (item["date"], item["id"], item.get("source", ""))):
-        equity += row["profit"]
-        peak = max(peak, equity)
-        max_drawdown = max(max_drawdown, peak - equity)
+    ordered = sorted(records, key=lambda item: (item["date"], item["id"], item.get("source", "")))
+    shared = robustness_metrics(ordered)
     return {
-        "n": len(records),
-        "hits": hits,
-        "hit_rate": round(hits / len(records) * 100, 1) if records else None,
-        "invest": round(invest),
-        "return": round(returned),
-        "profit": round(returned - invest),
-        "roi": round(returned / invest * 100, 1) if invest else None,
-        "max_drawdown": round(max_drawdown),
+        "n": shared["purchased_races"],
+        "hits": shared["hits"],
+        "hit_rate": shared["hit_rate_pct"],
+        "invest": shared["invest_yen"],
+        "return": shared["return_yen"],
+        "profit": shared["profit_yen"],
+        "roi": shared["roi_pct"],
+        "max_drawdown": shared["max_drawdown_yen"],
+        "longest_losing_streak": shared["longest_losing_streak"],
+        "roi_without_largest_win": shared["roi_without_largest_win_pct"],
+        "roi_without_top3_wins": shared["roi_without_top3_wins_pct"],
+        "largest_return_share": shared["largest_return_share_pct"],
+        "top3_return_share": shared["top3_return_share_pct"],
         "sample_status": "十分" if len(records) >= 100 else "確認中" if len(records) >= 30 else "参考",
     }
 

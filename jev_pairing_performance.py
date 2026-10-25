@@ -112,36 +112,7 @@ def metrics(rows: list[dict[str, Any]], key: str) -> dict[str, Any]:
     """ROIと大当たり依存を同時に確認できる集計を返す。"""
 
     graded = [row[key] for row in rows]
-    invest = sum(row["invest"] for row in graded)
-    returned = sum(row["return"] for row in graded)
-    purchased = sum(row["invest"] > 0 for row in graded)
-    hits = sum(bool(row["hit"]) for row in graded)
-    equity = 0
-    peak = 0
-    max_drawdown = 0
-    for row in graded:
-        equity += row["profit"]
-        peak = max(peak, equity)
-        max_drawdown = max(max_drawdown, peak - equity)
-    largest_win = max((row["profit"] for row in graded), default=0)
-    largest_win = max(0, largest_win)
-    without_largest = returned - largest_win
-    return {
-        "graded_races": len(graded),
-        "purchased_races": purchased,
-        "hits": hits,
-        "hit_rate_pct": round(hits / purchased * 100, 1) if purchased else None,
-        "invest_yen": round(invest),
-        "return_yen": round(returned),
-        "profit_yen": round(returned - invest),
-        "roi_pct": round(returned / invest * 100, 1) if invest else None,
-        "max_drawdown_yen": round(max_drawdown),
-        "largest_single_race_profit_yen": round(largest_win),
-        "profit_without_largest_win_yen": round(without_largest - invest),
-        "roi_without_largest_win_pct": round(without_largest / invest * 100, 1)
-        if invest
-        else None,
-    }
+    return paired_stats.robustness_metrics(graded)
 
 
 def evaluate_record(

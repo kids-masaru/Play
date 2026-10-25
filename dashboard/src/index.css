@@ -1024,11 +1024,25 @@ body {
 
 /* 4・5. 検証・全体成績 */
 .ov-backtest, .ov-overall { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
-.ov-backtest > div, .ov-overall-card { display: grid; gap: .2rem; min-width: 0; padding: .7rem .8rem; background: #fafbfc; border: 1px solid #e2e5e9; border-radius: 8px; }
+.ov-backtest > div, .ov-overall-card { display: grid; gap: .35rem; min-width: 0; padding: .7rem .8rem; background: #fafbfc; border: 1px solid #e2e5e9; border-radius: 8px; }
 .ov-backtest span, .ov-overall-label { color: #6b7280; font-size: .7rem; font-weight: 700; }
 .ov-overall-label small { margin-left: .4rem; color: #9ca3af; font-weight: 600; }
 .ov-backtest strong, .ov-overall-card strong { font-size: 1.3rem; }
 .ov-backtest small, .ov-overall-card small { color: #7b8491; font-size: .64rem; line-height: 1.5; }
+.ov-overall-head { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+.ov-assessment { padding: .2rem .45rem; border-radius: 5px; color: #596170; background: #eef0f3; font-size: .62rem; font-weight: 800; white-space: nowrap; }
+.ov-assessment-profitable_concentrated { color: #9a6700; background: #fff1c7; }
+.ov-assessment-profitable_reviewing { color: #276749; background: #e7f6f0; }
+.ov-assessment-profitable_robust { color: #047857; background: #d9f4e7; }
+.ov-assessment-loss_unconfirmed { color: #be344f; background: #fdecef; }
+.ov-stress-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .35rem; margin-top: .2rem; }
+.ov-stress-grid > div { display: grid; gap: .05rem; padding: .4rem .45rem; background: #fff; border: 1px solid #e5e7eb; border-radius: 6px; }
+.ov-stress-grid span { color: #7b8491; font-size: .58rem; }
+.ov-stress-grid strong { color: #111827; font-size: .88rem; }
+.ov-overall-sample { display: flex; align-items: center; gap: .5rem; margin-top: .15rem; }
+.ov-overall-sample .ov-progress-bar { min-width: 4rem; }
+.ov-overall-sample > span { color: #6b7280; font-size: .6rem; font-weight: 700; white-space: nowrap; }
+.ov-assessment-note { margin: 0; color: #596170; font-size: .66rem; line-height: 1.55; }
 
 /* 実験ページ：心得集の効果 */
 .ov-effect-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: .7rem; }
@@ -1046,6 +1060,7 @@ body {
   .ov-ops-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ov-cells.is-four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ov-backtest, .ov-overall { grid-template-columns: 1fr; }
+  .ov-overall-head { align-items: flex-start; }
   .ov-page .simple-section-heading { flex-wrap: wrap; align-items: flex-start; }
 }
 @media (max-width: 390px) {
