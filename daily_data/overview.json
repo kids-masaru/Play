@@ -1,6 +1,6 @@
 {
-  "schema": "overview_v1",
-  "generated_at": "2026-10-25T09:53:22",
+  "schema": "overview_v2",
+  "generated_at": "2026-10-25T11:03:14",
   "today": "2026-10-25",
   "latest_result_date": "2026-10-24",
   "ops": {
@@ -89,8 +89,8 @@
       {
         "key": "playbook_predict",
         "label": "心得集あり版の予測",
-        "detail": "最終 2026-10-24",
-        "status": "pending",
+        "detail": "今日 5モデル・95件",
+        "status": "ok",
         "note": "朝バッチの最後に実行（この画面の公開より後のことがある）"
       },
       {
@@ -111,21 +111,45 @@
         "kind": "strong",
         "baseline": {
           "n": 115,
+          "graded_races": 115,
+          "purchased_races": 115,
           "hits": 40,
+          "hit_rate_pct": 34.8,
           "invest_yen": 57500,
+          "return_yen": 34600,
           "profit_yen": -22900,
           "roi_pct": 60.2,
-          "hit_rate_pct": 34.8,
-          "roi_without_largest_win_pct": 56.7
+          "max_drawdown_yen": 24800,
+          "longest_losing_streak": 10,
+          "largest_single_race_return_yen": 2280,
+          "largest_single_race_profit_yen": 1780,
+          "largest_return_share_pct": 6.6,
+          "top3_return_share_pct": 18.1,
+          "profit_without_largest_win_yen": -24680,
+          "roi_without_largest_win_pct": 56.7,
+          "profit_without_top3_wins_yen": -27670,
+          "roi_without_top3_wins_pct": 50.6
         },
         "playbook": {
           "n": 115,
+          "graded_races": 115,
+          "purchased_races": 115,
           "hits": 43,
+          "hit_rate_pct": 37.4,
           "invest_yen": 57500,
+          "return_yen": 42600,
           "profit_yen": -14900,
           "roi_pct": 74.1,
-          "hit_rate_pct": 37.4,
-          "roi_without_largest_win_pct": 65.5
+          "max_drawdown_yen": 22250,
+          "longest_losing_streak": 10,
+          "largest_single_race_return_yen": 5290,
+          "largest_single_race_profit_yen": 4790,
+          "largest_return_share_pct": 12.4,
+          "top3_return_share_pct": 22.5,
+          "profit_without_largest_win_yen": -19690,
+          "roi_without_largest_win_pct": 65.5,
+          "profit_without_top3_wins_yen": -23000,
+          "roi_without_top3_wins_pct": 58.9
         },
         "diff": {
           "n": 115,
@@ -202,21 +226,45 @@
         "kind": "strong",
         "baseline": {
           "n": 115,
+          "graded_races": 115,
+          "purchased_races": 115,
           "hits": 48,
+          "hit_rate_pct": 41.7,
           "invest_yen": 57500,
+          "return_yen": 43780,
           "profit_yen": -13720,
           "roi_pct": 76.1,
-          "hit_rate_pct": 41.7,
-          "roi_without_largest_win_pct": 72.4
+          "max_drawdown_yen": 17670,
+          "longest_losing_streak": 11,
+          "largest_single_race_return_yen": 2490,
+          "largest_single_race_profit_yen": 1990,
+          "largest_return_share_pct": 5.7,
+          "top3_return_share_pct": 15.5,
+          "profit_without_largest_win_yen": -15710,
+          "roi_without_largest_win_pct": 72.4,
+          "profit_without_top3_wins_yen": -19020,
+          "roi_without_top3_wins_pct": 66.0
         },
         "playbook": {
           "n": 115,
+          "graded_races": 115,
+          "purchased_races": 115,
           "hits": 47,
+          "hit_rate_pct": 40.9,
           "invest_yen": 57500,
+          "return_yen": 41330,
           "profit_yen": -16170,
           "roi_pct": 71.9,
-          "hit_rate_pct": 40.9,
-          "roi_without_largest_win_pct": 68.5
+          "max_drawdown_yen": 19360,
+          "longest_losing_streak": 9,
+          "largest_single_race_return_yen": 2280,
+          "largest_single_race_profit_yen": 1780,
+          "largest_return_share_pct": 5.5,
+          "top3_return_share_pct": 15.2,
+          "profit_without_largest_win_yen": -17950,
+          "roi_without_largest_win_pct": 68.5,
+          "profit_without_top3_wins_yen": -20970,
+          "roi_without_top3_wins_pct": 62.6
         },
         "diff": {
           "n": 115,
@@ -293,21 +341,45 @@
         "kind": "local",
         "baseline": {
           "n": 124,
+          "graded_races": 124,
+          "purchased_races": 124,
           "hits": 32,
+          "hit_rate_pct": 25.8,
           "invest_yen": 53800,
+          "return_yen": 42990,
           "profit_yen": -10810,
           "roi_pct": 79.9,
-          "hit_rate_pct": 25.8,
-          "roi_without_largest_win_pct": 66.0
+          "max_drawdown_yen": 15140,
+          "longest_losing_streak": 13,
+          "largest_single_race_return_yen": 7790,
+          "largest_single_race_profit_yen": 7290,
+          "largest_return_share_pct": 18.1,
+          "top3_return_share_pct": 33.9,
+          "profit_without_largest_win_yen": -18100,
+          "roi_without_largest_win_pct": 66.0,
+          "profit_without_top3_wins_yen": -23870,
+          "roi_without_top3_wins_pct": 54.4
         },
         "playbook": {
           "n": 124,
+          "graded_races": 124,
+          "purchased_races": 124,
           "hits": 32,
+          "hit_rate_pct": 25.8,
           "invest_yen": 54900,
+          "return_yen": 34840,
           "profit_yen": -20060,
           "roi_pct": 63.5,
-          "hit_rate_pct": 25.8,
-          "roi_without_largest_win_pct": 49.7
+          "max_drawdown_yen": 20730,
+          "longest_losing_streak": 9,
+          "largest_single_race_return_yen": 7790,
+          "largest_single_race_profit_yen": 7290,
+          "largest_return_share_pct": 22.4,
+          "top3_return_share_pct": 37.3,
+          "profit_without_largest_win_yen": -27350,
+          "roi_without_largest_win_pct": 49.7,
+          "profit_without_top3_wins_yen": -31660,
+          "roi_without_top3_wins_pct": 40.8
         },
         "diff": {
           "n": 124,
@@ -327,21 +399,45 @@
         "kind": "local",
         "baseline": {
           "n": 125,
+          "graded_races": 125,
+          "purchased_races": 125,
           "hits": 38,
+          "hit_rate_pct": 30.4,
           "invest_yen": 62500,
+          "return_yen": 45410,
           "profit_yen": -17090,
           "roi_pct": 72.7,
-          "hit_rate_pct": 30.4,
-          "roi_without_largest_win_pct": 63.1
+          "max_drawdown_yen": 18320,
+          "longest_losing_streak": 10,
+          "largest_single_race_return_yen": 6310,
+          "largest_single_race_profit_yen": 5810,
+          "largest_return_share_pct": 13.9,
+          "top3_return_share_pct": 25.9,
+          "profit_without_largest_win_yen": -22900,
+          "roi_without_largest_win_pct": 63.1,
+          "profit_without_top3_wins_yen": -27360,
+          "roi_without_top3_wins_pct": 55.1
         },
         "playbook": {
           "n": 125,
+          "graded_races": 125,
+          "purchased_races": 125,
           "hits": 32,
+          "hit_rate_pct": 25.6,
           "invest_yen": 62400,
+          "return_yen": 35930,
           "profit_yen": -26470,
           "roi_pct": 57.6,
-          "hit_rate_pct": 25.6,
-          "roi_without_largest_win_pct": 53.1
+          "max_drawdown_yen": 27100,
+          "longest_losing_streak": 14,
+          "largest_single_race_return_yen": 3070,
+          "largest_single_race_profit_yen": 2570,
+          "largest_return_share_pct": 8.5,
+          "top3_return_share_pct": 19.7,
+          "profit_without_largest_win_yen": -29040,
+          "roi_without_largest_win_pct": 53.1,
+          "profit_without_top3_wins_yen": -32040,
+          "roi_without_top3_wins_pct": 47.4
         },
         "diff": {
           "n": 125,
@@ -361,21 +457,45 @@
         "kind": "local",
         "baseline": {
           "n": 125,
+          "graded_races": 125,
+          "purchased_races": 125,
           "hits": 50,
+          "hit_rate_pct": 40.0,
           "invest_yen": 62200,
+          "return_yen": 48870,
           "profit_yen": -13330,
           "roi_pct": 78.6,
-          "hit_rate_pct": 40.0,
-          "roi_without_largest_win_pct": 73.7
+          "max_drawdown_yen": 16250,
+          "longest_losing_streak": 8,
+          "largest_single_race_return_yen": 3420,
+          "largest_single_race_profit_yen": 2920,
+          "largest_return_share_pct": 7.0,
+          "top3_return_share_pct": 15.3,
+          "profit_without_largest_win_yen": -16250,
+          "roi_without_largest_win_pct": 73.7,
+          "profit_without_top3_wins_yen": -19290,
+          "roi_without_top3_wins_pct": 68.2
         },
         "playbook": {
           "n": 125,
+          "graded_races": 125,
+          "purchased_races": 125,
           "hits": 47,
+          "hit_rate_pct": 37.6,
           "invest_yen": 62200,
+          "return_yen": 48670,
           "profit_yen": -13530,
           "roi_pct": 78.2,
-          "hit_rate_pct": 37.6,
-          "roi_without_largest_win_pct": 73.5
+          "max_drawdown_yen": 14830,
+          "longest_losing_streak": 12,
+          "largest_single_race_return_yen": 3350,
+          "largest_single_race_profit_yen": 2850,
+          "largest_return_share_pct": 6.9,
+          "top3_return_share_pct": 15.2,
+          "profit_without_largest_win_yen": -16380,
+          "roi_without_largest_win_pct": 73.5,
+          "profit_without_top3_wins_yen": -19450,
+          "roi_without_top3_wins_pct": 68.0
         },
         "diff": {
           "n": 125,
@@ -535,9 +655,26 @@
         "end_date": "2026-10-24",
         "combined": {
           "n": 769,
+          "hits": 269,
+          "invest": 372800,
+          "return": 269650,
           "profit": -103150,
           "roi": 72.3,
-          "hit_rate": 35.0
+          "hit_rate": 35.0,
+          "max_drawdown": 108990,
+          "longest_losing_streak": 30,
+          "roi_without_largest_win": 70.3,
+          "roi_without_top3_wins": 67.9,
+          "largest_return_share": 2.9,
+          "top3_return_share": 6.5,
+          "assessment": {
+            "code": "loss_unconfirmed",
+            "label": "赤字・優位未確認",
+            "note": "現時点の実収支は赤字です。高配当の有無にかかわらず優位性は未確認です。",
+            "sample_code": "enough",
+            "sample_label": "判定目安到達",
+            "sample_progress_pct": 100
+          }
         },
         "top_model": {
           "label": "Gemini",
@@ -554,9 +691,26 @@
         "end_date": "2026-10-24",
         "combined": {
           "n": 3058,
+          "hits": 1006,
+          "invest": 1480200,
+          "return": 1031720,
           "profit": -448480,
           "roi": 69.7,
-          "hit_rate": 32.9
+          "hit_rate": 32.9,
+          "max_drawdown": 453420,
+          "longest_losing_streak": 30,
+          "roi_without_largest_win": 69.2,
+          "roi_without_top3_wins": 68.2,
+          "largest_return_share": 0.8,
+          "top3_return_share": 2.3,
+          "assessment": {
+            "code": "loss_unconfirmed",
+            "label": "赤字・優位未確認",
+            "note": "現時点の実収支は赤字です。高配当の有無にかかわらず優位性は未確認です。",
+            "sample_code": "enough",
+            "sample_label": "判定目安到達",
+            "sample_progress_pct": 100
+          }
         },
         "top_model": {
           "label": "Gemini",
@@ -567,7 +721,8 @@
         "positive_models": 0,
         "measured_models": 7
       }
-    }
+    },
+    "decision_sample": 500
   },
   "errors": []
 }
