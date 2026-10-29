@@ -78,7 +78,20 @@ LINE_USER_ID = os.environ.get("LINE_USER_ID", "")
 
 
 def send_line_message(message):
-    """LINE Messaging APIを使ってスマホにメッセージを送信する"""
+    """本人のスマホへ朝のお知らせ（開催なし・エラー）を送る。
+
+    まず KOTO 経由（LINE とアプリの両方へ届く）。KOTO の設定が無い・届けられないときだけ、
+    今までどおり LINE Messaging API で直接送る（LINE卒業までの予備。2026-10-23）。
+    """
+    # KOTO部品が読み込めなくても処理は止めず、LINEへ直接送る（code-check 10/23）
+    try:
+        from koto_notice import send_via_koto
+        sent_via_koto = send_via_koto("boatrace_morning", message)
+    except Exception as koto_error:
+        print(f"  [WARN] KOTO 経由の送信をとばしました: {type(koto_error).__name__}")
+        sent_via_koto = False
+    if sent_via_koto:
+        return
     if not LINE_CHANNEL_ACCESS_TOKEN or not LINE_USER_ID:
         print("  [WARN] LINE_CHANNEL_ACCESS_TOKEN または LINE_USER_ID が未設定のため、LINE通知をスキップしました。")
         return
