@@ -56,7 +56,7 @@ const PlaybookEffectSection = () => {
           </div>
           <small className="ov-diff">
             {row.diff?.ci95
-              ? `差（あり−なし）1レースあたり ${formatYen(row.diff.mean_diff_yen)}　95%区間 ${formatYen(row.diff.ci95[0])} 〜 ${formatYen(row.diff.ci95[1])}`
+              ? `差（あり−なし）1レースあたり ${formatYen(row.diff.mean_diff_yen)} 95%区間 ${formatYen(row.diff.ci95[0])} 〜 ${formatYen(row.diff.ci95[1])}`
               : row.diff?.n ? `差（あり−なし）1レースあたり ${formatYen(row.diff.mean_diff_yen)}（30件から区間を表示）` : '心得集ありの確定結果がまだありません。'}
           </small>
         </article>)}

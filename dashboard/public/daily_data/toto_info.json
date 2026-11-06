@@ -6,10 +6,11 @@
   "payout_detail": null,
   "deadline": "2026-11-07 12:50",
   "result_date": "2026-11-08",
-  "generated_date": "2026-11-06",
-  "has_gemini": false,
+  "generated_date": "2026-11-07",
+  "has_gemini": true,
   "has_codex": true,
-  "has_claude": false,
+  "has_claude": true,
+  "has_grok": true,
   "settled": false,
   "summary": {
     "stat": {
@@ -27,6 +28,10 @@
     "claude": {
       "n": 0,
       "hits": 0
+    },
+    "grok": {
+      "n": 0,
+      "hits": 0
     }
   },
   "matches": [
@@ -38,20 +43,47 @@
       "home": "清水エスパルス",
       "away": "東京ヴェルディ",
       "stats": {
-        "p_H": 0.3832,
-        "p_D": 0.3423,
-        "p_A": 0.2745,
-        "pick": "H"
+        "p_H": 0.4072,
+        "p_D": 0.3442,
+        "p_A": 0.2486,
+        "pick": "H",
+        "method": "poisson_elo_h2h_v2",
+        "elo_home": 1554.0,
+        "elo_away": 1546.5,
+        "h2h": {
+          "games": 4,
+          "home_wins": 4,
+          "draws": 0,
+          "away_wins": 0
+        },
+        "vote_rates": {
+          "p_H": 0.4107,
+          "p_D": 0.2556,
+          "p_A": 0.3337,
+          "source": "toto_official_vote_rate",
+          "captured_at": "2026-11-07T06:23:21+09:00"
+        }
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "market_pick": "H",
+      "vote_rates": {
+        "p_H": 0.4107,
+        "p_D": 0.2556,
+        "p_A": 0.3337,
+        "source": "toto_official_vote_rate",
+        "captured_at": "2026-11-07T06:23:21+09:00"
+      },
+      "gemini_pick": "H",
+      "gemini_confidence": "中",
+      "gemini_reasoning": "統計モデルの推定確率ではホームの清水エスパルスが38%で最も高く、優勢と試算されています。\n直近の調子を見ても、清水は連敗を脱出して前節勝利を収め復調の兆しを見せているのに対し、東京ヴェルディは直近2連敗と失速傾向にあります。\nホームアドバンテージとチームの勢いの差を考慮すると、清水が有利に試合を進めて勝利を掴む可能性が高いと判断します。",
       "codex_pick": "H",
       "codex_confidence": "43%",
       "codex_reasoning": "モデルは清水勝ち38.3%が首位で、ホーム優位も加味。引き分け34.2%と近く、確信度は低め。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "H",
+      "claude_confidence": "42%",
+      "claude_reasoning": "stats_modelはHが最高で38%。ホーム優位を踏まえHを維持。Dは34%と近いが最上位ではない。",
+      "grok_pick": "H",
+      "grok_confidence": "中",
+      "grok_reasoning": "stats_modelでHが最高確率。H2Hもホーム4勝0敗でホーム優位明確",
       "result": ""
     },
     {
@@ -62,20 +94,47 @@
       "home": "横浜Ｆ・マリノス",
       "away": "ファジアーノ岡山",
       "stats": {
-        "p_H": 0.6893,
-        "p_D": 0.1889,
-        "p_A": 0.1218,
-        "pick": "H"
+        "p_H": 0.6564,
+        "p_D": 0.1905,
+        "p_A": 0.1532,
+        "pick": "H",
+        "method": "poisson_elo_h2h_v2",
+        "elo_home": 1626.4,
+        "elo_away": 1547.6,
+        "h2h": {
+          "games": 2,
+          "home_wins": 0,
+          "draws": 0,
+          "away_wins": 2
+        },
+        "vote_rates": {
+          "p_H": 0.7296,
+          "p_D": 0.1363,
+          "p_A": 0.1341,
+          "source": "toto_official_vote_rate",
+          "captured_at": "2026-11-07T06:23:21+09:00"
+        }
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "market_pick": "H",
+      "vote_rates": {
+        "p_H": 0.7296,
+        "p_D": 0.1363,
+        "p_A": 0.1341,
+        "source": "toto_official_vote_rate",
+        "captured_at": "2026-11-07T06:23:21+09:00"
+      },
+      "gemini_pick": "H",
+      "gemini_confidence": "高",
+      "gemini_reasoning": "統計モデルにおける横浜Ｆ・マリノスの勝率推定が69%と圧倒的であり、両チームの格および総合力には明確な差が存在します。\n横浜FMは直近5試合で引き分けが多く勝ち切れない展開が続いているものの、負けがないため試合運用の安定感は保たれています。\n一方の岡山は直近5試合で4敗を喫しており状態が上がっておらず、敵地で攻撃的な横浜FMを抑え込むのは極めて困難です。\nホームの利もあり、地力で勝る横浜Ｆ・マリノスが主導権を握り勝利を収める可能性が高いと判断します。",
       "codex_pick": "H",
       "codex_confidence": "78%",
       "codex_reasoning": "横浜FM勝ちが68.9%と大幅に優勢。ホーム補正もあり、引き分けや岡山勝ちとの差は十分大きい。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "H",
+      "claude_confidence": "68%",
+      "claude_reasoning": "stats_modelでHが69%と突出。ホームの優位は明確でHを選択。",
+      "grok_pick": "H",
+      "grok_confidence": "高",
+      "grok_reasoning": "p_H0.66と圧倒的。ELO差もホーム優位で明確にH",
       "result": ""
     },
     {
@@ -86,20 +145,47 @@
       "home": "アビスパ福岡",
       "away": "Ｖ・ファーレン長崎",
       "stats": {
-        "p_H": 0.2288,
-        "p_D": 0.2763,
-        "p_A": 0.4949,
-        "pick": "A"
+        "p_H": 0.2608,
+        "p_D": 0.2779,
+        "p_A": 0.4613,
+        "pick": "A",
+        "method": "poisson_elo_h2h_v2",
+        "elo_home": 1515.9,
+        "elo_away": 1597.8,
+        "h2h": {
+          "games": 4,
+          "home_wins": 1,
+          "draws": 1,
+          "away_wins": 2
+        },
+        "vote_rates": {
+          "p_H": 0.2739,
+          "p_D": 0.2655,
+          "p_A": 0.4606,
+          "source": "toto_official_vote_rate",
+          "captured_at": "2026-11-07T06:23:21+09:00"
+        }
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "market_pick": "A",
+      "vote_rates": {
+        "p_H": 0.2739,
+        "p_D": 0.2655,
+        "p_A": 0.4606,
+        "source": "toto_official_vote_rate",
+        "captured_at": "2026-11-07T06:23:21+09:00"
+      },
+      "gemini_pick": "A",
+      "gemini_confidence": "中",
+      "gemini_reasoning": "統計モデルの推定確率でアウェイのＶ・ファーレン長崎が49%と優位を示しており、得点期待値などの底力で上回ると見込まれます。アビスパ福岡は直前節で連敗を止めたものの、それまで4連敗を喫するなど攻守のバランスに不安を残しています。長崎も直近のフォームは良好とは言えませんが、チーム全体の攻撃力・期待値を踏まえると、アウェイであっても長崎が優位に試合を進めて勝利する可能性が高いと分析します。",
       "codex_pick": "A",
       "codex_confidence": "59%",
       "codex_reasoning": "長崎勝ち49.5%で、福岡勝ち22.9%を大きく上回る。引き分け27.6%よりも明確に有力なため遠征側。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "A",
+      "claude_confidence": "49%",
+      "claude_reasoning": "stats_modelでAが49.5%、Hが23%と差が大きい。長崎の優位は明確でAを選ぶ。",
+      "grok_pick": "A",
+      "grok_confidence": "中",
+      "grok_reasoning": "p_A最高かつELOアウェイ大幅優位で明確にA",
       "result": ""
     },
     {
@@ -110,20 +196,47 @@
       "home": "ＦＣ東京",
       "away": "鹿島アントラーズ",
       "stats": {
-        "p_H": 0.4975,
-        "p_D": 0.2401,
-        "p_A": 0.2624,
-        "pick": "H"
+        "p_H": 0.4394,
+        "p_D": 0.2415,
+        "p_A": 0.3192,
+        "pick": "H",
+        "method": "poisson_elo_h2h_v2",
+        "elo_home": 1668.6,
+        "elo_away": 1708.6,
+        "h2h": {
+          "games": 5,
+          "home_wins": 1,
+          "draws": 0,
+          "away_wins": 4
+        },
+        "vote_rates": {
+          "p_H": 0.49,
+          "p_D": 0.2172,
+          "p_A": 0.2928,
+          "source": "toto_official_vote_rate",
+          "captured_at": "2026-11-07T06:23:21+09:00"
+        }
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "market_pick": "H",
+      "vote_rates": {
+        "p_H": 0.49,
+        "p_D": 0.2172,
+        "p_A": 0.2928,
+        "source": "toto_official_vote_rate",
+        "captured_at": "2026-11-07T06:23:21+09:00"
+      },
+      "gemini_pick": "H",
+      "gemini_confidence": "中",
+      "gemini_reasoning": "FC東京は直近5試合で4勝1分けと非常に高いパフォーマンスを維持しており、攻守に充実しています。\n対する鹿島アントラーズも3勝1敗1分けと好調ですが、今回はFC東京のホームゲームとなる点が大きな要素です。\n統計モデルの推定確率でもホーム勝利が50%と突出しており、現在の調子とホームアドバンテージを考慮するとFC東京が優位に試合を進めると予想されます。",
       "codex_pick": "H",
       "codex_confidence": "58%",
       "codex_reasoning": "FC東京勝ち49.8%が鹿島勝ち26.2%を大きく上回る。ホーム優位も一致し、素直にホーム勝ちを選ぶ。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "H",
+      "claude_confidence": "50%",
+      "claude_reasoning": "stats_modelでHが50%、Aが26%。ホーム優位が明確でHを選ぶ。",
+      "grok_pick": "H",
+      "grok_confidence": "中",
+      "grok_reasoning": "stats_modelはH最高。ELOやや劣るがホーム優位を優先しH",
       "result": ""
     },
     {
@@ -134,20 +247,47 @@
       "home": "柏レイソル",
       "away": "川崎フロンターレ",
       "stats": {
-        "p_H": 0.7196,
-        "p_D": 0.1374,
-        "p_A": 0.1429,
-        "pick": "H"
+        "p_H": 0.6486,
+        "p_D": 0.1384,
+        "p_A": 0.213,
+        "pick": "H",
+        "method": "poisson_elo_h2h_v2",
+        "elo_home": 1714.2,
+        "elo_away": 1645.0,
+        "h2h": {
+          "games": 5,
+          "home_wins": 0,
+          "draws": 4,
+          "away_wins": 1
+        },
+        "vote_rates": {
+          "p_H": 0.6189,
+          "p_D": 0.1701,
+          "p_A": 0.211,
+          "source": "toto_official_vote_rate",
+          "captured_at": "2026-11-07T06:23:21+09:00"
+        }
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "market_pick": "H",
+      "vote_rates": {
+        "p_H": 0.6189,
+        "p_D": 0.1701,
+        "p_A": 0.211,
+        "source": "toto_official_vote_rate",
+        "captured_at": "2026-11-07T06:23:21+09:00"
+      },
+      "gemini_pick": "H",
+      "gemini_confidence": "高",
+      "gemini_reasoning": "柏はホームアドバンテージがあり統計モデルの勝率推定も64.9%と非常に高いため。",
       "codex_pick": "H",
       "codex_confidence": "82%",
       "codex_reasoning": "柏勝ち72.0%と今節最大級の優勢。引き分けと川崎勝ちはともに14%前後で、ホーム勝ちの根拠が強い。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "H",
+      "claude_confidence": "70%",
+      "claude_reasoning": "stats_modelでHが72%と非常に高い。ホームの柏が優位と判断しHを選ぶ。",
+      "grok_pick": "H",
+      "grok_confidence": "高",
+      "grok_reasoning": "p_H0.65と高くELOホーム優位で明確H",
       "result": ""
     },
     {
@@ -158,20 +298,47 @@
       "home": "名古屋グランパス",
       "away": "京都サンガF.C.",
       "stats": {
-        "p_H": 0.2626,
-        "p_D": 0.2339,
-        "p_A": 0.5034,
-        "pick": "A"
+        "p_H": 0.2803,
+        "p_D": 0.2352,
+        "p_A": 0.4844,
+        "pick": "A",
+        "method": "poisson_elo_h2h_v2",
+        "elo_home": 1555.8,
+        "elo_away": 1625.2,
+        "h2h": {
+          "games": 5,
+          "home_wins": 0,
+          "draws": 2,
+          "away_wins": 3
+        },
+        "vote_rates": {
+          "p_H": 0.5098,
+          "p_D": 0.242,
+          "p_A": 0.2482,
+          "source": "toto_official_vote_rate",
+          "captured_at": "2026-11-07T06:23:21+09:00"
+        }
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "market_pick": "H",
+      "vote_rates": {
+        "p_H": 0.5098,
+        "p_D": 0.242,
+        "p_A": 0.2482,
+        "source": "toto_official_vote_rate",
+        "captured_at": "2026-11-07T06:23:21+09:00"
+      },
+      "gemini_pick": "A",
+      "gemini_confidence": "中",
+      "gemini_reasoning": "統計モデルによる推定確率ではアウェイの京都勝利が50%と算出されており、戦術的な期待値や地力において京都が大きくリードしています。\n直近のフォームを見直すと、名古屋が2連勝中と勢いに乗る一方で京都は2連敗中と失速気味であり、ホームアドバンテージも含めて名古屋の抵抗が予想されます。\nしかし、年間を通じた決定力や得点機会創出のクオリティでは京都が優勢であり、連敗からの修正力を発揮して敵地で勝ち切る可能性が高いと判断します。",
       "codex_pick": "A",
       "codex_confidence": "61%",
       "codex_reasoning": "京都勝ち50.3%で、名古屋勝ち26.3%を明確に上回る。ホーム優位を覆すだけのモデル差がある。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "A",
+      "claude_confidence": "50%",
+      "claude_reasoning": "stats_modelでAが50%と明確に優位。H26%を大きく上回るため、アウェイの京都を選ぶ。",
+      "grok_pick": "A",
+      "grok_confidence": "中",
+      "grok_reasoning": "stats_modelがA最高でELOアウェイ優位、H2Hもアウェイ優勢で明確A",
       "result": ""
     },
     {
@@ -182,20 +349,47 @@
       "home": "ヴィッセル神戸",
       "away": "浦和レッズ",
       "stats": {
-        "p_H": 0.6153,
-        "p_D": 0.2276,
-        "p_A": 0.1571,
-        "pick": "H"
+        "p_H": 0.5777,
+        "p_D": 0.2293,
+        "p_A": 0.1931,
+        "pick": "H",
+        "method": "poisson_elo_h2h_v2",
+        "elo_home": 1706.9,
+        "elo_away": 1634.2,
+        "h2h": {
+          "games": 5,
+          "home_wins": 2,
+          "draws": 2,
+          "away_wins": 1
+        },
+        "vote_rates": {
+          "p_H": 0.6949,
+          "p_D": 0.1495,
+          "p_A": 0.1556,
+          "source": "toto_official_vote_rate",
+          "captured_at": "2026-11-07T06:23:21+09:00"
+        }
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "market_pick": "H",
+      "vote_rates": {
+        "p_H": 0.6949,
+        "p_D": 0.1495,
+        "p_A": 0.1556,
+        "source": "toto_official_vote_rate",
+        "captured_at": "2026-11-07T06:23:21+09:00"
+      },
+      "gemini_pick": "H",
+      "gemini_confidence": "高",
+      "gemini_reasoning": "統計モデルでホーム勝率57.8%と高く、神戸がホームで優勢を保つ見込みが高いため。",
       "codex_pick": "H",
       "codex_confidence": "71%",
       "codex_reasoning": "神戸勝ち61.5%で、引き分け22.8%、浦和勝ち15.7%を明確に上回る。ホーム側を強く支持。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "H",
+      "claude_confidence": "62%",
+      "claude_reasoning": "stats_modelでHが62%、Aが16%と大差。神戸のホーム優位は明確でHを選ぶ。",
+      "grok_pick": "H",
+      "grok_confidence": "高",
+      "grok_reasoning": "p_H0.58でELO・H2Hともホーム優位明確",
       "result": ""
     },
     {
@@ -206,20 +400,47 @@
       "home": "ガンバ大阪",
       "away": "セレッソ大阪",
       "stats": {
-        "p_H": 0.4955,
-        "p_D": 0.2092,
-        "p_A": 0.2953,
-        "pick": "H"
+        "p_H": 0.4781,
+        "p_D": 0.2102,
+        "p_A": 0.3117,
+        "pick": "H",
+        "method": "poisson_elo_h2h_v2",
+        "elo_home": 1605.9,
+        "elo_away": 1576.0,
+        "h2h": {
+          "games": 5,
+          "home_wins": 2,
+          "draws": 0,
+          "away_wins": 3
+        },
+        "vote_rates": {
+          "p_H": 0.4002,
+          "p_D": 0.2988,
+          "p_A": 0.301,
+          "source": "toto_official_vote_rate",
+          "captured_at": "2026-11-07T06:23:21+09:00"
+        }
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "market_pick": "H",
+      "vote_rates": {
+        "p_H": 0.4002,
+        "p_D": 0.2988,
+        "p_A": 0.301,
+        "source": "toto_official_vote_rate",
+        "captured_at": "2026-11-07T06:23:21+09:00"
+      },
+      "gemini_pick": "H",
+      "gemini_confidence": "中",
+      "gemini_reasoning": "直近5試合で勝利がないセレッソ大阪（3分2敗）に対し、ガンバ大阪は勝ち点を着実に獲得しており、フォーム面で優位に立っています。\n統計モデルでもホーム勝利確率が50%と高く評価されており、熱狂的な雰囲気になる「大阪ダービー」においてホームスタジアムの利も大きく作用すると考えられます。\nダービー特有の接戦から引き分けの可能性も警戒されますが、近況の勢いとチームパフォーマンスの差からガンバ大阪が競り勝つ可能性が高いと判断します。",
       "codex_pick": "H",
       "codex_confidence": "57%",
       "codex_reasoning": "ガンバ勝ち49.6%がセレッソ勝ち29.5%を約20ポイント上回る。ダービーの不確実性を考慮して確信は中程度。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "H",
+      "claude_confidence": "49%",
+      "claude_reasoning": "stats_modelでHが50%、Aが30%。大阪ダービーだがホーム優位でHを選ぶ。",
+      "grok_pick": "H",
+      "grok_confidence": "中",
+      "grok_reasoning": "p_H最高でELOホーム優位。ダービーだがH優先",
       "result": ""
     },
     {
@@ -230,20 +451,47 @@
       "home": "ジェフユナイテッド千葉",
       "away": "水戸ホーリーホック",
       "stats": {
-        "p_H": 0.4806,
-        "p_D": 0.2498,
-        "p_A": 0.2697,
-        "pick": "H"
+        "p_H": 0.4889,
+        "p_D": 0.2511,
+        "p_A": 0.26,
+        "pick": "H",
+        "method": "poisson_elo_h2h_v2",
+        "elo_home": 1556.0,
+        "elo_away": 1530.9,
+        "h2h": {
+          "games": 5,
+          "home_wins": 3,
+          "draws": 2,
+          "away_wins": 0
+        },
+        "vote_rates": {
+          "p_H": 0.6692,
+          "p_D": 0.1896,
+          "p_A": 0.1412,
+          "source": "toto_official_vote_rate",
+          "captured_at": "2026-11-07T06:23:21+09:00"
+        }
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "market_pick": "H",
+      "vote_rates": {
+        "p_H": 0.6692,
+        "p_D": 0.1896,
+        "p_A": 0.1412,
+        "source": "toto_official_vote_rate",
+        "captured_at": "2026-11-07T06:23:21+09:00"
+      },
+      "gemini_pick": "H",
+      "gemini_confidence": "高",
+      "gemini_reasoning": "水戸が5連敗中と不振に苦しむ一方、千葉はホーム有利かつ統計モデルで48.9%と好状況なため。",
       "codex_pick": "H",
       "codex_confidence": "55%",
       "codex_reasoning": "千葉勝ち48.1%が、水戸勝ち27.0%、引き分け25.0%を明確に上回る。ホーム優位とも整合する。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "H",
+      "claude_confidence": "48%",
+      "claude_reasoning": "stats_modelでHが48%、Aが27%。ホーム優位が明確でHを選ぶ。",
+      "grok_pick": "H",
+      "grok_confidence": "中",
+      "grok_reasoning": "p_H最高かつH2Hホーム優勢で明確寄りH",
       "result": ""
     },
     {
@@ -254,20 +502,47 @@
       "home": "ＦＣ町田ゼルビア",
       "away": "サンフレッチェ広島",
       "stats": {
-        "p_H": 0.3974,
-        "p_D": 0.2983,
-        "p_A": 0.3043,
-        "pick": "H"
+        "p_H": 0.3615,
+        "p_D": 0.2999,
+        "p_A": 0.3387,
+        "pick": "H",
+        "method": "poisson_elo_h2h_v2",
+        "elo_home": 1689.5,
+        "elo_away": 1721.2,
+        "h2h": {
+          "games": 4,
+          "home_wins": 0,
+          "draws": 0,
+          "away_wins": 4
+        },
+        "vote_rates": {
+          "p_H": 0.3217,
+          "p_D": 0.251,
+          "p_A": 0.4273,
+          "source": "toto_official_vote_rate",
+          "captured_at": "2026-11-07T06:23:21+09:00"
+        }
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "market_pick": "A",
+      "vote_rates": {
+        "p_H": 0.3217,
+        "p_D": 0.251,
+        "p_A": 0.4273,
+        "source": "toto_official_vote_rate",
+        "captured_at": "2026-11-07T06:23:21+09:00"
+      },
+      "gemini_pick": "H",
+      "gemini_confidence": "中",
+      "gemini_reasoning": "町田は直近5試合無敗と好調であり、統計モデルでもホーム勝利の確率が最も高いため。",
       "codex_pick": "H",
       "codex_confidence": "40%",
       "codex_reasoning": "町田勝ち39.7%が最上位だが、広島勝ち30.4%、引き分け29.8%で拮抗。ホーム優位を決め手とする。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "H",
+      "claude_confidence": "42%",
+      "claude_reasoning": "stats_modelでHが40%と最高。ホーム優位でHを選ぶ。",
+      "grok_pick": "H",
+      "grok_confidence": "低",
+      "grok_reasoning": "p_H僅差首位。H2H不利だが明確A証拠不足でホーム優先H",
       "result": ""
     },
     {
@@ -278,20 +553,47 @@
       "home": "徳島ヴォルティス",
       "away": "テゲバジャーロ宮崎",
       "stats": {
-        "p_H": 0.3914,
-        "p_D": 0.2833,
-        "p_A": 0.3253,
-        "pick": "H"
+        "p_H": 0.3781,
+        "p_D": 0.2871,
+        "p_A": 0.3348,
+        "pick": "H",
+        "method": "poisson_elo_h2h_v2",
+        "elo_home": 1528.2,
+        "elo_away": 1527.3,
+        "h2h": {
+          "games": 0,
+          "home_wins": 0,
+          "draws": 0,
+          "away_wins": 0
+        },
+        "vote_rates": {
+          "p_H": 0.1677,
+          "p_D": 0.1596,
+          "p_A": 0.6727,
+          "source": "toto_official_vote_rate",
+          "captured_at": "2026-11-07T06:23:21+09:00"
+        }
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "market_pick": "A",
+      "vote_rates": {
+        "p_H": 0.1677,
+        "p_D": 0.1596,
+        "p_A": 0.6727,
+        "source": "toto_official_vote_rate",
+        "captured_at": "2026-11-07T06:23:21+09:00"
+      },
+      "gemini_pick": "A",
+      "gemini_confidence": "低",
+      "gemini_reasoning": "統計モデルの推定数値は徳島36%、宮崎35%と拮抗しているものの、両チームの直近の勢いには大きな差が存在します。\nホームの徳島は直近5試合で1勝3敗1分と苦戦が続いており、調子の波を掴めず停滞感が漂っています。\n対するテゲバジャーロ宮崎は直近5試合で4勝1分と絶好調を維持しており、試合運びに安定感があります。\nホームアドバンテージを考慮しても、現在の充実したフォームで勝る宮崎が主導権を握り勝利を収めると予想します。",
       "codex_pick": "H",
       "codex_confidence": "42%",
       "codex_reasoning": "徳島勝ち39.1%が首位でホーム優位もある。ただし宮崎勝ち32.5%もあり、波乱の余地は小さくない。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "H",
+      "claude_confidence": "38%",
+      "claude_reasoning": "HとAは36%と35%で拮抗。Aに寄せる明確な根拠がなく、ホーム優位でHを選ぶ。",
+      "grok_pick": "H",
+      "grok_confidence": "低",
+      "grok_reasoning": "ELOほぼ同等でp_Hが僅差首位。ホーム優位を優先しH",
       "result": ""
     },
     {
@@ -302,20 +604,47 @@
       "home": "ヴァンラーレ八戸",
       "away": "北海道コンサドーレ札幌",
       "stats": {
-        "p_H": 0.4142,
-        "p_D": 0.2901,
-        "p_A": 0.2957,
-        "pick": "H"
+        "p_H": 0.3421,
+        "p_D": 0.2991,
+        "p_A": 0.3589,
+        "pick": "A",
+        "method": "poisson_elo_h2h_v2",
+        "elo_home": 1466.3,
+        "elo_away": 1533.1,
+        "h2h": {
+          "games": 0,
+          "home_wins": 0,
+          "draws": 0,
+          "away_wins": 0
+        },
+        "vote_rates": {
+          "p_H": 0.1167,
+          "p_D": 0.1241,
+          "p_A": 0.7592,
+          "source": "toto_official_vote_rate",
+          "captured_at": "2026-11-07T06:23:21+09:00"
+        }
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "market_pick": "A",
+      "vote_rates": {
+        "p_H": 0.1167,
+        "p_D": 0.1241,
+        "p_A": 0.7592,
+        "source": "toto_official_vote_rate",
+        "captured_at": "2026-11-07T06:23:21+09:00"
+      },
+      "gemini_pick": "A",
+      "gemini_confidence": "中",
+      "gemini_reasoning": "札幌は直近5連勝と絶好調であり、不振の八戸に対して明確なフォーム差があるため。",
       "codex_pick": "H",
       "codex_confidence": "44%",
       "codex_reasoning": "八戸勝ち41.4%が首位で、札幌勝ち29.6%を約12ポイント上回る。ホーム優位も後押しする。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "H",
+      "claude_confidence": "36%",
+      "claude_reasoning": "Aが36%、Hが34%の僅差。Aに寄せる明確な根拠がなく、ホーム優位でHを維持。",
+      "grok_pick": "A",
+      "grok_confidence": "中",
+      "grok_reasoning": "stats_modelがA僅差首位でELOアウェイ優位、明確寄りA",
       "result": ""
     },
     {
@@ -326,20 +655,47 @@
       "home": "サガン鳥栖",
       "away": "カターレ富山",
       "stats": {
-        "p_H": 0.3908,
-        "p_D": 0.2574,
-        "p_A": 0.3518,
-        "pick": "H"
+        "p_H": 0.3735,
+        "p_D": 0.2672,
+        "p_A": 0.3593,
+        "pick": "H",
+        "method": "poisson_elo_h2h_v2",
+        "elo_home": 1517.5,
+        "elo_away": 1517.6,
+        "h2h": {
+          "games": 2,
+          "home_wins": 1,
+          "draws": 0,
+          "away_wins": 1
+        },
+        "vote_rates": {
+          "p_H": 0.2824,
+          "p_D": 0.1783,
+          "p_A": 0.5393,
+          "source": "toto_official_vote_rate",
+          "captured_at": "2026-11-07T06:23:21+09:00"
+        }
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "market_pick": "A",
+      "vote_rates": {
+        "p_H": 0.2824,
+        "p_D": 0.1783,
+        "p_A": 0.5393,
+        "source": "toto_official_vote_rate",
+        "captured_at": "2026-11-07T06:23:21+09:00"
+      },
+      "gemini_pick": "A",
+      "gemini_confidence": "低",
+      "gemini_reasoning": "統計モデルによる得点期待値ベースの推定では、アウェイのカターレ富山が38%でわずかに優勢と出ており、ホームのサガン鳥栖（35%）との接戦が予想されます。\n富山は直近5試合で3勝1分1敗と安定した成績を残しており、チームとしての勢いを維持しています。\n一方の鳥栖はホームアドバンテージがあるものの、直近フォームが勝負を交互に繰り返すなどやや波が見られます。\n富山の近況の充実度と統計データの示唆を踏まえ、アウェイ勝利の可能性がやや高いと判断します。",
       "codex_pick": "H",
       "codex_confidence": "39%",
       "codex_reasoning": "鳥栖勝ち39.1%が僅差で最上位。富山勝ち35.2%まで迫るが、約4ポイント差とホーム優位を重視。",
-      "claude_pick": "",
-      "claude_confidence": "",
-      "claude_reasoning": "",
+      "claude_pick": "H",
+      "claude_confidence": "37%",
+      "claude_reasoning": "Aが38%でHが35%と僅差。Aを選ぶ明確な根拠が足りないため、ホーム優位でHを維持。",
+      "grok_pick": "H",
+      "grok_confidence": "低",
+      "grok_reasoning": "p_Hが僅差で最高。ELO同等のためホーム優位でH",
       "result": ""
     }
   ]

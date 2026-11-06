@@ -79,6 +79,29 @@ const JEV_ARM_META = {
   },
 };
 
+const VALUE_ARM_META = {
+  value_raw_control: {
+    label: '元の候補順位',
+    short: 'RAW',
+    detail: '支持数順の先頭1点を毎回100円',
+  },
+  value_fixed_jev: {
+    label: '固定Jev',
+    short: 'JEV',
+    detail: 'Jev 1.13.0の購入可否＋候補選択',
+  },
+  value_score: {
+    label: '価値スコア',
+    short: 'EV',
+    detail: '校正済みの保守的期待値が正の先頭1点',
+  },
+  value_score_jev: {
+    label: '価値スコア＋Jev',
+    short: 'EV→J',
+    detail: '正の価値候補から固定Jevが1点選択',
+  },
+};
+
 const Direction = ({ model, period }) => {
   if (!model.n) return <span className="change neutral">計測前</span>;
   if (model.roi_change == null) return <span className="change neutral">比較なし</span>;
@@ -176,6 +199,9 @@ export const JevPairingSection = () => {
   }, []);
 
   const arms = pairing?.arms || {};
+  const valueExperiment = pairing?.value_experiment || {};
+  const valueArms = valueExperiment.arms || {};
+  const valueDiffs = valueExperiment.profit_difference_vs_raw || {};
   return <section className="comparison-table-card jev-pairing-section">
     <div className="simple-section-heading jev-pairing-heading">
       <div>
@@ -218,6 +244,49 @@ export const JevPairingSection = () => {
               <div className="jev-card-note">
                 <span>最大損失幅 {measured ? formatYen(metric.max_drawdown_yen, false) : '—'}</span>
                 {arm.type === 'raw_model' && <span>先頭1点のROI {formatPercent(firstPick.roi_pct)}</span>}
+              </div>
+            </article>;
+          })}
+        </div>
+        <div className="simple-section-heading jev-pairing-heading" style={{ marginTop: '1.5rem' }}>
+          <div>
+            <h3>価値スコア 4アーム比較</h3>
+            <p>{valueExperiment.main_metric || '同じ候補・同じ100円で、見送りも0円として比較します。'}</p>
+          </div>
+          <span className="sample-status">
+            {valueExperiment.common_graded_races || 0}/500件
+          </span>
+        </div>
+        <div className="jev-pairing-meta">
+          <span>スコア版: <strong>{valueExperiment.score_version || '蓄積開始待ち'}</strong></span>
+          <span>固定Jev: <strong>{valueExperiment.fixed_jev_model || 'jev-1.13.0'}</strong></span>
+        </div>
+        <div className="model-ranking-list jev-ranking-list">
+          {Object.entries(VALUE_ARM_META).map(([armId, meta]) => {
+            const metric = valueArms[armId] || {};
+            const diff = valueDiffs[armId] || {};
+            const measured = Number(metric.purchased_races || 0) > 0;
+            const profit = Number(metric.profit_yen || 0);
+            return <article className="model-ranking-card jev-ranking-card" key={armId}>
+              <div className="model-card-top">
+                <span className="jev-arm-icon" aria-hidden="true">{meta.short}</span>
+                <span className="model-card-name">
+                  <strong>{meta.label}</strong>
+                  <small>{meta.detail}</small>
+                </span>
+                <strong className={`model-card-profit ${measured ? (profit >= 0 ? 'value-positive' : 'value-negative') : ''}`}>
+                  {measured ? formatYen(profit) : '蓄積中'}
+                </strong>
+                <span className="change neutral">購入 {metric.purchased_races || 0}件</span>
+              </div>
+              <div className="model-card-metrics jev-card-metrics">
+                <div><span>ROI</span><strong className={metric.roi_pct >= 100 ? 'value-positive' : ''}>{formatPercent(metric.roi_pct)}</strong></div>
+                <div><span>最大当たり除外ROI</span><strong>{formatPercent(metric.roi_without_largest_win_pct)}</strong></div>
+                <div><span>的中率</span><strong>{formatPercent(metric.hit_rate_pct)}</strong><small>{metric.hits || 0}/{metric.purchased_races || 0}</small></div>
+              </div>
+              <div className="jev-card-note">
+                <span>対象全体 {metric.graded_races || 0}件</span>
+                {armId !== 'value_raw_control' && <span>元順位との差 {diff.mean_diff_yen == null ? '—' : `${diff.mean_diff_yen >= 0 ? '+' : ''}${diff.mean_diff_yen.toFixed(1)}円/対象`}</span>}
               </div>
             </article>;
           })}

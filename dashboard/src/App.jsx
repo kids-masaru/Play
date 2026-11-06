@@ -5,6 +5,58 @@ import ModelDashboard from './ModelDashboard';
 import Overview from './Overview';
 import Experiments from './Experiments';
 import './index.css';
+import './site-refresh.css';
+
+const NAV_ITEMS = [
+  { key: 'overview', label: 'まとめ', icon: 'overview' },
+  { key: 'dashboard', label: 'モデル比較', icon: 'models' },
+  { key: 'experiments', label: '実験', icon: 'experiments' },
+  { key: 'battle', label: '今日の予測', icon: 'boat' },
+  { key: 'toto', label: 'toto', icon: 'toto' },
+];
+
+const PAGE_META = {
+  overview: {
+    eyebrow: 'DAILY BRIEFING',
+    title: 'いま、どうなっている？',
+    description: '運用状況・実収支・実験の進み具合を、まずここで確認します。',
+  },
+  dashboard: {
+    eyebrow: 'MODEL PERFORMANCE',
+    title: 'どのモデルが強い？',
+    description: '利益、ROI、的中率、損失幅を同じ条件で比べます。',
+  },
+  experiments: {
+    eyebrow: 'DECISION LAB',
+    title: '改善は本当に効いた？',
+    description: '心得集とJevの効果を、条件を変えずにシャドー比較します。',
+  },
+  battle: {
+    eyebrow: 'BOAT RACE',
+    title: '今日のボートレース',
+    description: '各モデルの買い目と根拠を並べ、自分の予想も記録できます。',
+  },
+  toto: {
+    eyebrow: 'FOOTBALL TOTO',
+    title: 'toto予測',
+    description: '統計・市場・AIの見方を並べ、結果が出たら同じ条件で答え合わせします。',
+  },
+  ailab: {
+    eyebrow: 'ARCHIVE',
+    title: 'AI Lab',
+    description: '停止中の自己改善ループの履歴を確認します。',
+  },
+};
+
+// 外部アイコンライブラリに依存せず、ナビゲーション用の線画を共通化する。
+const NavIcon = ({ name }) => {
+  const common = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' };
+  if (name === 'overview') return <svg viewBox="0 0 24 24" aria-hidden="true" {...common}><path d="M4 13h6V4H4zM14 20h6V11h-6zM4 20h6v-3H4zM14 7h6V4h-6z" /></svg>;
+  if (name === 'models') return <svg viewBox="0 0 24 24" aria-hidden="true" {...common}><path d="M4 19V9M10 19V5M16 19v-7M22 19V3" /><path d="M2 19h20" /></svg>;
+  if (name === 'experiments') return <svg viewBox="0 0 24 24" aria-hidden="true" {...common}><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9V3" /><path d="M7.5 15h9" /></svg>;
+  if (name === 'boat') return <svg viewBox="0 0 24 24" aria-hidden="true" {...common}><path d="m3 14 2 5h14l2-5-9-3zM8 11l1-6h6l1 7" /><path d="M5 22c1.3 0 1.7-1 3-1s1.7 1 3 1 1.7-1 3-1 1.7 1 3 1" /></svg>;
+  return <svg viewBox="0 0 24 24" aria-hidden="true" {...common}><path d="M4 5h16v14H4z" /><path d="M8 9h8M8 13h3M14 13h2M8 17h8" /></svg>;
+};
 
 const App = () => {
   const [data, setData] = useState(null);
@@ -35,13 +87,20 @@ const App = () => {
   }, []);
 
   if (error) return (
-    <div className="dashboard-container">
-      <h1 style={{ color: 'var(--error)' }}>Data Load Error</h1>
-      <p style={{ color: 'var(--text-secondary)' }}>{error}</p>
+    <div className="app-state-screen">
+      <span className="app-state-mark">!</span>
+      <h1>データを読み込めませんでした</h1>
+      <p>{error}</p>
     </div>
   );
 
-  if (!data) return <div className="dashboard-container">Loading Premium Intelligence...</div>;
+  if (!data) return (
+    <div className="app-state-screen is-loading">
+      <span className="app-loader" aria-hidden="true" />
+      <strong>予測データを準備しています</strong>
+      <p>最新の集計を読み込み中です。</p>
+    </div>
+  );
 
   // AI Labページ
   const renderAiLab = () => (
@@ -115,59 +174,85 @@ const App = () => {
     </div>
   );
 
+  const meta = PAGE_META[page] || PAGE_META.overview;
+
   return (
-    <div className="dashboard-container">
-      <header className="header app-header">
-        <div className="app-header-top">
-          <div className="brand-lockup">
-            <span className="brand-mark">BR</span>
-            <div><span className="brand-kicker">BOAT RACE</span><h1>予測成績</h1></div>
-          </div>
-          <nav className="tab-container primary-nav" aria-label="メインメニュー">
-            <button className={`tab-button ${page === 'overview' ? 'active' : ''}`} onClick={() => setPage('overview')}>まとめ</button>
-            <button className={`tab-button ${page === 'dashboard' ? 'active' : ''}`} onClick={() => setPage('dashboard')}>モデル比較</button>
-            <button className={`tab-button ${page === 'experiments' ? 'active' : ''}`} onClick={() => setPage('experiments')}>実験</button>
-            {/* AI Lab タブは非表示（自己改善ループ停止中のため）。将来AIが賢くなったら復活できるよう
-                renderAiLab() と loop_results.json・ループ関連スクリプトはそのまま残してある。
-                再表示するにはこの行のコメントを戻すだけ:
-            <button className={`tab-button ${page === 'ailab' ? 'active' : ''}`} onClick={() => setPage('ailab')}>AI Lab</button> */}
-            <button className={`tab-button ${page === 'battle' ? 'active' : ''}`} onClick={() => setPage('battle')}>今日の予測</button>
-            <button className={`tab-button ${page === 'toto' ? 'active' : ''}`} onClick={() => setPage('toto')}>toto</button>
-          </nav>
+    <div className="app-shell dashboard-container">
+      <aside className="app-sidebar">
+        <button type="button" className="brand-lockup" onClick={() => setPage('overview')} aria-label="まとめを開く">
+          <span className="brand-mark">PL</span>
+          <span className="brand-copy">
+            <span className="brand-kicker">PLAY INTELLIGENCE</span>
+            <strong>予測ラボ</strong>
+          </span>
+        </button>
+
+        <nav className="primary-nav" aria-label="メインメニュー">
+          {NAV_ITEMS.map(item => (
+            <button
+              type="button"
+              key={item.key}
+              className={`nav-item ${page === item.key ? 'active' : ''}`}
+              aria-current={page === item.key ? 'page' : undefined}
+              onClick={() => setPage(item.key)}
+            >
+              <span className="nav-icon"><NavIcon name={item.icon} /></span>
+              <span>{item.label}</span>
+            </button>
+          ))}
+        </nav>
+
+        <div className="sidebar-status">
+          <span><i className="live-dot" /> DATA READY</span>
+          <strong>{data?.latest_result_date || '集計待ち'}</strong>
+          <small>最新の確定結果</small>
         </div>
-        {page === 'dashboard' && (
-          <div className="dashboard-status">
-            <span><i className="status-dot" /> 集計済み</span>
-            <span>比較対象: 7モデル（基本Gemma・Det除外）</span>
-            <span>結果最終日: {data?.latest_result_date || '-'}</span>
+      </aside>
+
+      <div className="app-workspace">
+        <header className="workspace-header">
+          <div className="page-context">
+            <span>{meta.eyebrow}</span>
+            <h1>{meta.title}</h1>
+            <p>{meta.description}</p>
           </div>
-        )}
-        {page === 'dashboard' && (
-          <div className="period-switcher">
-            {['weekly', 'monthly', 'total'].map(p => (
-              <button
-                key={p}
-                className={`tab-button ${period === p ? 'active' : ''}`}
-                onClick={() => setPeriod(p)}
-              >
-                {p === 'weekly' ? '7日' : p === 'monthly' ? '30日' : '全期間'}
-              </button>
-            ))}
+          <div className="workspace-meta">
+            <span className="workspace-live"><i className="live-dot" /> 自動集計</span>
+            <small>確定結果</small>
+            <strong>{data?.latest_result_date || '—'}</strong>
           </div>
+        </header>
+
+        {page === 'dashboard' && (
+          <section className="dashboard-toolbar" aria-label="モデル比較の期間">
+            <div className="dashboard-status">
+              <span><i className="status-dot" /> 集計済み</span>
+              <span>現役6モデルを同条件で比較</span>
+            </div>
+            <div className="period-switcher">
+              {['weekly', 'monthly', 'total'].map(p => (
+                <button
+                  type="button"
+                  key={p}
+                  className={`tab-button ${period === p ? 'active' : ''}`}
+                  onClick={() => setPeriod(p)}
+                >
+                  {p === 'weekly' ? '7日' : p === 'monthly' ? '30日' : '全期間'}
+                </button>
+              ))}
+            </div>
+          </section>
         )}
-      </header>
 
-      {page === 'overview' && <Overview onOpenModels={() => setPage('dashboard')} />}
-
-      {page === 'experiments' && <Experiments />}
-
-      {page === 'ailab' && renderAiLab()}
-
-      {page === 'battle' && <Battle />}
-
-      {page === 'toto' && <Toto />}
-
-      {page === 'dashboard' && <ModelDashboard period={period} />}
+        <div className={`page-content page-${page}`}>
+          {page === 'overview' && <Overview onOpenModels={() => setPage('dashboard')} />}
+          {page === 'experiments' && <Experiments />}
+          {page === 'ailab' && renderAiLab()}
+          {page === 'battle' && <Battle />}
+          {page === 'toto' && <Toto />}
+          {page === 'dashboard' && <ModelDashboard period={period} />}
+        </div>
+      </div>
     </div>
   );
 };
