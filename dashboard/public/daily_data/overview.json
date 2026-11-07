@@ -1,17 +1,17 @@
 {
   "schema": "overview_v2",
-  "generated_at": "2026-11-07T02:39:23",
+  "generated_at": "2026-11-07T09:40:38",
   "today": "2026-11-07",
   "latest_result_date": "2026-11-06",
   "ops": {
     "date": "2026-11-07",
-    "target_races": 10,
+    "target_races": 18,
     "models": [
       {
         "key": "codex",
         "label": "Codex",
-        "today_count": 10,
-        "target_races": 10,
+        "today_count": 18,
+        "target_races": 18,
         "last_success_date": "2026-11-07",
         "fail_streak_days": 0,
         "status": "ok",
@@ -20,8 +20,8 @@
       {
         "key": "claude",
         "label": "Claude",
-        "today_count": 10,
-        "target_races": 10,
+        "today_count": 18,
+        "target_races": 18,
         "last_success_date": "2026-11-07",
         "fail_streak_days": 0,
         "status": "ok",
@@ -30,18 +30,18 @@
       {
         "key": "gemini",
         "label": "Gemini",
-        "today_count": 0,
-        "target_races": 10,
-        "last_success_date": "2026-11-06",
-        "fail_streak_days": 1,
-        "status": "failed",
+        "today_count": 9,
+        "target_races": 18,
+        "last_success_date": "2026-11-07",
+        "fail_streak_days": 0,
+        "status": "partial",
         "alert": false
       },
       {
         "key": "grok",
         "label": "Grok",
-        "today_count": 10,
-        "target_races": 10,
+        "today_count": 18,
+        "target_races": 18,
         "last_success_date": "2026-11-07",
         "fail_streak_days": 0,
         "status": "ok",
@@ -50,21 +50,21 @@
       {
         "key": "qwen_claude",
         "label": "学習Qwen（Claude先生）",
-        "today_count": 0,
-        "target_races": 10,
-        "last_success_date": "2026-11-06",
-        "fail_streak_days": 1,
-        "status": "failed",
+        "today_count": 18,
+        "target_races": 18,
+        "last_success_date": "2026-11-07",
+        "fail_streak_days": 0,
+        "status": "ok",
         "alert": false
       },
       {
         "key": "qwen_grok_x",
         "label": "学習Qwen（Grok+X先生）",
-        "today_count": 0,
-        "target_races": 10,
-        "last_success_date": "2026-11-06",
-        "fail_streak_days": 1,
-        "status": "failed",
+        "today_count": 18,
+        "target_races": 18,
+        "last_success_date": "2026-11-07",
+        "fail_streak_days": 0,
+        "status": "ok",
         "alert": false
       }
     ],
@@ -86,7 +86,7 @@
       {
         "key": "jev",
         "label": "Jev判定（シャドー）",
-        "detail": "10/10レース判定",
+        "detail": "18/18レース判定",
         "status": "ok",
         "note": "実購入には未接続"
       }
