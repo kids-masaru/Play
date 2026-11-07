@@ -286,7 +286,20 @@ def render_line(report: dict[str, Any], report_path: Path) -> str:
 
 
 def send_line(message: str) -> bool:
-    """main_runner.py と同じ環境変数・ライブラリで送る。未設定なら送らない。"""
+    """本人のスマホへ週1見直しを送る。
+
+    まず KOTO 経由（LINE とアプリの両方へ届く）。KOTO の設定が無い・届けられないときだけ、
+    main_runner.py と同じ環境変数・ライブラリで LINE へ直接送る（LINE卒業までの予備。2026-10-23）。
+    """
+    # KOTO部品が読み込めなくても処理は止めず、LINEへ直接送る（code-check 10/23）
+    try:
+        from koto_notice import send_via_koto
+        sent_via_koto = send_via_koto("boatrace_weekly", message)
+    except Exception as koto_error:
+        print(f"  [WARN] KOTO 経由の送信をとばしました: {type(koto_error).__name__}")
+        sent_via_koto = False
+    if sent_via_koto:
+        return True
     token = os.environ.get("LINE_CHANNEL_ACCESS_TOKEN", "")
     user_id = os.environ.get("LINE_USER_ID", "")
     if not token or not user_id:
