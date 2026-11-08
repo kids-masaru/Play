@@ -1,6 +1,6 @@
 {
-  "default_round": 1670,
-  "default_key": "1670-toto",
+  "default_round": 1672,
+  "default_key": "1672-toto",
   "rounds": [
     {
       "round": 1672,
@@ -10,7 +10,7 @@
       "payout_detail": null,
       "deadline": "2026-11-14 13:50",
       "result_date": "2026-11-15",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -61,20 +61,20 @@
               "away_wins": 2
             },
             "vote_rates": {
-              "p_H": 0.4017,
-              "p_D": 0.3389,
-              "p_A": 0.2594,
+              "p_H": 0.4046,
+              "p_D": 0.3085,
+              "p_A": 0.2869,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-07T10:30:24+09:00"
+              "captured_at": "2026-11-08T10:30:30+09:00"
             }
           },
           "market_pick": "H",
           "vote_rates": {
-            "p_H": 0.4017,
-            "p_D": 0.3389,
-            "p_A": 0.2594,
+            "p_H": 0.4046,
+            "p_D": 0.3085,
+            "p_A": 0.2869,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-07T10:30:24+09:00"
+            "captured_at": "2026-11-08T10:30:30+09:00"
           },
           "gemini_pick": "H",
           "gemini_confidence": "中",
@@ -112,20 +112,20 @@
               "away_wins": 0
             },
             "vote_rates": {
-              "p_H": 0.3913,
-              "p_D": 0.1738,
-              "p_A": 0.4349,
+              "p_H": 0.3235,
+              "p_D": 0.2598,
+              "p_A": 0.4167,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-07T10:30:24+09:00"
+              "captured_at": "2026-11-08T10:30:30+09:00"
             }
           },
           "market_pick": "A",
           "vote_rates": {
-            "p_H": 0.3913,
-            "p_D": 0.1738,
-            "p_A": 0.4349,
+            "p_H": 0.3235,
+            "p_D": 0.2598,
+            "p_A": 0.4167,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-07T10:30:24+09:00"
+            "captured_at": "2026-11-08T10:30:30+09:00"
           },
           "gemini_pick": "H",
           "gemini_confidence": "中",
@@ -149,13 +149,13 @@
           "home": "鹿島アントラーズ",
           "away": "横浜Ｆ・マリノス",
           "stats": {
-            "p_H": 0.4641,
-            "p_D": 0.243,
-            "p_A": 0.2929,
+            "p_H": 0.4579,
+            "p_D": 0.2448,
+            "p_A": 0.2973,
             "pick": "H",
             "method": "poisson_elo_h2h_v2",
-            "elo_home": 1708.6,
-            "elo_away": 1626.4,
+            "elo_home": 1699.3,
+            "elo_away": 1622.5,
             "h2h": {
               "games": 5,
               "home_wins": 3,
@@ -163,20 +163,20 @@
               "away_wins": 2
             },
             "vote_rates": {
-              "p_H": 0.5659,
-              "p_D": 0.193,
-              "p_A": 0.2411,
+              "p_H": 0.5082,
+              "p_D": 0.2511,
+              "p_A": 0.2407,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-07T10:30:24+09:00"
+              "captured_at": "2026-11-08T10:30:30+09:00"
             }
           },
           "market_pick": "H",
           "vote_rates": {
-            "p_H": 0.5659,
-            "p_D": 0.193,
-            "p_A": 0.2411,
+            "p_H": 0.5082,
+            "p_D": 0.2511,
+            "p_A": 0.2407,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-07T10:30:24+09:00"
+            "captured_at": "2026-11-08T10:30:30+09:00"
           },
           "gemini_pick": "H",
           "gemini_confidence": "高",
@@ -200,34 +200,34 @@
           "home": "柏レイソル",
           "away": "川崎フロンターレ",
           "stats": {
-            "p_H": 0.6486,
-            "p_D": 0.1384,
-            "p_A": 0.213,
+            "p_H": 0.6571,
+            "p_D": 0.1383,
+            "p_A": 0.2046,
             "pick": "H",
             "method": "poisson_elo_h2h_v2",
-            "elo_home": 1714.2,
-            "elo_away": 1645.0,
+            "elo_home": 1720.5,
+            "elo_away": 1638.7,
             "h2h": {
               "games": 5,
-              "home_wins": 0,
-              "draws": 4,
+              "home_wins": 1,
+              "draws": 3,
               "away_wins": 1
             },
             "vote_rates": {
-              "p_H": 0.5319,
-              "p_D": 0.1624,
-              "p_A": 0.3057,
+              "p_H": 0.4972,
+              "p_D": 0.2361,
+              "p_A": 0.2667,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-07T10:30:24+09:00"
+              "captured_at": "2026-11-08T10:30:30+09:00"
             }
           },
           "market_pick": "H",
           "vote_rates": {
-            "p_H": 0.5319,
-            "p_D": 0.1624,
-            "p_A": 0.3057,
+            "p_H": 0.4972,
+            "p_D": 0.2361,
+            "p_A": 0.2667,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-07T10:30:24+09:00"
+            "captured_at": "2026-11-08T10:30:30+09:00"
           },
           "gemini_pick": "H",
           "gemini_confidence": "高",
@@ -251,13 +251,13 @@
           "home": "アルビレックス新潟",
           "away": "テゲバジャーロ宮崎",
           "stats": {
-            "p_H": 0.2603,
-            "p_D": 0.1971,
-            "p_A": 0.5426,
+            "p_H": 0.2709,
+            "p_D": 0.2046,
+            "p_A": 0.5245,
             "pick": "A",
             "method": "poisson_elo_h2h_v2",
-            "elo_home": 1519.7,
-            "elo_away": 1527.3,
+            "elo_home": 1526.7,
+            "elo_away": 1539.2,
             "h2h": {
               "games": 0,
               "home_wins": 0,
@@ -265,20 +265,20 @@
               "away_wins": 0
             },
             "vote_rates": {
-              "p_H": 0.5441,
-              "p_D": 0.207,
-              "p_A": 0.2489,
+              "p_H": 0.4834,
+              "p_D": 0.2183,
+              "p_A": 0.2983,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-07T10:30:24+09:00"
+              "captured_at": "2026-11-08T10:30:30+09:00"
             }
           },
           "market_pick": "H",
           "vote_rates": {
-            "p_H": 0.5441,
-            "p_D": 0.207,
-            "p_A": 0.2489,
+            "p_H": 0.4834,
+            "p_D": 0.2183,
+            "p_A": 0.2983,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-07T10:30:24+09:00"
+            "captured_at": "2026-11-08T10:30:30+09:00"
           },
           "gemini_pick": "A",
           "gemini_confidence": "高",
@@ -302,12 +302,12 @@
           "home": "大分トリニータ",
           "away": "栃木シティ",
           "stats": {
-            "p_H": 0.3831,
-            "p_D": 0.3546,
-            "p_A": 0.2623,
+            "p_H": 0.3878,
+            "p_D": 0.3467,
+            "p_A": 0.2655,
             "pick": "H",
             "method": "poisson_elo_h2h_v2",
-            "elo_home": 1477.5,
+            "elo_home": 1469.1,
             "elo_away": 1416.1,
             "h2h": {
               "games": 5,
@@ -316,20 +316,20 @@
               "away_wins": 2
             },
             "vote_rates": {
-              "p_H": 0.717,
-              "p_D": 0.1983,
-              "p_A": 0.0847,
+              "p_H": 0.6106,
+              "p_D": 0.2144,
+              "p_A": 0.175,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-07T10:30:24+09:00"
+              "captured_at": "2026-11-08T10:30:30+09:00"
             }
           },
           "market_pick": "H",
           "vote_rates": {
-            "p_H": 0.717,
-            "p_D": 0.1983,
-            "p_A": 0.0847,
+            "p_H": 0.6106,
+            "p_D": 0.2144,
+            "p_A": 0.175,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-07T10:30:24+09:00"
+            "captured_at": "2026-11-08T10:30:30+09:00"
           },
           "gemini_pick": "H",
           "gemini_confidence": "中",
@@ -353,13 +353,13 @@
           "home": "北海道コンサドーレ札幌",
           "away": "サガン鳥栖",
           "stats": {
-            "p_H": 0.441,
-            "p_D": 0.2514,
-            "p_A": 0.3077,
+            "p_H": 0.4462,
+            "p_D": 0.2475,
+            "p_A": 0.3062,
             "pick": "H",
             "method": "poisson_elo_h2h_v2",
             "elo_home": 1533.1,
-            "elo_away": 1517.5,
+            "elo_away": 1505.6,
             "h2h": {
               "games": 5,
               "home_wins": 2,
@@ -367,20 +367,20 @@
               "away_wins": 2
             },
             "vote_rates": {
-              "p_H": 0.6681,
-              "p_D": 0.1808,
-              "p_A": 0.1511,
+              "p_H": 0.5664,
+              "p_D": 0.2132,
+              "p_A": 0.2204,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-07T10:30:24+09:00"
+              "captured_at": "2026-11-08T10:30:30+09:00"
             }
           },
           "market_pick": "H",
           "vote_rates": {
-            "p_H": 0.6681,
-            "p_D": 0.1808,
-            "p_A": 0.1511,
+            "p_H": 0.5664,
+            "p_D": 0.2132,
+            "p_A": 0.2204,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-07T10:30:24+09:00"
+            "captured_at": "2026-11-08T10:30:30+09:00"
           },
           "gemini_pick": "H",
           "gemini_confidence": "高",
@@ -404,13 +404,13 @@
           "home": "ベガルタ仙台",
           "away": "ブラウブリッツ秋田",
           "stats": {
-            "p_H": 0.5161,
-            "p_D": 0.2793,
-            "p_A": 0.2046,
+            "p_H": 0.5224,
+            "p_D": 0.2797,
+            "p_A": 0.198,
             "pick": "H",
             "method": "poisson_elo_h2h_v2",
             "elo_home": 1572.6,
-            "elo_away": 1468.1,
+            "elo_away": 1476.5,
             "h2h": {
               "games": 5,
               "home_wins": 2,
@@ -418,20 +418,20 @@
               "away_wins": 1
             },
             "vote_rates": {
-              "p_H": 0.7633,
-              "p_D": 0.1721,
-              "p_A": 0.0646,
+              "p_H": 0.6029,
+              "p_D": 0.2141,
+              "p_A": 0.183,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-07T10:30:24+09:00"
+              "captured_at": "2026-11-08T10:30:30+09:00"
             }
           },
           "market_pick": "H",
           "vote_rates": {
-            "p_H": 0.7633,
-            "p_D": 0.1721,
-            "p_A": 0.0646,
+            "p_H": 0.6029,
+            "p_D": 0.2141,
+            "p_A": 0.183,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-07T10:30:24+09:00"
+            "captured_at": "2026-11-08T10:30:30+09:00"
           },
           "gemini_pick": "H",
           "gemini_confidence": "高",
@@ -455,12 +455,12 @@
           "home": "ＦＣ今治",
           "away": "ジュビロ磐田",
           "stats": {
-            "p_H": 0.3068,
-            "p_D": 0.2337,
-            "p_A": 0.4595,
+            "p_H": 0.2946,
+            "p_D": 0.2318,
+            "p_A": 0.4736,
             "pick": "A",
             "method": "poisson_elo_h2h_v2",
-            "elo_home": 1477.5,
+            "elo_home": 1470.5,
             "elo_away": 1557.4,
             "h2h": {
               "games": 2,
@@ -469,20 +469,20 @@
               "away_wins": 1
             },
             "vote_rates": {
-              "p_H": 0.069,
-              "p_D": 0.1677,
-              "p_A": 0.7633,
+              "p_H": 0.1663,
+              "p_D": 0.2077,
+              "p_A": 0.626,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-07T10:30:24+09:00"
+              "captured_at": "2026-11-08T10:30:30+09:00"
             }
           },
           "market_pick": "A",
           "vote_rates": {
-            "p_H": 0.069,
-            "p_D": 0.1677,
-            "p_A": 0.7633,
+            "p_H": 0.1663,
+            "p_D": 0.2077,
+            "p_A": 0.626,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-07T10:30:24+09:00"
+            "captured_at": "2026-11-08T10:30:30+09:00"
           },
           "gemini_pick": "A",
           "gemini_confidence": "中",
@@ -506,13 +506,13 @@
           "home": "カターレ富山",
           "away": "徳島ヴォルティス",
           "stats": {
-            "p_H": 0.3798,
-            "p_D": 0.3088,
-            "p_A": 0.3114,
+            "p_H": 0.4225,
+            "p_D": 0.2961,
+            "p_A": 0.2814,
             "pick": "H",
             "method": "poisson_elo_h2h_v2",
-            "elo_home": 1517.6,
-            "elo_away": 1528.2,
+            "elo_home": 1529.4,
+            "elo_away": 1516.4,
             "h2h": {
               "games": 2,
               "home_wins": 0,
@@ -520,20 +520,20 @@
               "away_wins": 2
             },
             "vote_rates": {
-              "p_H": 0.7074,
-              "p_D": 0.152,
-              "p_A": 0.1406,
+              "p_H": 0.6031,
+              "p_D": 0.1995,
+              "p_A": 0.1974,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-07T10:30:24+09:00"
+              "captured_at": "2026-11-08T10:30:30+09:00"
             }
           },
           "market_pick": "H",
           "vote_rates": {
-            "p_H": 0.7074,
-            "p_D": 0.152,
-            "p_A": 0.1406,
+            "p_H": 0.6031,
+            "p_D": 0.1995,
+            "p_A": 0.1974,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-07T10:30:24+09:00"
+            "captured_at": "2026-11-08T10:30:30+09:00"
           },
           "gemini_pick": "H",
           "gemini_confidence": "低",
@@ -557,13 +557,13 @@
           "home": "ヴァンラーレ八戸",
           "away": "いわきＦＣ",
           "stats": {
-            "p_H": 0.2615,
-            "p_D": 0.2822,
-            "p_A": 0.4563,
+            "p_H": 0.2492,
+            "p_D": 0.2833,
+            "p_A": 0.4675,
             "pick": "A",
             "method": "poisson_elo_h2h_v2",
             "elo_home": 1466.3,
-            "elo_away": 1530.1,
+            "elo_away": 1538.0,
             "h2h": {
               "games": 2,
               "home_wins": 0,
@@ -571,20 +571,20 @@
               "away_wins": 2
             },
             "vote_rates": {
-              "p_H": 0.1598,
-              "p_D": 0.1913,
-              "p_A": 0.6489,
+              "p_H": 0.2025,
+              "p_D": 0.2194,
+              "p_A": 0.5781,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-07T10:30:24+09:00"
+              "captured_at": "2026-11-08T10:30:30+09:00"
             }
           },
           "market_pick": "A",
           "vote_rates": {
-            "p_H": 0.1598,
-            "p_D": 0.1913,
-            "p_A": 0.6489,
+            "p_H": 0.2025,
+            "p_D": 0.2194,
+            "p_A": 0.5781,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-07T10:30:24+09:00"
+            "captured_at": "2026-11-08T10:30:30+09:00"
           },
           "gemini_pick": "A",
           "gemini_confidence": "中",
@@ -608,12 +608,12 @@
           "home": "藤枝ＭＹＦＣ",
           "away": "ヴァンフォーレ甲府",
           "stats": {
-            "p_H": 0.5333,
-            "p_D": 0.2415,
-            "p_A": 0.2252,
+            "p_H": 0.506,
+            "p_D": 0.255,
+            "p_A": 0.2391,
             "pick": "H",
             "method": "poisson_elo_h2h_v2",
-            "elo_home": 1438.4,
+            "elo_home": 1433.5,
             "elo_away": 1424.7,
             "h2h": {
               "games": 5,
@@ -622,20 +622,20 @@
               "away_wins": 2
             },
             "vote_rates": {
-              "p_H": 0.4201,
-              "p_D": 0.3493,
-              "p_A": 0.2306,
+              "p_H": 0.418,
+              "p_D": 0.3222,
+              "p_A": 0.2598,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-07T10:30:24+09:00"
+              "captured_at": "2026-11-08T10:30:30+09:00"
             }
           },
           "market_pick": "H",
           "vote_rates": {
-            "p_H": 0.4201,
-            "p_D": 0.3493,
-            "p_A": 0.2306,
+            "p_H": 0.418,
+            "p_D": 0.3222,
+            "p_A": 0.2598,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-07T10:30:24+09:00"
+            "captured_at": "2026-11-08T10:30:30+09:00"
           },
           "gemini_pick": "H",
           "gemini_confidence": "高",
@@ -659,13 +659,13 @@
           "home": "ＲＢ大宮アルディージャ",
           "away": "モンテディオ山形",
           "stats": {
-            "p_H": 0.5117,
-            "p_D": 0.2362,
-            "p_A": 0.2521,
+            "p_H": 0.5357,
+            "p_D": 0.2318,
+            "p_A": 0.2326,
             "pick": "H",
             "method": "poisson_elo_h2h_v2",
             "elo_home": 1577.6,
-            "elo_away": 1517.9,
+            "elo_away": 1510.0,
             "h2h": {
               "games": 5,
               "home_wins": 2,
@@ -673,20 +673,20 @@
               "away_wins": 0
             },
             "vote_rates": {
-              "p_H": 0.7686,
-              "p_D": 0.1423,
-              "p_A": 0.0891,
+              "p_H": 0.6182,
+              "p_D": 0.1983,
+              "p_A": 0.1835,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-07T10:30:24+09:00"
+              "captured_at": "2026-11-08T10:30:30+09:00"
             }
           },
           "market_pick": "H",
           "vote_rates": {
-            "p_H": 0.7686,
-            "p_D": 0.1423,
-            "p_A": 0.0891,
+            "p_H": 0.6182,
+            "p_D": 0.1983,
+            "p_A": 0.1835,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-07T10:30:24+09:00"
+            "captured_at": "2026-11-08T10:30:30+09:00"
           },
           "gemini_pick": "H",
           "gemini_confidence": "高",
@@ -712,7 +712,7 @@
       "payout_detail": null,
       "deadline": "2026-11-14 13:50",
       "result_date": "2026-11-15",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -827,13 +827,13 @@
           "home": "鹿島アントラーズ",
           "away": "横浜Ｆ・マリノス",
           "stats": {
-            "p_H": 0.4641,
-            "p_D": 0.243,
-            "p_A": 0.2929,
+            "p_H": 0.4579,
+            "p_D": 0.2448,
+            "p_A": 0.2973,
             "pick": "H",
             "method": "poisson_elo_h2h_v2",
-            "elo_home": 1708.6,
-            "elo_away": 1626.4,
+            "elo_home": 1699.3,
+            "elo_away": 1622.5,
             "h2h": {
               "games": 5,
               "home_wins": 3,
@@ -866,17 +866,17 @@
           "home": "柏レイソル",
           "away": "川崎フロンターレ",
           "stats": {
-            "p_H": 0.6486,
-            "p_D": 0.1384,
-            "p_A": 0.213,
+            "p_H": 0.6571,
+            "p_D": 0.1383,
+            "p_A": 0.2046,
             "pick": "H",
             "method": "poisson_elo_h2h_v2",
-            "elo_home": 1714.2,
-            "elo_away": 1645.0,
+            "elo_home": 1720.5,
+            "elo_away": 1638.7,
             "h2h": {
               "games": 5,
-              "home_wins": 0,
-              "draws": 4,
+              "home_wins": 1,
+              "draws": 3,
               "away_wins": 1
             },
             "vote_rates": null
@@ -905,13 +905,13 @@
           "home": "アルビレックス新潟",
           "away": "テゲバジャーロ宮崎",
           "stats": {
-            "p_H": 0.2603,
-            "p_D": 0.1971,
-            "p_A": 0.5426,
+            "p_H": 0.2709,
+            "p_D": 0.2046,
+            "p_A": 0.5245,
             "pick": "A",
             "method": "poisson_elo_h2h_v2",
-            "elo_home": 1519.7,
-            "elo_away": 1527.3,
+            "elo_home": 1526.7,
+            "elo_away": 1539.2,
             "h2h": {
               "games": 0,
               "home_wins": 0,
@@ -946,7 +946,7 @@
       "payout_detail": null,
       "deadline": "2026-11-14 13:50",
       "result_date": "2026-11-15",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -983,12 +983,12 @@
           "home": "大分トリニータ",
           "away": "栃木シティ",
           "stats": {
-            "p_H": 0.3831,
-            "p_D": 0.3546,
-            "p_A": 0.2623,
+            "p_H": 0.3878,
+            "p_D": 0.3467,
+            "p_A": 0.2655,
             "pick": "H",
             "method": "poisson_elo_h2h_v2",
-            "elo_home": 1477.5,
+            "elo_home": 1469.1,
             "elo_away": 1416.1,
             "h2h": {
               "games": 5,
@@ -1022,13 +1022,13 @@
           "home": "北海道コンサドーレ札幌",
           "away": "サガン鳥栖",
           "stats": {
-            "p_H": 0.441,
-            "p_D": 0.2514,
-            "p_A": 0.3077,
+            "p_H": 0.4462,
+            "p_D": 0.2475,
+            "p_A": 0.3062,
             "pick": "H",
             "method": "poisson_elo_h2h_v2",
             "elo_home": 1533.1,
-            "elo_away": 1517.5,
+            "elo_away": 1505.6,
             "h2h": {
               "games": 5,
               "home_wins": 2,
@@ -1061,13 +1061,13 @@
           "home": "ベガルタ仙台",
           "away": "ブラウブリッツ秋田",
           "stats": {
-            "p_H": 0.5161,
-            "p_D": 0.2793,
-            "p_A": 0.2046,
+            "p_H": 0.5224,
+            "p_D": 0.2797,
+            "p_A": 0.198,
             "pick": "H",
             "method": "poisson_elo_h2h_v2",
             "elo_home": 1572.6,
-            "elo_away": 1468.1,
+            "elo_away": 1476.5,
             "h2h": {
               "games": 5,
               "home_wins": 2,
@@ -1100,12 +1100,12 @@
           "home": "ＦＣ今治",
           "away": "ジュビロ磐田",
           "stats": {
-            "p_H": 0.3068,
-            "p_D": 0.2337,
-            "p_A": 0.4595,
+            "p_H": 0.2946,
+            "p_D": 0.2318,
+            "p_A": 0.4736,
             "pick": "A",
             "method": "poisson_elo_h2h_v2",
-            "elo_home": 1477.5,
+            "elo_home": 1470.5,
             "elo_away": 1557.4,
             "h2h": {
               "games": 2,
@@ -1139,13 +1139,13 @@
           "home": "カターレ富山",
           "away": "徳島ヴォルティス",
           "stats": {
-            "p_H": 0.3798,
-            "p_D": 0.3088,
-            "p_A": 0.3114,
+            "p_H": 0.4225,
+            "p_D": 0.2961,
+            "p_A": 0.2814,
             "pick": "H",
             "method": "poisson_elo_h2h_v2",
-            "elo_home": 1517.6,
-            "elo_away": 1528.2,
+            "elo_home": 1529.4,
+            "elo_away": 1516.4,
             "h2h": {
               "games": 2,
               "home_wins": 0,
@@ -1180,32 +1180,32 @@
       "payout_detail": null,
       "deadline": "2026-11-07 12:50",
       "result_date": "2026-11-08",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
       "has_grok": true,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
-          "hits": 0
+          "n": 8,
+          "hits": 3
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 8,
+          "hits": 5
         },
         "codex": {
-          "n": 0,
-          "hits": 0
+          "n": 8,
+          "hits": 3
         },
         "claude": {
-          "n": 0,
-          "hits": 0
+          "n": 8,
+          "hits": 3
         },
         "grok": {
-          "n": 0,
-          "hits": 0
+          "n": 8,
+          "hits": 3
         }
       },
       "matches": [
@@ -1258,7 +1258,7 @@
           "grok_pick": "H",
           "grok_confidence": "中",
           "grok_reasoning": "stats_modelでHが最高確率。H2Hもホーム4勝0敗でホーム優位明確",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1670-2",
@@ -1309,7 +1309,7 @@
           "grok_pick": "H",
           "grok_confidence": "高",
           "grok_reasoning": "p_H0.66と圧倒的。ELO差もホーム優位で明確にH",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1670-3",
@@ -1360,7 +1360,7 @@
           "grok_pick": "A",
           "grok_confidence": "中",
           "grok_reasoning": "p_A最高かつELOアウェイ大幅優位で明確にA",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1670-4",
@@ -1411,7 +1411,7 @@
           "grok_pick": "H",
           "grok_confidence": "中",
           "grok_reasoning": "stats_modelはH最高。ELOやや劣るがホーム優位を優先しH",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1670-5",
@@ -1462,7 +1462,7 @@
           "grok_pick": "H",
           "grok_confidence": "高",
           "grok_reasoning": "p_H0.65と高くELOホーム優位で明確H",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1670-6",
@@ -1513,7 +1513,7 @@
           "grok_pick": "A",
           "grok_confidence": "中",
           "grok_reasoning": "stats_modelがA最高でELOアウェイ優位、H2Hもアウェイ優勢で明確A",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1670-7",
@@ -1524,7 +1524,7 @@
           "away": "浦和レッズ",
           "stats": {
             "p_H": 0.5777,
-            "p_D": 0.2293,
+            "p_D": 0.2292,
             "p_A": 0.1931,
             "pick": "H",
             "method": "poisson_elo_h2h_v2",
@@ -1677,7 +1677,7 @@
           "away": "サンフレッチェ広島",
           "stats": {
             "p_H": 0.3615,
-            "p_D": 0.2999,
+            "p_D": 0.2998,
             "p_A": 0.3387,
             "pick": "H",
             "method": "poisson_elo_h2h_v2",
@@ -1768,7 +1768,7 @@
           "grok_pick": "H",
           "grok_confidence": "低",
           "grok_reasoning": "ELOほぼ同等でp_Hが僅差首位。ホーム優位を優先しH",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1670-12",
@@ -1779,7 +1779,7 @@
           "away": "北海道コンサドーレ札幌",
           "stats": {
             "p_H": 0.3421,
-            "p_D": 0.2991,
+            "p_D": 0.299,
             "p_A": 0.3589,
             "pick": "A",
             "method": "poisson_elo_h2h_v2",
@@ -1870,7 +1870,7 @@
           "grok_pick": "H",
           "grok_confidence": "低",
           "grok_reasoning": "p_Hが僅差で最高。ELO同等のためホーム優位でH",
-          "result": ""
+          "result": "A"
         }
       ]
     },
@@ -1878,36 +1878,42 @@
       "round": 1670,
       "kuji": "mini_a",
       "kuji_label": "mini toto-A (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 14490,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 14490,
+          "count": 377
+        }
+      ],
       "deadline": "2026-11-07 12:50",
       "result_date": "2026-11-07",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
       "has_grok": true,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         },
         "codex": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         },
         "claude": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         },
         "grok": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         }
       },
       "matches": [
@@ -1948,7 +1954,7 @@
           "grok_pick": "H",
           "grok_confidence": "中",
           "grok_reasoning": "stats_modelでHが最高確率。H2Hもホーム4勝0敗でホーム優位明確",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1670-2",
@@ -1987,7 +1993,7 @@
           "grok_pick": "H",
           "grok_confidence": "高",
           "grok_reasoning": "p_H0.66と圧倒的。ELO差もホーム優位で明確にH",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1670-3",
@@ -2026,7 +2032,7 @@
           "grok_pick": "A",
           "grok_confidence": "中",
           "grok_reasoning": "p_A最高かつELOアウェイ大幅優位で明確にA",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1670-4",
@@ -2065,7 +2071,7 @@
           "grok_pick": "H",
           "grok_confidence": "中",
           "grok_reasoning": "stats_modelはH最高。ELOやや劣るがホーム優位を優先しH",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1670-5",
@@ -2104,7 +2110,7 @@
           "grok_pick": "H",
           "grok_confidence": "高",
           "grok_reasoning": "p_H0.65と高くELOホーム優位で明確H",
-          "result": ""
+          "result": "H"
         }
       ]
     },
@@ -2116,32 +2122,32 @@
       "payout_detail": null,
       "deadline": "2026-11-07 13:50",
       "result_date": "2026-11-08",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
       "has_grok": true,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
-          "hits": 0
+          "n": 1,
+          "hits": 1
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 1,
+          "hits": 1
         },
         "codex": {
-          "n": 0,
-          "hits": 0
+          "n": 1,
+          "hits": 1
         },
         "claude": {
-          "n": 0,
-          "hits": 0
+          "n": 1,
+          "hits": 1
         },
         "grok": {
-          "n": 0,
-          "hits": 0
+          "n": 1,
+          "hits": 1
         }
       },
       "matches": [
@@ -2182,7 +2188,7 @@
           "grok_pick": "A",
           "grok_confidence": "中",
           "grok_reasoning": "stats_modelがA最高でELOアウェイ優位、H2Hもアウェイ優勢で明確A",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1670-7",
@@ -2193,7 +2199,7 @@
           "away": "浦和レッズ",
           "stats": {
             "p_H": 0.5777,
-            "p_D": 0.2293,
+            "p_D": 0.2292,
             "p_A": 0.1931,
             "pick": "H",
             "method": "poisson_elo_h2h_v2",
@@ -2310,7 +2316,7 @@
           "away": "サンフレッチェ広島",
           "stats": {
             "p_H": 0.3615,
-            "p_D": 0.2999,
+            "p_D": 0.2998,
             "p_A": 0.3387,
             "pick": "H",
             "method": "poisson_elo_h2h_v2",
@@ -2366,7 +2372,7 @@
       ],
       "deadline": "2026-11-03 13:45",
       "result_date": "2026-11-03",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -2918,7 +2924,7 @@
       ],
       "deadline": "2026-11-03 13:45",
       "result_date": "2026-11-03",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -3158,7 +3164,7 @@
       ],
       "deadline": "2026-11-03 13:50",
       "result_date": "2026-11-03",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -3408,7 +3414,7 @@
       ],
       "deadline": "2026-10-31 13:50",
       "result_date": "2026-11-01",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -3960,7 +3966,7 @@
       ],
       "deadline": "2026-10-31 13:50",
       "result_date": "2026-10-31",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -4200,7 +4206,7 @@
       ],
       "deadline": "2026-10-31 13:50",
       "result_date": "2026-11-01",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -4450,7 +4456,7 @@
       ],
       "deadline": "2026-10-24 13:50",
       "result_date": "2026-10-25",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -5002,7 +5008,7 @@
       ],
       "deadline": "2026-10-24 13:50",
       "result_date": "2026-10-25",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -5242,7 +5248,7 @@
       ],
       "deadline": "2026-10-24 14:50",
       "result_date": "2026-10-25",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -5492,7 +5498,7 @@
       ],
       "deadline": "2026-10-10 13:50",
       "result_date": "2026-10-11",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -6044,7 +6050,7 @@
       ],
       "deadline": "2026-10-10 13:50",
       "result_date": "2026-10-11",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -6284,7 +6290,7 @@
       ],
       "deadline": "2026-10-10 13:50",
       "result_date": "2026-10-11",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -6524,7 +6530,7 @@
       ],
       "deadline": "2026-10-07 18:20",
       "result_date": "2026-10-07",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -6764,7 +6770,7 @@
       ],
       "deadline": "2026-10-07 17:50",
       "result_date": "2026-10-07",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -7014,7 +7020,7 @@
       ],
       "deadline": "2026-10-03 13:50",
       "result_date": "2026-10-04",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -7566,7 +7572,7 @@
       ],
       "deadline": "2026-10-03 13:50",
       "result_date": "2026-10-03",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -7806,7 +7812,7 @@
       ],
       "deadline": "2026-10-03 13:50",
       "result_date": "2026-10-04",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -8046,7 +8052,7 @@
       ],
       "deadline": "2026-09-23 16:50",
       "result_date": "2026-09-23",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -8296,7 +8302,7 @@
       ],
       "deadline": "2026-09-19 17:50",
       "result_date": "2026-09-20",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -8848,7 +8854,7 @@
       ],
       "deadline": "2026-09-19 17:50",
       "result_date": "2026-09-19",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -9088,7 +9094,7 @@
       ],
       "deadline": "2026-09-19 18:20",
       "result_date": "2026-09-20",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -9338,7 +9344,7 @@
       ],
       "deadline": "2026-09-12 17:50",
       "result_date": "2026-09-13",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -9890,7 +9896,7 @@
       ],
       "deadline": "2026-09-12 17:50",
       "result_date": "2026-09-12",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -10130,7 +10136,7 @@
       ],
       "deadline": "2026-09-12 17:50",
       "result_date": "2026-09-13",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -10370,7 +10376,7 @@
       ],
       "deadline": "2026-09-09 18:20",
       "result_date": "2026-09-09",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -10620,7 +10626,7 @@
       ],
       "deadline": "2026-09-05 18:50",
       "result_date": "2026-09-06",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -11172,7 +11178,7 @@
       ],
       "deadline": "2026-09-05 18:50",
       "result_date": "2026-09-06",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -11412,7 +11418,7 @@
       ],
       "deadline": "2026-09-05 18:50",
       "result_date": "2026-09-06",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -11662,7 +11668,7 @@
       ],
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -12214,7 +12220,7 @@
       ],
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -12454,7 +12460,7 @@
       ],
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -12704,7 +12710,7 @@
       ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -13256,7 +13262,7 @@
       ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -13496,7 +13502,7 @@
       ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -13746,7 +13752,7 @@
       ],
       "deadline": "2026-08-22 14:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -14298,7 +14304,7 @@
       ],
       "deadline": "2026-08-22 17:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -14538,7 +14544,7 @@
       ],
       "deadline": "2026-08-22 14:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -14788,7 +14794,7 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": false,
       "has_codex": true,
       "has_claude": false,
@@ -15340,7 +15346,7 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": false,
       "has_codex": true,
       "has_claude": false,
@@ -15580,7 +15586,7 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": false,
       "has_codex": true,
       "has_claude": false,
@@ -15830,7 +15836,7 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -16187,7 +16193,7 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -16352,7 +16358,7 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -16527,7 +16533,7 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -16884,7 +16890,7 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -17049,7 +17055,7 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -17224,7 +17230,7 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -17581,7 +17587,7 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -17746,7 +17752,7 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -17921,7 +17927,7 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -18278,7 +18284,7 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -18443,7 +18449,7 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-11-07",
+      "generated_date": "2026-11-08",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
