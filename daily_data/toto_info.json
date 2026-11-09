@@ -6,7 +6,7 @@
   "payout_detail": null,
   "deadline": "2026-11-14 13:50",
   "result_date": "2026-11-15",
-  "generated_date": "2026-11-08",
+  "generated_date": "2026-11-09",
   "has_gemini": true,
   "has_codex": true,
   "has_claude": true,
@@ -43,13 +43,13 @@
       "home": "ＦＣ町田ゼルビア",
       "away": "ヴィッセル神戸",
       "stats": {
-        "p_H": 0.4534,
-        "p_D": 0.2903,
-        "p_A": 0.2564,
+        "p_H": 0.4527,
+        "p_D": 0.2887,
+        "p_A": 0.2586,
         "pick": "H",
         "method": "poisson_elo_h2h_v2",
-        "elo_home": 1689.5,
-        "elo_away": 1706.9,
+        "elo_home": 1688.6,
+        "elo_away": 1703.2,
         "h2h": {
           "games": 5,
           "home_wins": 1,
@@ -57,20 +57,20 @@
           "away_wins": 2
         },
         "vote_rates": {
-          "p_H": 0.4046,
-          "p_D": 0.3085,
-          "p_A": 0.2869,
+          "p_H": 0.4098,
+          "p_D": 0.3078,
+          "p_A": 0.2824,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-08T10:30:30+09:00"
+          "captured_at": "2026-11-09T10:30:29+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.4046,
-        "p_D": 0.3085,
-        "p_A": 0.2869,
+        "p_H": 0.4098,
+        "p_D": 0.3078,
+        "p_A": 0.2824,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-08T10:30:30+09:00"
+        "captured_at": "2026-11-09T10:30:29+09:00"
       },
       "gemini_pick": "H",
       "gemini_confidence": "中",
@@ -94,13 +94,13 @@
       "home": "セレッソ大阪",
       "away": "浦和レッズ",
       "stats": {
-        "p_H": 0.4349,
-        "p_D": 0.2236,
-        "p_A": 0.3416,
+        "p_H": 0.4341,
+        "p_D": 0.2225,
+        "p_A": 0.3434,
         "pick": "H",
         "method": "poisson_elo_h2h_v2",
-        "elo_home": 1576.0,
-        "elo_away": 1634.2,
+        "elo_home": 1588.7,
+        "elo_away": 1637.9,
         "h2h": {
           "games": 5,
           "home_wins": 3,
@@ -108,20 +108,20 @@
           "away_wins": 0
         },
         "vote_rates": {
-          "p_H": 0.3235,
-          "p_D": 0.2598,
-          "p_A": 0.4167,
+          "p_H": 0.3241,
+          "p_D": 0.2617,
+          "p_A": 0.4142,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-08T10:30:30+09:00"
+          "captured_at": "2026-11-09T10:30:29+09:00"
         }
       },
       "market_pick": "A",
       "vote_rates": {
-        "p_H": 0.3235,
-        "p_D": 0.2598,
-        "p_A": 0.4167,
+        "p_H": 0.3241,
+        "p_D": 0.2617,
+        "p_A": 0.4142,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-08T10:30:30+09:00"
+        "captured_at": "2026-11-09T10:30:29+09:00"
       },
       "gemini_pick": "H",
       "gemini_confidence": "中",
@@ -159,20 +159,20 @@
           "away_wins": 2
         },
         "vote_rates": {
-          "p_H": 0.5082,
-          "p_D": 0.2511,
-          "p_A": 0.2407,
+          "p_H": 0.5387,
+          "p_D": 0.2284,
+          "p_A": 0.2329,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-08T10:30:30+09:00"
+          "captured_at": "2026-11-09T10:30:29+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.5082,
-        "p_D": 0.2511,
-        "p_A": 0.2407,
+        "p_H": 0.5387,
+        "p_D": 0.2284,
+        "p_A": 0.2329,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-08T10:30:30+09:00"
+        "captured_at": "2026-11-09T10:30:29+09:00"
       },
       "gemini_pick": "H",
       "gemini_confidence": "高",
@@ -210,20 +210,20 @@
           "away_wins": 1
         },
         "vote_rates": {
-          "p_H": 0.4972,
-          "p_D": 0.2361,
-          "p_A": 0.2667,
+          "p_H": 0.5968,
+          "p_D": 0.1947,
+          "p_A": 0.2085,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-08T10:30:30+09:00"
+          "captured_at": "2026-11-09T10:30:29+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.4972,
-        "p_D": 0.2361,
-        "p_A": 0.2667,
+        "p_H": 0.5968,
+        "p_D": 0.1947,
+        "p_A": 0.2085,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-08T10:30:30+09:00"
+        "captured_at": "2026-11-09T10:30:29+09:00"
       },
       "gemini_pick": "H",
       "gemini_confidence": "高",
@@ -261,20 +261,20 @@
           "away_wins": 0
         },
         "vote_rates": {
-          "p_H": 0.4834,
-          "p_D": 0.2183,
-          "p_A": 0.2983,
+          "p_H": 0.5089,
+          "p_D": 0.2068,
+          "p_A": 0.2843,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-08T10:30:30+09:00"
+          "captured_at": "2026-11-09T10:30:29+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.4834,
-        "p_D": 0.2183,
-        "p_A": 0.2983,
+        "p_H": 0.5089,
+        "p_D": 0.2068,
+        "p_A": 0.2843,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-08T10:30:30+09:00"
+        "captured_at": "2026-11-09T10:30:29+09:00"
       },
       "gemini_pick": "A",
       "gemini_confidence": "高",
@@ -312,20 +312,20 @@
           "away_wins": 2
         },
         "vote_rates": {
-          "p_H": 0.6106,
-          "p_D": 0.2144,
-          "p_A": 0.175,
+          "p_H": 0.6935,
+          "p_D": 0.1849,
+          "p_A": 0.1216,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-08T10:30:30+09:00"
+          "captured_at": "2026-11-09T10:30:29+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.6106,
-        "p_D": 0.2144,
-        "p_A": 0.175,
+        "p_H": 0.6935,
+        "p_D": 0.1849,
+        "p_A": 0.1216,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-08T10:30:30+09:00"
+        "captured_at": "2026-11-09T10:30:29+09:00"
       },
       "gemini_pick": "H",
       "gemini_confidence": "中",
@@ -349,12 +349,12 @@
       "home": "北海道コンサドーレ札幌",
       "away": "サガン鳥栖",
       "stats": {
-        "p_H": 0.4462,
+        "p_H": 0.4487,
         "p_D": 0.2475,
-        "p_A": 0.3062,
+        "p_A": 0.3037,
         "pick": "H",
         "method": "poisson_elo_h2h_v2",
-        "elo_home": 1533.1,
+        "elo_home": 1543.0,
         "elo_away": 1505.6,
         "h2h": {
           "games": 5,
@@ -363,20 +363,20 @@
           "away_wins": 2
         },
         "vote_rates": {
-          "p_H": 0.5664,
-          "p_D": 0.2132,
-          "p_A": 0.2204,
+          "p_H": 0.6262,
+          "p_D": 0.1817,
+          "p_A": 0.1921,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-08T10:30:30+09:00"
+          "captured_at": "2026-11-09T10:30:29+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.5664,
-        "p_D": 0.2132,
-        "p_A": 0.2204,
+        "p_H": 0.6262,
+        "p_D": 0.1817,
+        "p_A": 0.1921,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-08T10:30:30+09:00"
+        "captured_at": "2026-11-09T10:30:29+09:00"
       },
       "gemini_pick": "H",
       "gemini_confidence": "高",
@@ -400,12 +400,12 @@
       "home": "ベガルタ仙台",
       "away": "ブラウブリッツ秋田",
       "stats": {
-        "p_H": 0.5224,
-        "p_D": 0.2797,
-        "p_A": 0.198,
+        "p_H": 0.5532,
+        "p_D": 0.2568,
+        "p_A": 0.19,
         "pick": "H",
         "method": "poisson_elo_h2h_v2",
-        "elo_home": 1572.6,
+        "elo_home": 1577.2,
         "elo_away": 1476.5,
         "h2h": {
           "games": 5,
@@ -414,20 +414,20 @@
           "away_wins": 1
         },
         "vote_rates": {
-          "p_H": 0.6029,
-          "p_D": 0.2141,
-          "p_A": 0.183,
+          "p_H": 0.657,
+          "p_D": 0.1865,
+          "p_A": 0.1565,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-08T10:30:30+09:00"
+          "captured_at": "2026-11-09T10:30:29+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.6029,
-        "p_D": 0.2141,
-        "p_A": 0.183,
+        "p_H": 0.657,
+        "p_D": 0.1865,
+        "p_A": 0.1565,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-08T10:30:30+09:00"
+        "captured_at": "2026-11-09T10:30:29+09:00"
       },
       "gemini_pick": "H",
       "gemini_confidence": "高",
@@ -451,13 +451,13 @@
       "home": "ＦＣ今治",
       "away": "ジュビロ磐田",
       "stats": {
-        "p_H": 0.2946,
-        "p_D": 0.2318,
-        "p_A": 0.4736,
+        "p_H": 0.2784,
+        "p_D": 0.2324,
+        "p_A": 0.4892,
         "pick": "A",
         "method": "poisson_elo_h2h_v2",
         "elo_home": 1470.5,
-        "elo_away": 1557.4,
+        "elo_away": 1554.0,
         "h2h": {
           "games": 2,
           "home_wins": 0,
@@ -465,20 +465,20 @@
           "away_wins": 1
         },
         "vote_rates": {
-          "p_H": 0.1663,
-          "p_D": 0.2077,
-          "p_A": 0.626,
+          "p_H": 0.1177,
+          "p_D": 0.1554,
+          "p_A": 0.7269,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-08T10:30:30+09:00"
+          "captured_at": "2026-11-09T10:30:29+09:00"
         }
       },
       "market_pick": "A",
       "vote_rates": {
-        "p_H": 0.1663,
-        "p_D": 0.2077,
-        "p_A": 0.626,
+        "p_H": 0.1177,
+        "p_D": 0.1554,
+        "p_A": 0.7269,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-08T10:30:30+09:00"
+        "captured_at": "2026-11-09T10:30:29+09:00"
       },
       "gemini_pick": "A",
       "gemini_confidence": "中",
@@ -516,20 +516,20 @@
           "away_wins": 2
         },
         "vote_rates": {
-          "p_H": 0.6031,
-          "p_D": 0.1995,
-          "p_A": 0.1974,
+          "p_H": 0.6842,
+          "p_D": 0.1567,
+          "p_A": 0.1591,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-08T10:30:30+09:00"
+          "captured_at": "2026-11-09T10:30:29+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.6031,
-        "p_D": 0.1995,
-        "p_A": 0.1974,
+        "p_H": 0.6842,
+        "p_D": 0.1567,
+        "p_A": 0.1591,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-08T10:30:30+09:00"
+        "captured_at": "2026-11-09T10:30:29+09:00"
       },
       "gemini_pick": "H",
       "gemini_confidence": "低",
@@ -553,12 +553,12 @@
       "home": "ヴァンラーレ八戸",
       "away": "いわきＦＣ",
       "stats": {
-        "p_H": 0.2492,
-        "p_D": 0.2833,
-        "p_A": 0.4675,
+        "p_H": 0.2401,
+        "p_D": 0.2838,
+        "p_A": 0.4761,
         "pick": "A",
         "method": "poisson_elo_h2h_v2",
-        "elo_home": 1466.3,
+        "elo_home": 1456.4,
         "elo_away": 1538.0,
         "h2h": {
           "games": 2,
@@ -567,20 +567,20 @@
           "away_wins": 2
         },
         "vote_rates": {
-          "p_H": 0.2025,
-          "p_D": 0.2194,
-          "p_A": 0.5781,
+          "p_H": 0.1544,
+          "p_D": 0.17,
+          "p_A": 0.6756,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-08T10:30:30+09:00"
+          "captured_at": "2026-11-09T10:30:29+09:00"
         }
       },
       "market_pick": "A",
       "vote_rates": {
-        "p_H": 0.2025,
-        "p_D": 0.2194,
-        "p_A": 0.5781,
+        "p_H": 0.1544,
+        "p_D": 0.17,
+        "p_A": 0.6756,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-08T10:30:30+09:00"
+        "captured_at": "2026-11-09T10:30:29+09:00"
       },
       "gemini_pick": "A",
       "gemini_confidence": "中",
@@ -604,13 +604,13 @@
       "home": "藤枝ＭＹＦＣ",
       "away": "ヴァンフォーレ甲府",
       "stats": {
-        "p_H": 0.506,
-        "p_D": 0.255,
-        "p_A": 0.2391,
+        "p_H": 0.5179,
+        "p_D": 0.2479,
+        "p_A": 0.2342,
         "pick": "H",
         "method": "poisson_elo_h2h_v2",
         "elo_home": 1433.5,
-        "elo_away": 1424.7,
+        "elo_away": 1420.2,
         "h2h": {
           "games": 5,
           "home_wins": 1,
@@ -618,20 +618,20 @@
           "away_wins": 2
         },
         "vote_rates": {
-          "p_H": 0.418,
-          "p_D": 0.3222,
-          "p_A": 0.2598,
+          "p_H": 0.4359,
+          "p_D": 0.321,
+          "p_A": 0.2431,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-08T10:30:30+09:00"
+          "captured_at": "2026-11-09T10:30:29+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.418,
-        "p_D": 0.3222,
-        "p_A": 0.2598,
+        "p_H": 0.4359,
+        "p_D": 0.321,
+        "p_A": 0.2431,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-08T10:30:30+09:00"
+        "captured_at": "2026-11-09T10:30:29+09:00"
       },
       "gemini_pick": "H",
       "gemini_confidence": "高",
@@ -655,12 +655,12 @@
       "home": "ＲＢ大宮アルディージャ",
       "away": "モンテディオ山形",
       "stats": {
-        "p_H": 0.5357,
-        "p_D": 0.2318,
-        "p_A": 0.2326,
+        "p_H": 0.5435,
+        "p_D": 0.2289,
+        "p_A": 0.2277,
         "pick": "H",
         "method": "poisson_elo_h2h_v2",
-        "elo_home": 1577.6,
+        "elo_home": 1586.8,
         "elo_away": 1510.0,
         "h2h": {
           "games": 5,
@@ -669,20 +669,20 @@
           "away_wins": 0
         },
         "vote_rates": {
-          "p_H": 0.6182,
-          "p_D": 0.1983,
-          "p_A": 0.1835,
+          "p_H": 0.7281,
+          "p_D": 0.1487,
+          "p_A": 0.1232,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-08T10:30:30+09:00"
+          "captured_at": "2026-11-09T10:30:29+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.6182,
-        "p_D": 0.1983,
-        "p_A": 0.1835,
+        "p_H": 0.7281,
+        "p_D": 0.1487,
+        "p_A": 0.1232,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-08T10:30:30+09:00"
+        "captured_at": "2026-11-09T10:30:29+09:00"
       },
       "gemini_pick": "H",
       "gemini_confidence": "高",
