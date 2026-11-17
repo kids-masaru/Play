@@ -6,7 +6,7 @@
   "payout_detail": null,
   "deadline": "2026-11-21 13:50",
   "result_date": "2026-11-21",
-  "generated_date": "2026-11-16",
+  "generated_date": "2026-11-17",
   "has_gemini": true,
   "has_codex": true,
   "has_claude": true,
@@ -57,20 +57,20 @@
           "away_wins": 2
         },
         "vote_rates": {
-          "p_H": 0.778,
-          "p_D": 0.1164,
-          "p_A": 0.1056,
+          "p_H": 0.8055,
+          "p_D": 0.1066,
+          "p_A": 0.0879,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-16T10:30:22+09:00"
+          "captured_at": "2026-11-17T10:30:23+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.778,
-        "p_D": 0.1164,
-        "p_A": 0.1056,
+        "p_H": 0.8055,
+        "p_D": 0.1066,
+        "p_A": 0.0879,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-16T10:30:22+09:00"
+        "captured_at": "2026-11-17T10:30:23+09:00"
       },
       "gemini_pick": "H",
       "gemini_confidence": "高",
@@ -108,20 +108,20 @@
           "away_wins": 3
         },
         "vote_rates": {
-          "p_H": 0.5924,
-          "p_D": 0.1954,
-          "p_A": 0.2122,
+          "p_H": 0.6034,
+          "p_D": 0.1881,
+          "p_A": 0.2085,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-16T10:30:22+09:00"
+          "captured_at": "2026-11-17T10:30:23+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.5924,
-        "p_D": 0.1954,
-        "p_A": 0.2122,
+        "p_H": 0.6034,
+        "p_D": 0.1881,
+        "p_A": 0.2085,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-16T10:30:22+09:00"
+        "captured_at": "2026-11-17T10:30:23+09:00"
       },
       "gemini_pick": "H",
       "gemini_confidence": "高",
@@ -159,20 +159,20 @@
           "away_wins": 2
         },
         "vote_rates": {
-          "p_H": 0.2868,
-          "p_D": 0.2757,
-          "p_A": 0.4375,
+          "p_H": 0.2801,
+          "p_D": 0.2694,
+          "p_A": 0.4505,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-16T10:30:22+09:00"
+          "captured_at": "2026-11-17T10:30:23+09:00"
         }
       },
       "market_pick": "A",
       "vote_rates": {
-        "p_H": 0.2868,
-        "p_D": 0.2757,
-        "p_A": 0.4375,
+        "p_H": 0.2801,
+        "p_D": 0.2694,
+        "p_A": 0.4505,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-16T10:30:22+09:00"
+        "captured_at": "2026-11-17T10:30:23+09:00"
       },
       "gemini_pick": "H",
       "gemini_confidence": "中",
@@ -210,20 +210,20 @@
           "away_wins": 1
         },
         "vote_rates": {
-          "p_H": 0.7716,
-          "p_D": 0.1191,
-          "p_A": 0.1093,
+          "p_H": 0.8033,
+          "p_D": 0.1025,
+          "p_A": 0.0942,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-16T10:30:22+09:00"
+          "captured_at": "2026-11-17T10:30:23+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.7716,
-        "p_D": 0.1191,
-        "p_A": 0.1093,
+        "p_H": 0.8033,
+        "p_D": 0.1025,
+        "p_A": 0.0942,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-16T10:30:22+09:00"
+        "captured_at": "2026-11-17T10:30:23+09:00"
       },
       "gemini_pick": "H",
       "gemini_confidence": "高",
@@ -261,20 +261,20 @@
           "away_wins": 2
         },
         "vote_rates": {
-          "p_H": 0.439,
-          "p_D": 0.2766,
-          "p_A": 0.2844,
+          "p_H": 0.4307,
+          "p_D": 0.2776,
+          "p_A": 0.2917,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-16T10:30:22+09:00"
+          "captured_at": "2026-11-17T10:30:23+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.439,
-        "p_D": 0.2766,
-        "p_A": 0.2844,
+        "p_H": 0.4307,
+        "p_D": 0.2776,
+        "p_A": 0.2917,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-16T10:30:22+09:00"
+        "captured_at": "2026-11-17T10:30:23+09:00"
       },
       "gemini_pick": "H",
       "gemini_confidence": "高",
@@ -312,20 +312,20 @@
           "away_wins": 1
         },
         "vote_rates": {
-          "p_H": 0.3884,
-          "p_D": 0.2753,
-          "p_A": 0.3363,
+          "p_H": 0.402,
+          "p_D": 0.2751,
+          "p_A": 0.3229,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-16T10:30:22+09:00"
+          "captured_at": "2026-11-17T10:30:23+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.3884,
-        "p_D": 0.2753,
-        "p_A": 0.3363,
+        "p_H": 0.402,
+        "p_D": 0.2751,
+        "p_A": 0.3229,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-16T10:30:22+09:00"
+        "captured_at": "2026-11-17T10:30:23+09:00"
       },
       "gemini_pick": "H",
       "gemini_confidence": "中",
@@ -363,20 +363,20 @@
           "away_wins": 2
         },
         "vote_rates": {
-          "p_H": 0.1429,
-          "p_D": 0.1556,
-          "p_A": 0.7015,
+          "p_H": 0.1314,
+          "p_D": 0.1494,
+          "p_A": 0.7192,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-16T10:30:22+09:00"
+          "captured_at": "2026-11-17T10:30:23+09:00"
         }
       },
       "market_pick": "A",
       "vote_rates": {
-        "p_H": 0.1429,
-        "p_D": 0.1556,
-        "p_A": 0.7015,
+        "p_H": 0.1314,
+        "p_D": 0.1494,
+        "p_A": 0.7192,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-16T10:30:22+09:00"
+        "captured_at": "2026-11-17T10:30:23+09:00"
       },
       "gemini_pick": "A",
       "gemini_confidence": "高",
@@ -414,20 +414,20 @@
           "away_wins": 3
         },
         "vote_rates": {
-          "p_H": 0.4452,
-          "p_D": 0.2716,
-          "p_A": 0.2832,
+          "p_H": 0.4517,
+          "p_D": 0.27,
+          "p_A": 0.2783,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-16T10:30:22+09:00"
+          "captured_at": "2026-11-17T10:30:23+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.4452,
-        "p_D": 0.2716,
-        "p_A": 0.2832,
+        "p_H": 0.4517,
+        "p_D": 0.27,
+        "p_A": 0.2783,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-16T10:30:22+09:00"
+        "captured_at": "2026-11-17T10:30:23+09:00"
       },
       "gemini_pick": "A",
       "gemini_confidence": "中",
@@ -465,20 +465,20 @@
           "away_wins": 1
         },
         "vote_rates": {
-          "p_H": 0.6861,
-          "p_D": 0.1639,
-          "p_A": 0.15,
+          "p_H": 0.7173,
+          "p_D": 0.1479,
+          "p_A": 0.1348,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-16T10:30:22+09:00"
+          "captured_at": "2026-11-17T10:30:23+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.6861,
-        "p_D": 0.1639,
-        "p_A": 0.15,
+        "p_H": 0.7173,
+        "p_D": 0.1479,
+        "p_A": 0.1348,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-16T10:30:22+09:00"
+        "captured_at": "2026-11-17T10:30:23+09:00"
       },
       "gemini_pick": "H",
       "gemini_confidence": "高",
@@ -516,20 +516,20 @@
           "away_wins": 0
         },
         "vote_rates": {
-          "p_H": 0.3857,
-          "p_D": 0.3167,
-          "p_A": 0.2976,
+          "p_H": 0.3827,
+          "p_D": 0.321,
+          "p_A": 0.2963,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-16T10:30:22+09:00"
+          "captured_at": "2026-11-17T10:30:23+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.3857,
-        "p_D": 0.3167,
-        "p_A": 0.2976,
+        "p_H": 0.3827,
+        "p_D": 0.321,
+        "p_A": 0.2963,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-16T10:30:22+09:00"
+        "captured_at": "2026-11-17T10:30:23+09:00"
       },
       "gemini_pick": "A",
       "gemini_confidence": "中",
@@ -567,20 +567,20 @@
           "away_wins": 0
         },
         "vote_rates": {
-          "p_H": 0.689,
-          "p_D": 0.1667,
-          "p_A": 0.1443,
+          "p_H": 0.7034,
+          "p_D": 0.1589,
+          "p_A": 0.1377,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-16T10:30:22+09:00"
+          "captured_at": "2026-11-17T10:30:23+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.689,
-        "p_D": 0.1667,
-        "p_A": 0.1443,
+        "p_H": 0.7034,
+        "p_D": 0.1589,
+        "p_A": 0.1377,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-16T10:30:22+09:00"
+        "captured_at": "2026-11-17T10:30:23+09:00"
       },
       "gemini_pick": "H",
       "gemini_confidence": "高",
@@ -618,20 +618,20 @@
           "away_wins": 3
         },
         "vote_rates": {
-          "p_H": 0.2077,
-          "p_D": 0.1711,
-          "p_A": 0.6212,
+          "p_H": 0.1979,
+          "p_D": 0.1543,
+          "p_A": 0.6478,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-16T10:30:22+09:00"
+          "captured_at": "2026-11-17T10:30:23+09:00"
         }
       },
       "market_pick": "A",
       "vote_rates": {
-        "p_H": 0.2077,
-        "p_D": 0.1711,
-        "p_A": 0.6212,
+        "p_H": 0.1979,
+        "p_D": 0.1543,
+        "p_A": 0.6478,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-16T10:30:22+09:00"
+        "captured_at": "2026-11-17T10:30:23+09:00"
       },
       "gemini_pick": "A",
       "gemini_confidence": "高",
@@ -669,20 +669,20 @@
           "away_wins": 2
         },
         "vote_rates": {
-          "p_H": 0.2365,
-          "p_D": 0.2312,
-          "p_A": 0.5323,
+          "p_H": 0.2389,
+          "p_D": 0.2143,
+          "p_A": 0.5468,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-16T10:30:22+09:00"
+          "captured_at": "2026-11-17T10:30:23+09:00"
         }
       },
       "market_pick": "A",
       "vote_rates": {
-        "p_H": 0.2365,
-        "p_D": 0.2312,
-        "p_A": 0.5323,
+        "p_H": 0.2389,
+        "p_D": 0.2143,
+        "p_A": 0.5468,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-16T10:30:22+09:00"
+        "captured_at": "2026-11-17T10:30:23+09:00"
       },
       "gemini_pick": "A",
       "gemini_confidence": "中",
