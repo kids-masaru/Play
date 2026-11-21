@@ -160,6 +160,86 @@ class BoardTest(OverviewTestBase):
         self.assertEqual(robust["sample_label"], "判定目安到達")
 
 
+class BriefingTest(OverviewTestBase):
+    def test_jev_summary_compares_same_one_pick_condition(self) -> None:
+        payload = {
+            "latest_result_date": "2026-10-16",
+            "arms": {
+                "codex_raw": {"forced_selected": {"graded_races": 100, "purchased_races": 100, "roi_pct": 82.0, "hit_rate_pct": 12.0}},
+                "codex_jev": {"forced_selected": {"graded_races": 100, "purchased_races": 40, "roi_pct": 78.0, "hit_rate_pct": 15.0}},
+                "claude_raw": {"forced_selected": {"graded_races": 100, "purchased_races": 100, "roi_pct": 75.0, "hit_rate_pct": 11.0}},
+                "claude_jev": {"forced_selected": {"graded_races": 100, "purchased_races": 30, "roi_pct": 81.0, "hit_rate_pct": 16.0}},
+                "all_models_jev": {"action_selected": {"purchased_races": 0}},
+                "value_fixed_jev": {"forced_selected": {"roi_pct": 77.0}},
+            },
+            "value_experiment": {
+                "common_graded_races": 50,
+                "arms": {
+                    "value_raw_control": {"roi_pct": 69.0},
+                    "value_fixed_jev": {"purchased_races": 0},
+                },
+            },
+        }
+        (self.data_dir / "jev_pairing_performance.json").write_text(json.dumps(payload), encoding="utf-8")
+        summary = bo.build_jev_summary(self.data_dir)
+        by_key = {row["key"]: row for row in summary["comparisons"]}
+        self.assertEqual(by_key["codex"]["roi_delta_pt"], -4.0)
+        self.assertEqual(by_key["claude"]["roi_delta_pt"], 6.0)
+        self.assertEqual(summary["action_purchased_races"], 0)
+        self.assertEqual(summary["value_experiment"]["fixed_jev_action_purchased_races"], 0)
+
+    def test_briefing_explains_hold_learning_jev_and_ops(self) -> None:
+        ops = {
+            "models": [
+                {"label": "Codex", "status": "ok", "today_count": 19, "target_races": 19, "alert": False},
+                {"label": "Claude", "status": "partial", "today_count": 10, "target_races": 19, "alert": False},
+            ],
+            "jobs": [],
+        }
+        board = {
+            "models": [{
+                "key": "codex",
+                "label": "Codex",
+                "baseline": {"roi_pct": 70.0},
+                "playbook": {"roi_pct": 78.0},
+                "diff": {"n": 500},
+                "verdict": "no_difference",
+            }],
+        }
+        overall = {
+            "periods": {
+                "weekly": {
+                    "top_model": {"label": "Gemini", "profit": 1200, "roi": 104.0, "n": 80},
+                    "positive_models": 1,
+                    "measured_models": 6,
+                },
+                "monthly": {
+                    "combined": {
+                        "profit": -30000,
+                        "roi": 80.0,
+                        "assessment": {"code": "loss_unconfirmed"},
+                    },
+                },
+            },
+        }
+        jev = {
+            "graded_races": 100,
+            "action_purchased_races": 0,
+            "comparisons": [
+                {"label": "Codex", "raw_roi_pct": 82.0, "jev_roi_pct": 78.0, "roi_delta_pt": -4.0},
+                {"label": "Claude", "raw_roi_pct": 75.0, "jev_roi_pct": 81.0, "roi_delta_pt": 6.0},
+            ],
+        }
+        briefing = bo.build_briefing(ops, board, overall, jev)
+        self.assertEqual(briefing["status"], "hold")
+        self.assertIn("まだ実購入", briefing["headline"])
+        cards = {card["key"]: card for card in briefing["cards"]}
+        self.assertIn("唯一の黒字", cards["recent"]["title"])
+        self.assertIn("未確定", cards["learning"]["title"])
+        self.assertIn("慎重すぎ", cards["jev"]["title"])
+        self.assertIn("Claude 10/19件", cards["ops"]["body"])
+
+
 class PlaybookSectionTest(OverviewTestBase):
     def test_only_top3_texts_are_published(self) -> None:
         book = pb.apply_ops(

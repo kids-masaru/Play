@@ -26,28 +26,52 @@ const unavailable = section => !section || section.status === 'unavailable';
 const Waiting = ({ children = '集計待ちです。次回の自動更新後に表示されます。' }) =>
   <div className="ov-empty">{children}</div>;
 
-const StatusPill = ({ status }) =>
-  <span className={`ov-pill ov-pill-${status}`}>{STATUS_LABEL[status] || status}</span>;
+const StatusPill = ({ status, label }) =>
+  <span className={`ov-pill ov-pill-${status}`}>{label || STATUS_LABEL[status] || status}</span>;
+
+// 数字を読む前に「つまりどうなのか」を伝える最上部の要約。
+const BriefingSection = ({ briefing }) => {
+  if (unavailable(briefing)) return <section className="comparison-table-card"><h3 className="ov-title">今日の結論</h3><Waiting /></section>;
+  return <section className={`ov-briefing ov-briefing-${briefing.status || 'hold'}`}>
+    <div className="ov-briefing-main">
+      <span className="ov-briefing-kicker">今日の結論</span>
+      <h3>{briefing.headline}</h3>
+      <p>{briefing.summary}</p>
+      <div className="ov-next-action">
+        <span>いまやること</span>
+        <strong>{briefing.next_action}</strong>
+      </div>
+    </div>
+    <div className="ov-briefing-grid">
+      {(briefing.cards || []).map(card => <article key={card.key} className={`ov-brief-card tone-${card.tone || 'watch'}`}>
+        <span>{card.eyebrow}</span>
+        <h4>{card.title}</h4>
+        <p>{card.body}</p>
+      </article>)}
+    </div>
+  </section>;
+};
 
 // 1. 今日の運用チェック
 const OpsSection = ({ ops }) => {
   if (unavailable(ops)) return <section className="comparison-table-card"><h3 className="ov-title">今日の運用チェック</h3><Waiting /></section>;
   const alerts = ops.models.filter(model => model.alert);
+  const waitingForMorning = ops.phase === 'waiting_for_morning';
   return <section className="comparison-table-card">
     <div className="simple-section-heading">
       <div>
         <h3>今日の運用チェック</h3>
-        <p>{ops.date} の予測が全モデルそろっているか。2日以上続けて失敗したモデルは赤で表示します。</p>
+        <p>{waitingForMorning ? `${ops.date}分は朝9時の自動更新前です。未生成は異常ではありません。` : `${ops.date} の予測が全モデルそろっているか。2日以上続けて失敗したモデルは赤で表示します。`}</p>
       </div>
       <span className={`sample-status ${alerts.length ? 'ov-alert-badge' : 'enough'}`}>
-        {alerts.length ? `要確認 ${alerts.length}件` : '問題なし'}
+        {waitingForMorning ? '朝の更新待ち' : (alerts.length ? `要確認 ${alerts.length}件` : '問題なし')}
       </span>
     </div>
     <div className="ov-ops-grid">
       {ops.models.map(model => <article key={model.key} className={`ov-ops-card ${model.alert ? 'is-alert' : ''} status-${model.status}`}>
         <div className="ov-ops-top">
           <strong>{model.label}</strong>
-          <StatusPill status={model.status} />
+          <StatusPill status={model.status} label={waitingForMorning && model.status === 'failed' ? '朝更新待ち' : undefined} />
         </div>
         <div className="ov-ops-count">
           <strong>{model.today_count}</strong><span>/ {model.target_races}レース</span>
@@ -82,14 +106,14 @@ const Cell = ({ title, metric, note, empty = '蓄積中' }) => {
   </div>;
 };
 
-// 2. 実験の結論ボード
+// 2. 実験の詳細比較
 const BoardSection = ({ board }) => {
-  if (unavailable(board)) return <section className="comparison-table-card"><h3 className="ov-title">実験の結論ボード</h3><Waiting /></section>;
+  if (unavailable(board)) return <section className="comparison-table-card"><h3 className="ov-title">実験を数字で詳しく見る</h3><Waiting /></section>;
   return <section className="comparison-table-card">
     <div className="simple-section-heading">
       <div>
-        <h3>実験の結論ボード</h3>
-        <p>同じレースで「心得集なし（今まで）」と「心得集あり」を比べます。ROIは100%以上で投資額超え。{board.decision_sample}件たまるまでは優劣を断定しません。</p>
+        <h3>実験を数字で詳しく見る</h3>
+        <p>上の結論の根拠です。同じレースで「心得集なし（今まで）」と「心得集あり」を比較し、{board.decision_sample}件たまるまでは優劣を断定しません。</p>
       </div>
     </div>
     <div className="ov-board">
@@ -249,11 +273,12 @@ const Overview = ({ onOpenModels }) => {
         <span>結果確定 {overview.latest_result_date || '—'}・集計 {String(overview.generated_at || '').slice(11, 16)}</span>
       </div>
     </section>
-    <OpsSection ops={overview.ops} />
+    <BriefingSection briefing={overview.briefing} />
+    <OverallSection overall={overview.overall} onOpenModels={onOpenModels} />
     <BoardSection board={overview.board} />
+    <OpsSection ops={overview.ops} />
     <PlaybookSection playbooks={overview.playbooks} />
     <BacktestSection backtest={overview.backtest} />
-    <OverallSection overall={overview.overall} onOpenModels={onOpenModels} />
   </main>;
 };
 

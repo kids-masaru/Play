@@ -468,6 +468,144 @@ summary:focus-visible {
   gap: 18px;
 }
 
+/* まとめページの最初に、数字より先に判断を伝える。 */
+.ov-briefing {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(250px, 0.82fr) minmax(0, 1.5fr);
+  gap: 18px;
+  overflow: hidden;
+  padding: clamp(18px, 2.8vw, 30px);
+  color: #fff;
+  background:
+    radial-gradient(circle at 92% 0%, rgba(77, 208, 190, 0.2), transparent 34%),
+    linear-gradient(135deg, #102841 0%, #173a59 100%);
+  border: 1px solid rgba(136, 184, 214, 0.2);
+  border-radius: 22px;
+  box-shadow: 0 18px 42px rgba(13, 34, 56, 0.17);
+}
+
+.ov-briefing::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 5px;
+  content: '';
+  background: #f2b84b;
+}
+
+.ov-briefing-ready::before {
+  background: #43c9a8;
+}
+
+.ov-briefing-reviewing::before {
+  background: #74a9ff;
+}
+
+.ov-briefing-main {
+  position: relative;
+  align-self: center;
+}
+
+.ov-briefing-kicker {
+  display: block;
+  margin-bottom: 10px;
+  color: #8de4d3;
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.ov-briefing-main h3 {
+  max-width: 15em;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.4rem, 3vw, 2.05rem);
+  line-height: 1.28;
+  letter-spacing: -0.045em;
+}
+
+.ov-briefing-main > p {
+  margin: 12px 0 0;
+  color: #d6e2ee;
+  font-size: 0.76rem;
+  line-height: 1.75;
+}
+
+.ov-next-action {
+  display: grid;
+  gap: 4px;
+  margin-top: 18px;
+  padding: 11px 13px;
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+}
+
+.ov-next-action span {
+  color: #8de4d3;
+  font-size: 0.56rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.ov-next-action strong {
+  color: #fff;
+  font-size: 0.72rem;
+  line-height: 1.55;
+}
+
+.ov-briefing-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.ov-brief-card {
+  min-width: 0;
+  padding: 14px 15px;
+  color: #203247;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-top: 3px solid #70a7e8;
+  border-radius: 13px;
+  box-shadow: 0 8px 22px rgba(6, 22, 39, 0.12);
+}
+
+.ov-brief-card.tone-positive {
+  border-top-color: #35b890;
+}
+
+.ov-brief-card.tone-caution {
+  border-top-color: #e9a83a;
+}
+
+.ov-brief-card > span {
+  display: block;
+  margin-bottom: 6px;
+  color: #64758a;
+  font-size: 0.55rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.ov-brief-card h4 {
+  margin: 0;
+  color: #14283e;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+}
+
+.ov-brief-card p {
+  margin: 7px 0 0;
+  color: #5f6f82;
+  font-size: 0.65rem;
+  line-height: 1.65;
+}
+
 .simple-section-heading {
   display: flex;
   align-items: flex-start;
@@ -1038,6 +1176,17 @@ summary:focus-visible {
     font-size: 0.64rem;
   }
 
+  .ov-briefing {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 20px 17px;
+    border-radius: 18px;
+  }
+
+  .ov-briefing-main h3 {
+    max-width: none;
+  }
+
   .ov-ops-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1066,6 +1215,14 @@ summary:focus-visible {
 
   .workspace-header {
     padding: 20px 17px;
+  }
+
+  .ov-briefing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ov-brief-card {
+    padding: 13px;
   }
 
   .ov-ops-grid {
