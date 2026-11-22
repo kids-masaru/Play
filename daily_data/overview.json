@@ -1,6 +1,6 @@
 {
   "schema": "overview_v3",
-  "generated_at": "2026-11-22T08:42:46",
+  "generated_at": "2026-11-22T09:46:12",
   "today": "2026-11-22",
   "latest_result_date": "2026-11-21",
   "briefing": {
@@ -33,22 +33,22 @@
       {
         "key": "ops",
         "eyebrow": "運用状態",
-        "title": "今日の予測は朝9時の更新待ちです",
-        "body": "夜の結果処理は完了しています。朝9時から不足モデルを含む今日分を更新するため、利用者の作業はありません。",
+        "title": "自動運用中ですが、一部の予測が欠けています",
+        "body": "不足: Claude 10/20件、Gemini 15/20件。自動処理は継続し、2日以上の連続失敗だけを要対応として扱います。",
         "tone": "watch"
       }
     ]
   },
   "ops": {
     "date": "2026-11-22",
-    "target_races": 10,
-    "phase": "waiting_for_morning",
+    "target_races": 20,
+    "phase": "active",
     "models": [
       {
         "key": "codex",
         "label": "Codex",
-        "today_count": 10,
-        "target_races": 10,
+        "today_count": 20,
+        "target_races": 20,
         "last_success_date": "2026-11-22",
         "fail_streak_days": 0,
         "status": "ok",
@@ -58,27 +58,27 @@
         "key": "claude",
         "label": "Claude",
         "today_count": 10,
-        "target_races": 10,
+        "target_races": 20,
         "last_success_date": "2026-11-22",
         "fail_streak_days": 0,
-        "status": "ok",
+        "status": "partial",
         "alert": false
       },
       {
         "key": "gemini",
         "label": "Gemini",
-        "today_count": 0,
-        "target_races": 10,
-        "last_success_date": "2026-11-21",
-        "fail_streak_days": 1,
-        "status": "failed",
+        "today_count": 15,
+        "target_races": 20,
+        "last_success_date": "2026-11-22",
+        "fail_streak_days": 0,
+        "status": "partial",
         "alert": false
       },
       {
         "key": "grok",
         "label": "Grok",
-        "today_count": 10,
-        "target_races": 10,
+        "today_count": 20,
+        "target_races": 20,
         "last_success_date": "2026-11-22",
         "fail_streak_days": 0,
         "status": "ok",
@@ -87,21 +87,21 @@
       {
         "key": "qwen_claude",
         "label": "学習Qwen（Claude先生）",
-        "today_count": 0,
-        "target_races": 10,
-        "last_success_date": "2026-11-21",
-        "fail_streak_days": 1,
-        "status": "failed",
+        "today_count": 20,
+        "target_races": 20,
+        "last_success_date": "2026-11-22",
+        "fail_streak_days": 0,
+        "status": "ok",
         "alert": false
       },
       {
         "key": "qwen_grok_x",
         "label": "学習Qwen（Grok+X先生）",
-        "today_count": 0,
-        "target_races": 10,
-        "last_success_date": "2026-11-21",
-        "fail_streak_days": 1,
-        "status": "failed",
+        "today_count": 20,
+        "target_races": 20,
+        "last_success_date": "2026-11-22",
+        "fail_streak_days": 0,
+        "status": "ok",
         "alert": false
       }
     ],
@@ -123,7 +123,7 @@
       {
         "key": "jev",
         "label": "Jev判定（シャドー）",
-        "detail": "10/10レース判定",
+        "detail": "20/20レース判定",
         "status": "ok",
         "note": "実購入には未接続"
       }
