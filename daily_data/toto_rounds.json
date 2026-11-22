@@ -1,16 +1,16 @@
 {
-  "default_round": 1673,
-  "default_key": "1673-toto",
+  "default_round": 1674,
+  "default_key": "1674-toto",
   "rounds": [
     {
-      "round": 1673,
+      "round": 1674,
       "kuji": "toto",
       "kuji_label": "toto (13試合)",
       "payout": null,
       "payout_detail": null,
-      "deadline": "2026-11-21 13:50",
-      "result_date": "2026-11-21",
-      "generated_date": "2026-11-18",
+      "deadline": "2026-11-25 18:50",
+      "result_date": "2026-11-25",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -40,6 +40,1192 @@
       },
       "matches": [
         {
+          "match_id": "1674-1",
+          "no": "1",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "ジェフユナイテッド千葉",
+          "away": "名古屋グランパス",
+          "stats": {
+            "p_H": 0.575,
+            "p_D": 0.2209,
+            "p_A": 0.2041,
+            "pick": "H",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1579.2,
+            "elo_away": 1548.2,
+            "h2h": {
+              "games": 0,
+              "home_wins": 0,
+              "draws": 0,
+              "away_wins": 0
+            },
+            "vote_rates": {
+              "p_H": 0.4189,
+              "p_D": 0.2756,
+              "p_A": 0.3055,
+              "source": "toto_official_vote_rate",
+              "captured_at": "2026-11-22T10:30:24+09:00"
+            }
+          },
+          "market_pick": "H",
+          "vote_rates": {
+            "p_H": 0.4189,
+            "p_D": 0.2756,
+            "p_A": 0.3055,
+            "source": "toto_official_vote_rate",
+            "captured_at": "2026-11-22T10:30:24+09:00"
+          },
+          "gemini_pick": "H",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "統計モデルで勝率58%と高く、直近フォームも好調なためホーム優勢。",
+          "codex_pick": "H",
+          "codex_confidence": "69%",
+          "codex_reasoning": "モデルはホーム勝利57.6%で、Eloも千葉が上。対戦実績がなく投票差も小さいため、確度はやや抑える。",
+          "claude_pick": "H",
+          "claude_confidence": "55%",
+          "claude_reasoning": "stats_modelがH 57%と明確に優位。ホーム有利でHを選択。",
+          "grok_pick": "H",
+          "grok_confidence": "高",
+          "grok_reasoning": "stats_modelでHが57%超と明確優位、ELOもホーム上、ホーム優位を優先",
+          "result": ""
+        },
+        {
+          "match_id": "1674-2",
+          "no": "2",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "ファジアーノ岡山",
+          "away": "清水エスパルス",
+          "stats": {
+            "p_H": 0.4349,
+            "p_D": 0.2816,
+            "p_A": 0.2835,
+            "pick": "H",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1564.5,
+            "elo_away": 1547.6,
+            "h2h": {
+              "games": 5,
+              "home_wins": 1,
+              "draws": 1,
+              "away_wins": 3
+            },
+            "vote_rates": {
+              "p_H": 0.4912,
+              "p_D": 0.2649,
+              "p_A": 0.2439,
+              "source": "toto_official_vote_rate",
+              "captured_at": "2026-11-22T10:30:24+09:00"
+            }
+          },
+          "market_pick": "H",
+          "vote_rates": {
+            "p_H": 0.4912,
+            "p_D": 0.2649,
+            "p_A": 0.2439,
+            "source": "toto_official_vote_rate",
+            "captured_at": "2026-11-22T10:30:24+09:00"
+          },
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "両者不振だが、統計モデルで勝率42%を示しておりホームアドバンテージを重視。",
+          "codex_pick": "H",
+          "codex_confidence": "52%",
+          "codex_reasoning": "モデルは岡山勝利42.0%を最多とし、公式投票もホーム支持が優勢。過去対戦では清水優位のため接戦を見込む。",
+          "claude_pick": "H",
+          "claude_confidence": "42%",
+          "claude_reasoning": "stats_modelはH 42%で最上位、Elo差は小さいがホーム優位を維持。",
+          "grok_pick": "H",
+          "grok_confidence": "中",
+          "grok_reasoning": "stats_modelがH最高でELOほぼ互角、ホーム優位を優先しAに動かず",
+          "result": ""
+        },
+        {
+          "match_id": "1674-3",
+          "no": "3",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "Ｖ・ファーレン長崎",
+          "away": "川崎フロンターレ",
+          "stats": {
+            "p_H": 0.5222,
+            "p_D": 0.2012,
+            "p_A": 0.2766,
+            "pick": "H",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1601.5,
+            "elo_away": 1643.8,
+            "h2h": {
+              "games": 2,
+              "home_wins": 0,
+              "draws": 0,
+              "away_wins": 2
+            },
+            "vote_rates": {
+              "p_H": 0.1729,
+              "p_D": 0.1747,
+              "p_A": 0.6524,
+              "source": "toto_official_vote_rate",
+              "captured_at": "2026-11-22T10:30:24+09:00"
+            }
+          },
+          "market_pick": "A",
+          "vote_rates": {
+            "p_H": 0.1729,
+            "p_D": 0.1747,
+            "p_A": 0.6524,
+            "source": "toto_official_vote_rate",
+            "captured_at": "2026-11-22T10:30:24+09:00"
+          },
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "川崎は好調だが、統計モデルではホーム長崎の勝率が53%と優位を示しているため。",
+          "codex_pick": "H",
+          "codex_confidence": "51%",
+          "codex_reasoning": "モデルの長崎勝利52.6%を重視する。一方、Elo・過去対戦・投票は川崎優勢で強く食い違い、不確実性が大きい。",
+          "claude_pick": "H",
+          "claude_confidence": "42%",
+          "claude_reasoning": "モデルはH 53%。投票率は川崎寄りだが、モデルとホーム優位を重視。",
+          "grok_pick": "H",
+          "grok_confidence": "中",
+          "grok_reasoning": "stats_modelでHが52%超と最高、ELO劣勢でもモデル優先でホーム維持",
+          "result": ""
+        },
+        {
+          "match_id": "1674-4",
+          "no": "4",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "水戸ホーリーホック",
+          "away": "東京ヴェルディ",
+          "stats": {
+            "p_H": 0.4539,
+            "p_D": 0.2944,
+            "p_A": 0.2517,
+            "pick": "H",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1539.5,
+            "elo_away": 1556.3,
+            "h2h": {
+              "games": 5,
+              "home_wins": 1,
+              "draws": 2,
+              "away_wins": 2
+            },
+            "vote_rates": {
+              "p_H": 0.2514,
+              "p_D": 0.2902,
+              "p_A": 0.4584,
+              "source": "toto_official_vote_rate",
+              "captured_at": "2026-11-22T10:30:24+09:00"
+            }
+          },
+          "market_pick": "A",
+          "vote_rates": {
+            "p_H": 0.2514,
+            "p_D": 0.2902,
+            "p_A": 0.4584,
+            "source": "toto_official_vote_rate",
+            "captured_at": "2026-11-22T10:30:24+09:00"
+          },
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "東京Vのフォームは良いが、統計モデルで勝率45%と水戸が優位なため。",
+          "codex_pick": "H",
+          "codex_confidence": "47%",
+          "codex_reasoning": "モデルは水戸勝利45.3%で、引き分けや東京Ｖ勝利より明確に高い。Eloと投票は東京Ｖ寄りのため低めの確信度。",
+          "claude_pick": "H",
+          "claude_confidence": "42%",
+          "claude_reasoning": "モデルH 45%で最上位。Elo差も小さく、ホーム優位で選択。",
+          "grok_pick": "H",
+          "grok_confidence": "中",
+          "grok_reasoning": "stats_modelがH最高、ELO僅差もホーム優位を優先",
+          "result": ""
+        },
+        {
+          "match_id": "1674-5",
+          "no": "5",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "アビスパ福岡",
+          "away": "横浜Ｆ・マリノス",
+          "stats": {
+            "p_H": 0.2516,
+            "p_D": 0.2508,
+            "p_A": 0.4976,
+            "pick": "A",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1511.3,
+            "elo_away": 1626.9,
+            "h2h": {
+              "games": 5,
+              "home_wins": 3,
+              "draws": 0,
+              "away_wins": 2
+            },
+            "vote_rates": {
+              "p_H": 0.1618,
+              "p_D": 0.1496,
+              "p_A": 0.6886,
+              "source": "toto_official_vote_rate",
+              "captured_at": "2026-11-22T10:30:24+09:00"
+            }
+          },
+          "market_pick": "A",
+          "vote_rates": {
+            "p_H": 0.1618,
+            "p_D": 0.1496,
+            "p_A": 0.6886,
+            "source": "toto_official_vote_rate",
+            "captured_at": "2026-11-22T10:30:24+09:00"
+          },
+          "gemini_pick": "A",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "福岡の不振に対し、統計モデルでアウェイ勝率約50%と明確に横浜FM有利なため。",
+          "codex_pick": "A",
+          "codex_confidence": "68%",
+          "codex_reasoning": "モデルは横浜FM勝利49.5%で、Elo差も106と大きい。公式投票もアウェーを圧倒的に支持しており、Aが妥当。",
+          "claude_pick": "A",
+          "claude_confidence": "50%",
+          "claude_reasoning": "モデルA 50%、Elo差約106で横浜FMが明確に上回るためA。",
+          "grok_pick": "A",
+          "grok_confidence": "高",
+          "grok_reasoning": "stats_modelでAが約50%と明確首位、ELO差も大きくアウェイ優位",
+          "result": ""
+        },
+        {
+          "match_id": "1674-6",
+          "no": "6",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "ＦＣ東京",
+          "away": "サンフレッチェ広島",
+          "stats": {
+            "p_H": 0.3576,
+            "p_D": 0.2966,
+            "p_A": 0.3459,
+            "pick": "H",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1687.2,
+            "elo_away": 1717.7,
+            "h2h": {
+              "games": 5,
+              "home_wins": 0,
+              "draws": 2,
+              "away_wins": 3
+            },
+            "vote_rates": {
+              "p_H": 0.4449,
+              "p_D": 0.2666,
+              "p_A": 0.2885,
+              "source": "toto_official_vote_rate",
+              "captured_at": "2026-11-22T10:30:24+09:00"
+            }
+          },
+          "market_pick": "H",
+          "vote_rates": {
+            "p_H": 0.4449,
+            "p_D": 0.2666,
+            "p_A": 0.2885,
+            "source": "toto_official_vote_rate",
+            "captured_at": "2026-11-22T10:30:24+09:00"
+          },
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "FC東京が直近5試合無敗と好調を維持しており、ホーム利を生かせると判断。",
+          "codex_pick": "A",
+          "codex_confidence": "48%",
+          "codex_reasoning": "モデルは広島勝利37.3%と僅差だが最多で、Eloと直近5対戦も広島優位。ホーム支持の投票が強く波乱余地はある。",
+          "claude_pick": "H",
+          "claude_confidence": "36%",
+          "claude_reasoning": "モデルはA 37%だが僅差。ホーム優位から離れる明確な根拠は弱くH。",
+          "grok_pick": "A",
+          "grok_confidence": "中",
+          "grok_reasoning": "stats_modelがA最高、ELOアウェイ上かつH2Hアウェイ優勢で明確にA寄り",
+          "result": ""
+        },
+        {
+          "match_id": "1674-7",
+          "no": "7",
+          "date": "2026-11-25",
+          "kickoff": "19:30",
+          "home": "浦和レッズ",
+          "away": "セレッソ大阪",
+          "stats": {
+            "p_H": 0.4543,
+            "p_D": 0.2186,
+            "p_A": 0.327,
+            "pick": "H",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1629.7,
+            "elo_away": 1579.4,
+            "h2h": {
+              "games": 5,
+              "home_wins": 0,
+              "draws": 2,
+              "away_wins": 3
+            },
+            "vote_rates": {
+              "p_H": 0.5678,
+              "p_D": 0.2505,
+              "p_A": 0.1817,
+              "source": "toto_official_vote_rate",
+              "captured_at": "2026-11-22T10:30:24+09:00"
+            }
+          },
+          "market_pick": "H",
+          "vote_rates": {
+            "p_H": 0.5678,
+            "p_D": 0.2505,
+            "p_A": 0.1817,
+            "source": "toto_official_vote_rate",
+            "captured_at": "2026-11-22T10:30:24+09:00"
+          },
+          "gemini_pick": "H",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "浦和が3連勝中と好調であり、統計モデルでもホーム優勢が示されているため。",
+          "codex_pick": "H",
+          "codex_confidence": "56%",
+          "codex_reasoning": "モデルは浦和勝利47.1%で、Eloと公式投票もホーム側。過去5戦では未勝利と相性が悪く、確信度は中程度に留める。",
+          "claude_pick": "H",
+          "claude_confidence": "48%",
+          "claude_reasoning": "モデルH 47%、Elo差約49で浦和が上。ホーム優位も加味。",
+          "grok_pick": "H",
+          "grok_confidence": "中",
+          "grok_reasoning": "stats_modelでH47%首位、ELOホーム上でホーム優位を優先",
+          "result": ""
+        },
+        {
+          "match_id": "1674-8",
+          "no": "8",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "北海道コンサドーレ札幌",
+          "away": "藤枝ＭＹＦＣ",
+          "stats": {
+            "p_H": 0.5209,
+            "p_D": 0.2534,
+            "p_A": 0.2258,
+            "pick": "H",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1542.9,
+            "elo_away": 1430.0,
+            "h2h": {
+              "games": 2,
+              "home_wins": 2,
+              "draws": 0,
+              "away_wins": 0
+            },
+            "vote_rates": {
+              "p_H": 0.7046,
+              "p_D": 0.1564,
+              "p_A": 0.139,
+              "source": "toto_official_vote_rate",
+              "captured_at": "2026-11-22T10:30:24+09:00"
+            }
+          },
+          "market_pick": "H",
+          "vote_rates": {
+            "p_H": 0.7046,
+            "p_D": 0.1564,
+            "p_A": 0.139,
+            "source": "toto_official_vote_rate",
+            "captured_at": "2026-11-22T10:30:24+09:00"
+          },
+          "gemini_pick": "H",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "札幌の直近好調なフォームと相性の良さ、統計モデルでの優位性から。",
+          "codex_pick": "H",
+          "codex_confidence": "72%",
+          "codex_reasoning": "モデルは札幌勝利49.4%、Eloは89上回り、過去2戦も札幌が全勝。公式投票の強い支持もホーム勝利を補強する。",
+          "claude_pick": "H",
+          "claude_confidence": "58%",
+          "claude_reasoning": "Elo差約89でモデルH 49%、投票率も圧倒的にH。",
+          "grok_pick": "H",
+          "grok_confidence": "高",
+          "grok_reasoning": "stats_modelでH約49%首位、ELO差大きくH2Hもホーム完勝",
+          "result": ""
+        },
+        {
+          "match_id": "1674-9",
+          "no": "9",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "モンテディオ山形",
+          "away": "ジュビロ磐田",
+          "stats": {
+            "p_H": 0.3445,
+            "p_D": 0.2786,
+            "p_A": 0.3769,
+            "pick": "A",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1494.8,
+            "elo_away": 1572.4,
+            "h2h": {
+              "games": 5,
+              "home_wins": 1,
+              "draws": 2,
+              "away_wins": 2
+            },
+            "vote_rates": {
+              "p_H": 0.1623,
+              "p_D": 0.1802,
+              "p_A": 0.6575,
+              "source": "toto_official_vote_rate",
+              "captured_at": "2026-11-22T10:30:24+09:00"
+            }
+          },
+          "market_pick": "A",
+          "vote_rates": {
+            "p_H": 0.1623,
+            "p_D": 0.1802,
+            "p_A": 0.6575,
+            "source": "toto_official_vote_rate",
+            "captured_at": "2026-11-22T10:30:24+09:00"
+          },
+          "gemini_pick": "D",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "勝率試算が拮抗（1.1%差）しており、磐田の好調と山形のホーム利で引き分けが濃厚。",
+          "codex_pick": "H",
+          "codex_confidence": "38%",
+          "codex_reasoning": "モデルは山形36.5%、磐田35.4%とほぼ互角。磐田のEloと投票優位はあるが、明確なA材料には届かずホーム側。",
+          "claude_pick": "H",
+          "claude_confidence": "38%",
+          "claude_reasoning": "モデルはHとAがほぼ拮抗。ホーム優位を理由にHを選択。",
+          "grok_pick": "H",
+          "grok_confidence": "低",
+          "grok_reasoning": "HとAが1pt差で僅差だがstats_modelはH最高、ホーム起点を維持",
+          "result": ""
+        },
+        {
+          "match_id": "1674-10",
+          "no": "10",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "サガン鳥栖",
+          "away": "大分トリニータ",
+          "stats": {
+            "p_H": 0.4755,
+            "p_D": 0.2801,
+            "p_A": 0.2443,
+            "pick": "H",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1518.5,
+            "elo_away": 1460.9,
+            "h2h": {
+              "games": 5,
+              "home_wins": 1,
+              "draws": 3,
+              "away_wins": 1
+            },
+            "vote_rates": {
+              "p_H": 0.5302,
+              "p_D": 0.2701,
+              "p_A": 0.1997,
+              "source": "toto_official_vote_rate",
+              "captured_at": "2026-11-22T10:30:24+09:00"
+            }
+          },
+          "market_pick": "H",
+          "vote_rates": {
+            "p_H": 0.5302,
+            "p_D": 0.2701,
+            "p_A": 0.1997,
+            "source": "toto_official_vote_rate",
+            "captured_at": "2026-11-22T10:30:24+09:00"
+          },
+          "gemini_pick": "H",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "統計モデルで勝率49%と高く、鳥栖のホームアドバンテージが見込めるため。",
+          "codex_pick": "H",
+          "codex_confidence": "63%",
+          "codex_reasoning": "モデルは鳥栖勝利48.6%で、Eloも61上回る。対戦成績には引き分けが多いものの、投票もホームを強く支持する。",
+          "claude_pick": "H",
+          "claude_confidence": "50%",
+          "claude_reasoning": "モデルH 49%、Elo差約61でホーム有利。投票率もH寄り。",
+          "grok_pick": "H",
+          "grok_confidence": "高",
+          "grok_reasoning": "stats_modelでH約49%首位、ELOホーム上でホーム優位明確",
+          "result": ""
+        },
+        {
+          "match_id": "1674-11",
+          "no": "11",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "いわきＦＣ",
+          "away": "カターレ富山",
+          "stats": {
+            "p_H": 0.5036,
+            "p_D": 0.2387,
+            "p_A": 0.2577,
+            "pick": "H",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1539.7,
+            "elo_away": 1513.8,
+            "h2h": {
+              "games": 4,
+              "home_wins": 2,
+              "draws": 2,
+              "away_wins": 0
+            },
+            "vote_rates": {
+              "p_H": 0.3196,
+              "p_D": 0.2455,
+              "p_A": 0.4349,
+              "source": "toto_official_vote_rate",
+              "captured_at": "2026-11-22T10:30:24+09:00"
+            }
+          },
+          "market_pick": "A",
+          "vote_rates": {
+            "p_H": 0.3196,
+            "p_D": 0.2455,
+            "p_A": 0.4349,
+            "source": "toto_official_vote_rate",
+            "captured_at": "2026-11-22T10:30:24+09:00"
+          },
+          "gemini_pick": "H",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "統計モデルでホーム勝率50%を示し、過去の対戦成績でも優位なため。",
+          "codex_pick": "H",
+          "codex_confidence": "57%",
+          "codex_reasoning": "モデルはいわき勝利50.5%で、過去4戦も2勝2分けと無敗。投票は富山寄りだが、モデルとホーム優位を重視する。",
+          "claude_pick": "H",
+          "claude_confidence": "46%",
+          "claude_reasoning": "モデルH 50%で最上位、ホーム優位と過去対戦も負けなし。",
+          "grok_pick": "H",
+          "grok_confidence": "中",
+          "grok_reasoning": "stats_modelでH50%超首位、H2Hホーム無敗でホーム維持",
+          "result": ""
+        },
+        {
+          "match_id": "1674-12",
+          "no": "12",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "横浜ＦＣ",
+          "away": "ベガルタ仙台",
+          "stats": {
+            "p_H": 0.3371,
+            "p_D": 0.2701,
+            "p_A": 0.3927,
+            "pick": "A",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1550.7,
+            "elo_away": 1582.7,
+            "h2h": {
+              "games": 5,
+              "home_wins": 2,
+              "draws": 1,
+              "away_wins": 2
+            },
+            "vote_rates": {
+              "p_H": 0.2945,
+              "p_D": 0.2352,
+              "p_A": 0.4703,
+              "source": "toto_official_vote_rate",
+              "captured_at": "2026-11-22T10:30:24+09:00"
+            }
+          },
+          "market_pick": "A",
+          "vote_rates": {
+            "p_H": 0.2945,
+            "p_D": 0.2352,
+            "p_A": 0.4703,
+            "source": "toto_official_vote_rate",
+            "captured_at": "2026-11-22T10:30:24+09:00"
+          },
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "仙台の直近3連敗に対し横浜FCは直近無敗と調子が良く、ホームで優位と判断。",
+          "codex_pick": "H",
+          "codex_confidence": "36%",
+          "codex_reasoning": "モデルは仙台37.0%、横浜FC35.9%の僅差で、A優位は明確でない。対戦成績も互角のためホーム補正でHを選ぶ。",
+          "claude_pick": "H",
+          "claude_confidence": "36%",
+          "claude_reasoning": "モデルはHとAが1ポイント差の拮抗。ホーム優位を理由にH。",
+          "grok_pick": "A",
+          "grok_confidence": "低",
+          "grok_reasoning": "stats_modelでAがHを僅差で上回りELOもアウェイ上、明確寄りでA",
+          "result": ""
+        },
+        {
+          "match_id": "1674-13",
+          "no": "13",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "ＲＢ大宮アルディージャ",
+          "away": "徳島ヴォルティス",
+          "stats": {
+            "p_H": 0.4669,
+            "p_D": 0.2514,
+            "p_A": 0.2817,
+            "pick": "H",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1583.9,
+            "elo_away": 1528.6,
+            "h2h": {
+              "games": 5,
+              "home_wins": 1,
+              "draws": 0,
+              "away_wins": 4
+            },
+            "vote_rates": {
+              "p_H": 0.6662,
+              "p_D": 0.1659,
+              "p_A": 0.1679,
+              "source": "toto_official_vote_rate",
+              "captured_at": "2026-11-22T10:30:24+09:00"
+            }
+          },
+          "market_pick": "H",
+          "vote_rates": {
+            "p_H": 0.6662,
+            "p_D": 0.1659,
+            "p_A": 0.1679,
+            "source": "toto_official_vote_rate",
+            "captured_at": "2026-11-22T10:30:24+09:00"
+          },
+          "gemini_pick": "H",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "大宮が絶好調を維持しており、統計モデルでもホーム勝率49%と高いため。",
+          "codex_pick": "H",
+          "codex_confidence": "61%",
+          "codex_reasoning": "モデルは大宮勝利49.3%で、Eloも64上回り、投票もホーム優勢。過去対戦は徳島が4勝しており過信は禁物。",
+          "claude_pick": "H",
+          "claude_confidence": "50%",
+          "claude_reasoning": "モデルH 49%、Elo差約64でホーム有利。過去対戦は劣勢だが小さい材料。",
+          "grok_pick": "H",
+          "grok_confidence": "高",
+          "grok_reasoning": "stats_modelでH約49%首位、ELOホーム優位でホーム優先",
+          "result": ""
+        }
+      ]
+    },
+    {
+      "round": 1674,
+      "kuji": "mini_a",
+      "kuji_label": "mini toto-A (5試合)",
+      "payout": null,
+      "payout_detail": null,
+      "deadline": "2026-11-25 18:50",
+      "result_date": "2026-11-25",
+      "generated_date": "2026-11-22",
+      "has_gemini": true,
+      "has_codex": true,
+      "has_claude": true,
+      "has_grok": true,
+      "settled": false,
+      "summary": {
+        "stat": {
+          "n": 0,
+          "hits": 0
+        },
+        "gemini": {
+          "n": 0,
+          "hits": 0
+        },
+        "codex": {
+          "n": 0,
+          "hits": 0
+        },
+        "claude": {
+          "n": 0,
+          "hits": 0
+        },
+        "grok": {
+          "n": 0,
+          "hits": 0
+        }
+      },
+      "matches": [
+        {
+          "match_id": "1674-1",
+          "no": "1",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "ジェフユナイテッド千葉",
+          "away": "名古屋グランパス",
+          "stats": {
+            "p_H": 0.575,
+            "p_D": 0.2209,
+            "p_A": 0.2041,
+            "pick": "H",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1579.2,
+            "elo_away": 1548.2,
+            "h2h": {
+              "games": 0,
+              "home_wins": 0,
+              "draws": 0,
+              "away_wins": 0
+            },
+            "vote_rates": null
+          },
+          "market_pick": "",
+          "vote_rates": null,
+          "gemini_pick": "H",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "統計モデルで勝率58%と高く、直近フォームも好調なためホーム優勢。",
+          "codex_pick": "H",
+          "codex_confidence": "69%",
+          "codex_reasoning": "モデルはホーム勝利57.6%で、Eloも千葉が上。対戦実績がなく投票差も小さいため、確度はやや抑える。",
+          "claude_pick": "H",
+          "claude_confidence": "55%",
+          "claude_reasoning": "stats_modelがH 57%と明確に優位。ホーム有利でHを選択。",
+          "grok_pick": "H",
+          "grok_confidence": "高",
+          "grok_reasoning": "stats_modelでHが57%超と明確優位、ELOもホーム上、ホーム優位を優先",
+          "result": ""
+        },
+        {
+          "match_id": "1674-2",
+          "no": "2",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "ファジアーノ岡山",
+          "away": "清水エスパルス",
+          "stats": {
+            "p_H": 0.4349,
+            "p_D": 0.2816,
+            "p_A": 0.2835,
+            "pick": "H",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1564.5,
+            "elo_away": 1547.6,
+            "h2h": {
+              "games": 5,
+              "home_wins": 1,
+              "draws": 1,
+              "away_wins": 3
+            },
+            "vote_rates": null
+          },
+          "market_pick": "",
+          "vote_rates": null,
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "両者不振だが、統計モデルで勝率42%を示しておりホームアドバンテージを重視。",
+          "codex_pick": "H",
+          "codex_confidence": "52%",
+          "codex_reasoning": "モデルは岡山勝利42.0%を最多とし、公式投票もホーム支持が優勢。過去対戦では清水優位のため接戦を見込む。",
+          "claude_pick": "H",
+          "claude_confidence": "42%",
+          "claude_reasoning": "stats_modelはH 42%で最上位、Elo差は小さいがホーム優位を維持。",
+          "grok_pick": "H",
+          "grok_confidence": "中",
+          "grok_reasoning": "stats_modelがH最高でELOほぼ互角、ホーム優位を優先しAに動かず",
+          "result": ""
+        },
+        {
+          "match_id": "1674-3",
+          "no": "3",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "Ｖ・ファーレン長崎",
+          "away": "川崎フロンターレ",
+          "stats": {
+            "p_H": 0.5222,
+            "p_D": 0.2012,
+            "p_A": 0.2766,
+            "pick": "H",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1601.5,
+            "elo_away": 1643.8,
+            "h2h": {
+              "games": 2,
+              "home_wins": 0,
+              "draws": 0,
+              "away_wins": 2
+            },
+            "vote_rates": null
+          },
+          "market_pick": "",
+          "vote_rates": null,
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "川崎は好調だが、統計モデルではホーム長崎の勝率が53%と優位を示しているため。",
+          "codex_pick": "H",
+          "codex_confidence": "51%",
+          "codex_reasoning": "モデルの長崎勝利52.6%を重視する。一方、Elo・過去対戦・投票は川崎優勢で強く食い違い、不確実性が大きい。",
+          "claude_pick": "H",
+          "claude_confidence": "42%",
+          "claude_reasoning": "モデルはH 53%。投票率は川崎寄りだが、モデルとホーム優位を重視。",
+          "grok_pick": "H",
+          "grok_confidence": "中",
+          "grok_reasoning": "stats_modelでHが52%超と最高、ELO劣勢でもモデル優先でホーム維持",
+          "result": ""
+        },
+        {
+          "match_id": "1674-4",
+          "no": "4",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "水戸ホーリーホック",
+          "away": "東京ヴェルディ",
+          "stats": {
+            "p_H": 0.4539,
+            "p_D": 0.2944,
+            "p_A": 0.2517,
+            "pick": "H",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1539.5,
+            "elo_away": 1556.3,
+            "h2h": {
+              "games": 5,
+              "home_wins": 1,
+              "draws": 2,
+              "away_wins": 2
+            },
+            "vote_rates": null
+          },
+          "market_pick": "",
+          "vote_rates": null,
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "東京Vのフォームは良いが、統計モデルで勝率45%と水戸が優位なため。",
+          "codex_pick": "H",
+          "codex_confidence": "47%",
+          "codex_reasoning": "モデルは水戸勝利45.3%で、引き分けや東京Ｖ勝利より明確に高い。Eloと投票は東京Ｖ寄りのため低めの確信度。",
+          "claude_pick": "H",
+          "claude_confidence": "42%",
+          "claude_reasoning": "モデルH 45%で最上位。Elo差も小さく、ホーム優位で選択。",
+          "grok_pick": "H",
+          "grok_confidence": "中",
+          "grok_reasoning": "stats_modelがH最高、ELO僅差もホーム優位を優先",
+          "result": ""
+        },
+        {
+          "match_id": "1674-5",
+          "no": "5",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "アビスパ福岡",
+          "away": "横浜Ｆ・マリノス",
+          "stats": {
+            "p_H": 0.2516,
+            "p_D": 0.2508,
+            "p_A": 0.4976,
+            "pick": "A",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1511.3,
+            "elo_away": 1626.9,
+            "h2h": {
+              "games": 5,
+              "home_wins": 3,
+              "draws": 0,
+              "away_wins": 2
+            },
+            "vote_rates": null
+          },
+          "market_pick": "",
+          "vote_rates": null,
+          "gemini_pick": "A",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "福岡の不振に対し、統計モデルでアウェイ勝率約50%と明確に横浜FM有利なため。",
+          "codex_pick": "A",
+          "codex_confidence": "68%",
+          "codex_reasoning": "モデルは横浜FM勝利49.5%で、Elo差も106と大きい。公式投票もアウェーを圧倒的に支持しており、Aが妥当。",
+          "claude_pick": "A",
+          "claude_confidence": "50%",
+          "claude_reasoning": "モデルA 50%、Elo差約106で横浜FMが明確に上回るためA。",
+          "grok_pick": "A",
+          "grok_confidence": "高",
+          "grok_reasoning": "stats_modelでAが約50%と明確首位、ELO差も大きくアウェイ優位",
+          "result": ""
+        }
+      ]
+    },
+    {
+      "round": 1674,
+      "kuji": "mini_b",
+      "kuji_label": "mini toto-B (5試合)",
+      "payout": null,
+      "payout_detail": null,
+      "deadline": "2026-11-25 18:50",
+      "result_date": "2026-11-25",
+      "generated_date": "2026-11-22",
+      "has_gemini": true,
+      "has_codex": true,
+      "has_claude": true,
+      "has_grok": true,
+      "settled": false,
+      "summary": {
+        "stat": {
+          "n": 0,
+          "hits": 0
+        },
+        "gemini": {
+          "n": 0,
+          "hits": 0
+        },
+        "codex": {
+          "n": 0,
+          "hits": 0
+        },
+        "claude": {
+          "n": 0,
+          "hits": 0
+        },
+        "grok": {
+          "n": 0,
+          "hits": 0
+        }
+      },
+      "matches": [
+        {
+          "match_id": "1674-6",
+          "no": "1",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "ＦＣ東京",
+          "away": "サンフレッチェ広島",
+          "stats": {
+            "p_H": 0.3576,
+            "p_D": 0.2966,
+            "p_A": 0.3459,
+            "pick": "H",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1687.2,
+            "elo_away": 1717.7,
+            "h2h": {
+              "games": 5,
+              "home_wins": 0,
+              "draws": 2,
+              "away_wins": 3
+            },
+            "vote_rates": null
+          },
+          "market_pick": "",
+          "vote_rates": null,
+          "gemini_pick": "H",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "FC東京が直近5試合無敗と好調を維持しており、ホーム利を生かせると判断。",
+          "codex_pick": "A",
+          "codex_confidence": "48%",
+          "codex_reasoning": "モデルは広島勝利37.3%と僅差だが最多で、Eloと直近5対戦も広島優位。ホーム支持の投票が強く波乱余地はある。",
+          "claude_pick": "H",
+          "claude_confidence": "36%",
+          "claude_reasoning": "モデルはA 37%だが僅差。ホーム優位から離れる明確な根拠は弱くH。",
+          "grok_pick": "A",
+          "grok_confidence": "中",
+          "grok_reasoning": "stats_modelがA最高、ELOアウェイ上かつH2Hアウェイ優勢で明確にA寄り",
+          "result": ""
+        },
+        {
+          "match_id": "1674-7",
+          "no": "2",
+          "date": "2026-11-25",
+          "kickoff": "19:30",
+          "home": "浦和レッズ",
+          "away": "セレッソ大阪",
+          "stats": {
+            "p_H": 0.4543,
+            "p_D": 0.2186,
+            "p_A": 0.327,
+            "pick": "H",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1629.7,
+            "elo_away": 1579.4,
+            "h2h": {
+              "games": 5,
+              "home_wins": 0,
+              "draws": 2,
+              "away_wins": 3
+            },
+            "vote_rates": null
+          },
+          "market_pick": "",
+          "vote_rates": null,
+          "gemini_pick": "H",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "浦和が3連勝中と好調であり、統計モデルでもホーム優勢が示されているため。",
+          "codex_pick": "H",
+          "codex_confidence": "56%",
+          "codex_reasoning": "モデルは浦和勝利47.1%で、Eloと公式投票もホーム側。過去5戦では未勝利と相性が悪く、確信度は中程度に留める。",
+          "claude_pick": "H",
+          "claude_confidence": "48%",
+          "claude_reasoning": "モデルH 47%、Elo差約49で浦和が上。ホーム優位も加味。",
+          "grok_pick": "H",
+          "grok_confidence": "中",
+          "grok_reasoning": "stats_modelでH47%首位、ELOホーム上でホーム優位を優先",
+          "result": ""
+        },
+        {
+          "match_id": "1674-8",
+          "no": "3",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "北海道コンサドーレ札幌",
+          "away": "藤枝ＭＹＦＣ",
+          "stats": {
+            "p_H": 0.5209,
+            "p_D": 0.2534,
+            "p_A": 0.2258,
+            "pick": "H",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1542.9,
+            "elo_away": 1430.0,
+            "h2h": {
+              "games": 2,
+              "home_wins": 2,
+              "draws": 0,
+              "away_wins": 0
+            },
+            "vote_rates": null
+          },
+          "market_pick": "",
+          "vote_rates": null,
+          "gemini_pick": "H",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "札幌の直近好調なフォームと相性の良さ、統計モデルでの優位性から。",
+          "codex_pick": "H",
+          "codex_confidence": "72%",
+          "codex_reasoning": "モデルは札幌勝利49.4%、Eloは89上回り、過去2戦も札幌が全勝。公式投票の強い支持もホーム勝利を補強する。",
+          "claude_pick": "H",
+          "claude_confidence": "58%",
+          "claude_reasoning": "Elo差約89でモデルH 49%、投票率も圧倒的にH。",
+          "grok_pick": "H",
+          "grok_confidence": "高",
+          "grok_reasoning": "stats_modelでH約49%首位、ELO差大きくH2Hもホーム完勝",
+          "result": ""
+        },
+        {
+          "match_id": "1674-9",
+          "no": "4",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "モンテディオ山形",
+          "away": "ジュビロ磐田",
+          "stats": {
+            "p_H": 0.3445,
+            "p_D": 0.2786,
+            "p_A": 0.3769,
+            "pick": "A",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1494.8,
+            "elo_away": 1572.4,
+            "h2h": {
+              "games": 5,
+              "home_wins": 1,
+              "draws": 2,
+              "away_wins": 2
+            },
+            "vote_rates": null
+          },
+          "market_pick": "",
+          "vote_rates": null,
+          "gemini_pick": "D",
+          "gemini_confidence": "中",
+          "gemini_reasoning": "勝率試算が拮抗（1.1%差）しており、磐田の好調と山形のホーム利で引き分けが濃厚。",
+          "codex_pick": "H",
+          "codex_confidence": "38%",
+          "codex_reasoning": "モデルは山形36.5%、磐田35.4%とほぼ互角。磐田のEloと投票優位はあるが、明確なA材料には届かずホーム側。",
+          "claude_pick": "H",
+          "claude_confidence": "38%",
+          "claude_reasoning": "モデルはHとAがほぼ拮抗。ホーム優位を理由にHを選択。",
+          "grok_pick": "H",
+          "grok_confidence": "低",
+          "grok_reasoning": "HとAが1pt差で僅差だがstats_modelはH最高、ホーム起点を維持",
+          "result": ""
+        },
+        {
+          "match_id": "1674-10",
+          "no": "5",
+          "date": "2026-11-25",
+          "kickoff": "19:00",
+          "home": "サガン鳥栖",
+          "away": "大分トリニータ",
+          "stats": {
+            "p_H": 0.4755,
+            "p_D": 0.2801,
+            "p_A": 0.2443,
+            "pick": "H",
+            "method": "poisson_elo_h2h_v2",
+            "elo_home": 1518.5,
+            "elo_away": 1460.9,
+            "h2h": {
+              "games": 5,
+              "home_wins": 1,
+              "draws": 3,
+              "away_wins": 1
+            },
+            "vote_rates": null
+          },
+          "market_pick": "",
+          "vote_rates": null,
+          "gemini_pick": "H",
+          "gemini_confidence": "高",
+          "gemini_reasoning": "統計モデルで勝率49%と高く、鳥栖のホームアドバンテージが見込めるため。",
+          "codex_pick": "H",
+          "codex_confidence": "63%",
+          "codex_reasoning": "モデルは鳥栖勝利48.6%で、Eloも61上回る。対戦成績には引き分けが多いものの、投票もホームを強く支持する。",
+          "claude_pick": "H",
+          "claude_confidence": "50%",
+          "claude_reasoning": "モデルH 49%、Elo差約61でホーム有利。投票率もH寄り。",
+          "grok_pick": "H",
+          "grok_confidence": "高",
+          "grok_reasoning": "stats_modelでH約49%首位、ELOホーム上でホーム優位明確",
+          "result": ""
+        }
+      ]
+    },
+    {
+      "round": 1673,
+      "kuji": "toto",
+      "kuji_label": "toto (13試合)",
+      "payout": 38498950,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 38498950,
+          "count": 1
+        },
+        {
+          "rank": "2等",
+          "amount": 2062440,
+          "count": 4
+        },
+        {
+          "rank": "3等",
+          "amount": 101840,
+          "count": 81
+        }
+      ],
+      "deadline": "2026-11-21 13:50",
+      "result_date": "2026-11-21",
+      "generated_date": "2026-11-22",
+      "has_gemini": true,
+      "has_codex": true,
+      "has_claude": true,
+      "has_grok": true,
+      "settled": true,
+      "summary": {
+        "stat": {
+          "n": 13,
+          "hits": 5
+        },
+        "gemini": {
+          "n": 13,
+          "hits": 4
+        },
+        "codex": {
+          "n": 13,
+          "hits": 5
+        },
+        "claude": {
+          "n": 13,
+          "hits": 4
+        },
+        "grok": {
+          "n": 13,
+          "hits": 4
+        }
+      },
+      "matches": [
+        {
           "match_id": "1673-1",
           "no": "1",
           "date": "2026-11-21",
@@ -61,20 +1247,20 @@
               "away_wins": 2
             },
             "vote_rates": {
-              "p_H": 0.8125,
-              "p_D": 0.1087,
-              "p_A": 0.0788,
+              "p_H": 0.8081,
+              "p_D": 0.1193,
+              "p_A": 0.0726,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-18T10:30:40+09:00"
+              "captured_at": "2026-11-21T10:30:21+09:00"
             }
           },
           "market_pick": "H",
           "vote_rates": {
-            "p_H": 0.8125,
-            "p_D": 0.1087,
-            "p_A": 0.0788,
+            "p_H": 0.8081,
+            "p_D": 0.1193,
+            "p_A": 0.0726,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-18T10:30:40+09:00"
+            "captured_at": "2026-11-21T10:30:21+09:00"
           },
           "gemini_pick": "H",
           "gemini_confidence": "高",
@@ -88,7 +1274,7 @@
           "grok_pick": "H",
           "grok_confidence": "高",
           "grok_reasoning": "stats_modelでHが明確首位、ELO差もホーム優位でホーム勝が最有力",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1673-2",
@@ -112,20 +1298,20 @@
               "away_wins": 3
             },
             "vote_rates": {
-              "p_H": 0.6081,
-              "p_D": 0.1852,
-              "p_A": 0.2067,
+              "p_H": 0.636,
+              "p_D": 0.1859,
+              "p_A": 0.1781,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-18T10:30:40+09:00"
+              "captured_at": "2026-11-21T10:30:21+09:00"
             }
           },
           "market_pick": "H",
           "vote_rates": {
-            "p_H": 0.6081,
-            "p_D": 0.1852,
-            "p_A": 0.2067,
+            "p_H": 0.636,
+            "p_D": 0.1859,
+            "p_A": 0.1781,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-18T10:30:40+09:00"
+            "captured_at": "2026-11-21T10:30:21+09:00"
           },
           "gemini_pick": "H",
           "gemini_confidence": "高",
@@ -139,7 +1325,7 @@
           "grok_pick": "H",
           "grok_confidence": "高",
           "grok_reasoning": "stats_modelのH優位とELO差が大きく、ホーム勝を支持",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1673-3",
@@ -163,20 +1349,20 @@
               "away_wins": 2
             },
             "vote_rates": {
-              "p_H": 0.2701,
-              "p_D": 0.2741,
-              "p_A": 0.4558,
+              "p_H": 0.288,
+              "p_D": 0.2806,
+              "p_A": 0.4314,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-18T10:30:40+09:00"
+              "captured_at": "2026-11-21T10:30:21+09:00"
             }
           },
           "market_pick": "A",
           "vote_rates": {
-            "p_H": 0.2701,
-            "p_D": 0.2741,
-            "p_A": 0.4558,
+            "p_H": 0.288,
+            "p_D": 0.2806,
+            "p_A": 0.4314,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-18T10:30:40+09:00"
+            "captured_at": "2026-11-21T10:30:21+09:00"
           },
           "gemini_pick": "H",
           "gemini_confidence": "中",
@@ -190,7 +1376,7 @@
           "grok_pick": "H",
           "grok_confidence": "中",
           "grok_reasoning": "stats_modelはH僅差首位でホーム優位を優先、Aは明確優位でない",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1673-4",
@@ -214,20 +1400,20 @@
               "away_wins": 1
             },
             "vote_rates": {
-              "p_H": 0.8101,
-              "p_D": 0.1019,
-              "p_A": 0.088,
+              "p_H": 0.7873,
+              "p_D": 0.1173,
+              "p_A": 0.0954,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-18T10:30:40+09:00"
+              "captured_at": "2026-11-21T10:30:21+09:00"
             }
           },
           "market_pick": "H",
           "vote_rates": {
-            "p_H": 0.8101,
-            "p_D": 0.1019,
-            "p_A": 0.088,
+            "p_H": 0.7873,
+            "p_D": 0.1173,
+            "p_A": 0.0954,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-18T10:30:40+09:00"
+            "captured_at": "2026-11-21T10:30:21+09:00"
           },
           "gemini_pick": "H",
           "gemini_confidence": "高",
@@ -241,7 +1427,7 @@
           "grok_pick": "H",
           "grok_confidence": "高",
           "grok_reasoning": "stats_modelでHが圧倒的、ELO差・H2Hもホーム優位",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1673-5",
@@ -251,7 +1437,7 @@
           "home": "ガンバ大阪",
           "away": "ファジアーノ岡山",
           "stats": {
-            "p_H": 0.5276,
+            "p_H": 0.5277,
             "p_D": 0.2237,
             "p_A": 0.2487,
             "pick": "H",
@@ -265,20 +1451,20 @@
               "away_wins": 2
             },
             "vote_rates": {
-              "p_H": 0.4353,
-              "p_D": 0.2839,
-              "p_A": 0.2808,
+              "p_H": 0.4225,
+              "p_D": 0.2963,
+              "p_A": 0.2812,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-18T10:30:40+09:00"
+              "captured_at": "2026-11-21T10:30:21+09:00"
             }
           },
           "market_pick": "H",
           "vote_rates": {
-            "p_H": 0.4353,
-            "p_D": 0.2839,
-            "p_A": 0.2808,
+            "p_H": 0.4225,
+            "p_D": 0.2963,
+            "p_A": 0.2812,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-18T10:30:40+09:00"
+            "captured_at": "2026-11-21T10:30:21+09:00"
           },
           "gemini_pick": "H",
           "gemini_confidence": "高",
@@ -292,7 +1478,7 @@
           "grok_pick": "H",
           "grok_confidence": "中",
           "grok_reasoning": "stats_modelがH首位でELOもホーム上、H2H不利でもホーム優先",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1673-6",
@@ -316,20 +1502,20 @@
               "away_wins": 1
             },
             "vote_rates": {
-              "p_H": 0.406,
-              "p_D": 0.2736,
-              "p_A": 0.3204,
+              "p_H": 0.4092,
+              "p_D": 0.2702,
+              "p_A": 0.3206,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-18T10:30:40+09:00"
+              "captured_at": "2026-11-21T10:30:21+09:00"
             }
           },
           "market_pick": "H",
           "vote_rates": {
-            "p_H": 0.406,
-            "p_D": 0.2736,
-            "p_A": 0.3204,
+            "p_H": 0.4092,
+            "p_D": 0.2702,
+            "p_A": 0.3206,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-18T10:30:40+09:00"
+            "captured_at": "2026-11-21T10:30:21+09:00"
           },
           "gemini_pick": "H",
           "gemini_confidence": "中",
@@ -343,7 +1529,7 @@
           "grok_pick": "H",
           "grok_confidence": "低",
           "grok_reasoning": "僅差だがstats_modelがHを首位、ホーム寄りでHを維持",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1673-7",
@@ -355,7 +1541,7 @@
           "stats": {
             "p_H": 0.2287,
             "p_D": 0.2027,
-            "p_A": 0.5685,
+            "p_A": 0.5686,
             "pick": "A",
             "method": "poisson_elo_h2h_v2",
             "elo_home": 1588.7,
@@ -367,20 +1553,20 @@
               "away_wins": 2
             },
             "vote_rates": {
-              "p_H": 0.1311,
-              "p_D": 0.1452,
-              "p_A": 0.7237,
+              "p_H": 0.1202,
+              "p_D": 0.1499,
+              "p_A": 0.7299,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-18T10:30:40+09:00"
+              "captured_at": "2026-11-21T10:30:21+09:00"
             }
           },
           "market_pick": "A",
           "vote_rates": {
-            "p_H": 0.1311,
-            "p_D": 0.1452,
-            "p_A": 0.7237,
+            "p_H": 0.1202,
+            "p_D": 0.1499,
+            "p_A": 0.7299,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-18T10:30:40+09:00"
+            "captured_at": "2026-11-21T10:30:21+09:00"
           },
           "gemini_pick": "A",
           "gemini_confidence": "高",
@@ -394,7 +1580,7 @@
           "grok_pick": "A",
           "grok_confidence": "高",
           "grok_reasoning": "stats_modelでAが突出、ELO差もアウェイ明確優位",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1673-8",
@@ -418,20 +1604,20 @@
               "away_wins": 3
             },
             "vote_rates": {
-              "p_H": 0.4567,
-              "p_D": 0.2627,
-              "p_A": 0.2806,
+              "p_H": 0.4728,
+              "p_D": 0.2569,
+              "p_A": 0.2703,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-18T10:30:40+09:00"
+              "captured_at": "2026-11-21T10:30:21+09:00"
             }
           },
           "market_pick": "H",
           "vote_rates": {
-            "p_H": 0.4567,
-            "p_D": 0.2627,
-            "p_A": 0.2806,
+            "p_H": 0.4728,
+            "p_D": 0.2569,
+            "p_A": 0.2703,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-18T10:30:40+09:00"
+            "captured_at": "2026-11-21T10:30:21+09:00"
           },
           "gemini_pick": "A",
           "gemini_confidence": "中",
@@ -445,7 +1631,7 @@
           "grok_pick": "A",
           "grok_confidence": "中",
           "grok_reasoning": "stats_modelがA首位でELO・H2Hもアウェイ寄り、明確にA有利",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1673-9",
@@ -469,20 +1655,20 @@
               "away_wins": 1
             },
             "vote_rates": {
-              "p_H": 0.7286,
-              "p_D": 0.1391,
-              "p_A": 0.1323,
+              "p_H": 0.7486,
+              "p_D": 0.1341,
+              "p_A": 0.1173,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-18T10:30:40+09:00"
+              "captured_at": "2026-11-21T10:30:21+09:00"
             }
           },
           "market_pick": "H",
           "vote_rates": {
-            "p_H": 0.7286,
-            "p_D": 0.1391,
-            "p_A": 0.1323,
+            "p_H": 0.7486,
+            "p_D": 0.1341,
+            "p_A": 0.1173,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-18T10:30:40+09:00"
+            "captured_at": "2026-11-21T10:30:21+09:00"
           },
           "gemini_pick": "H",
           "gemini_confidence": "高",
@@ -496,7 +1682,7 @@
           "grok_pick": "H",
           "grok_confidence": "中",
           "grok_reasoning": "stats_modelでHが首位、ELOほぼ互角でもホーム優位を優先",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1673-10",
@@ -520,20 +1706,20 @@
               "away_wins": 0
             },
             "vote_rates": {
-              "p_H": 0.3829,
-              "p_D": 0.3269,
-              "p_A": 0.2902,
+              "p_H": 0.3723,
+              "p_D": 0.3218,
+              "p_A": 0.3059,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-18T10:30:40+09:00"
+              "captured_at": "2026-11-21T10:30:21+09:00"
             }
           },
           "market_pick": "H",
           "vote_rates": {
-            "p_H": 0.3829,
-            "p_D": 0.3269,
-            "p_A": 0.2902,
+            "p_H": 0.3723,
+            "p_D": 0.3218,
+            "p_A": 0.3059,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-18T10:30:40+09:00"
+            "captured_at": "2026-11-21T10:30:21+09:00"
           },
           "gemini_pick": "A",
           "gemini_confidence": "中",
@@ -547,7 +1733,7 @@
           "grok_pick": "A",
           "grok_confidence": "中",
           "grok_reasoning": "stats_modelがA首位でELOもアウェイ上、明確にA寄り",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1673-11",
@@ -571,20 +1757,20 @@
               "away_wins": 0
             },
             "vote_rates": {
-              "p_H": 0.7072,
-              "p_D": 0.1599,
-              "p_A": 0.1329,
+              "p_H": 0.6945,
+              "p_D": 0.1866,
+              "p_A": 0.1189,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-18T10:30:40+09:00"
+              "captured_at": "2026-11-21T10:30:21+09:00"
             }
           },
           "market_pick": "H",
           "vote_rates": {
-            "p_H": 0.7072,
-            "p_D": 0.1599,
-            "p_A": 0.1329,
+            "p_H": 0.6945,
+            "p_D": 0.1866,
+            "p_A": 0.1189,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-18T10:30:40+09:00"
+            "captured_at": "2026-11-21T10:30:21+09:00"
           },
           "gemini_pick": "H",
           "gemini_confidence": "高",
@@ -598,7 +1784,7 @@
           "grok_pick": "H",
           "grok_confidence": "高",
           "grok_reasoning": "stats_modelでHが大きく首位、ELO差もホーム有利",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1673-12",
@@ -609,7 +1795,7 @@
           "away": "ベガルタ仙台",
           "stats": {
             "p_H": 0.2764,
-            "p_D": 0.2443,
+            "p_D": 0.2442,
             "p_A": 0.4794,
             "pick": "A",
             "method": "poisson_elo_h2h_v2",
@@ -622,20 +1808,20 @@
               "away_wins": 3
             },
             "vote_rates": {
-              "p_H": 0.1975,
-              "p_D": 0.1549,
-              "p_A": 0.6476,
+              "p_H": 0.201,
+              "p_D": 0.1607,
+              "p_A": 0.6383,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-18T10:30:40+09:00"
+              "captured_at": "2026-11-21T10:30:21+09:00"
             }
           },
           "market_pick": "A",
           "vote_rates": {
-            "p_H": 0.1975,
-            "p_D": 0.1549,
-            "p_A": 0.6476,
+            "p_H": 0.201,
+            "p_D": 0.1607,
+            "p_A": 0.6383,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-18T10:30:40+09:00"
+            "captured_at": "2026-11-21T10:30:21+09:00"
           },
           "gemini_pick": "A",
           "gemini_confidence": "高",
@@ -649,7 +1835,7 @@
           "grok_pick": "A",
           "grok_confidence": "高",
           "grok_reasoning": "stats_modelとELO・投票ともAが明確優位",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1673-13",
@@ -673,20 +1859,20 @@
               "away_wins": 2
             },
             "vote_rates": {
-              "p_H": 0.2409,
-              "p_D": 0.2145,
-              "p_A": 0.5446,
+              "p_H": 0.2622,
+              "p_D": 0.2317,
+              "p_A": 0.5061,
               "source": "toto_official_vote_rate",
-              "captured_at": "2026-11-18T10:30:40+09:00"
+              "captured_at": "2026-11-21T10:30:21+09:00"
             }
           },
           "market_pick": "A",
           "vote_rates": {
-            "p_H": 0.2409,
-            "p_D": 0.2145,
-            "p_A": 0.5446,
+            "p_H": 0.2622,
+            "p_D": 0.2317,
+            "p_A": 0.5061,
             "source": "toto_official_vote_rate",
-            "captured_at": "2026-11-18T10:30:40+09:00"
+            "captured_at": "2026-11-21T10:30:21+09:00"
           },
           "gemini_pick": "A",
           "gemini_confidence": "中",
@@ -700,7 +1886,7 @@
           "grok_pick": "A",
           "grok_confidence": "中",
           "grok_reasoning": "stats_modelがA首位でELOもアウェイ上、明確寄り",
-          "result": ""
+          "result": "H"
         }
       ]
     },
@@ -708,36 +1894,42 @@
       "round": 1673,
       "kuji": "mini_a",
       "kuji_label": "mini toto-A (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 17670,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 17670,
+          "count": 328
+        }
+      ],
       "deadline": "2026-11-21 13:50",
       "result_date": "2026-11-21",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
       "has_grok": true,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         },
         "codex": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         },
         "claude": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         },
         "grok": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         }
       },
       "matches": [
@@ -778,7 +1970,7 @@
           "grok_pick": "H",
           "grok_confidence": "高",
           "grok_reasoning": "stats_modelでHが明確首位、ELO差もホーム優位でホーム勝が最有力",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1673-2",
@@ -817,7 +2009,7 @@
           "grok_pick": "H",
           "grok_confidence": "高",
           "grok_reasoning": "stats_modelのH優位とELO差が大きく、ホーム勝を支持",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1673-3",
@@ -856,7 +2048,7 @@
           "grok_pick": "H",
           "grok_confidence": "中",
           "grok_reasoning": "stats_modelはH僅差首位でホーム優位を優先、Aは明確優位でない",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1673-4",
@@ -895,7 +2087,7 @@
           "grok_pick": "H",
           "grok_confidence": "高",
           "grok_reasoning": "stats_modelでHが圧倒的、ELO差・H2Hもホーム優位",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1673-5",
@@ -905,7 +2097,7 @@
           "home": "ガンバ大阪",
           "away": "ファジアーノ岡山",
           "stats": {
-            "p_H": 0.5276,
+            "p_H": 0.5277,
             "p_D": 0.2237,
             "p_A": 0.2487,
             "pick": "H",
@@ -934,7 +2126,7 @@
           "grok_pick": "H",
           "grok_confidence": "中",
           "grok_reasoning": "stats_modelがH首位でELOもホーム上、H2H不利でもホーム優先",
-          "result": ""
+          "result": "A"
         }
       ]
     },
@@ -942,36 +2134,42 @@
       "round": 1673,
       "kuji": "mini_b",
       "kuji_label": "mini toto-B (5試合)",
-      "payout": null,
-      "payout_detail": null,
+      "payout": 13170,
+      "payout_detail": [
+        {
+          "rank": "1等",
+          "amount": 13170,
+          "count": 355
+        }
+      ],
       "deadline": "2026-11-21 13:50",
       "result_date": "2026-11-21",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
       "has_grok": true,
-      "settled": false,
+      "settled": true,
       "summary": {
         "stat": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         },
         "gemini": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         },
         "codex": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 3
         },
         "claude": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         },
         "grok": {
-          "n": 0,
-          "hits": 0
+          "n": 5,
+          "hits": 2
         }
       },
       "matches": [
@@ -1012,7 +2210,7 @@
           "grok_pick": "H",
           "grok_confidence": "低",
           "grok_reasoning": "僅差だがstats_modelがHを首位、ホーム寄りでHを維持",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1673-7",
@@ -1024,7 +2222,7 @@
           "stats": {
             "p_H": 0.2287,
             "p_D": 0.2027,
-            "p_A": 0.5685,
+            "p_A": 0.5686,
             "pick": "A",
             "method": "poisson_elo_h2h_v2",
             "elo_home": 1588.7,
@@ -1051,7 +2249,7 @@
           "grok_pick": "A",
           "grok_confidence": "高",
           "grok_reasoning": "stats_modelでAが突出、ELO差もアウェイ明確優位",
-          "result": ""
+          "result": "A"
         },
         {
           "match_id": "1673-8",
@@ -1090,7 +2288,7 @@
           "grok_pick": "A",
           "grok_confidence": "中",
           "grok_reasoning": "stats_modelがA首位でELO・H2Hもアウェイ寄り、明確にA有利",
-          "result": ""
+          "result": "H"
         },
         {
           "match_id": "1673-9",
@@ -1129,7 +2327,7 @@
           "grok_pick": "H",
           "grok_confidence": "中",
           "grok_reasoning": "stats_modelでHが首位、ELOほぼ互角でもホーム優位を優先",
-          "result": ""
+          "result": "D"
         },
         {
           "match_id": "1673-10",
@@ -1168,7 +2366,7 @@
           "grok_pick": "A",
           "grok_confidence": "中",
           "grok_reasoning": "stats_modelがA首位でELOもアウェイ上、明確にA寄り",
-          "result": ""
+          "result": "A"
         }
       ]
     },
@@ -1196,7 +2394,7 @@
       ],
       "deadline": "2026-11-14 13:50",
       "result_date": "2026-11-15",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -1904,7 +3102,7 @@
       ],
       "deadline": "2026-11-14 13:50",
       "result_date": "2026-11-15",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -2144,7 +3342,7 @@
       ],
       "deadline": "2026-11-14 13:50",
       "result_date": "2026-11-15",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -2394,7 +3592,7 @@
       ],
       "deadline": "2026-11-07 12:50",
       "result_date": "2026-11-08",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -3102,7 +4300,7 @@
       ],
       "deadline": "2026-11-07 12:50",
       "result_date": "2026-11-07",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -3342,7 +4540,7 @@
       ],
       "deadline": "2026-11-07 13:50",
       "result_date": "2026-11-08",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -3592,7 +4790,7 @@
       ],
       "deadline": "2026-11-03 13:45",
       "result_date": "2026-11-03",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -4144,7 +5342,7 @@
       ],
       "deadline": "2026-11-03 13:45",
       "result_date": "2026-11-03",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -4384,7 +5582,7 @@
       ],
       "deadline": "2026-11-03 13:50",
       "result_date": "2026-11-03",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -4634,7 +5832,7 @@
       ],
       "deadline": "2026-10-31 13:50",
       "result_date": "2026-11-01",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -5186,7 +6384,7 @@
       ],
       "deadline": "2026-10-31 13:50",
       "result_date": "2026-10-31",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -5426,7 +6624,7 @@
       ],
       "deadline": "2026-10-31 13:50",
       "result_date": "2026-11-01",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -5676,7 +6874,7 @@
       ],
       "deadline": "2026-10-24 13:50",
       "result_date": "2026-10-25",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -6228,7 +7426,7 @@
       ],
       "deadline": "2026-10-24 13:50",
       "result_date": "2026-10-25",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -6468,7 +7666,7 @@
       ],
       "deadline": "2026-10-24 14:50",
       "result_date": "2026-10-25",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -6718,7 +7916,7 @@
       ],
       "deadline": "2026-10-10 13:50",
       "result_date": "2026-10-11",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -7270,7 +8468,7 @@
       ],
       "deadline": "2026-10-10 13:50",
       "result_date": "2026-10-11",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -7510,7 +8708,7 @@
       ],
       "deadline": "2026-10-10 13:50",
       "result_date": "2026-10-11",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -7750,7 +8948,7 @@
       ],
       "deadline": "2026-10-07 18:20",
       "result_date": "2026-10-07",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -7990,7 +9188,7 @@
       ],
       "deadline": "2026-10-07 17:50",
       "result_date": "2026-10-07",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -8240,7 +9438,7 @@
       ],
       "deadline": "2026-10-03 13:50",
       "result_date": "2026-10-04",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -8792,7 +9990,7 @@
       ],
       "deadline": "2026-10-03 13:50",
       "result_date": "2026-10-03",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -9032,7 +10230,7 @@
       ],
       "deadline": "2026-10-03 13:50",
       "result_date": "2026-10-04",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -9272,7 +10470,7 @@
       ],
       "deadline": "2026-09-23 16:50",
       "result_date": "2026-09-23",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -9522,7 +10720,7 @@
       ],
       "deadline": "2026-09-19 17:50",
       "result_date": "2026-09-20",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -10074,7 +11272,7 @@
       ],
       "deadline": "2026-09-19 17:50",
       "result_date": "2026-09-19",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -10314,7 +11512,7 @@
       ],
       "deadline": "2026-09-19 18:20",
       "result_date": "2026-09-20",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -10564,7 +11762,7 @@
       ],
       "deadline": "2026-09-12 17:50",
       "result_date": "2026-09-13",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -11116,7 +12314,7 @@
       ],
       "deadline": "2026-09-12 17:50",
       "result_date": "2026-09-12",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -11356,7 +12554,7 @@
       ],
       "deadline": "2026-09-12 17:50",
       "result_date": "2026-09-13",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -11596,7 +12794,7 @@
       ],
       "deadline": "2026-09-09 18:20",
       "result_date": "2026-09-09",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -11846,7 +13044,7 @@
       ],
       "deadline": "2026-09-05 18:50",
       "result_date": "2026-09-06",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -12398,7 +13596,7 @@
       ],
       "deadline": "2026-09-05 18:50",
       "result_date": "2026-09-06",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -12638,7 +13836,7 @@
       ],
       "deadline": "2026-09-05 18:50",
       "result_date": "2026-09-06",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -12888,7 +14086,7 @@
       ],
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -13440,7 +14638,7 @@
       ],
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -13680,7 +14878,7 @@
       ],
       "deadline": "2026-09-02 18:50",
       "result_date": "2026-09-02",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": true,
@@ -13930,7 +15128,7 @@
       ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -14482,7 +15680,7 @@
       ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -14722,7 +15920,7 @@
       ],
       "deadline": "2026-08-29 17:50",
       "result_date": "2026-08-29",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -14972,7 +16170,7 @@
       ],
       "deadline": "2026-08-22 14:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -15524,7 +16722,7 @@
       ],
       "deadline": "2026-08-22 17:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -15764,7 +16962,7 @@
       ],
       "deadline": "2026-08-22 14:50",
       "result_date": "2026-08-22",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": true,
       "has_claude": false,
@@ -16014,7 +17212,7 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": false,
       "has_codex": true,
       "has_claude": false,
@@ -16566,7 +17764,7 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": false,
       "has_codex": true,
       "has_claude": false,
@@ -16806,7 +18004,7 @@
       ],
       "deadline": "2026-08-15 17:50",
       "result_date": "2026-08-15",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": false,
       "has_codex": true,
       "has_claude": false,
@@ -17056,7 +18254,7 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -17413,7 +18611,7 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -17578,7 +18776,7 @@
       ],
       "deadline": "2026-06-25 19:00",
       "result_date": "2026-06-28",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -17753,7 +18951,7 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -18110,7 +19308,7 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -18275,7 +19473,7 @@
       ],
       "deadline": "2026-06-20 19:00",
       "result_date": "2026-06-24",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -18450,7 +19648,7 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -18807,7 +20005,7 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -18972,7 +20170,7 @@
       ],
       "deadline": "2026-06-16 19:00",
       "result_date": "2026-06-20",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -19147,7 +20345,7 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -19504,7 +20702,7 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
@@ -19669,7 +20867,7 @@
       ],
       "deadline": "2026-06-12 19:00",
       "result_date": "2026-06-16",
-      "generated_date": "2026-11-18",
+      "generated_date": "2026-11-22",
       "has_gemini": true,
       "has_codex": false,
       "has_claude": false,
