@@ -1,55 +1,55 @@
 {
   "schema": "overview_v3",
-  "generated_at": "2026-11-24T09:57:44",
-  "today": "2026-11-24",
-  "latest_result_date": "2026-11-23",
+  "generated_at": "2026-11-25T09:49:09",
+  "today": "2026-11-25",
+  "latest_result_date": "2026-11-24",
   "briefing": {
     "status": "hold",
     "headline": "まだ実購入の段階ではありません",
-    "summary": "直近30日はROI 75.8%・収支 -366,310円です。",
+    "summary": "直近30日はROI 76.0%・収支 -361,550円です。",
     "next_action": "条件を変えずに比較を続け、黒字と再現性の両方を待ちます。",
     "cards": [
       {
         "key": "recent",
         "eyebrow": "最近の一番",
         "title": "Codexが直近7日で唯一の黒字",
-        "body": "126件でROI 103.7%・収支 +2,360円。黒字は1/6モデルで、短期間のため次週も確認します。",
+        "body": "123件でROI 109.5%・収支 +5,840円。黒字は1/6モデルで、短期間のため次週も確認します。",
         "tone": "positive"
       },
       {
         "key": "learning",
         "eyebrow": "学習の効果",
         "title": "心得集は改善傾向、優位はまだ未確定",
-        "body": "4/4モデルでROIが上昇。最大は学習Qwen（Grok+X先生）の77.4%→83.7%（+6.3pt）です。ただし95%区間を含む最終判定では、まだ偶然との差を確定できていません。",
+        "body": "4/4モデルでROIが上昇。最大は学習Qwen（Claude先生）の66.7%→73.9%（+7.2pt）です。ただし95%区間を含む最終判定では、まだ偶然との差を確定できていません。",
         "tone": "watch"
       },
       {
         "key": "jev",
         "eyebrow": "Jev",
         "title": "候補選びには可能性、購入判断は慎重すぎます",
-        "body": "同じ1点買いではCodex 80.6%→72.2%、Claude 76.1%→77.1%。改善は1/2モデルです。一方、全モデルの購入判断は945件中0件で、今は実購入に使わず候補選択だけを評価します。",
+        "body": "同じ1点買いではCodex 80.2%→70.6%、Claude 77.0%→76.7%。改善は0/2モデルです。一方、全モデルの購入判断は962件中0件で、今は実購入に使わず候補選択だけを評価します。",
         "tone": "watch"
       },
       {
         "key": "ops",
         "eyebrow": "運用状態",
         "title": "自動運用中ですが、一部の予測が欠けています",
-        "body": "不足: Claude 10/19件、Gemini 12/19件。自動処理は継続し、2日以上の連続失敗だけを要対応として扱います。",
+        "body": "不足: Gemini 13/20件。自動処理は継続し、2日以上の連続失敗だけを要対応として扱います。",
         "tone": "watch"
       }
     ]
   },
   "ops": {
-    "date": "2026-11-24",
-    "target_races": 19,
+    "date": "2026-11-25",
+    "target_races": 20,
     "phase": "active",
     "models": [
       {
         "key": "codex",
         "label": "Codex",
-        "today_count": 19,
-        "target_races": 19,
-        "last_success_date": "2026-11-24",
+        "today_count": 20,
+        "target_races": 20,
+        "last_success_date": "2026-11-25",
         "fail_streak_days": 0,
         "status": "ok",
         "alert": false
@@ -57,19 +57,19 @@
       {
         "key": "claude",
         "label": "Claude",
-        "today_count": 10,
-        "target_races": 19,
-        "last_success_date": "2026-11-24",
+        "today_count": 20,
+        "target_races": 20,
+        "last_success_date": "2026-11-25",
         "fail_streak_days": 0,
-        "status": "partial",
+        "status": "ok",
         "alert": false
       },
       {
         "key": "gemini",
         "label": "Gemini",
-        "today_count": 12,
-        "target_races": 19,
-        "last_success_date": "2026-11-24",
+        "today_count": 13,
+        "target_races": 20,
+        "last_success_date": "2026-11-25",
         "fail_streak_days": 0,
         "status": "partial",
         "alert": false
@@ -77,9 +77,9 @@
       {
         "key": "grok",
         "label": "Grok",
-        "today_count": 19,
-        "target_races": 19,
-        "last_success_date": "2026-11-24",
+        "today_count": 20,
+        "target_races": 20,
+        "last_success_date": "2026-11-25",
         "fail_streak_days": 0,
         "status": "ok",
         "alert": false
@@ -87,9 +87,9 @@
       {
         "key": "qwen_claude",
         "label": "学習Qwen（Claude先生）",
-        "today_count": 19,
-        "target_races": 19,
-        "last_success_date": "2026-11-24",
+        "today_count": 20,
+        "target_races": 20,
+        "last_success_date": "2026-11-25",
         "fail_streak_days": 0,
         "status": "ok",
         "alert": false
@@ -97,9 +97,9 @@
       {
         "key": "qwen_grok_x",
         "label": "学習Qwen（Grok+X先生）",
-        "today_count": 19,
-        "target_races": 19,
-        "last_success_date": "2026-11-24",
+        "today_count": 20,
+        "target_races": 20,
+        "last_success_date": "2026-11-25",
         "fail_streak_days": 0,
         "status": "ok",
         "alert": false
@@ -116,14 +116,14 @@
       {
         "key": "playbook_predict",
         "label": "心得集あり版の予測",
-        "detail": "最終 2026-11-23",
+        "detail": "最終 2026-11-24",
         "status": "pending",
         "note": "朝バッチの最後に実行（この画面の公開より後のことがある）"
       },
       {
         "key": "jev",
         "label": "Jev判定（シャドー）",
-        "detail": "19/19レース判定",
+        "detail": "20/20レース判定",
         "status": "ok",
         "note": "実購入には未接続"
       }
@@ -137,129 +137,129 @@
         "label": "Codex",
         "kind": "strong",
         "baseline": {
-          "n": 678,
-          "graded_races": 678,
-          "purchased_races": 678,
-          "hits": 250,
-          "hit_rate_pct": 36.9,
-          "invest_yen": 339000,
-          "return_yen": 254970,
-          "profit_yen": -84030,
-          "roi_pct": 75.2,
+          "n": 695,
+          "graded_races": 695,
+          "purchased_races": 695,
+          "hits": 253,
+          "hit_rate_pct": 36.4,
+          "invest_yen": 347500,
+          "return_yen": 262080,
+          "profit_yen": -85420,
+          "roi_pct": 75.4,
           "max_drawdown_yen": 101360,
           "longest_losing_streak": 14,
           "largest_single_race_return_yen": 7120,
           "largest_single_race_profit_yen": 6620,
-          "largest_return_share_pct": 2.8,
-          "top3_return_share_pct": 7.6,
-          "profit_without_largest_win_yen": -90650,
-          "roi_without_largest_win_pct": 73.2,
-          "profit_without_top3_wins_yen": -101790,
-          "roi_without_top3_wins_pct": 69.8
+          "largest_return_share_pct": 2.7,
+          "top3_return_share_pct": 7.3,
+          "profit_without_largest_win_yen": -92040,
+          "roi_without_largest_win_pct": 73.5,
+          "profit_without_top3_wins_yen": -103180,
+          "roi_without_top3_wins_pct": 70.2
         },
         "playbook": {
-          "n": 678,
-          "graded_races": 678,
-          "purchased_races": 678,
-          "hits": 266,
-          "hit_rate_pct": 39.2,
-          "invest_yen": 339000,
-          "return_yen": 271290,
-          "profit_yen": -67710,
-          "roi_pct": 80.0,
+          "n": 695,
+          "graded_races": 695,
+          "purchased_races": 695,
+          "hits": 269,
+          "hit_rate_pct": 38.7,
+          "invest_yen": 347500,
+          "return_yen": 275030,
+          "profit_yen": -72470,
+          "roi_pct": 79.1,
           "max_drawdown_yen": 80680,
           "longest_losing_streak": 11,
           "largest_single_race_return_yen": 6370,
           "largest_single_race_profit_yen": 5870,
           "largest_return_share_pct": 2.3,
-          "top3_return_share_pct": 5.9,
-          "profit_without_largest_win_yen": -73580,
-          "roi_without_largest_win_pct": 78.3,
-          "profit_without_top3_wins_yen": -82290,
-          "roi_without_top3_wins_pct": 75.6
+          "top3_return_share_pct": 5.8,
+          "profit_without_largest_win_yen": -78340,
+          "roi_without_largest_win_pct": 77.4,
+          "profit_without_top3_wins_yen": -87050,
+          "roi_without_top3_wins_pct": 74.8
         },
         "diff": {
-          "n": 678,
-          "mean_diff_yen": 24.1,
+          "n": 695,
+          "mean_diff_yen": 18.6,
           "ci95": [
-            -40.3,
-            84.1
+            -47.9,
+            80.9
           ]
         },
         "verdict": "no_difference",
         "progress_pct": 100,
         "first_date": "2026-10-18",
         "jev": {
-          "n": 275,
-          "graded_races": 945,
+          "n": 281,
+          "graded_races": 962,
           "hits": 35,
-          "profit_yen": -7650,
-          "roi_pct": 72.2,
-          "hit_rate_pct": 12.7,
-          "roi_without_largest_win_pct": 63.4
+          "profit_yen": -8250,
+          "roi_pct": 70.6,
+          "hit_rate_pct": 12.5,
+          "roi_without_largest_win_pct": 62.0
         },
-        "jev_note": "Jev実験の期間（確定 2026-11-23 まで）。心得集とは対象レースが違う参考値",
+        "jev_note": "Jev実験の期間（確定 2026-11-24 まで）。心得集とは対象レースが違う参考値",
         "playbook_jev": {
-          "n": 117,
-          "graded_races": 658,
+          "n": 120,
+          "graded_races": 675,
           "hits": 16,
-          "profit_yen": -4620,
-          "roi_pct": 60.5,
-          "hit_rate_pct": 13.7,
-          "roi_without_largest_win_pct": 55.1
+          "profit_yen": -4920,
+          "roi_pct": 59.0,
+          "hit_rate_pct": 13.3,
+          "roi_without_largest_win_pct": 53.7
         },
         "jev_effect": {
           "metric": "forced_selected",
           "baseline": {
-            "graded_races": 85,
-            "purchased_races": 85,
+            "graded_races": 88,
+            "purchased_races": 88,
             "hits": 13,
-            "hit_rate_pct": 15.3,
-            "invest_yen": 8500,
+            "hit_rate_pct": 14.8,
+            "invest_yen": 8800,
             "return_yen": 5330,
-            "profit_yen": -3170,
-            "roi_pct": 62.7,
+            "profit_yen": -3470,
+            "roi_pct": 60.6,
             "max_drawdown_yen": 3550,
             "longest_losing_streak": 21,
             "largest_single_race_return_yen": 640,
             "largest_single_race_profit_yen": 540,
             "largest_return_share_pct": 12.0,
             "top3_return_share_pct": 33.6,
-            "profit_without_largest_win_yen": -3710,
-            "roi_without_largest_win_pct": 55.8,
-            "profit_without_top3_wins_yen": -4660,
-            "roi_without_top3_wins_pct": 43.2
+            "profit_without_largest_win_yen": -4010,
+            "roi_without_largest_win_pct": 53.9,
+            "profit_without_top3_wins_yen": -4960,
+            "roi_without_top3_wins_pct": 41.6
           },
           "playbook": {
-            "graded_races": 85,
-            "purchased_races": 85,
+            "graded_races": 88,
+            "purchased_races": 88,
             "hits": 14,
-            "hit_rate_pct": 16.5,
-            "invest_yen": 8500,
+            "hit_rate_pct": 15.9,
+            "invest_yen": 8800,
             "return_yen": 6020,
-            "profit_yen": -2480,
-            "roi_pct": 70.8,
+            "profit_yen": -2780,
+            "roi_pct": 68.4,
             "max_drawdown_yen": 3250,
             "longest_losing_streak": 21,
             "largest_single_race_return_yen": 690,
             "largest_single_race_profit_yen": 590,
             "largest_return_share_pct": 11.5,
             "top3_return_share_pct": 32.1,
-            "profit_without_largest_win_yen": -3070,
-            "roi_without_largest_win_pct": 63.5,
-            "profit_without_top3_wins_yen": -4110,
-            "roi_without_top3_wins_pct": 49.9
+            "profit_without_largest_win_yen": -3370,
+            "roi_without_largest_win_pct": 61.3,
+            "profit_without_top3_wins_yen": -4410,
+            "roi_without_top3_wins_pct": 48.1
           },
           "diff": {
-            "n": 85,
-            "mean_diff_yen": 8.1,
+            "n": 88,
+            "mean_diff_yen": 7.8,
             "ci95": [
               0.0,
-              24.4
+              23.5
             ]
           },
           "verdict": "accruing",
-          "progress_pct": 17.0
+          "progress_pct": 17.6
         }
       },
       {
@@ -320,18 +320,18 @@
         "progress_pct": 100,
         "first_date": "2026-10-18",
         "jev": {
-          "n": 214,
-          "graded_races": 945,
+          "n": 215,
+          "graded_races": 962,
           "hits": 32,
-          "profit_yen": -4910,
-          "roi_pct": 77.1,
-          "hit_rate_pct": 15.0,
-          "roi_without_largest_win_pct": 71.7
+          "profit_yen": -5010,
+          "roi_pct": 76.7,
+          "hit_rate_pct": 14.9,
+          "roi_without_largest_win_pct": 71.4
         },
-        "jev_note": "Jev実験の期間（確定 2026-11-23 まで）。心得集とは対象レースが違う参考値",
+        "jev_note": "Jev実験の期間（確定 2026-11-24 まで）。心得集とは対象レースが違う参考値",
         "playbook_jev": {
           "n": 112,
-          "graded_races": 658,
+          "graded_races": 675,
           "hits": 18,
           "profit_yen": -2600,
           "roi_pct": 76.8,
@@ -455,53 +455,53 @@
         "label": "学習Qwen（Claude先生）",
         "kind": "local",
         "baseline": {
-          "n": 688,
-          "graded_races": 688,
-          "purchased_races": 688,
+          "n": 705,
+          "graded_races": 705,
+          "purchased_races": 705,
           "hits": 232,
-          "hit_rate_pct": 33.7,
-          "invest_yen": 343800,
+          "hit_rate_pct": 32.9,
+          "invest_yen": 352300,
           "return_yen": 234910,
-          "profit_yen": -108890,
-          "roi_pct": 68.3,
-          "max_drawdown_yen": 108890,
-          "longest_losing_streak": 17,
+          "profit_yen": -117390,
+          "roi_pct": 66.7,
+          "max_drawdown_yen": 117390,
+          "longest_losing_streak": 19,
           "largest_single_race_return_yen": 6310,
           "largest_single_race_profit_yen": 5810,
           "largest_return_share_pct": 2.7,
           "top3_return_share_pct": 7.5,
-          "profit_without_largest_win_yen": -114700,
-          "roi_without_largest_win_pct": 66.6,
-          "profit_without_top3_wins_yen": -124980,
-          "roi_without_top3_wins_pct": 63.5
+          "profit_without_largest_win_yen": -123200,
+          "roi_without_largest_win_pct": 65.0,
+          "profit_without_top3_wins_yen": -133480,
+          "roi_without_top3_wins_pct": 61.9
         },
         "playbook": {
-          "n": 688,
-          "graded_races": 688,
-          "purchased_races": 688,
-          "hits": 235,
-          "hit_rate_pct": 34.2,
-          "invest_yen": 343900,
-          "return_yen": 256080,
-          "profit_yen": -87820,
-          "roi_pct": 74.5,
-          "max_drawdown_yen": 88780,
+          "n": 705,
+          "graded_races": 705,
+          "purchased_races": 705,
+          "hits": 239,
+          "hit_rate_pct": 33.9,
+          "invest_yen": 352400,
+          "return_yen": 260470,
+          "profit_yen": -91930,
+          "roi_pct": 73.9,
+          "max_drawdown_yen": 91930,
           "longest_losing_streak": 15,
           "largest_single_race_return_yen": 12320,
           "largest_single_race_profit_yen": 11820,
-          "largest_return_share_pct": 4.8,
-          "top3_return_share_pct": 8.8,
-          "profit_without_largest_win_yen": -99640,
-          "roi_without_largest_win_pct": 71.0,
-          "profit_without_top3_wins_yen": -108760,
-          "roi_without_top3_wins_pct": 68.2
+          "largest_return_share_pct": 4.7,
+          "top3_return_share_pct": 8.6,
+          "profit_without_largest_win_yen": -103750,
+          "roi_without_largest_win_pct": 70.5,
+          "profit_without_top3_wins_yen": -112870,
+          "roi_without_top3_wins_pct": 67.8
         },
         "diff": {
-          "n": 688,
-          "mean_diff_yen": 30.6,
+          "n": 705,
+          "mean_diff_yen": 36.1,
           "ci95": [
-            -37.0,
-            102.2
+            -31.1,
+            106.5
           ]
         },
         "verdict": "no_difference",
@@ -513,53 +513,53 @@
         "label": "学習Qwen（Grok+X先生）",
         "kind": "local",
         "baseline": {
-          "n": 688,
-          "graded_races": 688,
-          "purchased_races": 688,
-          "hits": 276,
-          "hit_rate_pct": 40.1,
-          "invest_yen": 342400,
-          "return_yen": 265100,
-          "profit_yen": -77300,
-          "roi_pct": 77.4,
-          "max_drawdown_yen": 77640,
+          "n": 705,
+          "graded_races": 705,
+          "purchased_races": 705,
+          "hits": 279,
+          "hit_rate_pct": 39.6,
+          "invest_yen": 350900,
+          "return_yen": 268230,
+          "profit_yen": -82670,
+          "roi_pct": 76.4,
+          "max_drawdown_yen": 83350,
           "longest_losing_streak": 9,
           "largest_single_race_return_yen": 3850,
           "largest_single_race_profit_yen": 3350,
-          "largest_return_share_pct": 1.5,
-          "top3_return_share_pct": 4.0,
-          "profit_without_largest_win_yen": -80650,
-          "roi_without_largest_win_pct": 76.4,
-          "profit_without_top3_wins_yen": -86310,
-          "roi_without_top3_wins_pct": 74.7
+          "largest_return_share_pct": 1.4,
+          "top3_return_share_pct": 3.9,
+          "profit_without_largest_win_yen": -86020,
+          "roi_without_largest_win_pct": 75.5,
+          "profit_without_top3_wins_yen": -91680,
+          "roi_without_top3_wins_pct": 73.8
         },
         "playbook": {
-          "n": 688,
-          "graded_races": 688,
-          "purchased_races": 688,
-          "hits": 269,
-          "hit_rate_pct": 39.1,
-          "invest_yen": 343300,
-          "return_yen": 287210,
-          "profit_yen": -56090,
-          "roi_pct": 83.7,
-          "max_drawdown_yen": 56760,
+          "n": 705,
+          "graded_races": 705,
+          "purchased_races": 705,
+          "hits": 272,
+          "hit_rate_pct": 38.6,
+          "invest_yen": 351800,
+          "return_yen": 289240,
+          "profit_yen": -62560,
+          "roi_pct": 82.2,
+          "max_drawdown_yen": 63230,
           "longest_losing_streak": 12,
           "largest_single_race_return_yen": 7700,
           "largest_single_race_profit_yen": 7200,
           "largest_return_share_pct": 2.7,
           "top3_return_share_pct": 6.5,
-          "profit_without_largest_win_yen": -63290,
-          "roi_without_largest_win_pct": 81.5,
-          "profit_without_top3_wins_yen": -73380,
-          "roi_without_top3_wins_pct": 78.5
+          "profit_without_largest_win_yen": -69760,
+          "roi_without_largest_win_pct": 80.1,
+          "profit_without_top3_wins_yen": -79850,
+          "roi_without_top3_wins_pct": 77.2
         },
         "diff": {
-          "n": 688,
-          "mean_diff_yen": 30.8,
+          "n": 705,
+          "mean_diff_yen": 28.5,
           "ci95": [
-            -29.5,
-            96.1
+            -32.0,
+            92.2
           ]
         },
         "verdict": "no_difference",
@@ -569,52 +569,52 @@
     ]
   },
   "jev_summary": {
-    "latest_result_date": "2026-11-23",
-    "graded_races": 945,
+    "latest_result_date": "2026-11-24",
+    "graded_races": 962,
     "comparisons": [
       {
         "key": "codex",
         "label": "Codex",
-        "graded_races": 945,
-        "selected_races": 275,
-        "raw_roi_pct": 80.6,
-        "jev_roi_pct": 72.2,
-        "roi_delta_pt": -8.4,
-        "raw_hit_rate_pct": 11.7,
-        "jev_hit_rate_pct": 12.7
+        "graded_races": 962,
+        "selected_races": 281,
+        "raw_roi_pct": 80.2,
+        "jev_roi_pct": 70.6,
+        "roi_delta_pt": -9.6,
+        "raw_hit_rate_pct": 11.6,
+        "jev_hit_rate_pct": 12.5
       },
       {
         "key": "claude",
         "label": "Claude",
-        "graded_races": 945,
-        "selected_races": 214,
-        "raw_roi_pct": 76.1,
-        "jev_roi_pct": 77.1,
-        "roi_delta_pt": 1.0,
-        "raw_hit_rate_pct": 12.2,
-        "jev_hit_rate_pct": 15.0
+        "graded_races": 962,
+        "selected_races": 215,
+        "raw_roi_pct": 77.0,
+        "jev_roi_pct": 76.7,
+        "roi_delta_pt": -0.3,
+        "raw_hit_rate_pct": 12.4,
+        "jev_hit_rate_pct": 14.9
       }
     ],
     "action_purchased_races": 0,
     "value_experiment": {
-      "graded_races": 316,
-      "raw_roi_pct": 68.3,
-      "fixed_jev_forced_roi_pct": 73.8,
+      "graded_races": 333,
+      "raw_roi_pct": 65.3,
+      "fixed_jev_forced_roi_pct": 70.6,
       "fixed_jev_action_purchased_races": 0
     }
   },
   "playbooks": {
-    "week_start": "2026-11-18",
+    "week_start": "2026-11-19",
     "models": [
       {
         "key": "codex",
         "label": "Codex",
         "reflector": "claude",
         "status": "ok",
-        "active_count": 16,
-        "updated_for": "2026-11-24",
+        "active_count": 17,
+        "updated_for": "2026-11-25",
         "week_changes": {
-          "add": 0,
+          "add": 1,
           "update": 7,
           "disable": 0
         },
@@ -623,28 +623,28 @@
             "id": "codex-002",
             "text": "1号艇strongの本線では、5点を2〜4号艇だけの2・3着で固めない。5号艇は勝率5.0以上なら1-2-5/1-3-5/1-5-xを1〜2点必ず入れる(平和島11・若松10は1-2-5、若松9は1-5-2、宮島7は5-1-2)。6号艇が勝率上位か4.5以上なら1-6-xも1点。",
             "status": "active",
-            "n": 334,
+            "n": 335,
             "hits": 141,
-            "profit_yen": -23350,
-            "roi_pct": 86.0
+            "profit_yen": -23850,
+            "roi_pct": 85.8
           },
           {
             "id": "codex-003",
             "text": "1号艇が1着本線のとき、4号艇の勝率が3.7以上なら1-4-2か1-4-3を必ず1点入れ、1-2-x/1-3-xだけで固めない。4号艇が4.5以上、または2号艇より高ければ両方入れる。1-4-xは2点以内(蒲郡11は1-4-3、児島6・津2・大村12は1-4-2、児島7・戸田7は1-4-3)。",
             "status": "active",
-            "n": 281,
-            "hits": 124,
-            "profit_yen": -13500,
-            "roi_pct": 90.4
+            "n": 291,
+            "hits": 127,
+            "profit_yen": -14760,
+            "roi_pct": 89.9
           },
           {
             "id": "codex-006",
             "text": "1号艇strongで3号艇の勝率が4.3以上、または2〜6号艇の多くがB級で3号艇が3.6以上のとき、2号艇が高勝率でも1-3-2を必ず1点入れる。4・6号艇が上位なら1-3-4か1-3-6も1点(桐生11・江戸川12・丸亀10、大村10・鳴門1・徳山11・福岡8は1-3-x)。",
             "status": "active",
-            "n": 249,
-            "hits": 118,
-            "profit_yen": -8890,
-            "roi_pct": 92.9
+            "n": 252,
+            "hits": 119,
+            "profit_yen": -9440,
+            "roi_pct": 92.5
           }
         ]
       },
@@ -654,10 +654,10 @@
         "reflector": "codex",
         "status": "ok",
         "active_count": 27,
-        "updated_for": "2026-11-23",
+        "updated_for": "2026-11-25",
         "week_changes": {
           "add": 2,
-          "update": 11,
+          "update": 9,
           "disable": 0
         },
         "top_items": [
@@ -710,9 +710,9 @@
         "reflector": "claude",
         "status": "ok",
         "active_count": 15,
-        "updated_for": "2026-11-24",
+        "updated_for": "2026-11-25",
         "week_changes": {
-          "add": 1,
+          "add": 0,
           "update": 10,
           "disable": 0
         },
@@ -727,7 +727,7 @@
         "updated_for": "2026-11-24",
         "week_changes": {
           "add": 1,
-          "update": 5,
+          "update": 4,
           "disable": 0
         },
         "top_items": []
@@ -739,26 +739,26 @@
     "note": "過去30日（9/15〜10/14）の検証はまだ実施していません。"
   },
   "overall": {
-    "latest_result_date": "2026-11-23",
+    "latest_result_date": "2026-11-24",
     "periods": {
       "weekly": {
         "label": "直近7日",
-        "start_date": "2026-11-17",
-        "end_date": "2026-11-23",
+        "start_date": "2026-11-18",
+        "end_date": "2026-11-24",
         "combined": {
-          "n": 663,
-          "hits": 260,
-          "invest": 327900,
-          "return": 255140,
-          "profit": -72760,
-          "roi": 77.8,
-          "hit_rate": 39.2,
-          "max_drawdown": 73060,
+          "n": 634,
+          "hits": 230,
+          "invest": 313900,
+          "return": 248840,
+          "profit": -65060,
+          "roi": 79.3,
+          "hit_rate": 36.3,
+          "max_drawdown": 69770,
           "longest_losing_streak": 35,
-          "roi_without_largest_win": 75.8,
-          "roi_without_top3_wins": 72.9,
-          "largest_return_share": 2.8,
-          "top3_return_share": 6.8,
+          "roi_without_largest_win": 72.4,
+          "roi_without_top3_wins": 68.5,
+          "largest_return_share": 8.8,
+          "top3_return_share": 14.0,
           "assessment": {
             "code": "loss_unconfirmed",
             "label": "赤字・優位未確認",
@@ -770,31 +770,31 @@
         },
         "top_model": {
           "label": "Codex",
-          "profit": 2360,
-          "roi": 103.7,
-          "n": 126
+          "profit": 5840,
+          "roi": 109.5,
+          "n": 123
         },
         "positive_models": 1,
         "measured_models": 6
       },
       "monthly": {
         "label": "直近30日",
-        "start_date": "2026-10-25",
-        "end_date": "2026-11-23",
+        "start_date": "2026-10-26",
+        "end_date": "2026-11-24",
         "combined": {
-          "n": 3057,
-          "hits": 1164,
-          "invest": 1516000,
-          "return": 1149690,
-          "profit": -366310,
-          "roi": 75.8,
-          "hit_rate": 38.1,
-          "max_drawdown": 368460,
+          "n": 3036,
+          "hits": 1139,
+          "invest": 1505400,
+          "return": 1143850,
+          "profit": -361550,
+          "roi": 76.0,
+          "hit_rate": 37.5,
+          "max_drawdown": 370950,
           "longest_losing_streak": 35,
           "roi_without_largest_win": 74.6,
-          "roi_without_top3_wins": 73.7,
-          "largest_return_share": 1.7,
-          "top3_return_share": 2.9,
+          "roi_without_top3_wins": 72.8,
+          "largest_return_share": 1.9,
+          "top3_return_share": 4.2,
           "assessment": {
             "code": "loss_unconfirmed",
             "label": "赤字・優位未確認",
@@ -806,9 +806,9 @@
         },
         "top_model": {
           "label": "Gemini",
-          "profit": -17000,
-          "roi": 87.4,
-          "n": 291
+          "profit": -21650,
+          "roi": 83.8,
+          "n": 289
         },
         "positive_models": 0,
         "measured_models": 6
