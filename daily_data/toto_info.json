@@ -6,8 +6,8 @@
   "payout_detail": null,
   "deadline": "2026-11-28 13:50",
   "result_date": "2026-11-29",
-  "generated_date": "2026-11-26",
-  "has_gemini": false,
+  "generated_date": "2026-11-27",
+  "has_gemini": true,
   "has_codex": true,
   "has_claude": true,
   "has_grok": true,
@@ -57,24 +57,24 @@
           "away_wins": 1
         },
         "vote_rates": {
-          "p_H": 0.5156,
-          "p_D": 0.232,
-          "p_A": 0.2524,
+          "p_H": 0.4854,
+          "p_D": 0.2515,
+          "p_A": 0.2631,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-26T10:32:59+09:00"
+          "captured_at": "2026-11-27T10:30:20+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.5156,
-        "p_D": 0.232,
-        "p_A": 0.2524,
+        "p_H": 0.4854,
+        "p_D": 0.2515,
+        "p_A": 0.2631,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-26T10:32:59+09:00"
+        "captured_at": "2026-11-27T10:30:20+09:00"
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "gemini_pick": "H",
+      "gemini_confidence": "高",
+      "gemini_reasoning": "統計モデルでホーム勝率60%と高く、直近フォーム・Elo・過去対戦成績すべてで京都がセレッソ大阪を上回るため。",
       "codex_pick": "H",
       "codex_confidence": "72%",
       "codex_reasoning": "モデルは京都勝利60.2％で、Eloと直近対戦成績も京都優位。投票率もホーム支持が最多で、順当にH。",
@@ -108,24 +108,24 @@
           "away_wins": 2
         },
         "vote_rates": {
-          "p_H": 0.3403,
-          "p_D": 0.2761,
-          "p_A": 0.3836,
+          "p_H": 0.3339,
+          "p_D": 0.2859,
+          "p_A": 0.3802,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-26T10:32:59+09:00"
+          "captured_at": "2026-11-27T10:30:20+09:00"
         }
       },
       "market_pick": "A",
       "vote_rates": {
-        "p_H": 0.3403,
-        "p_D": 0.2761,
-        "p_A": 0.3836,
+        "p_H": 0.3339,
+        "p_D": 0.2859,
+        "p_A": 0.3802,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-26T10:32:59+09:00"
+        "captured_at": "2026-11-27T10:30:20+09:00"
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "gemini_pick": "D",
+      "gemini_confidence": "低",
+      "gemini_reasoning": "ホームとアウェイの勝率推計が36%対39%と極めて拮抗しており、直接対戦でも引き分けが多い接戦カードのため。",
       "codex_pick": "A",
       "codex_confidence": "45%",
       "codex_reasoning": "モデルは広島40.4％で柏34.1％を上回り、Eloも広島が僅かに上。過去5戦で柏未勝利だが、接戦で不確実性は高い。",
@@ -159,24 +159,24 @@
           "away_wins": 2
         },
         "vote_rates": {
-          "p_H": 0.1955,
-          "p_D": 0.1904,
-          "p_A": 0.6141,
+          "p_H": 0.2184,
+          "p_D": 0.2228,
+          "p_A": 0.5588,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-26T10:32:59+09:00"
+          "captured_at": "2026-11-27T10:30:20+09:00"
         }
       },
       "market_pick": "A",
       "vote_rates": {
-        "p_H": 0.1955,
-        "p_D": 0.1904,
-        "p_A": 0.6141,
+        "p_H": 0.2184,
+        "p_D": 0.2228,
+        "p_A": 0.5588,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-26T10:32:59+09:00"
+        "captured_at": "2026-11-27T10:30:20+09:00"
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "gemini_pick": "A",
+      "gemini_confidence": "中",
+      "gemini_reasoning": "FC東京が直近4連勝と絶好調であり、Eloおよび統計モデル（40%）でも優勢なため。",
       "codex_pick": "A",
       "codex_confidence": "59%",
       "codex_reasoning": "モデルはFC東京39.8％で首位、Eloも約60上。投票のアウェイ支持64.2％も一致するが、モデル差は大きくない。",
@@ -210,24 +210,24 @@
           "away_wins": 2
         },
         "vote_rates": {
-          "p_H": 0.3697,
-          "p_D": 0.277,
-          "p_A": 0.3533,
+          "p_H": 0.4055,
+          "p_D": 0.2807,
+          "p_A": 0.3138,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-26T10:32:59+09:00"
+          "captured_at": "2026-11-27T10:30:20+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.3697,
-        "p_D": 0.277,
-        "p_A": 0.3533,
+        "p_H": 0.4055,
+        "p_D": 0.2807,
+        "p_A": 0.3138,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-26T10:32:59+09:00"
+        "captured_at": "2026-11-27T10:30:20+09:00"
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "gemini_pick": "A",
+      "gemini_confidence": "低",
+      "gemini_reasoning": "長崎は直近勝星がないものの、Eloと統計モデル（41.5%）で上回っておりアウェイ勝利を予想。",
       "codex_pick": "A",
       "codex_confidence": "58%",
       "codex_reasoning": "長崎勝利がモデル43.6％で最多、Eloも長崎が約62上。投票も長崎優位で一致しており、敵地でもAを選ぶ。",
@@ -261,24 +261,24 @@
           "away_wins": 2
         },
         "vote_rates": {
-          "p_H": 0.719,
-          "p_D": 0.1563,
-          "p_A": 0.1247,
+          "p_H": 0.6536,
+          "p_D": 0.1832,
+          "p_A": 0.1632,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-26T10:32:59+09:00"
+          "captured_at": "2026-11-27T10:30:20+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.719,
-        "p_D": 0.1563,
-        "p_A": 0.1247,
+        "p_H": 0.6536,
+        "p_D": 0.1832,
+        "p_A": 0.1632,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-26T10:32:59+09:00"
+        "captured_at": "2026-11-27T10:30:20+09:00"
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "gemini_pick": "H",
+      "gemini_confidence": "中",
+      "gemini_reasoning": "福岡の直近不振とElo差を踏まえ、ホームの名古屋が優位に試合を進めると判断。",
       "codex_pick": "H",
       "codex_confidence": "49%",
       "codex_reasoning": "モデルは名古屋40.4％で最多、Eloとホーム補正も名古屋寄り。対戦成績には不安があるが、投票も名古屋支持67.1％。",
@@ -312,24 +312,24 @@
           "away_wins": 2
         },
         "vote_rates": {
-          "p_H": 0.1488,
-          "p_D": 0.1814,
-          "p_A": 0.6698,
+          "p_H": 0.1882,
+          "p_D": 0.2268,
+          "p_A": 0.585,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-26T10:32:59+09:00"
+          "captured_at": "2026-11-27T10:30:20+09:00"
         }
       },
       "market_pick": "A",
       "vote_rates": {
-        "p_H": 0.1488,
-        "p_D": 0.1814,
-        "p_A": 0.6698,
+        "p_H": 0.1882,
+        "p_D": 0.2268,
+        "p_A": 0.585,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-26T10:32:59+09:00"
+        "captured_at": "2026-11-27T10:30:20+09:00"
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "gemini_pick": "A",
+      "gemini_confidence": "中",
+      "gemini_reasoning": "統計モデルでアウェイ勝率43%とリードし、清水の直近フォーム低迷とElo格差から浦和優勢と判断。",
       "codex_pick": "A",
       "codex_confidence": "61%",
       "codex_reasoning": "モデルは浦和勝利39.8％で首位、Elo差も浦和優勢。投票も浦和支持68.9％と明確だが、敵地戦なので確信は中程度。",
@@ -363,24 +363,24 @@
           "away_wins": 1
         },
         "vote_rates": {
-          "p_H": 0.7535,
-          "p_D": 0.1492,
-          "p_A": 0.0973,
+          "p_H": 0.6349,
+          "p_D": 0.1958,
+          "p_A": 0.1693,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-26T10:32:59+09:00"
+          "captured_at": "2026-11-27T10:30:20+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.7535,
-        "p_D": 0.1492,
-        "p_A": 0.0973,
+        "p_H": 0.6349,
+        "p_D": 0.1958,
+        "p_A": 0.1693,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-26T10:32:59+09:00"
+        "captured_at": "2026-11-27T10:30:20+09:00"
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "gemini_pick": "H",
+      "gemini_confidence": "高",
+      "gemini_reasoning": "統計モデルでホーム勝率67%と非常に高く、Elo格差も踏まえ鹿島が圧倒的に有利。",
       "codex_pick": "H",
       "codex_confidence": "81%",
       "codex_reasoning": "鹿島勝利がモデル68.8％、投票73.9％で一致。Elo差も大きく、ホーム優位を覆す材料は乏しい。",
@@ -414,24 +414,24 @@
           "away_wins": 0
         },
         "vote_rates": {
-          "p_H": 0.7447,
-          "p_D": 0.143,
-          "p_A": 0.1123,
+          "p_H": 0.6487,
+          "p_D": 0.1865,
+          "p_A": 0.1648,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-26T10:32:59+09:00"
+          "captured_at": "2026-11-27T10:30:20+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.7447,
-        "p_D": 0.143,
-        "p_A": 0.1123,
+        "p_H": 0.6487,
+        "p_D": 0.1865,
+        "p_A": 0.1648,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-26T10:32:59+09:00"
+        "captured_at": "2026-11-27T10:30:20+09:00"
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "gemini_pick": "H",
+      "gemini_confidence": "中",
+      "gemini_reasoning": "千葉の好調さは目立つが、Elo格差とホームアドバンテージを考慮して神戸優勢と予測。",
       "codex_pick": "H",
       "codex_confidence": "69%",
       "codex_reasoning": "モデルは神戸勝利48.8％で、Eloは神戸が約108上。対戦データはないが、投票の神戸支持81.1％も強い。",
@@ -465,24 +465,24 @@
           "away_wins": 1
         },
         "vote_rates": {
-          "p_H": 0.7425,
-          "p_D": 0.1645,
-          "p_A": 0.093,
+          "p_H": 0.6322,
+          "p_D": 0.2148,
+          "p_A": 0.153,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-26T10:32:59+09:00"
+          "captured_at": "2026-11-27T10:30:20+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.7425,
-        "p_D": 0.1645,
-        "p_A": 0.093,
+        "p_H": 0.6322,
+        "p_D": 0.2148,
+        "p_A": 0.153,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-26T10:32:59+09:00"
+        "captured_at": "2026-11-27T10:30:20+09:00"
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "gemini_pick": "H",
+      "gemini_confidence": "高",
+      "gemini_reasoning": "統計モデルでホーム勝率約70%と圧倒的であり、チーム力および対戦相性で町田が大きく上回るため。",
       "codex_pick": "H",
       "codex_confidence": "84%",
       "codex_reasoning": "町田勝利がモデル69.3％、投票84.7％で強く一致。Elo差約128に加え直近対戦も町田優位で、最も堅いH候補。",
@@ -516,24 +516,24 @@
           "away_wins": 3
         },
         "vote_rates": {
-          "p_H": 0.6853,
-          "p_D": 0.148,
-          "p_A": 0.1667,
+          "p_H": 0.6253,
+          "p_D": 0.1893,
+          "p_A": 0.1854,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-26T10:32:59+09:00"
+          "captured_at": "2026-11-27T10:30:20+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.6853,
-        "p_D": 0.148,
-        "p_A": 0.1667,
+        "p_H": 0.6253,
+        "p_D": 0.1893,
+        "p_A": 0.1854,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-26T10:32:59+09:00"
+        "captured_at": "2026-11-27T10:30:20+09:00"
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "gemini_pick": "H",
+      "gemini_confidence": "中",
+      "gemini_reasoning": "統計モデルでホーム勝率54%と高く、Elo格差とホーム利から川崎を支持。",
       "codex_pick": "H",
       "codex_confidence": "61%",
       "codex_reasoning": "モデルは川崎勝利52.9％で、Eloと投票もホーム優位。一方、直近対戦は川崎未勝利のため確信度を抑えてH。",
@@ -567,24 +567,24 @@
           "away_wins": 2
         },
         "vote_rates": {
-          "p_H": 0.3142,
-          "p_D": 0.3083,
-          "p_A": 0.3775,
+          "p_H": 0.3211,
+          "p_D": 0.318,
+          "p_A": 0.3609,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-26T10:32:59+09:00"
+          "captured_at": "2026-11-27T10:30:20+09:00"
         }
       },
       "market_pick": "A",
       "vote_rates": {
-        "p_H": 0.3142,
-        "p_D": 0.3083,
-        "p_A": 0.3775,
+        "p_H": 0.3211,
+        "p_D": 0.318,
+        "p_A": 0.3609,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-26T10:32:59+09:00"
+        "captured_at": "2026-11-27T10:30:20+09:00"
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "gemini_pick": "H",
+      "gemini_confidence": "中",
+      "gemini_reasoning": "統計モデルでホーム勝率が最も高く、ホームアドバンテージを活かせる八戸を支持。",
       "codex_pick": "H",
       "codex_confidence": "39%",
       "codex_reasoning": "投票は藤枝寄りだが、モデルは八戸38.8％を最多としEloもホーム側優位。差が小さく引き分けも高いため低確信のH。",
@@ -618,24 +618,24 @@
           "away_wins": 1
         },
         "vote_rates": {
-          "p_H": 0.5339,
-          "p_D": 0.1932,
-          "p_A": 0.2729,
+          "p_H": 0.4667,
+          "p_D": 0.2296,
+          "p_A": 0.3037,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-26T10:32:59+09:00"
+          "captured_at": "2026-11-27T10:30:20+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.5339,
-        "p_D": 0.1932,
-        "p_A": 0.2729,
+        "p_H": 0.4667,
+        "p_D": 0.2296,
+        "p_A": 0.3037,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-26T10:32:59+09:00"
+        "captured_at": "2026-11-27T10:30:20+09:00"
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "gemini_pick": "H",
+      "gemini_confidence": "中",
+      "gemini_reasoning": "統計モデルでホーム勝率54%を示しており、ホームの利を考慮して宮崎勝利と予測。",
       "codex_pick": "H",
       "codex_confidence": "68%",
       "codex_reasoning": "モデルは宮崎勝利58.7％、投票も71.5％がホーム支持。過去唯一の対戦は鳥栖勝利だが、今回は総合 evidence が宮崎優位。",
@@ -669,24 +669,24 @@
           "away_wins": 0
         },
         "vote_rates": {
-          "p_H": 0.8157,
-          "p_D": 0.1024,
-          "p_A": 0.0819,
+          "p_H": 0.6948,
+          "p_D": 0.1579,
+          "p_A": 0.1473,
           "source": "toto_official_vote_rate",
-          "captured_at": "2026-11-26T10:32:59+09:00"
+          "captured_at": "2026-11-27T10:30:20+09:00"
         }
       },
       "market_pick": "H",
       "vote_rates": {
-        "p_H": 0.8157,
-        "p_D": 0.1024,
-        "p_A": 0.0819,
+        "p_H": 0.6948,
+        "p_D": 0.1579,
+        "p_A": 0.1473,
         "source": "toto_official_vote_rate",
-        "captured_at": "2026-11-26T10:32:59+09:00"
+        "captured_at": "2026-11-27T10:30:20+09:00"
       },
-      "gemini_pick": "",
-      "gemini_confidence": "",
-      "gemini_reasoning": "",
+      "gemini_pick": "H",
+      "gemini_confidence": "高",
+      "gemini_reasoning": "統計モデル勝率57%に加え、対戦成績（4勝1分）でも相性の良さが際立つ仙台が優勢。",
       "codex_pick": "H",
       "codex_confidence": "77%",
       "codex_reasoning": "仙台勝利はモデル59.7％で、Elo差も約88。直近対戦は仙台4勝1分、投票支持79.1％と各指標が揃う。",
